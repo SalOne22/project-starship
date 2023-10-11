@@ -1,3 +1,5 @@
+/* eslint-env node */
+import path from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 
@@ -7,7 +9,7 @@ export default defineConfig({
   base: '/project-starship/',
   resolve: {
     alias: {
-      '@': './src',
+      '@': path.join(__dirname, 'src'),
     },
   },
 });
