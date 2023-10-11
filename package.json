@@ -12,6 +12,14 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@mantine/carousel": "^7.1.2",
+    "@mantine/core": "^7.1.2",
+    "@mantine/dates": "^7.1.2",
+    "@mantine/form": "^7.1.2",
+    "@mantine/hooks": "^7.1.2",
+    "@mantine/notifications": "^7.1.2",
+    "dayjs": "^1.11.10",
+    "embla-carousel-react": "^7.1.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -28,6 +36,9 @@
     "eslint-plugin-react-refresh": "^0.4.3",
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
+    "postcss": "^8.4.31",
+    "postcss-preset-mantine": "^1.8.0",
+    "postcss-simple-vars": "^7.0.1",
     "prettier": "3.0.3",
     "vite": "^4.4.5"
   },
