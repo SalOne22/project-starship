@@ -81,9 +81,9 @@ const theme = createTheme({
   },
   fontFamily: 'Inter',
   breakpoints: {
-    xs: 375,
-    md: 768,
-    xl: 1440,
+    xs: 23.4375,
+    md: 48,
+    xl: 90,
   },
 });
 
