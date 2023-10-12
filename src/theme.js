@@ -80,6 +80,11 @@ const theme = createTheme({
     ],
   },
   fontFamily: 'Inter',
+  breakpoints: {
+    xs: 375,
+    md: 768,
+    xl: 1440,
+  },
 });
 
 export default theme;
