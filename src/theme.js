@@ -79,6 +79,7 @@ const theme = createTheme({
       '#138557',
     ],
   },
+  fontFamily: 'Inter',
 });
 
 export default theme;

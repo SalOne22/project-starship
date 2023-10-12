@@ -9,6 +9,8 @@ import ScreenLoader from './components/ScreenLoader.jsx';
 
 import { persistor, store } from './redux/store.js';
 
+import './globals.css';
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
