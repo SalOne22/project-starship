@@ -3,9 +3,9 @@ export default {
     'postcss-preset-mantine': {},
     'postcss-simple-vars': {
       variables: {
-        'mantine-breakpoint-xs': '375px',
-        'mantine-breakpoint-md': '768px',
-        'mantine-breakpoint-xl': '1440px',
+        'mantine-breakpoint-xs': '23.4375em',
+        'mantine-breakpoint-md': '48em',
+        'mantine-breakpoint-xl': '90em',
       },
     },
   },

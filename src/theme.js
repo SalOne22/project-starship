@@ -1,4 +1,4 @@
-import { createTheme } from '@mantine/core';
+import { createTheme, em } from '@mantine/core';
 
 const theme = createTheme({
   white: '#fff',
@@ -81,9 +81,9 @@ const theme = createTheme({
   },
   fontFamily: 'Inter',
   breakpoints: {
-    xs: 23.4375,
-    md: 48,
-    xl: 90,
+    xs: em(375),
+    md: em(768),
+    xl: em(1440),
   },
 });
 

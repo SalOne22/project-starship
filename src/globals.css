@@ -90,3 +90,17 @@
   font-style: italic;
   font-display: swap;
 }
+
+.mantine-Container-root {
+  max-width: rem(375px);
+  padding: 0 rem(20px);
+
+  @media (min-width: em(768px)) {
+    max-width: rem(768px);
+    padding: 0 rem(32px);
+  }
+
+  @media (min-width: em(1440px)) {
+    max-width: rem(1440px);
+  }
+}

@@ -32,7 +32,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route path="calendar" element={<Calendar />}>
               <Route path="day/:currentDay" element={<ChosenDay />} />
-              <Route path="day/:currentMonth" element={<ChosenMonth />} />
+              <Route path="month/:currentMonth" element={<ChosenMonth />} />
             </Route>
             <Route path="statistics" element={<Statistics />} />
             <Route path="account" element={<Account />} />
