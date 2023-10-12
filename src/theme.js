@@ -3,39 +3,40 @@ import { createTheme } from '@mantine/core';
 const theme = createTheme({
   white: '#fff',
   black: '#111',
+  primaryShade: 4,
   colors: {
     // TODO: Добавить больше цветов
     dark: [
-      '#cec9c1', // brand dark 1
+      '#ffffff', // brand dark.0
       '#a6a7ab',
       '#909296',
       '#5c5f66',
       '#373a40',
       '#2c2e33',
-      '#343434', // brand dark 2
-      '#21222c', // brand dark 3
-      '#171820', // brand dark 4
-      '#13151a', // brand dark 5
+      '#343434', // brand dark.6
+      '#171820', // brand dark.7
+      '#13151A', // brand dark.8
+      '#000000', // brand dark.9
     ],
     gray: [
-      '#f8f8f8', // brand light gray
+      '#cec9c1', // brand gray.0
+      '#f8f8f8', // brand gray.1
       '#e7e7ec',
       '#ccccd0',
       '#b0afb4',
-      '#99979d',
-      '#8a888e',
-      '#84828a', // brand gray
-      '#706e76',
-      '#63616b',
-      '#555361',
+      '#84828a', // brand gray.5
+      '#343434', // brand gray.6
+      '#21222c', // brand gray.7
+      '#171820', // brand gray.8
+      '#13151a', // brand gray.9
     ],
     blue: [
-      '#e3f3ff', // brand light blue (lighter)
-      '#cae8ff', // brand light blue
-      '#dcebf7', // brand blue 1
+      '#e3f3ff', // brand blue.0
+      '#cae8ff', // brand blue.1
+      '#dcebf7', // brand blue.2
       '#6da3f7',
-      '#3e85f3', // brand blue 2
-      '#2b78ef', // brand blue 2 (darker)
+      '#3e85f3', // brand blue.4
+      '#2b78ef', // brand blue.5
       '#126df2',
       '#005cd8',
       '#0052c3',
@@ -46,7 +47,7 @@ const theme = createTheme({
       '#ffeccb',
       '#ffd799',
       '#ffc063',
-      '#ffac33', // brand orange
+      '#ffac33', // brand orange.4
       '#ffa118',
       '#ff9b04',
       '#e48700',
@@ -58,8 +59,8 @@ const theme = createTheme({
       '#ffd6d3',
       '#f6aca5',
       '#ef7f74',
-      '#e9594c',
-      '#e74a3b', // brand red
+      '#e74a3b', // brand red.4
+      '#e64131',
       '#e53423',
       '#cb2517',
       '#b61e13',
@@ -72,7 +73,7 @@ const theme = createTheme({
       '#8adab5',
       '#68ce9e',
       '#52c791',
-      '#3cbc81', // brand green
+      '#3cbc81', // brand green.6
       '#34ac75',
       '#299a67',
       '#138557',
