@@ -1,5 +1,7 @@
+import Statistics from '@/modules/Statistics';
+
 function StatisticsPage() {
-  return <div>Statistics</div>;
+	return <Statistics />;
 }
 
 export default StatisticsPage;
