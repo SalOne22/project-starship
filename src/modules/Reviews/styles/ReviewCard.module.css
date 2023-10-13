@@ -1,0 +1,30 @@
+.wrap {
+  border: 1px solid rgba(17, 17, 17, 0.1);
+  border-radius: rem(8px);
+  padding-top: rem(24px);
+  padding-bottom: rem(24px);
+  padding-left: rem(24px);
+  padding-right: rem(20px);
+
+  margin: auto;
+
+  @media (min-width: $mantine-breakpoint-md) {
+    width: rem(580px);
+    padding: rem(32px);
+  }
+}
+
+.username {
+  font-size: rem(18px);
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.text {
+  color: rgba(17, 17, 17, 0.7);
+  font-size: rem(14px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.28571;
+}

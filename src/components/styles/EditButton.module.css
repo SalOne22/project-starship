@@ -1,0 +1,13 @@
+.root {
+  &[data-variant='transparent'] {
+    background-color: #e3f3ff;
+    color: var(--mantine-color-blue-4);
+
+    transition: all 0.2s linear;
+
+    &:hover {
+      color: var(--mantine-color-white);
+      background-color: var(--mantine-color-blue-4);
+    }
+  }
+}
