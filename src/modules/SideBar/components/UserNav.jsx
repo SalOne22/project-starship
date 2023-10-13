@@ -1,4 +1,4 @@
-import { Box, Flex, Stack, Title } from '@mantine/core';
+import { Box, Flex, Title } from '@mantine/core';
 import {
   IconUserCheck,
   IconCalendarCheck,
