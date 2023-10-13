@@ -3,7 +3,7 @@
     background-color: rgba(234, 61, 101, 0.2);
     color: #ea3d65;
 
-    transition: all 0.2s linear;
+    transition: all 0.25s linear;
 
     &:hover {
       color: var(--mantine-color-white);
