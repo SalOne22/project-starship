@@ -1,0 +1,15 @@
+.closeBtn {
+  @media (min-width: $mantine-breakpoint-md) {
+    width: rem(34px);
+  }
+
+  @media (min-width: $mantine-breakpoint-xl) {
+    display: none;
+  }
+}
+
+.closeBtn > svg {
+  @media (min-width: $mantine-breakpoint-md) {
+    stroke-width: 2.5;
+  }
+}
