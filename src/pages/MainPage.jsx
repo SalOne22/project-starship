@@ -1,4 +1,4 @@
-import { Reviews } from '@/modules/Reviews';
+import Reviews from '@/modules/Reviews';
 
 function MainPage() {
   return (
