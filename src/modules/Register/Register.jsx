@@ -1,5 +1,7 @@
+import RegisterForm from '@/modules/Register/components/RegisterForm';
+
 function Register() {
-  return <div>Register</div>;
+  return <RegisterForm />;
 }
 
 export default Register;
