@@ -1,3 +1,1 @@
-import Reviews from './components/Reviews';
-
-export { Reviews };
+export { default } from './Reviews.jsx';

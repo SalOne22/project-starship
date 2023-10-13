@@ -1,31 +1,31 @@
 .title {
-  font-size: 28px;
+  font-size: rem(28px);
   font-style: normal;
   font-weight: 700;
   line-height: 1.14286;
   text-transform: uppercase;
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: rem(40px);
 
   @media (min-width: $mantine-breakpoint-md) {
-    font-size: 40px;
+    font-size: rem(40px);
     line-height: 1.1;
-    margin-bottom: 50px;
+    margin-bottom: rem(50px);
   }
 }
 
 .controls {
   left: 0;
-  top: 202px;
+  top: rem(202px);
   justify-content: center;
-  gap: 24px;
+  gap: rem(24px);
 
   @media (min-width: $mantine-breakpoint-md) {
-    top: 205px;
+    top: rem(205px);
   }
 
   @media (min-width: $mantine-breakpoint-xl) {
-    top: 219px;
+    top: rem(219px);
   }
 }
 

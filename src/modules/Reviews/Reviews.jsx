@@ -1,19 +1,18 @@
-import theme from '@/theme';
 import { Container, Title } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
 import '@mantine/carousel/styles.css';
 
-import ReviewCard from './ReviewCard';
-import ControlNext from './ControlNext';
-import ControlPrev from './ControlPrev';
+import ReviewCard from './components/ReviewCard';
+import ControlNext from './components/ControlNext';
+import ControlPrev from './components/ControlPrev';
 
-import css from '../styles/Reviews.module.css';
-import { reviews } from '../mock/reviews';
+import css from './styles/Reviews.module.css';
+import { reviews } from './mock/reviews';
 
 function Reviews() {
   return (
     <Container pt={{ base: 32, xl: 50 }} pb={{ base: 32, md: 100, xl: 118 }}>
-      <Title c={theme.colors.blue[4]} className={css.title}>
+      <Title c="blue.4" className={css.title}>
         Reviews
       </Title>
       <Carousel
