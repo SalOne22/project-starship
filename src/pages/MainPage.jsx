@@ -1,5 +1,11 @@
+import Reviews from '@/modules/Reviews';
+
 function MainPage() {
-  return <div>Main</div>;
+  return (
+    <>
+      <Reviews />
+    </>
+  );
 }
 
 export default MainPage;
