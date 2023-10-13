@@ -7,7 +7,7 @@ import SideBar from '@/modules/SideBar';
 import Header from './components/Header';
 
 function Layout() {
-  const [opened] = useDisclosure(false);
+  const [opened, { close }] = useDisclosure();
 
   return (
     <AppShell
@@ -26,8 +26,8 @@ function Layout() {
         <Header />
       </AppShell.Header>
 
-      <AppShell.Navbar>
-        <SideBar />
+      <AppShell.Navbar bg="transparent">
+        <SideBar onClose={close} />
       </AppShell.Navbar>
 
       <AppShell.Main>

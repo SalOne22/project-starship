@@ -1,0 +1,23 @@
+.sidebar {
+  padding: rem(24px) 0;
+  background-color: var(--mantine-color-white);
+  height: 100%;
+
+  @media (min-width: $mantine-breakpoint-md) {
+    border-right: 1px solid rgba(220, 227, 229, 0.5);
+    max-width: rem(289px);
+  }
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.logoutBtnWrapper {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: end;
+}
