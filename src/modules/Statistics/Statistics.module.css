@@ -1,0 +1,46 @@
+.stat__container {
+  padding-top: em(64);
+  padding-bottom: em(40);
+
+  @media (min-width: $mantine-breakpoint-xl) {
+    padding-top: em(32);
+  }
+}
+
+.stat__wrapper {
+  height: em(684);
+
+  padding-top: em(28);
+  padding-bottom: em(135);
+  padding-left: em(14);
+  padding-right: em(14);
+
+  @media (min-width: $mantine-breakpoint-md) {
+    height: em(854);
+
+    padding-top: em(132);
+    padding-bottom: em(224);
+    padding-left: em(32);
+    padding-right: em(32);
+  }
+
+  @media (min-width: $mantine-breakpoint-xl) {
+    height: em(752);
+
+    padding-top: em(134);
+    padding-bottom: em(104);
+    padding-left: em(114);
+    padding-right: em(114);
+  }
+}
+
+.stat__header {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: em(20);
+}
+
+/* .stat__periodPaginator {
+	margin-bottom: em(20);
+} */

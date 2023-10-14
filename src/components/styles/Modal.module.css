@@ -1,0 +1,32 @@
+.modal {
+  position: relative;
+  border-radius: rem(8px);
+  border: 1px solid rgba(220, 227, 229, 0.8);
+
+  background: var(--mantine-color-white);
+
+  box-shadow: 0px 4px rem(57px) 0px rgba(17, 17, 17, 0.05);
+}
+
+.closeBtn {
+  position: absolute;
+  top: rem(14px);
+  right: rem(14px);
+
+  @media (min-width: $mantine-breakpoint-md) {
+    top: rem(18px);
+    right: rem(18px);
+  }
+}
+
+.root {
+  &[data-variant='transparent'] {
+    color: var(--mantine-color-black);
+
+    transition: color 0.25s linear;
+
+    &:hover {
+      color: var(--mantine-color-blue-4);
+    }
+  }
+}

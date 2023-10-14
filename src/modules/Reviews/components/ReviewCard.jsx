@@ -13,7 +13,7 @@ function ReviewCard({ review }) {
           src={review.avaUrl}
         />
         <Stack align="flex-start" justify="flex-start" gap={14}>
-          <Title order={3} className={css.username} c="dark.6" l>
+          <Title order={3} className={css.username} c="dark.6">
             {review.username}
           </Title>
           <Rating value={review.rating} color="orange.4" readOnly />

@@ -1,5 +1,7 @@
 import { ActionIcon, createTheme, MantineThemeProvider } from '@mantine/core';
 import { IconTrash } from '@tabler/icons-react';
+import PropTypes from 'prop-types';
+
 import css from './styles/DeleteButton.module.css';
 
 const theme = createTheme({
@@ -10,7 +12,7 @@ const theme = createTheme({
   },
 });
 
-export function DeleteButton() {
+export function DeleteButton({ handleDelete }) {
   return (
     <MantineThemeProvider theme={theme}>
       <ActionIcon
@@ -18,11 +20,15 @@ export function DeleteButton() {
         radius="xl"
         size={30}
         variant="transparent"
+        onClick={handleDelete}
       >
         <IconTrash style={{ width: '70%', height: '70%' }} stroke={1.2} />
       </ActionIcon>
     </MantineThemeProvider>
   );
 }
+DeleteButton.propTypes = {
+  handleDelete: PropTypes.func,
+};
 
 export default DeleteButton;
