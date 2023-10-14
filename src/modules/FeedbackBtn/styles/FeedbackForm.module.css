@@ -1,0 +1,60 @@
+.form {
+  width: 335px;
+  padding: rem(28px) rem(20px);
+}
+
+.label {
+  color: rgba(52, 52, 52, 0.8);
+  font-family: Inter;
+  font-size: rem(12px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.16667;
+}
+
+.input {
+  color: var(--mantine-color-dark-6);
+  font-size: rem(14px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.28571;
+}
+
+.btn {
+  padding: rem(12px) 0;
+  border-radius: rem(8px);
+  text-align: center;
+  font-family: Inter;
+  font-size: rem(14px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.28571;
+}
+
+.btnPrimary {
+  color: var(--mantine-color-white);
+  background-color: var(--mantine-color-blue-4);
+
+  transition: background-color 0.25s linear;
+}
+
+.btnPrimary:hover {
+  background-color: var(--mantine-color-blue-5);
+}
+
+.btnSecondary {
+  color: var(--mantine-color-dark-6);
+  background-color: #e5edfa;
+
+  transition: background-color 0.25s linear;
+}
+
+.btnSecondary:hover {
+  background-color: var(--mantine-color-blue-1);
+}
+
+.dialog {
+  position: fixed;
+  top: 20%;
+  left: 40.05%;
+}
