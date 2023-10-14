@@ -2,9 +2,9 @@
 import { Navigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { registerUserThunk } from '../../../redux/operations';
-import { selectIsAuthenticated } from '../../../redux/slices/authSlice';
-import RegisterSchema from '/project-starship/src/modules/Register/components/RegisterSchema';
+import { registerUserThunk } from '@/redux/operations';
+import { selectIsAuthenticated } from '@/redux/slices/authSlice';
+import RegisterSchema from '@/modules/Register/components/RegisterSchema';
 import { yupResolver } from '@mantine/form';
 import css from './RegisterForm.module.css';
 
