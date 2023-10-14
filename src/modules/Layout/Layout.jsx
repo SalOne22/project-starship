@@ -4,6 +4,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useSearchParams } from 'react-router-dom';
 
+import Header from '@/modules/Header';
 import SideBar from '@/modules/SideBar';
 
 import {
@@ -13,7 +14,7 @@ import {
 } from '@/redux/slices/authSlice';
 import { refreshUserThunk } from '@/redux/operations';
 
-import Header from './components/Header';
+import css from './styles/Layout.module.css';
 
 function Layout() {
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ function Layout() {
     dispatch(updateToken(newToken));
   }, [token, isAuthenticated, searchParams, dispatch]);
 
-  const [opened, { close }] = useDisclosure();
+  const [opened, { close, open }] = useDisclosure();
 
   if (!token) return <Outlet />;
 
@@ -54,8 +55,8 @@ function Layout() {
         collapsed: { mobile: !opened },
       }}
     >
-      <AppShell.Header>
-        <Header />
+      <AppShell.Header className={css.header}>
+        <Header onOpen={open} />
       </AppShell.Header>
 
       <AppShell.Navbar bg="transparent">
