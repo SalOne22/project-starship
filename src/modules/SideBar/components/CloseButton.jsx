@@ -10,7 +10,6 @@ function CloseButton({ onClose }) {
     <ActionIcon
       aria-label="Close modal"
       size={24}
-      color="gray.6"
       variant="transparent"
       className={css.closeBtn}
       onClick={onClose}

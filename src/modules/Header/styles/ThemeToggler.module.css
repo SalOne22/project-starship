@@ -1,4 +1,5 @@
 .icon {
+  color: var(--mantine-color-blue-4);
   width: rem(24px);
   height: rem(24px);
 
