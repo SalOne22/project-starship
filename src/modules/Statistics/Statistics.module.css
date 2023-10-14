@@ -2,7 +2,7 @@
   padding-top: em(64);
   padding-bottom: em(40);
 
-  @media (min-width: em(1440)) {
+  @media (min-width: $mantine-breakpoint-xl) {
     padding-top: em(32);
   }
 }
@@ -15,7 +15,7 @@
   padding-left: em(14);
   padding-right: em(14);
 
-  @media (min-width: em(768)) {
+  @media (min-width: $mantine-breakpoint-md) {
     height: em(854);
 
     padding-top: em(132);
@@ -24,7 +24,7 @@
     padding-right: em(32);
   }
 
-  @media (min-width: em(1440)) {
+  @media (min-width: $mantine-breakpoint-xl) {
     height: em(752);
 
     padding-top: em(134);
