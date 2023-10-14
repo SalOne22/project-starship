@@ -3,6 +3,8 @@ import axios from 'axios';
 
 export const $instance = axios.create({
   baseURL: 'https://gt-project.onrender.com/api',
+  // baseURL: 'http:localhost:3333/api',
+  // baseURL: 'https://connections-api.herokuapp.com/'
 });
 export const setToken = (token) => {
   $instance.defaults.headers['Authorization'] = `Bearer ${token}`;
@@ -15,7 +17,7 @@ export const registerUserThunk = createAsyncThunk(
   'auth/register',
   async (user, thunkApi) => {
     try {
-      const { data } = await $instance.post('/users/signup', user);
+      const { data } = await $instance.post('/auth/signup', user);
       setToken(data.token);
       return data;
     } catch (error) {
@@ -28,7 +30,7 @@ export const loginUserThunk = createAsyncThunk(
   'auth/login',
   async (user, thunkApi) => {
     try {
-      const { data } = await $instance.post('/users/login', user);
+      const { data } = await $instance.post('/auth/login', user);
       setToken(data.token);
       return data;
     } catch (error) {
