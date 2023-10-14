@@ -14,6 +14,8 @@ import {
 } from '@/redux/slices/authSlice';
 import { refreshUserThunk } from '@/redux/operations';
 
+import css from './styles/Layout.module.css';
+
 function Layout() {
   const dispatch = useDispatch();
 
@@ -36,7 +38,7 @@ function Layout() {
     dispatch(updateToken(newToken));
   }, [token, isAuthenticated, searchParams, dispatch]);
 
-  const [opened, { close }] = useDisclosure();
+  const [opened, { close, open }] = useDisclosure();
 
   if (!token) return <Outlet />;
 
@@ -53,8 +55,8 @@ function Layout() {
         collapsed: { mobile: !opened },
       }}
     >
-      <AppShell.Header>
-        <Header />
+      <AppShell.Header className={css.header}>
+        <Header onOpen={open} />
       </AppShell.Header>
 
       <AppShell.Navbar bg="transparent">

@@ -1,0 +1,6 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  background-color: #f7f6f9;
+}
