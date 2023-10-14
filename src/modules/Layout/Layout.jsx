@@ -7,7 +7,11 @@ import { Outlet, useSearchParams } from 'react-router-dom';
 import Header from '@/modules/Header';
 import SideBar from '@/modules/SideBar';
 
-import { selectToken, updateToken } from '@/redux/slices/authSlice';
+import {
+  selectIsAuthenticated,
+  selectToken,
+  updateToken,
+} from '@/redux/slices/authSlice';
 import { refreshUserThunk } from '@/redux/operations';
 
 import Header from './components/Header';
@@ -18,21 +22,21 @@ function Layout() {
   const [searchParams] = useSearchParams();
 
   const token = useSelector(selectToken);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
 
   useEffect(() => {
-    if (!token) return;
+    if (isAuthenticated) return;
 
-    dispatch(refreshUserThunk());
-  }, [dispatch, token]);
-
-  useEffect(() => {
-    if (token) return;
+    if (token) {
+      dispatch(refreshUserThunk());
+      return;
+    }
 
     const newToken = searchParams.get('token');
     if (!newToken) return;
 
     dispatch(updateToken(newToken));
-  }, [token, searchParams, dispatch]);
+  }, [token, isAuthenticated, searchParams, dispatch]);
 
   const [opened, { close }] = useDisclosure();
 
