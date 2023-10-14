@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
-import { selectIsAuthenticated } from '@/redux/slices/authSlice';
+import { selectToken } from '@/redux/slices/authSlice';
 
 const PrivateRoute = ({ children, to = '/' }) => {
-  const isAuthorized = useSelector(selectIsAuthenticated);
+  const token = useSelector(selectToken);
 
-  if (!isAuthorized) return <Navigate to={to} replace />;
+  if (!token) return <Navigate to={to} replace />;
 
   return children;
 };

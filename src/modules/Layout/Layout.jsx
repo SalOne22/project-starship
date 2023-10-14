@@ -2,29 +2,40 @@ import { useEffect } from 'react';
 import { AppShell } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useDispatch, useSelector } from 'react-redux';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
 
 import SideBar from '@/modules/SideBar';
 
-import { selectIsAuthenticated, selectToken } from '@/redux/slices/authSlice';
+import { selectToken, updateToken } from '@/redux/slices/authSlice';
 import { refreshUserThunk } from '@/redux/operations';
 
 import Header from './components/Header';
 
 function Layout() {
   const dispatch = useDispatch();
+
+  const [searchParams] = useSearchParams();
+
   const token = useSelector(selectToken);
-  const isAuthenticated = useSelector(selectIsAuthenticated);
 
   useEffect(() => {
-    if (!token || isAuthenticated) return;
+    if (!token) return;
 
     dispatch(refreshUserThunk());
-  }, [dispatch, isAuthenticated, token]);
+  }, [dispatch, token]);
+
+  useEffect(() => {
+    if (token) return;
+
+    const newToken = searchParams.get('token');
+    if (!newToken) return;
+
+    dispatch(updateToken(newToken));
+  }, [token, searchParams, dispatch]);
 
   const [opened, { close }] = useDisclosure();
 
-  if (!isAuthenticated) return <Outlet />;
+  if (!token) return <Outlet />;
 
   return (
     <AppShell
