@@ -1,36 +1,36 @@
 .stat__container {
-  padding-top: em(64);
-  padding-bottom: em(40);
+  padding-top: rem(64);
+  padding-bottom: rem(40);
 
   @media (min-width: $mantine-breakpoint-xl) {
-    padding-top: em(32);
+    padding-top: rem(32);
   }
 }
 
 .stat__wrapper {
-  height: em(684);
+  height: rem(684);
 
-  padding-top: em(28);
-  padding-bottom: em(135);
-  padding-left: em(14);
-  padding-right: em(14);
+  padding-top: rem(28);
+  padding-bottom: rem(135);
+  padding-left: rem(14);
+  padding-right: rem(14);
 
   @media (min-width: $mantine-breakpoint-md) {
-    height: em(854);
+    height: rem(854);
 
-    padding-top: em(132);
-    padding-bottom: em(224);
-    padding-left: em(32);
-    padding-right: em(32);
+    padding-top: rem(132);
+    padding-bottom: rem(224);
+    padding-left: rem(32);
+    padding-right: rem(32);
   }
 
   @media (min-width: $mantine-breakpoint-xl) {
-    height: em(752);
+    height: rem(752);
 
-    padding-top: em(134);
-    padding-bottom: em(104);
-    padding-left: em(114);
-    padding-right: em(114);
+    padding-top: rem(134);
+    padding-bottom: rem(104);
+    padding-left: rem(114);
+    padding-right: rem(114);
   }
 }
 
@@ -38,9 +38,5 @@
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  gap: em(20);
+  gap: rem(20);
 }
-
-/* .stat__periodPaginator {
-	margin-bottom: em(20);
-} */
