@@ -22,6 +22,7 @@
     "@tabler/icons-react": "^2.39.0",
     "clsx": "^2.0.0",
     "axios": "^1.5.1",
+    "prop-types": "^15.8.1",
     "dayjs": "^1.11.10",
     "embla-carousel-react": "^7.1.0",
     "formik": "^2.4.5",
