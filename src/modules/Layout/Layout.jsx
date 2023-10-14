@@ -14,8 +14,6 @@ import {
 } from '@/redux/slices/authSlice';
 import { refreshUserThunk } from '@/redux/operations';
 
-import Header from './components/Header';
-
 function Layout() {
   const dispatch = useDispatch();
 
