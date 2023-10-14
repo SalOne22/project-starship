@@ -70,7 +70,7 @@ function LoginForm() {
           required
         />
         <button className={css.buttonLogin} type="submit">
-          Sign Up
+          Log In
         </button>
       </form>
     </div>
