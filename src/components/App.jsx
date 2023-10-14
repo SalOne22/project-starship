@@ -16,6 +16,8 @@ const ChosenDay = lazy(() => import('@/modules/ChosenDay'));
 const ChosenMonth = lazy(() => import('@/modules/ChosenMonth'));
 
 import ScreenLoader from './ScreenLoader';
+import PrivateRoute from './PrivateRoute';
+import RestrictedRoute from './RestrictedRoute';
 
 import theme from '@/theme';
 
@@ -23,22 +25,13 @@ import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
 import '@mantine/dates/styles.css';
 import '@mantine/notifications/styles.css';
-import PrivateRoute from './PrivateRoute';
-import { useSelector } from 'react-redux';
-import { selectIsAuthenticated } from '@/redux/slices/authSlice';
-import RestrictedRoute from './RestrictedRoute';
 
 function App() {
-  const isAuthenticated = useSelector(selectIsAuthenticated);
-  console.log(
-    '🚀 ~ file: App.jsx:33 ~ App ~ isAuthenticated:',
-    isAuthenticated,
-  );
   return (
     <MantineProvider theme={theme}>
       <Suspense fallback={<ScreenLoader />}>
         <Routes>
-          <Route path="/" element={isAuthenticated ? <Layout /> : <Outlet />}>
+          <Route path="/" element={<Layout />}>
             <Route
               element={
                 <RestrictedRoute to="/calendar">
