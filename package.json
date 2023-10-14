@@ -49,11 +49,10 @@
     "postcss-simple-vars": "^7.0.1",
     "prettier": "3.0.3",
     "vite": "^4.4.5",
-    "vite-plugin-svgr": "^4.1.0",
-    "prop-types": "^15.5.7"
+    "vite-plugin-svgr": "^4.1.0"
   },
   "lint-staged": {
-    "*.{js,jsx}": "eslint --fix",
+    "*.{js,jsx}": "eslint --cache --fix",
     "**/*": "prettier --write --ignore-unknown"
   }
 }
