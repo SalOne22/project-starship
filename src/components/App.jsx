@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { MantineProvider } from '@mantine/core';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 
 const Main = lazy(() => import('@/pages/MainPage'));
 const Register = lazy(() => import('@/pages/RegisterPage'));
@@ -16,6 +16,8 @@ const ChosenDay = lazy(() => import('@/modules/ChosenDay'));
 const ChosenMonth = lazy(() => import('@/modules/ChosenMonth'));
 
 import ScreenLoader from './ScreenLoader';
+import PrivateRoute from './PrivateRoute';
+import RestrictedRoute from './RestrictedRoute';
 
 import theme from '@/theme';
 
@@ -30,16 +32,35 @@ function App() {
       <Suspense fallback={<ScreenLoader />}>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route path="calendar" element={<Calendar />}>
-              <Route path="day/:currentDay" element={<ChosenDay />} />
-              <Route path="month/:currentMonth" element={<ChosenMonth />} />
+            <Route
+              element={
+                <RestrictedRoute to="/calendar">
+                  <Outlet />
+                </RestrictedRoute>
+              }
+            >
+              <Route index element={<Main />} />
+              <Route path="register" element={<Register />} />
+              <Route path="login" element={<Login />} />
             </Route>
-            <Route path="statistics" element={<Statistics />} />
-            <Route path="account" element={<Account />} />
+
+            <Route
+              element={
+                <PrivateRoute to="/login">
+                  <Outlet />
+                </PrivateRoute>
+              }
+            >
+              <Route index element={<Navigate to="/calendar" />} />
+              <Route path="calendar" element={<Calendar />}>
+                <Route path="day/:currentDay" element={<ChosenDay />} />
+                <Route path="month/:currentMonth" element={<ChosenMonth />} />
+              </Route>
+              <Route path="statistics" element={<Statistics />} />
+              <Route path="account" element={<Account />} />
+            </Route>
           </Route>
-          <Route path="/main" element={<Main />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>

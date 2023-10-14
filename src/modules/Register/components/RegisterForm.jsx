@@ -15,7 +15,7 @@ function RegisterForm() {
 
   const formik = useFormik({
     initialValues: {
-      name: '',
+      username: '',
       email: '',
       password: '',
     },
@@ -34,13 +34,13 @@ function RegisterForm() {
     <div className={css.boxRegister}>
       <h2 className={css.headerRegister}>Sing Up</h2>
       <form className={css.formRegister} onSubmit={formik.handleSubmit}>
-        <label className={css.labelRegister} htmlFor="name">
+        <label className={css.labelRegister} htmlFor="username">
           Name
         </label>
         <input
           className={css.inputRegister}
-          id="name"
-          name="name"
+          id="username"
+          name="username"
           type="text"
           onChange={formik.handleChange}
           value={formik.values.name}

@@ -3,7 +3,7 @@
   font-weight: 600;
   line-height: 1.25;
 
-  color: rgba(52, 52, 52, 0.5);
+  color: light-dark(rgba(52, 52, 52, 0.5), rgba(250, 250, 250, 0.3));
 
   margin-bottom: rem(24px);
 

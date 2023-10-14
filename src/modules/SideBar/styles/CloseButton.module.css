@@ -1,4 +1,5 @@
 .closeBtn {
+  color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-0));
   @media (min-width: $mantine-breakpoint-md) {
     width: rem(34px);
   }

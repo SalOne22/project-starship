@@ -115,6 +115,12 @@
   font-display: swap;
 }
 
+body {
+  @mixin light {
+    background-color: var(--mantine-color-dark-1);
+  }
+}
+
 .mantine-Container-root {
   max-width: rem(375px);
   padding: 0 rem(20px);
