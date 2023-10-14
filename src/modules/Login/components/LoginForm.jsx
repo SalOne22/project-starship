@@ -3,8 +3,8 @@ import { Navigate } from 'react-router-dom';
 
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUserThunk } from '../../../redux/operations';
-import { selectIsAuthenticated } from '../../../redux/slices/authSlice';
+import { loginUserThunk } from '@/redux/operations';
+import { selectIsAuthenticated } from '@/redux/slices/authSlice';
 import css from './LoginForm.module.css';
 
 function LoginForm() {
