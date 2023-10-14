@@ -1,7 +1,7 @@
 .link {
   font-weight: 600;
 
-  color: #9a9a9a;
+  color: light-dark(#9a9a9a, var(--mantine-color-dark-0));
 
   padding: rem(10px) rem(12px);
   border-radius: rem(8px);
@@ -12,8 +12,11 @@
 }
 
 .link:hover {
-  color: var(--mantine-color-blue-4);
-  background-color: var(--mantine-color-blue-0);
+  color: light-dark(var(--mantine-color-blue-4), var(--mantine-color-dark-0));
+  background-color: light-dark(
+    var(--mantine-color-blue-0),
+    var(--mantine-color-blue-4)
+  );
 }
 
 .label {
@@ -42,6 +45,9 @@
 }
 
 .active {
-  color: var(--mantine-color-blue-4);
-  background-color: var(--mantine-color-blue-0);
+  color: light-dark(var(--mantine-color-blue-4), var(--mantine-color-dark-0));
+  background-color: light-dark(
+    var(--mantine-color-blue-0),
+    var(--mantine-color-blue-4)
+  );
 }
