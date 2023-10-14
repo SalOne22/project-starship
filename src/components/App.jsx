@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { MantineProvider } from '@mantine/core';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 
 const Main = lazy(() => import('@/pages/MainPage'));
 const Register = lazy(() => import('@/pages/RegisterPage'));
@@ -23,23 +23,51 @@ import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
 import '@mantine/dates/styles.css';
 import '@mantine/notifications/styles.css';
+import PrivateRoute from './PrivateRoute';
+import { useSelector } from 'react-redux';
+import { selectIsAuthenticated } from '@/redux/slices/authSlice';
+import RestrictedRoute from './RestrictedRoute';
 
 function App() {
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  console.log(
+    '🚀 ~ file: App.jsx:33 ~ App ~ isAuthenticated:',
+    isAuthenticated,
+  );
   return (
     <MantineProvider theme={theme}>
       <Suspense fallback={<ScreenLoader />}>
         <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route path="calendar" element={<Calendar />}>
-              <Route path="day/:currentDay" element={<ChosenDay />} />
-              <Route path="month/:currentMonth" element={<ChosenMonth />} />
+          <Route path="/" element={isAuthenticated ? <Layout /> : <Outlet />}>
+            <Route
+              element={
+                <RestrictedRoute to="/calendar">
+                  <Outlet />
+                </RestrictedRoute>
+              }
+            >
+              <Route index element={<Main />} />
+              <Route path="register" element={<Register />} />
+              <Route path="login" element={<Login />} />
             </Route>
-            <Route path="statistics" element={<Statistics />} />
-            <Route path="account" element={<Account />} />
+
+            <Route
+              element={
+                <PrivateRoute to="/login">
+                  <Outlet />
+                </PrivateRoute>
+              }
+            >
+              <Route index element={<Navigate to="/calendar" />} />
+              <Route path="calendar" element={<Calendar />}>
+                <Route path="day/:currentDay" element={<ChosenDay />} />
+                <Route path="month/:currentMonth" element={<ChosenMonth />} />
+              </Route>
+              <Route path="statistics" element={<Statistics />} />
+              <Route path="account" element={<Account />} />
+            </Route>
           </Route>
-          <Route path="/main" element={<Main />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
