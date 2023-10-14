@@ -14,7 +14,7 @@ function Layout() {
       layout="alt"
       withBorder={false}
       header={{
-        height: { base: 120, md: 132, xl: 116 },
+        height: { base: 56, md: 68, xl: 84 },
       }}
       navbar={{
         width: { base: 225, md: 289 },
