@@ -1,18 +1,18 @@
 .cardBox {
   display: flex;
   flex-direction: column;
-  width: 300px;
-  height: 112px;
-  padding: 14px 14px 18px 14px;
-  border-radius: 8px;
-  background-color: #f7f6f9;
-  border: 1px solid #dce3e5;
+  width: rem(300);
+  height: rem(112);
+  padding: rem(14) rem(14) rem(18) rem(14);
+  border-radius: rem(8);
+  background-color: var(--mantine-color-dark-1);
+  border: 1px solid var(--mantine-color-blue-11);
   flex-direction: column;
   justify-content: space-between;
 }
 
 .task {
-  font-size: 14px;
+  font-size: rem(14);
   font-family: 'Inter', sans-serif;
   max-width: 100%;
   overflow: hidden;
@@ -25,8 +25,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 32px;
-  height: 32px;
+  width: rem(32);
+  height: rem(32);
   border: 1.8px solid #007bff;
   color: #007bff;
   border-radius: 50%;
@@ -34,10 +34,10 @@
 }
 
 .priority {
-  height: 20px;
-  font-size: 10px;
-  padding-left: 12px;
-  padding-right: 12px;
+  height: rem(20);
+  font-size: rem(10);
+  padding-left: rem(12);
+  padding-right: rem(12);
   border-radius: 4px;
   font-weight: 600;
 }

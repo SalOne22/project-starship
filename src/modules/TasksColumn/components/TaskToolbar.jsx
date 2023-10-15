@@ -1,4 +1,4 @@
-import { Box, Button } from '@mantine/core';
+import { Box, Button, rem } from '@mantine/core';
 import {
   IconCircleArrowRight,
   IconPencil,
@@ -10,7 +10,7 @@ function TaskToolbar() {
     <Box
       style={{
         display: 'flex',
-        gap: '10px',
+        gap: rem(10),
       }}
     >
       <Button

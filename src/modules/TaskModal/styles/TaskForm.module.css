@@ -1,39 +1,39 @@
 .input {
-  border-radius: 8px;
+  border-radius: rem(8);
   width: 100%;
   background-color: #f6f6f6;
   border: none;
-  padding: 14px 18px;
-  font-size: 14px;
+  padding: rem(14) rem(18);
+  font-size: rem(14);
   font-style: normal;
   font-weight: 600;
-  line-height: 18px;
-  height: 46px;
+  line-height: rem(18);
+  height: rem(46);
   display: flex;
   align-items: center;
 }
 
 .input::placeholder {
-  color: #343434;
-  font-size: 14px;
+  color: var(--mantine-color-gray-6);
+  font-size: rem(14);
   font-weight: 600;
-  line-height: 18px;
+  line-height: rem(18);
 }
 
 .wrapTimes {
   display: flex;
   justify-content: space-between;
-  gap: 14px;
-  margin-top: 16px;
-  margin-bottom: 28px;
+  gap: rem(14);
+  margin-top: rem(16);
+  margin-bottom: rem(28);
 }
 
 .label {
   color: rgba(52, 52, 52, 0.8);
-  font-size: 12px;
+  font-size: rem(12);
   font-weight: 500;
-  line-height: 14px;
-  margin-bottom: 8px;
+  line-height: rem(14);
+  margin-bottom: rem(8);
 }
 
 .wrapTime {
@@ -44,8 +44,8 @@
 
 .radioWrapper {
   display: flex;
-  gap: 16px;
-  margin-bottom: 32px;
+  gap: rem(16);
+  margin-bottom: rem(32);
 }
 
 .labelPriority {
@@ -55,8 +55,8 @@
 
 .radioInput {
   appearance: none;
-  width: 15px;
-  height: 15px;
+  width: rem(15);
+  height: rem(15);
   margin: 0;
   outline: none;
   position: relative;
@@ -68,8 +68,8 @@
 .radioInput:before {
   content: '';
   position: absolute;
-  width: 10px;
-  height: 10px;
+  width: rem(10);
+  height: rem(10);
   border-radius: 50%;
   top: 50%;
   left: 50%;
@@ -78,8 +78,8 @@
 }
 
 .radioInput:not(:checked) {
-  width: 10px;
-  height: 10px;
+  width: rem(10);
+  height: rem(10);
   border: 2px solid transparent;
 }
 
@@ -88,11 +88,11 @@
 }
 
 .radioInputBlue:not(:checked) {
-  background-color: #72c2f8;
+  background-color: var(--mantine-color-blue-10);
 }
 
 .radioInputBlue:before {
-  background-color: #72c2f8;
+  background-color: var(--mantine-color-blue-10);
 }
 
 .radioInputYellow {
@@ -100,11 +100,11 @@
 }
 
 .radioInputYellow:not(:checked) {
-  background-color: #f3b249;
+  background-color: var(--mantine-color-orange-10);
 }
 
 .radioInputYellow:before {
-  background-color: #f3b249;
+  background-color: var(--mantine-color-orange-10);
 }
 
 .radioInputRed {
@@ -112,48 +112,48 @@
 }
 
 .radioInputRed:not(:checked) {
-  background-color: #ea3d65;
+  background-color: var(--mantine-color-red-10);
 }
 
 .radioInputRed:before {
-  background-color: #ea3d65;
+  background-color: var(--mantine-color-red-10);
 }
 
 .radioLabel {
-  margin-left: 6px;
-  color: #343434;
+  margin-left: rem(6);
+  color: var(--mantine-color-gray-6);
   font-family: inherit;
-  font-size: 14px;
+  font-size: rem(14);
   font-style: normal;
   font-weight: 600;
-  line-height: 128.571%;
+  line-height: rem(18);
 }
 
 .buttonWrap {
   display: flex;
-  gap: 14px;
+  gap: rem(14);
 }
 
 .button {
   display: flex;
-  width: 182px;
-  height: 48px;
-  padding: 10px 20px;
+  width: rem(182);
+  height: rem(48);
+  padding: rem(10) rem(20);
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 8px;
-  gap: 10px;
-  font-size: 14px;
+  border-radius: rem(8);
+  gap: rem(10);
+  font-size: rem(14);
   font-weight: 600;
-  line-height: 18px;
+  line-height: rem(18);
 }
 
 .addButton {
-  background: #3e85f3;
+  background: var(--mantine-color-blue-4);
 }
 
 .cancelButton {
   background-color: #efefef;
-  color: #111;
+  color: var(--mantine-color-black);
 }
