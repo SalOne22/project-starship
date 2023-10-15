@@ -4,6 +4,7 @@ import {
   loginUserThunk,
   refreshUserThunk,
   setToken,
+  logoutUserThunk,
 } from '../operations';
 // const isRejectedAction = (action) =>
 //   action.type.endsWith('rejected') && action.type.includes('user');
@@ -86,6 +87,25 @@ const slice = createSlice({
       })
       .addCase(loginUserThunk.rejected, (state, action) => {
         state.isLoading = false;
+        state.error = action.payload;
+      })
+
+      //  -------logout---------
+      .addCase(logoutUserThunk.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(logoutUserThunk.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isAuthenticated = false;
+        state.user = null;
+        state.token = null;
+      })
+      .addCase(logoutUserThunk.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isAuthenticated = false;
+        state.user = null;
+        state.token = null;
         state.error = action.payload;
       })
 
