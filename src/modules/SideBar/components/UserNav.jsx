@@ -13,26 +13,27 @@ import css from '../styles/UserNav.module.css';
 
 function UserNav() {
   const { t } = useTranslation();
+
   return (
     <Box>
       <Title order={3} className={css.title}>
-        User Panel
+        {t('sidebar.userNav.title')}
       </Title>
 
       <Flex direction="column" gap={{ base: 18, md: 16 }}>
         <NavigationLink
           to="/account"
-          title={t('sidebar.navLinks.link1')}
+          title={t('sidebar.userNav.account')}
           icon={<IconUserCheck stroke={1.8} width={20} height={20} />}
         />
         <NavigationLink
           to="/calendar"
-          title={t('sidebar.navLinks.link2')}
+          title={t('sidebar.userNav.calendar')}
           icon={<IconCalendarCheck stroke={1.8} width={20} height={20} />}
         />
         <NavigationLink
           to="/statistics"
-          title={t('sidebar.navLinks.link3')}
+          title={t('sidebar.userNav.statistics')}
           icon={<IconChartBar stroke={1.8} width={20} height={20} />}
         />
       </Flex>
