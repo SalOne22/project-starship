@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import Register from '@/modules/Register';
+import Register from '@/modules/Register/components/RegisterForm';
 import AuthNavigate from '@/components/AuthNavigate';
 
 function RegisterPage() {
@@ -11,7 +11,7 @@ function RegisterPage() {
   );
 }
 RegisterPage.propTypes = {
-  route: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
+  route: PropTypes.string,
+  text: PropTypes.string,
 };
 export default RegisterPage;
