@@ -23,7 +23,7 @@
     0px 9.399999618530273px 57.6875px rgba(0, 0, 0, 0.04),
     0px 47px 355px rgba(0, 0, 0, 0.07);
 
-  color: var(--mantine-color-blue-4);
+  color: light-dark(var(--mantine-color-blue-4), var(--mantine-color-blue-0));
 
   @media (min-width: $mantine-breakpoint-md) {
     font-size: rem(18px);

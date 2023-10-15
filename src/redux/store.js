@@ -12,6 +12,7 @@ import {
 import { configureStore } from '@reduxjs/toolkit';
 
 import { authReducer } from './slices/authSlice';
+import { tasksReducer } from '@/modules/Calendar/redux/tasksSlice';
 
 const authPersistConfig = {
   key: 'auth',
@@ -22,6 +23,7 @@ const authPersistConfig = {
 const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
+    tasks: tasksReducer,
   },
   middleware: (getDM) =>
     getDM({

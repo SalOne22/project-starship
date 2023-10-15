@@ -1,20 +1,53 @@
+import { useEffect } from 'react';
 import { AppShell } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { Outlet } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Outlet, useSearchParams } from 'react-router-dom';
 
+import Header from '@/modules/Header';
 import SideBar from '@/modules/SideBar';
 
-import Header from './components/Header';
+import {
+  selectIsAuthenticated,
+  selectToken,
+  updateToken,
+} from '@/redux/slices/authSlice';
+import { refreshUserThunk } from '@/redux/operations';
+
+import css from './styles/Layout.module.css';
 
 function Layout() {
-  const [opened, { close }] = useDisclosure();
+  const dispatch = useDispatch();
+
+  const [searchParams] = useSearchParams();
+
+  const token = useSelector(selectToken);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+
+  useEffect(() => {
+    if (isAuthenticated) return;
+
+    if (token) {
+      dispatch(refreshUserThunk());
+      return;
+    }
+
+    const newToken = searchParams.get('token');
+    if (!newToken) return;
+
+    dispatch(updateToken(newToken));
+  }, [token, isAuthenticated, searchParams, dispatch]);
+
+  const [opened, { close, open }] = useDisclosure();
+
+  if (!token) return <Outlet />;
 
   return (
     <AppShell
       layout="alt"
       withBorder={false}
       header={{
-        height: { base: 120, md: 132, xl: 116 },
+        height: { base: 56, md: 68, xl: 84 },
       }}
       navbar={{
         width: { base: 225, md: 289 },
@@ -22,8 +55,8 @@ function Layout() {
         collapsed: { mobile: !opened },
       }}
     >
-      <AppShell.Header>
-        <Header />
+      <AppShell.Header className={css.header}>
+        <Header onOpen={open} />
       </AppShell.Header>
 
       <AppShell.Navbar bg="transparent">
