@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import { Box, Container, Flex } from '@mantine/core';
+import { Box, Container, Flex, Stack } from '@mantine/core';
 
 import UserNav from './components/UserNav';
 import LogoutButton from './components/LogoutButton';
@@ -8,7 +8,6 @@ import Logo from './components/Logo';
 
 import css from './styles/SideBar.module.css';
 import CloseButton from './components/CloseButton';
-import LangSelect from '@/components/LangSelect';
 
 function SideBar({ onClose }) {
   return (
@@ -23,10 +22,9 @@ function SideBar({ onClose }) {
           <CloseButton onClose={onClose} />
         </Flex>
         <UserNav />
-        <Box className={css.logoutBtnWrapper}>
-          <LangSelect />
+        <Stack justify="end" className={css.logoutBtnWrapper}>
           <LogoutButton />
-        </Box>
+        </Stack>
       </Container>
     </Box>
   );
