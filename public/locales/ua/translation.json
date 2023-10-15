@@ -1,0 +1,12 @@
+{
+  "sidebar": {
+    "changeLanguage": "Змінити мову",
+    "navLinks": {
+      "link1": "Мій акаунт",
+      "link2": "Календар",
+      "link3": "Статистика"
+    }
+  },
+  "header": {},
+  "main": {}
+}
