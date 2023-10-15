@@ -7,9 +7,5 @@ Wrapper.propTypes = {
 };
 
 export function Wrapper({ children }) {
-  return (
-    <Paper className={classes.stat__wrapper} radius="md">
-      {children}
-    </Paper>
-  );
+  return <Paper className={classes.stat__wrapper}>{children}</Paper>;
 }

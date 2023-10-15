@@ -1,0 +1,12 @@
+{
+  "sidebar": {
+    "changeLanguage": "Change language",
+    "navLinks": {
+      "link1": "My account",
+      "link2": "Calendar",
+      "link3": "Statistics"
+    }
+  },
+  "header": {},
+  "main": {}
+}

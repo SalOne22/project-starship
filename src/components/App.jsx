@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { MantineProvider } from '@mantine/core';
+import { Notifications } from '@mantine/notifications';
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 
 const Main = lazy(() => import('@/pages/MainPage'));
@@ -29,6 +30,7 @@ import '@mantine/notifications/styles.css';
 function App() {
   return (
     <MantineProvider theme={theme}>
+      <Notifications position="top-right" zIndex={1000} />
       <Suspense fallback={<ScreenLoader />}>
         <Routes>
           <Route path="/" element={<Layout />}>
