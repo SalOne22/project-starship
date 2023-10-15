@@ -1,0 +1,43 @@
+.cardBox {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 112px;
+  padding: 14px 14px 18px 14px;
+  border-radius: 8px;
+  background-color: #f7f6f9;
+  border: 1px solid #dce3e5;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.task {
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1.8px solid #007bff;
+  color: #007bff;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.priority {
+  height: 20px;
+  font-size: 10px;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-radius: 4px;
+  font-weight: 600;
+}
