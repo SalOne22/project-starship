@@ -1,3 +1,5 @@
+//  ----форма montin на двух роутах
+
 import { useForm } from '@mantine/form';
 import {
   TextInput,
@@ -109,7 +111,7 @@ function RegisterForm(props) {
 }
 export default RegisterForm;
 
-//  ----форма не працює
+//  ----форма montin на одном роуте
 
 // import { useToggle, upperFirst } from '@mantine/hooks';
 // import { useForm } from '@mantine/form';
