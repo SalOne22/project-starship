@@ -1,5 +1,7 @@
+import NotFound from '@/modules/NotFound';
+
 function NotFoundPage() {
-  return <div>NotFound</div>;
+  return <NotFound />;
 }
 
 export default NotFoundPage;
