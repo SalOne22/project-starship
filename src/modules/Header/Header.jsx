@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { ActionIcon, Container, Flex, Title } from '@mantine/core';
 import { useLocation } from 'react-router';
 import { IconMenu2 } from '@tabler/icons-react';
+import { useTranslation } from 'react-i18next';
 
 import FeedbackBtn from '@/modules/FeedbackBtn';
 
@@ -9,14 +10,16 @@ import UserInfo from './components/UserInfo';
 
 import css from './styles/Header.module.css';
 
-const paths = {
-  calendar: 'Calendar',
-  statistics: 'Statistics',
-  account: 'User Profile',
-};
-
 function Header({ onOpen }) {
   const location = useLocation();
+  const { t } = useTranslation();
+
+  const paths = {
+    calendar: t('header.titles.calendar'),
+    statistics: t('header.titles.statistics'),
+    account: t('header.titles.account'),
+  };
+
   const title = paths[location.pathname.split('/')[1]];
 
   return (
@@ -26,7 +29,7 @@ function Header({ onOpen }) {
         color="gray.6"
         size={24}
         variant="transparent"
-        aria-label="Open sidebar"
+        aria-label={t('header.openHint')}
         onClick={onOpen}
       >
         <IconMenu2 style={{ width: '100%', height: '100%' }} stroke={2} />

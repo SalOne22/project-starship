@@ -1,6 +1,8 @@
 import { Avatar, Flex, Title } from '@mantine/core';
 import { useSelector } from 'react-redux';
 
+import LangSelect from '@/components/LangSelect';
+
 import ThemeToggler from './ThemeToggler';
 
 import { selectUserData } from '@/redux/slices/authSlice';
@@ -13,6 +15,7 @@ function UserInfo() {
   return (
     <Flex gap={{ base: 8, md: 14 }} align="center">
       <ThemeToggler />
+      <LangSelect />
       <Title className={css.username} order={3}>
         {username}
       </Title>
