@@ -6,6 +6,7 @@ import {
   Title,
   VisuallyHidden,
 } from '@mantine/core';
+import { Link } from 'react-router-dom';
 
 import Rocket from '@/assets/images/404/rocket.svg?react';
 
@@ -27,7 +28,9 @@ function NotFound() {
           We’re sorry, the page you requested could not be found. Please go back
           to the homepage.
         </Text>
-        <Button className={css.goBackBtn}>Back to home</Button>
+        <Button className={css.goBackBtn} component={Link} to="/">
+          Back to home
+        </Button>
       </Container>
     </Center>
   );
