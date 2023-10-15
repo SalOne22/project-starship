@@ -12,15 +12,15 @@ function AuthNavigate({ route, text }) {
       <Link to={route} style={linkStyle}>
         {text}
       </Link>
-      <a href="https://gt-project.onrender.com/api/auth/google" type="button">
+      {/* <a href="https://gt-project.onrender.com/api/auth/google" type="button">
         google
-      </a>
+      </a> */}
     </>
   );
 }
 
 AuthNavigate.propTypes = {
-  route: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
+  route: PropTypes.string,
+  text: PropTypes.string,
 };
 export default AuthNavigate;
