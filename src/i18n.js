@@ -12,7 +12,7 @@ i18n
     fallbackLng: 'en',
     supportedLngs: ['en', 'ua'],
     backend: {
-      loadPath: '/locales/{{lng}}/translation.json',
+      loadPath: 'public/locales/{{lng}}/translation.json',
     },
   });
 
