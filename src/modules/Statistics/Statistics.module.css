@@ -16,6 +16,11 @@
   padding-left: rem(14);
   padding-right: rem(14);
 
+  background-color: light-dark(
+    var(--mantine-color-dark-0),
+    var(--mantine-color-gray-7)
+  );
+
   @media (min-width: $mantine-breakpoint-md) {
     height: rem(854);
 
@@ -67,7 +72,8 @@
   padding-left: rem(14);
   padding-right: rem(14);
 
-  border: rem(1) solid var(--mantine-color-blue-1);
+  border: rem(1) solid
+    light-dark(var(--mantine-color-blue-1), rgba(227, 243, 255, 0.15));
   border-radius: rem(20);
 
   @media (min-width: $mantine-breakpoint-md) {
@@ -107,7 +113,7 @@
   font-family: Poppins;
   font-size: rem(16);
   line-height: rem(18);
-  color: var(--mantine-color-dark-6);
+  color: light-dark(var(--mantine-color-dark-6), var(--mantine-color-dark-0));
 }
 
 .stat__legendDot {
@@ -127,7 +133,7 @@
 .stat__chartTitle {
   margin-bottom: rem(12);
 
-  color: var(--mantine-color-dark-6);
+  color: light-dark(var(--mantine-color-dark-6), var(--mantine-color-dark-0));
   font-family: Inter;
   font-size: rem(14);
   font-style: normal;
