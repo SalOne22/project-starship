@@ -1,8 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+console.log(import.meta.env);
+
 export const $instance = axios.create({
-  baseURL: 'https://gt-project.onrender.com/api',
+  baseURL: import.meta.env.VITE_API_URL,
   // baseURL: 'http:localhost:3333/api',
   // baseURL: 'https://connections-api.herokuapp.com/'
 });

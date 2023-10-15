@@ -42,7 +42,7 @@ function RegisterForm(props) {
   });
 
   function handleGoogleButtonClick() {
-    window.location.href = 'https://gt-project.onrender.com/api/auth/google';
+    window.location.href = `${import.meta.env.VITE_API_URL}/api/auth/google`;
   }
 
   return (
