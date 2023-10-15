@@ -8,6 +8,7 @@ import Logo from './components/Logo';
 
 import css from './styles/SideBar.module.css';
 import CloseButton from './components/CloseButton';
+import LangSelect from '@/components/LangSelect';
 
 function SideBar({ onClose }) {
   return (
@@ -23,6 +24,7 @@ function SideBar({ onClose }) {
         </Flex>
         <UserNav />
         <Box className={css.logoutBtnWrapper}>
+          <LangSelect />
           <LogoutButton />
         </Box>
       </Container>
