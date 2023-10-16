@@ -132,7 +132,7 @@ const TaskForm = () => {
           </Box>
           <Box className={css.radioWrapper}>
             <label className={css.labelPriority}>
-              <input
+              <Field
                 className={clsx(css.radioInput, css.radioInputBlue)}
                 type="radio"
                 name="priority"
@@ -144,7 +144,7 @@ const TaskForm = () => {
             </label>
 
             <label className={css.labelPriority}>
-              <input
+              <Field
                 className={clsx(css.radioInput, css.radioInputYellow)}
                 type="radio"
                 name="priority"
@@ -156,7 +156,7 @@ const TaskForm = () => {
             </label>
 
             <label className={css.labelPriority}>
-              <input
+              <Field
                 className={clsx(css.radioInput, css.radioInputRed)}
                 type="radio"
                 name="priority"

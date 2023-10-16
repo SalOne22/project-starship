@@ -15,9 +15,12 @@ function TaskToolbar() {
 
   const task = 'to-do';
 
-  const categories = ['to-do', 'in progress', 'done'].filter(
-    (category) => category !== task,
-  );
+  const categories = ['to-do', 'in progress', 'done']
+    .filter((category) => category !== task)
+    .map((category) => {
+      return category.charAt(0).toUpperCase() + category.slice(1);
+    });
+
   // const dispatch = useDispatch();
 
   // const handleDelete = () => {
@@ -34,7 +37,7 @@ function TaskToolbar() {
 
   return (
     <Box className={css.taskToolbarWrapper}>
-      <Menu width={200} shadow="md">
+      <Menu>
         <Menu.Target>
           <Button
             variant="transparent"
@@ -47,13 +50,13 @@ function TaskToolbar() {
           </Button>
         </Menu.Target>
 
-        <Menu.Dropdown>
-          <ul>
-            <li>
+        <Menu.Dropdown className={css.dropdown} left={210}>
+          <ul className={css.categoryList}>
+            <li className={css.categoryItem}>
               {categories[0]}
               <IconCircleArrowRight size={20} className={css.icon} />
             </li>
-            <li>
+            <li className={css.categoryItem}>
               {categories[1]}
               <IconCircleArrowRight size={20} className={css.icon} />
             </li>
