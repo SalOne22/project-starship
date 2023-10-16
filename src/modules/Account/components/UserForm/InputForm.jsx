@@ -19,6 +19,7 @@ import { updateUserData } from '@/redux/operations';
 export function UserInputForm() {
   const dispatch = useDispatch();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const userAuth = useSelector((state) => state.auth.user) ?? {};
 
   const [userData, setUserData] = useState({
