@@ -1,5 +1,4 @@
 import { Box, Overlay, CloseButton } from '@mantine/core';
-import { useColorScheme } from '@mantine/hooks';
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
@@ -8,8 +7,6 @@ import css from './styles/Modal.module.css';
 const modalRoot = document.querySelector('#modal-root');
 
 function Modal({ onClose, children }) {
-  const colorScheme = useColorScheme();
-
   useEffect(() => {
     document.body.style.overflow = 'hidden';
 
@@ -41,10 +38,7 @@ function Modal({ onClose, children }) {
       center
       onClick={handleOverlayClick}
     >
-      <Box
-        className={css.modal}
-        bg={colorScheme === 'dark' ? 'dark.7' : 'white'}
-      >
+      <Box className={css.modal}>
         <CloseButton
           aria-label="Close modal"
           classNames={{ root: css.closeBtn }}

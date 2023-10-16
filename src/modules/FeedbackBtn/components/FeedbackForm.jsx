@@ -139,10 +139,7 @@ function FeedbackForm({ onClose }) {
   return (
     <form onSubmit={onSubmit} className={css.form}>
       <Stack align="flex-start" justify="flex-start" gap={8} mb={20}>
-        <Text
-          className={css.label}
-          c={isErrorRating ? 'red' : 'rgba(52, 52, 52, 0.8)'}
-        >
+        <Text className={css.label} c={isErrorRating ? 'red' : css.label.color}>
           Rating
         </Text>
         <Rating
@@ -164,10 +161,8 @@ function FeedbackForm({ onClose }) {
 
       <Textarea
         mb={14}
-        variant="filled"
-        radius={8}
         rows={6}
-        className={css.input}
+        classNames={{ input: css.input }}
         placeholder="Enter text ..."
         value={text}
         onChange={onChangeText}
@@ -180,12 +175,16 @@ function FeedbackForm({ onClose }) {
         <Group gap={8} grow>
           <Button
             type="submit"
-            className={clsx(css.btn, css.btnPrimary)}
+            size="md"
+            classNames={{
+              root: clsx(css.btn, css.btnPrimary),
+            }}
             loading={isLoading ? true : false}
           >
             Save
           </Button>
           <Button
+            size="md"
             onClick={onCancel}
             classNames={{
               root: clsx(css.btn, css.btnSecondary),
@@ -204,6 +203,7 @@ function FeedbackForm({ onClose }) {
         onClose={modal.close}
         title="Deleting a review"
         classNames={{
+          content: css.contentModal,
           title: css.removeModalTitle,
         }}
       >
