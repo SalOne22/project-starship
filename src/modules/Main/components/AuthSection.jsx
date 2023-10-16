@@ -3,7 +3,7 @@ import css from '../styles/AuthSection.module.css';
 import GooseTrackLogo from '@/assets/icons/logo.svg?react';
 import clsx from 'clsx';
 import { Button } from '@mantine/core';
-import { LuLogIn } from 'react-icons/lu';
+import { IconLogin2 } from '@tabler/icons-react';
 
 function AuthSection() {
   return (
@@ -18,7 +18,7 @@ function AuthSection() {
             <Button
               className={clsx(css.login)}
               radius="lg"
-              rightSection={<LuLogIn width={18} height={18} />}
+              rightSection={<IconLogin2 width={18} height={18} />}
               classNames={{
                 section: css.section,
               }}
