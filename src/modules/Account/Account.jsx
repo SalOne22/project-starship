@@ -1,5 +1,10 @@
+import UserForm from './components/UserForm/UserForm.jsx';
 function Account() {
-  return <div>Account</div>;
+  return (
+    <div>
+      <UserForm />
+    </div>
+  );
 }
 
 export default Account;
