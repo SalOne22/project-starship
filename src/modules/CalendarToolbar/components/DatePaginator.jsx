@@ -3,20 +3,32 @@ import PropTypes from 'prop-types';
 import css from '../CalendarToolbar.module.css';
 
 const DatePaginator = ({ currentDate, isDateShown }) => {
-  const [daysCounter, setDaysCounter] = useState(0);
+  const [daysCounter, setDaysCounter] = useState([]);
 
   const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
   useEffect(() => {
-    let counter = 0;
-    if (currentDate.getDate() !== 1 && currentDate.getDay() + 1 === 1) {
-      counter = currentDate.getDate() - 6;
-    } else if (currentDate.getDate() === 1) {
-      counter = currentDate.getDate();
-    } else {
-      counter = currentDate.getDate() - currentDate.getDay() + 1;
+    function generateWeekDates(startDate) {
+      const weekDates = [];
+
+      const startDayIndex = weekdays.indexOf(
+        startDate.toLocaleString('en-us', { weekday: 'short' }),
+      );
+      console.log('startDayIndex: ' + startDayIndex);
+
+      for (let i = 0; i < 7; i++) {
+        const date = new Date(startDate);
+        console.log(`getDate ${startDate.getDate() - (startDayIndex - i)}`);
+
+        date.setDate(startDate.getDate() - (startDayIndex - i));
+        weekDates.push(date);
+      }
+
+      return weekDates;
     }
-    setDaysCounter(counter);
+
+    const weekDates = generateWeekDates(currentDate);
+    setDaysCounter(weekDates);
   }, [currentDate]);
 
   return (
@@ -24,16 +36,18 @@ const DatePaginator = ({ currentDate, isDateShown }) => {
       {weekdays.map((weekday, index) => {
         return (
           <li className={css.weekday} key={weekday}>
-            <p>{weekday}</p>
+            <p className={css.dayNum}>{weekday}</p>
+
             {isDateShown && (
               <span
                 className={
-                  currentDate.getDate() === daysCounter + index
+                  currentDate.getDate() ===
+                  new Date(daysCounter[index]).getDate()
                     ? css.selectedDay
                     : null
                 }
               >
-                {daysCounter + index}
+                {new Date(daysCounter[index]).getDate()}
               </span>
             )}
           </li>
