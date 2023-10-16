@@ -45,5 +45,11 @@
       "account": "User Profile"
     }
   },
-  "main": {}
+  "main": {},
+  "errors": {
+    "cantFetchCurrentUser": {
+      "title": "Can't fetch user",
+      "message": "Unable to retrieve current user information, try logging in again"
+    }
+  }
 }
