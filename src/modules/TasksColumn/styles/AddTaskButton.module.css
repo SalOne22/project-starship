@@ -1,0 +1,14 @@
+.addButton {
+  width: 100%;
+  padding: 16px 0;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  margin-top: 32px;
+  justify-content: center;
+  border: 1px dashed #3e85f3;
+  border-radius: 8px;
+  background-color: #e3f3ff;
+  font-weight: 600;
+  line-height: 18px;
+}
