@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.title {
+  display: none;
+
+  @media (min-width: $mantine-breakpoint-xl) {
+    display: inline;
+    text-shadow:
+      0px 9.399999618530273px 57.6875px rgba(0, 0, 0, 0.04),
+      0px 47px 355px rgba(0, 0, 0, 0.07);
+    font-size: rem(32px);
+    line-height: 1;
+  }
+}
+
+.burger {
+  @mixin dark {
+    color: var(--mantine-color-dark-0);
+  }
+
+  @media (min-width: $mantine-breakpoint-md) {
+    width: rem(34px);
+    height: rem(34px);
+  }
+
+  @media (min-width: $mantine-breakpoint-xl) {
+    display: none;
+  }
+}

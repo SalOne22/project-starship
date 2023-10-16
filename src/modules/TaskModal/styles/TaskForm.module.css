@@ -1,0 +1,196 @@
+.formWrapper {
+  width: rem(303);
+  padding: rem(48) rem(18) rem(40) rem(18);
+  border-radius: rem(8);
+  background-color: var(--mantine-color-white);
+  @mixin dark {
+    background-color: var(--mantine-color-black);
+  }
+
+  @media (min-width: $mantine-breakpoint-md) {
+    width: rem(396);
+    padding: rem(40) rem(28);
+  }
+}
+
+.input {
+  border-radius: rem(8);
+  width: 100%;
+  background-color: #f6f6f6;
+  border: none;
+  padding: rem(14) rem(18);
+  font-size: rem(14);
+  font-style: normal;
+  font-weight: 600;
+  line-height: rem(18);
+  height: rem(46);
+  display: flex;
+  align-items: center;
+
+  @mixin dark {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background-color: transparent;
+  }
+}
+
+.input::placeholder {
+  color: var(--mantine-color-gray-6);
+  font-size: rem(14);
+  font-weight: 600;
+  line-height: rem(18);
+
+  @mixin dark {
+    color: var(--mantine-color-white);
+  }
+}
+
+.wrapTimes {
+  display: flex;
+  justify-content: space-between;
+  gap: rem(14);
+  margin-top: rem(16);
+  margin-bottom: rem(28);
+}
+
+.label {
+  color: rgba(52, 52, 52, 0.8);
+  font-size: rem(12);
+  font-weight: 500;
+  line-height: rem(14);
+  margin-bottom: rem(8);
+
+  @mixin dark {
+    color: rgba(250, 250, 250, 0.3);
+  }
+}
+
+.wrapTime {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.radioWrapper {
+  display: flex;
+  gap: rem(16);
+  margin-bottom: rem(32);
+}
+
+.labelPriority {
+  display: flex;
+  align-items: center;
+}
+
+.radioInput {
+  appearance: none;
+  width: rem(15);
+  height: rem(15);
+  margin: 0;
+  outline: none;
+  position: relative;
+  border-radius: 50%;
+  background-color: transparent;
+  transition: background-color 0.3s;
+}
+
+.radioInput:before {
+  content: '';
+  position: absolute;
+  width: rem(10);
+  height: rem(10);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  border: 2px solid transparent;
+  transform: translate(-50%, -50%);
+}
+
+.radioInput:not(:checked) {
+  width: rem(10);
+  height: rem(10);
+  border: 2px solid transparent;
+}
+
+.radioInputBlue {
+  border: 2px solid rgba(114, 194, 248, 0.5);
+}
+
+.radioInputBlue:not(:checked) {
+  background-color: var(--mantine-color-blue-10);
+}
+
+.radioInputBlue:before {
+  background-color: var(--mantine-color-blue-10);
+}
+
+.radioInputYellow {
+  border: 2px solid rgba(243, 178, 73, 0.5);
+}
+
+.radioInputYellow:not(:checked) {
+  background-color: var(--mantine-color-orange-10);
+}
+
+.radioInputYellow:before {
+  background-color: var(--mantine-color-orange-10);
+}
+
+.radioInputRed {
+  border: 2px solid rgba(234, 61, 101, 0.5);
+}
+
+.radioInputRed:not(:checked) {
+  background-color: var(--mantine-color-red-10);
+}
+
+.radioInputRed:before {
+  background-color: var(--mantine-color-red-10);
+}
+
+.radioLabel {
+  margin-left: rem(6);
+  color: var(--mantine-color-gray-6);
+  font-family: inherit;
+  font-size: rem(14);
+  font-style: normal;
+  font-weight: 600;
+  line-height: rem(18);
+
+  @mixin dark {
+    color: var(--mantine-color-white);
+  }
+}
+
+.buttonWrap {
+  display: flex;
+  gap: rem(14);
+}
+
+.button {
+  display: flex;
+  width: rem(182);
+  height: rem(48);
+  padding: rem(10) rem(20);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: rem(8);
+  gap: rem(10);
+  font-size: rem(14);
+  font-weight: 600;
+  line-height: rem(18);
+}
+
+.addButton {
+  background: var(--mantine-color-blue-4);
+}
+
+.cancelButton {
+  background-color: #efefef;
+  color: var(--mantine-color-black);
+}
+
+.error {
+  color: var(--mantine-color-red-5);
+  font-size: rem(12);
+}

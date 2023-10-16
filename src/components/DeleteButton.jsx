@@ -1,6 +1,12 @@
-import { ActionIcon, createTheme, MantineThemeProvider } from '@mantine/core';
+import {
+  ActionIcon,
+  createTheme,
+  MantineThemeProvider,
+  Tooltip,
+} from '@mantine/core';
 import { IconTrash } from '@tabler/icons-react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import css from './styles/DeleteButton.module.css';
 
@@ -13,17 +19,28 @@ const theme = createTheme({
 });
 
 export function DeleteButton({ handleDelete }) {
+  const { t } = useTranslation();
   return (
     <MantineThemeProvider theme={theme}>
-      <ActionIcon
-        aria-label="Delete"
-        radius="xl"
-        size={30}
-        variant="transparent"
-        onClick={handleDelete}
+      <Tooltip
+        arrowPosition="side"
+        arrowOffset={30}
+        arrowSize={5}
+        label={t('common.delete')}
+        color="grey"
+        withArrow
+        position="top-center"
       >
-        <IconTrash style={{ width: '70%', height: '70%' }} stroke={1.2} />
-      </ActionIcon>
+        <ActionIcon
+          aria-label={t('common.delete')}
+          radius="xl"
+          size={30}
+          variant="transparent"
+          onClick={handleDelete}
+        >
+          <IconTrash style={{ width: '70%', height: '70%' }} stroke={1.2} />
+        </ActionIcon>
+      </Tooltip>
     </MantineThemeProvider>
   );
 }

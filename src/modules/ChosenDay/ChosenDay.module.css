@@ -1,0 +1,11 @@
+.chosenDay {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  column-gap: 27px;
+  padding: 32px;
+  flex-wrap: nowrap;
+  overflow: auto;
+}

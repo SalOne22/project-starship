@@ -3,6 +3,9 @@ import {
   registerUserThunk,
   loginUserThunk,
   refreshUserThunk,
+  setToken,
+  logoutUserThunk,
+  updateUserData,
 } from '../operations';
 // const isRejectedAction = (action) =>
 //   action.type.endsWith('rejected') && action.type.includes('user');
@@ -46,6 +49,14 @@ const initialState = {
 const slice = createSlice({
   name: 'auth',
   initialState,
+
+  reducers: {
+    updateToken(state, { payload }) {
+      state.token = payload;
+      setToken(payload);
+    },
+  },
+
   extraReducers: (builder) =>
     builder
       //  ------- register---------
@@ -73,10 +84,30 @@ const slice = createSlice({
         state.isLoading = false;
         state.isAuthenticated = true;
         state.user = action.payload.user;
+        // console.log(action.payload)
         state.token = action.payload.token;
       })
       .addCase(loginUserThunk.rejected, (state, action) => {
         state.isLoading = false;
+        state.error = action.payload;
+      })
+
+      //  -------logout---------
+      .addCase(logoutUserThunk.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(logoutUserThunk.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isAuthenticated = false;
+        state.user = null;
+        state.token = null;
+      })
+      .addCase(logoutUserThunk.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isAuthenticated = false;
+        state.user = null;
+        state.token = null;
         state.error = action.payload;
       })
 
@@ -93,6 +124,20 @@ const slice = createSlice({
       .addCase(refreshUserThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+
+      //---------------update user data-----------
+      .addCase(updateUserData.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateUserData.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload;
+      })
+      .addCase(updateUserData.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
       }),
 });
 export const selectLoading = (state) => state.auth.isLoading;
@@ -101,5 +146,5 @@ export const selectToken = (state) => state.auth.token;
 export const selectUserData = (state) => state.auth.user;
 export const selectIsAuthenticated = (state) => state.auth.isAuthenticated;
 
-export const { clearError } = slice.actions;
+export const { clearError, updateToken } = slice.actions;
 export const authReducer = slice.reducer;

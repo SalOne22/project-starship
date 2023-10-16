@@ -12,6 +12,8 @@ import {
 import { configureStore } from '@reduxjs/toolkit';
 
 import { authReducer } from './slices/authSlice';
+import { tasksReducer } from '@/modules/Calendar/redux/tasksSlice';
+import { reviewsReducer } from '@/modules/Reviews/redux/reviewsSlice';
 
 const authPersistConfig = {
   key: 'auth',
@@ -22,6 +24,8 @@ const authPersistConfig = {
 const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
+    tasks: tasksReducer,
+    reviews: reviewsReducer,
   },
   middleware: (getDM) =>
     getDM({

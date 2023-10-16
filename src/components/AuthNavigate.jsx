@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-
 function AuthNavigate({ route, text }) {
   const linkStyle = {
     textAlign: 'center',
@@ -9,14 +8,19 @@ function AuthNavigate({ route, text }) {
     color: '#0077cc',
   };
   return (
-    <Link to={route} style={linkStyle}>
-      {text}
-    </Link>
+    <>
+      <Link to={route} style={linkStyle}>
+        {text}
+      </Link>
+      {/* <a href="https://gt-project.onrender.com/api/auth/google" type="button">
+        google
+      </a> */}
+    </>
   );
 }
 
 AuthNavigate.propTypes = {
-  route: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
+  route: PropTypes.string,
+  text: PropTypes.string,
 };
 export default AuthNavigate;

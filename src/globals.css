@@ -91,7 +91,38 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Poppins';
+  src: url('assets/fonts/Poppins-Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('assets/fonts/Poppins-Medium.ttf');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('assets/fonts/Poppins-Bold.ttf');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  @mixin light {
+    background-color: var(--mantine-color-dark-1);
+  }
+}
+
 .mantine-Container-root {
+  width: 100%;
   max-width: rem(375px);
   padding: 0 rem(20px);
 
@@ -103,4 +134,8 @@
   @media (min-width: em(1440px)) {
     max-width: rem(1440px);
   }
+}
+
+.mantine-ScrollArea-scrollbar-thumb {
+  background-color: transparent !important;
 }

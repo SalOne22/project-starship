@@ -1,0 +1,42 @@
+.calendarDaysWrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  list-style: none;
+  border: 1px solid #dce3e5cc;
+  border-radius: 8px;
+  background-color: #fff;
+  padding-left: 0;
+}
+
+.calendarDay {
+  height: 144px;
+  width: calc((100% - 1px) / 7);
+  text-align: right;
+  padding: 14px;
+}
+.calendarDay:nth-child(7n) {
+  border-left: 1px solid #dce3e5cc;
+  border-bottom: 1px solid #dce3e5cc;
+}
+.calendarDay:nth-child(7n + 1) {
+  border-bottom: 1px solid #dce3e5cc;
+}
+
+.calendarDay:not(:nth-child(7n)):not(:nth-child(7n + 1)) {
+  border-left: 1px solid #dce3e5cc;
+  border-bottom: 1px solid #dce3e5cc;
+}
+
+.selectedDay {
+  padding: 4px 8px;
+  border-radius: 8px;
+  background-color: #3e85f3;
+  line-height: 18px;
+  font-size: 16px;
+  color: #fff;
+}
+
+.otherDays {
+  color: #ccc;
+}
