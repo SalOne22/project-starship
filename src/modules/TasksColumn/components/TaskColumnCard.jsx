@@ -3,8 +3,8 @@ import css from '../styles/TaskColumnCard.module.css';
 import TaskToolbar from './TaskToolbar';
 import PropTypes from 'prop-types';
 
-function TaskColumnCard() {
-  const priorityColor = getPriorityColor('high');
+function TaskColumnCard({ task }) {
+  const priorityColor = getPriorityColor(task.priority);
 
   function getPriorityColor(priority) {
     const priorityColors = {
@@ -16,8 +16,8 @@ function TaskColumnCard() {
     return priorityColors[priority] || '#999';
   }
   return (
-    <Box className={css.cardBox}>
-      <Text className={css.task}>title</Text>
+    <li className={css.cardBox}>
+      <Text className={css.task}>{task.title}</Text>
       <Box
         style={{
           display: 'flex',
@@ -38,11 +38,13 @@ function TaskColumnCard() {
           <Box
             className={css.priority}
             style={{ backgroundColor: priorityColor }}
-          ></Box>
+          >
+            <p className={css.priorityText}>{task.priority}</p>
+          </Box>
         </Box>
-        <TaskToolbar />
+        <TaskToolbar task={task} />
       </Box>
-    </Box>
+    </li>
   );
 }
 

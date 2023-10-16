@@ -45,8 +45,15 @@
 .priority {
   height: rem(20);
   font-size: rem(10);
-  padding-left: rem(12);
-  padding-right: rem(12);
+  padding: rem(4) rem(12);
   border-radius: 4px;
   font-weight: 600;
+}
+
+.priorityText {
+  margin: 0;
+  color: var(--mantine-color-dark-1);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 12px;
 }

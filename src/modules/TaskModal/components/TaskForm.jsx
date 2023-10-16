@@ -6,10 +6,11 @@ import * as Yup from 'yup';
 import { useState } from 'react';
 import css from '../styles/TaskForm.module.css';
 import { TimeInput } from '@mantine/dates';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { notifications } from '@mantine/notifications';
-
-// import { addTask } from '@/modules/Calendar/redux/operations';
+import { useParams } from 'react-router';
+import PropTypes from 'prop-types';
+import { addTask } from '@/modules/Calendar/redux/operations';
 
 const validationSchema = Yup.object({
   title: Yup.string()
@@ -38,9 +39,11 @@ const validationSchema = Yup.object({
   priority: Yup.string(),
 });
 
-const TaskForm = () => {
+const TaskForm = ({ category, onClose }) => {
   const [selectedPriority, setSelectedPriority] = useState('low');
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+
+  const { currentDay } = useParams();
 
   // const { tasks } = useTasks();
   // dispatch(fetchTasks());
@@ -52,8 +55,8 @@ const TaskForm = () => {
   const handleSubmit = (values, { resetForm }) => {
     try {
       values.priority = selectedPriority;
-      values.date = '1997-03-02';
-      values.category = 'to-do';
+      values.date = currentDay;
+      values.category = category;
 
       console.log(values);
       notifications.show({
@@ -63,7 +66,8 @@ const TaskForm = () => {
       });
 
       resetForm();
-      // dispatch(addTask({ ...values }));
+      dispatch(addTask({ ...values }));
+      onClose();
     } catch (error) {
       console.error(error);
       notifications.show({
@@ -132,7 +136,7 @@ const TaskForm = () => {
           </Box>
           <Box className={css.radioWrapper}>
             <label className={css.labelPriority}>
-              <input
+              <Field
                 className={clsx(css.radioInput, css.radioInputBlue)}
                 type="radio"
                 name="priority"
@@ -144,7 +148,7 @@ const TaskForm = () => {
             </label>
 
             <label className={css.labelPriority}>
-              <input
+              <Field
                 className={clsx(css.radioInput, css.radioInputYellow)}
                 type="radio"
                 name="priority"
@@ -156,7 +160,7 @@ const TaskForm = () => {
             </label>
 
             <label className={css.labelPriority}>
-              <input
+              <Field
                 className={clsx(css.radioInput, css.radioInputRed)}
                 type="radio"
                 name="priority"
@@ -173,8 +177,9 @@ const TaskForm = () => {
               Add
             </Button>
             <Button
-              className={clsx(css.button, css.cancelButton)}
+              className={[css.button, css.cancelButton]}
               type="button"
+              onClick={onClose}
             >
               Cancel
             </Button>
@@ -183,6 +188,11 @@ const TaskForm = () => {
       </Formik>
     </Box>
   );
+};
+
+TaskForm.propTypes = {
+  category: PropTypes.string,
+  onClose: PropTypes.func,
 };
 
 export default TaskForm;
