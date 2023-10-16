@@ -1,0 +1,17 @@
+.taskToolbarWrapper {
+  display: flex;
+  gap: rem(8);
+}
+
+.icon {
+  color: var(--mantine-color-black);
+  transition: color 350ms ease;
+
+  @mixin dark {
+    color: var(--mantine-color-white);
+  }
+}
+
+.icon:hover {
+  color: var(--mantine-color-blue-4);
+}

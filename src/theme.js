@@ -43,6 +43,7 @@ const theme = createTheme({
       '#0046ac',
       '#72c2f8', // brand blue.10
       '#dce3e5',
+      '#007bff',
     ],
     orange: [
       '#fff6e0',
