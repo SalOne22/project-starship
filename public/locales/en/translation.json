@@ -11,6 +11,10 @@
     "closeModal": "Close modal"
   },
   "feedback": {
+    "form": {
+      "requiredField": "Required field",
+      "lengthTextField": "Message must be less than 300 symbols"
+    },
     "notification": {
       "createSuccess": "Your review has been successfully added!",
       "createError": "Something went wrong. Try adding a review later!",

@@ -6,6 +6,7 @@ import {
   Group,
   Modal,
   Stack,
+  rem,
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useDisclosure } from '@mantine/hooks';
@@ -15,6 +16,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
+import { IconX, IconCheck } from '@tabler/icons-react';
 
 import css from '../styles/FeedbackForm.module.css';
 import EditButton from '@/components/EditButton';
@@ -42,23 +44,32 @@ function FeedbackForm({ onClose }) {
   const [text, setText] = useState(feedback.text);
   const [isErrorRating, setIsErrorRating] = useState(false);
   const [isErrorText, setIsErrorText] = useState(false);
+  const [errorTextMsg, setIsErrorTextMsg] = useState('');
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
     if (!rating && !text) {
-      setIsErrorRating((prev) => !prev);
-      setIsErrorText((prev) => !prev);
+      setIsErrorRating(true);
+      setIsErrorText(true);
+      setIsErrorTextMsg(t('feedback.form.requiredField'));
       return;
     }
 
     if (!rating) {
-      setIsErrorRating((prev) => !prev);
+      setIsErrorRating(true);
       return;
     }
 
-    if (!text) {
+    if (!text || !text.trim()) {
+      setIsErrorText(true);
+      return;
+    }
+
+    if (text.trim().length > 300) {
+      console.log(text.length);
       setIsErrorText((prev) => !prev);
+      setIsErrorTextMsg(t('feedback.form.lengthTextField'));
       return;
     }
 
@@ -68,6 +79,7 @@ function FeedbackForm({ onClose }) {
         toggleMode();
         notifications.show({
           color: 'teal',
+          icon: <IconCheck style={{ width: rem(20), height: rem(20) }} />,
           title: t('common.feedback'),
           message: t('feedback.notification.editSuccess'),
         });
@@ -75,6 +87,7 @@ function FeedbackForm({ onClose }) {
       } catch (error) {
         notifications.show({
           color: 'red',
+          icon: <IconX style={{ width: rem(20), height: rem(20) }} />,
           title: t('common.feedback'),
           message: t('feedback.notification.editError'),
         });
@@ -86,6 +99,7 @@ function FeedbackForm({ onClose }) {
       await dispatch(create({ rating, text }));
       notifications.show({
         color: 'teal',
+        icon: <IconCheck style={{ width: rem(20), height: rem(20) }} />,
         title: t('common.feedback'),
         message: t('feedback.notification.createSuccess'),
       });
@@ -93,6 +107,7 @@ function FeedbackForm({ onClose }) {
     } catch (error) {
       notifications.show({
         color: 'red',
+        icon: <IconX style={{ width: rem(20), height: rem(20) }} />,
         title: t('common.feedback'),
         message: t('feedback.notification.createError'),
       });
@@ -116,14 +131,16 @@ function FeedbackForm({ onClose }) {
       setRating(null);
       setText('');
       notifications.show({
-        color: 'yellow',
+        color: 'teal',
         title: t('common.feedback'),
+        icon: <IconCheck style={{ width: rem(20), height: rem(20) }} />,
         message: t('feedback.notification.removeSuccess'),
       });
       onClose();
     } catch (error) {
       notifications.show({
         color: 'red',
+        icon: <IconX style={{ width: rem(20), height: rem(20) }} />,
         title: t('common.feedback'),
         message: t('feedback.notification.removeError'),
       });
@@ -172,7 +189,7 @@ function FeedbackForm({ onClose }) {
         value={text}
         onChange={onChangeText}
         withAsterisk
-        error={isErrorText ? 'Required field' : false}
+        error={isErrorText ? errorTextMsg : false}
         readOnly={mode === 'edit' || !feedback.text ? false : true}
       />
 
