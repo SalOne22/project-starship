@@ -1,6 +1,7 @@
 import { useDisclosure } from '@mantine/hooks';
 import { UnstyledButton } from '@mantine/core';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Modal from '@/components/Modal';
 import FeedbackForm from './components/FeedbackForm';
@@ -11,6 +12,7 @@ import { findOne } from '../Reviews/redux/reviewsOperations';
 function FeedbackBtn() {
   const [opened, { open, close }] = useDisclosure(false);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(findOne());
@@ -19,7 +21,7 @@ function FeedbackBtn() {
   return (
     <>
       <UnstyledButton className={css.feedbackBtn} onClick={open}>
-        Feedback
+        {t('common.feedback')}
       </UnstyledButton>
       {opened && (
         <Modal onClose={close}>

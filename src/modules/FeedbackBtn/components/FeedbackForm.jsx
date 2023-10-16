@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 
 import css from '../styles/FeedbackForm.module.css';
 import EditButton from '@/components/EditButton';
@@ -32,6 +33,7 @@ function FeedbackForm({ onClose }) {
   const feedback = useSelector(selectUserReview);
   const isLoading = useSelector(selectReviewsIsLoading);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const [opened, modal] = useDisclosure(false);
   const [mode, toggleMode] = useToggle(['view', 'edit']);
@@ -66,14 +68,14 @@ function FeedbackForm({ onClose }) {
         toggleMode();
         notifications.show({
           color: 'teal',
-          title: 'Feedback',
-          message: 'Your review has been successfully changed!',
+          title: t('common.feedback'),
+          message: t('feedback.notification.editSuccess'),
         });
       } catch (error) {
         notifications.show({
           color: 'red',
-          title: 'Feedback',
-          message: 'Something went wrong. Try changing a review later!',
+          title: t('common.feedback'),
+          message: t('feedback.notification.editError'),
         });
       }
       return;
@@ -83,14 +85,14 @@ function FeedbackForm({ onClose }) {
       await dispatch(create({ rating, text }));
       notifications.show({
         color: 'teal',
-        title: 'Feedback',
-        message: 'Your review has been successfully added!',
+        title: t('common.feedback'),
+        message: t('feedback.notification.createSuccess'),
       });
     } catch (error) {
       notifications.show({
         color: 'red',
-        title: 'Feedback',
-        message: 'Something went wrong. Try adding a review later!',
+        title: t('common.feedback'),
+        message: t('feedback.notification.createError'),
       });
     }
   };
@@ -113,14 +115,14 @@ function FeedbackForm({ onClose }) {
       setText('');
       notifications.show({
         color: 'yellow',
-        title: 'Feedback',
-        message: 'Your review has been successfully deleted!',
+        title: t('common.feedback'),
+        message: t('feedback.notification.removeSuccess'),
       });
     } catch (error) {
       notifications.show({
         color: 'red',
-        title: 'Feedback',
-        message: 'Something went wrong. Try deleting a review later!',
+        title: t('common.feedback'),
+        message: t('feedback.notification.removeError'),
       });
     }
   };
@@ -140,7 +142,7 @@ function FeedbackForm({ onClose }) {
     <form onSubmit={onSubmit} className={css.form}>
       <Stack align="flex-start" justify="flex-start" gap={8} mb={20}>
         <Text className={css.label} c={isErrorRating ? 'red' : css.label.color}>
-          Rating
+          {t('common.rating')}
         </Text>
         <Rating
           value={rating}
@@ -150,7 +152,7 @@ function FeedbackForm({ onClose }) {
       </Stack>
 
       <Group mb={8} justify="space-between">
-        <Text className={css.label}>Review</Text>
+        <Text className={css.label}>{t('common.review')}</Text>
         {feedback.text && (
           <Group justify="center" gap={8}>
             <EditButton handleEdit={toggleMode} />
@@ -163,7 +165,7 @@ function FeedbackForm({ onClose }) {
         mb={14}
         rows={6}
         classNames={{ input: css.input }}
-        placeholder="Enter text ..."
+        placeholder={t('common.enterText')}
         value={text}
         onChange={onChangeText}
         withAsterisk
@@ -181,7 +183,7 @@ function FeedbackForm({ onClose }) {
             }}
             loading={isLoading ? true : false}
           >
-            Save
+            {t('common.save')}
           </Button>
           <Button
             size="md"
@@ -191,7 +193,7 @@ function FeedbackForm({ onClose }) {
               label: css.btnLabel,
             }}
           >
-            Cancel
+            {t('common.cancel')}
           </Button>
         </Group>
       )}
@@ -201,14 +203,14 @@ function FeedbackForm({ onClose }) {
         radius={8}
         opened={opened}
         onClose={modal.close}
-        title="Deleting a review"
+        title={t('feedback.modal.title')}
         classNames={{
           content: css.contentModal,
           title: css.removeModalTitle,
         }}
       >
         <Text size="sm" mb={20}>
-          Do you want do delete your review???
+          {t('feedback.modal.text')}
         </Text>
 
         <Group justify="center" gap="md">
@@ -219,10 +221,10 @@ function FeedbackForm({ onClose }) {
             radius="md"
             loading={isLoading ? true : false}
           >
-            Delete
+            {t('common.delete')}
           </Button>
           <Button onClick={modal.close} variant="light" radius="md">
-            Cancel
+            {t('common.cancel')}
           </Button>
         </Group>
       </Modal>
