@@ -7,7 +7,8 @@
     "cancel": "Скасувати",
     "rating": "Рейтинг",
     "review": "Відгук",
-    "enterText": "Введіть повідомлення..."
+    "enterText": "Введіть повідомлення...",
+    "closeModal": "Закрити модальне вікно"
   },
   "feedback": {
     "notification": {

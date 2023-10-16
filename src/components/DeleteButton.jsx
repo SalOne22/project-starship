@@ -32,7 +32,7 @@ export function DeleteButton({ handleDelete }) {
         position="top-center"
       >
         <ActionIcon
-          aria-label="Delete"
+          aria-label={t('common.delete')}
           radius="xl"
           size={30}
           variant="transparent"

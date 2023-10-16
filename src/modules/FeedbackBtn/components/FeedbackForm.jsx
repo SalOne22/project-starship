@@ -71,6 +71,7 @@ function FeedbackForm({ onClose }) {
           title: t('common.feedback'),
           message: t('feedback.notification.editSuccess'),
         });
+        onClose();
       } catch (error) {
         notifications.show({
           color: 'red',
@@ -88,6 +89,7 @@ function FeedbackForm({ onClose }) {
         title: t('common.feedback'),
         message: t('feedback.notification.createSuccess'),
       });
+      onClose();
     } catch (error) {
       notifications.show({
         color: 'red',
@@ -118,6 +120,7 @@ function FeedbackForm({ onClose }) {
         title: t('common.feedback'),
         message: t('feedback.notification.removeSuccess'),
       });
+      onClose();
     } catch (error) {
       notifications.show({
         color: 'red',

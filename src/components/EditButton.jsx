@@ -34,7 +34,7 @@ export function EditButton({ handleEdit }) {
       >
         <ActionIcon
           component="button"
-          aria-label="Edit"
+          aria-label={t('common.edit')}
           radius="xl"
           size={30}
           variant="transparent"
