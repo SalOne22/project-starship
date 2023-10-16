@@ -10,7 +10,7 @@ import { selectUserData } from '@/redux/slices/authSlice';
 import css from '../styles/UserInfo.module.css';
 
 function UserInfo() {
-  const { username = 'User', avatar } = useSelector(selectUserData) ?? {};
+  const { username = 'User', avatarURL } = useSelector(selectUserData) ?? {};
 
   return (
     <Flex gap={{ base: 8, md: 14 }} align="center">
@@ -19,7 +19,7 @@ function UserInfo() {
       <Title className={css.username} order={3}>
         {username}
       </Title>
-      <Avatar className={css.avatar} variant="outline" src={avatar}>
+      <Avatar className={css.avatar} variant="outline" src={avatarURL}>
         {username[0].toUpperCase()}
       </Avatar>
     </Flex>
