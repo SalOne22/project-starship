@@ -1,12 +1,15 @@
 import { Box, Overlay, CloseButton } from '@mantine/core';
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { useTranslation } from 'react-i18next';
 
 import css from './styles/Modal.module.css';
 
 const modalRoot = document.querySelector('#modal-root');
 
 function Modal({ onClose, children }) {
+  const { t } = useTranslation();
+
   useEffect(() => {
     document.body.style.overflow = 'hidden';
 
@@ -40,7 +43,7 @@ function Modal({ onClose, children }) {
     >
       <Box className={css.modal}>
         <CloseButton
-          aria-label="Close modal"
+          aria-label={t('common.closeModal')}
           classNames={{ root: css.closeBtn }}
           onClick={onClose}
         />

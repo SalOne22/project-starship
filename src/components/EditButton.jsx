@@ -6,6 +6,7 @@ import {
 } from '@mantine/core';
 import { IconPencil } from '@tabler/icons-react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import css from './styles/EditButton.module.css';
 
@@ -18,20 +19,22 @@ const theme = createTheme({
 });
 
 export function EditButton({ handleEdit }) {
+  const { t } = useTranslation();
+
   return (
     <MantineThemeProvider theme={theme}>
       <Tooltip
         arrowPosition="side"
         arrowOffset={30}
         arrowSize={5}
-        label="Edit"
+        label={t('common.edit')}
         color="grey"
         withArrow
         position="top-center"
       >
         <ActionIcon
           component="button"
-          aria-label="Edit"
+          aria-label={t('common.edit')}
           radius="xl"
           size={30}
           variant="transparent"
