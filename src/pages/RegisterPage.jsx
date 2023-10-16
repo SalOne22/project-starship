@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Register from '@/modules/Register/components/RegisterForm';
 import AuthNavigate from '@/components/AuthNavigate';
 import { Container } from '@mantine/core';
-// import css from './RegisterPage.module.css'
+
 function RegisterPage() {
   const containerStyle = {
     // border: '1px solid red',
