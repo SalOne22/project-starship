@@ -1,13 +1,15 @@
 import { Box, Button } from '@mantine/core';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { IconPlus } from '@tabler/icons-react';
 import clsx from 'clsx';
 import * as Yup from 'yup';
 import { useState } from 'react';
 import css from '../styles/TaskForm.module.css';
 import { TimeInput } from '@mantine/dates';
-import { useDispatch } from 'react-redux';
-import { addTask } from '@/modules/Calendar/redux/operations';
+// import { useDispatch } from 'react-redux';
+import { notifications } from '@mantine/notifications';
+
+// import { addTask } from '@/modules/Calendar/redux/operations';
 
 const validationSchema = Yup.object({
   title: Yup.string()
@@ -38,7 +40,8 @@ const validationSchema = Yup.object({
 
 const TaskForm = () => {
   const [selectedPriority, setSelectedPriority] = useState('low');
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+
   // const { tasks } = useTasks();
   // dispatch(fetchTasks());
 
@@ -47,16 +50,32 @@ const TaskForm = () => {
   };
 
   const handleSubmit = (values, { resetForm }) => {
-    values.priority = selectedPriority;
-    values.date = '1997-03-02';
-    values.category = 'to-do';
-    console.log(values);
-    dispatch(addTask({ ...values }));
-    resetForm();
+    try {
+      values.priority = selectedPriority;
+      values.date = '1997-03-02';
+      values.category = 'to-do';
+
+      console.log(values);
+      notifications.show({
+        message: 'New task successfully created!',
+        autoClose: 3000,
+        color: 'green',
+      });
+
+      resetForm();
+      // dispatch(addTask({ ...values }));
+    } catch (error) {
+      console.error(error);
+      notifications.show({
+        message: 'Something went wrong, please try again later',
+        autoClose: 3000,
+        color: 'red',
+      });
+    }
   };
 
   return (
-    <Box p="20px" w="335px" style={{ backgroundColor: 'white' }}>
+    <Box className={css.formWrapper}>
       <Formik
         initialValues={{
           title: '',
@@ -77,6 +96,7 @@ const TaskForm = () => {
               name="title"
               placeholder="Enter text"
             />
+            <ErrorMessage name="title" component="div" className={css.error} />
           </Box>
           <Box className={css.wrapTimes}>
             <Box className={css.wrapTime}>
@@ -90,6 +110,11 @@ const TaskForm = () => {
                 type="text"
                 name="start"
               />
+              <ErrorMessage
+                name="start"
+                component="div"
+                className={css.error}
+              />
             </Box>
             <Box className={css.wrapTime}>
               <label className={css.label} htmlFor="end">
@@ -102,6 +127,7 @@ const TaskForm = () => {
                 type="text"
                 name="end"
               />
+              <ErrorMessage name="end" component="div" className={css.error} />
             </Box>
           </Box>
           <Box className={css.radioWrapper}>
@@ -148,7 +174,7 @@ const TaskForm = () => {
             </Button>
             <Button
               className={clsx(css.button, css.cancelButton)}
-              type="submit"
+              type="button"
             >
               Cancel
             </Button>
