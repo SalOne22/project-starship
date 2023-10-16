@@ -5,7 +5,6 @@ export const fetchTasks = createAsyncThunk(
   'tasks/fetchTasks',
   async (date, { rejectWithValue }) => {
     try {
-      console.log($instance.defaults.headers);
       const { data } = await $instance.get('/tasks', { params: { date } });
 
       return data;
