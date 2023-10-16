@@ -45,7 +45,8 @@ function Layout() {
   }, [token, isAuthenticated, error, searchParams, dispatch]);
 
   useEffect(() => {
-    if (!error) return;
+    console.log(error);
+    if (!error || !token) return;
 
     notifications.show({
       color: 'red',
@@ -53,7 +54,7 @@ function Layout() {
       message: t('errors.cantFetchCurrentUser.message'),
       autoClose: 5000,
     });
-  }, [error, t]);
+  }, [error, token, t]);
 
   if (!token) return <Outlet />;
 
