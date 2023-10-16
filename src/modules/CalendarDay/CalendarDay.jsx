@@ -1,14 +1,16 @@
 import { useTasks } from '../Calendar/hooks/useTasks';
 import PropTypes from 'prop-types';
 import css from './CalendarDay.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const CalendarDay = ({ day, changeCurrentDate }) => {
   const { tasks } = useTasks();
+  const navigate = useNavigate();
 
   const firstDayOfMonth = new Date(day.getFullYear(), day.getMonth(), 1);
-  console.log(firstDayOfMonth.getDay());
+
   const weekdayOfFirstDay = firstDayOfMonth.getDay();
-  console.log(weekdayOfFirstDay);
+
   const daysInWeek = 7;
 
   const daysToSkip = (weekdayOfFirstDay - 2 + daysInWeek) % daysInWeek;
@@ -20,7 +22,6 @@ const CalendarDay = ({ day, changeCurrentDate }) => {
   startDate.setDate(startDate.getDate() - daysToSkip);
 
   for (let d = 0; d < 42; d++) {
-    console.log(startDate.toDateString(), day.toDateString());
     const calendarDay = {
       currentMonth: startDate.getMonth() === day.getMonth(),
       date: new Date(startDate).toISOString().slice(0, 10),
@@ -33,7 +34,6 @@ const CalendarDay = ({ day, changeCurrentDate }) => {
 
     tasks?.map((task) => {
       if (task.date === calendarDay.date) {
-        console.log(task.date, calendarDay.date);
         calendarDay.tasks.push(task);
       }
     });
@@ -43,14 +43,19 @@ const CalendarDay = ({ day, changeCurrentDate }) => {
     startDate.setDate(startDate.getDate() + 1);
   }
 
-  console.log('day: ' + day);
+  const handleDayClick = (day) => {
+    changeCurrentDate(day);
+    navigate(`/calendar/day/${day.date}`);
+  };
 
   return (
     <ul className={css.calendarDaysWrapper}>
       {currentDays.map((day) => {
         return (
           <li
-            onClick={() => changeCurrentDate(day)}
+            onClick={() => {
+              day.currentMonth && handleDayClick(day);
+            }}
             className={css.calendarDay}
             key={day.date}
           >

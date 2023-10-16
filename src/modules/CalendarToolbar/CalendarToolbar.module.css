@@ -1,0 +1,30 @@
+.tableHeader {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  padding-left: 0;
+  text-align: center;
+  background-color: #fff;
+  border: 1px solid #dce3e5cc;
+  border-radius: 8px;
+}
+
+.weekday {
+  width: calc(100% / 7);
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.selectedDay {
+  padding: 4px 8px;
+  border-radius: 8px;
+  background-color: #3e85f3;
+  line-height: 18px;
+  font-size: 16px;
+  color: #fff;
+}
+
+.tools {
+  display: flex;
+  justify-content: space-between;
+}
