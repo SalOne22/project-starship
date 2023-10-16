@@ -1,0 +1,20 @@
+{
+  "sidebar": {
+    "userNav": {
+      "title": "User Panel",
+      "account": "My account",
+      "calendar": "Calendar",
+      "statistics": "Statistics"
+    },
+    "logout": "Log out"
+  },
+  "header": {
+    "openHint": "Open sidebar",
+    "titles": {
+      "calendar": "Calendar",
+      "statistics": "Statistics",
+      "account": "User Profile"
+    }
+  },
+  "main": {}
+}

@@ -41,6 +41,8 @@ const theme = createTheme({
       '#005cd8',
       '#0052c3',
       '#0046ac',
+      '#72c2f8', // brand blue.10
+      '#dce3e5',
     ],
     orange: [
       '#fff6e0',
@@ -53,6 +55,7 @@ const theme = createTheme({
       '#e48700',
       '#cb7600',
       '#b06500',
+      '#f3b249',
     ],
     red: [
       '#ffeae9',
@@ -65,6 +68,7 @@ const theme = createTheme({
       '#cb2517',
       '#b61e13',
       '#9f130c',
+      '#ea3d65',
     ],
     green: [
       '#e7fdf2',

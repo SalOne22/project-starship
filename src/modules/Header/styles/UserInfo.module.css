@@ -10,6 +10,12 @@
   }
 }
 
+.avatar > span {
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  margin: -2px;
+}
+
 .username {
   font-size: rem(14px);
   line-height: 1.28571;

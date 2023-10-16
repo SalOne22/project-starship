@@ -1,0 +1,20 @@
+{
+  "sidebar": {
+    "userNav": {
+      "title": "Панель користувача",
+      "account": "Мій акаунт",
+      "calendar": "Календар",
+      "statistics": "Статистика"
+    },
+    "logout": "Вийти"
+  },
+  "header": {
+    "openHint": "Відкрити бічну панель",
+    "titles": {
+      "calendar": "Календар",
+      "statistics": "Статистика",
+      "account": "Профіль користувача"
+    }
+  },
+  "main": {}
+}
