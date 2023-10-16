@@ -1,20 +1,20 @@
 import { useDisclosure } from '@mantine/hooks';
 import { UnstyledButton } from '@mantine/core';
-import { useState } from 'react';
+import { useEffect } from 'react';
 
 import Modal from '@/components/Modal';
 import FeedbackForm from './components/FeedbackForm';
 import css from './styles/FeedbackBtn.module.css';
-
-const mock = {
-  rating: 3,
-  review:
-    'GooseTrack is impressive, the calendar view and filter options make it easy to stay organized and focused. Highly recommended.',
-};
+import { useDispatch } from 'react-redux';
+import { findOne } from '../Reviews/redux/reviewsOperations';
 
 function FeedbackBtn() {
   const [opened, { open, close }] = useDisclosure(false);
-  const [feedback] = useState(mock);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(findOne());
+  }, [dispatch]);
 
   return (
     <>
@@ -23,7 +23,7 @@ function FeedbackBtn() {
       </UnstyledButton>
       {opened && (
         <Modal onClose={close}>
-          <FeedbackForm feedback={feedback} onClose={close} />
+          <FeedbackForm onClose={close} />
         </Modal>
       )}
     </>

@@ -4,49 +4,160 @@ import {
   Rating,
   Button,
   Group,
-  UnstyledButton,
-  Dialog,
+  Modal,
+  Stack,
 } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
 import { useDisclosure } from '@mantine/hooks';
+import { useToggle } from '@mantine/hooks';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
-import css from '../styles/FeedbackForm.module.css';
+import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
+
+import css from '../styles/FeedbackForm.module.css';
 import EditButton from '@/components/EditButton';
 import DeleteButton from '@/components/DeleteButton';
-import PropTypes from 'prop-types';
+import {
+  selectReviewsIsLoading,
+  selectUserReview,
+} from '@/modules/Reviews/redux/reviewsSelectors';
+import {
+  create,
+  edit,
+  remove,
+} from '@/modules/Reviews/redux/reviewsOperations';
 
-function FeedbackForm({ feedback, onClose }) {
-  const [opened, { toggle, close }] = useDisclosure(false);
-  const [rating, setRating] = useState(0);
-  const [review, setReview] = useState(feedback.review);
-  const [isEditing, setIsEditing] = useState(false);
+function FeedbackForm({ onClose }) {
+  const feedback = useSelector(selectUserReview);
+  const isLoading = useSelector(selectReviewsIsLoading);
+  const dispatch = useDispatch();
 
-  const onSubmit = (e) => {
+  const [opened, modal] = useDisclosure(false);
+  const [mode, toggleMode] = useToggle(['view', 'edit']);
+
+  const [rating, setRating] = useState(feedback.rating);
+  const [text, setText] = useState(feedback.text);
+  const [isErrorRating, setIsErrorRating] = useState(false);
+  const [isErrorText, setIsErrorText] = useState(false);
+
+  const onSubmit = async (e) => {
     e.preventDefault();
-    console.log({ rating, review });
+
+    if (!rating && !text) {
+      setIsErrorRating((prev) => !prev);
+      setIsErrorText((prev) => !prev);
+      return;
+    }
+
+    if (!rating) {
+      setIsErrorRating((prev) => !prev);
+      return;
+    }
+
+    if (!text) {
+      setIsErrorText((prev) => !prev);
+      return;
+    }
+
+    if (mode === 'edit') {
+      try {
+        await dispatch(edit({ rating, text }));
+        toggleMode();
+        notifications.show({
+          color: 'teal',
+          title: 'Feedback',
+          message: 'Your review has been successfully changed!',
+        });
+      } catch (error) {
+        notifications.show({
+          color: 'red',
+          title: 'Feedback',
+          message: 'Something went wrong. Try changing a review later!',
+        });
+      }
+      return;
+    }
+
+    try {
+      await dispatch(create({ rating, text }));
+      notifications.show({
+        color: 'teal',
+        title: 'Feedback',
+        message: 'Your review has been successfully added!',
+      });
+    } catch (error) {
+      notifications.show({
+        color: 'red',
+        title: 'Feedback',
+        message: 'Something went wrong. Try adding a review later!',
+      });
+    }
   };
 
-  const handleEdit = () => {
-    setIsEditing(!isEditing);
+  const onChangeRating = (value) => {
+    setRating(value);
+    setIsErrorRating(false);
   };
 
-  const handleDelete = () => {
-    toggle();
+  const onChangeText = (e) => {
+    setText(e.currentTarget.value);
+    setIsErrorText(false);
+  };
+
+  const onDelete = async () => {
+    try {
+      await dispatch(remove());
+      modal.close();
+      setRating(null);
+      setText('');
+      notifications.show({
+        color: 'yellow',
+        title: 'Feedback',
+        message: 'Your review has been successfully deleted!',
+      });
+    } catch (error) {
+      notifications.show({
+        color: 'red',
+        title: 'Feedback',
+        message: 'Something went wrong. Try deleting a review later!',
+      });
+    }
+  };
+
+  const onCancel = () => {
+    if (mode === 'edit') {
+      setRating(feedback.rating);
+      setText(feedback.text);
+      toggleMode();
+      return;
+    }
+
+    onClose();
   };
 
   return (
     <form onSubmit={onSubmit} className={css.form}>
-      <Text mb={8} className={css.label}>
-        Rating
-      </Text>
-      <Rating value={rating} onChange={setRating} mb={20} />
+      <Stack align="flex-start" justify="flex-start" gap={8} mb={20}>
+        <Text
+          className={css.label}
+          c={isErrorRating ? 'red' : 'rgba(52, 52, 52, 0.8)'}
+        >
+          Rating
+        </Text>
+        <Rating
+          value={rating}
+          onChange={onChangeRating}
+          readOnly={mode === 'edit' || !feedback.rating ? false : true}
+        />
+      </Stack>
 
       <Group mb={8} justify="space-between">
         <Text className={css.label}>Review</Text>
-        {review && (
+        {feedback.text && (
           <Group justify="center" gap={8}>
-            <EditButton handleEdit={handleEdit} />
-            <DeleteButton handleDelete={handleDelete} />
+            <EditButton handleEdit={toggleMode} />
+            <DeleteButton handleDelete={modal.open} />
           </Group>
         )}
       </Group>
@@ -58,73 +169,69 @@ function FeedbackForm({ feedback, onClose }) {
         rows={6}
         className={css.input}
         placeholder="Enter text ..."
-        value={review}
-        onChange={(e) => setReview(e.currentTarget.value)}
+        value={text}
+        onChange={onChangeText}
+        withAsterisk
+        error={isErrorText ? 'Required field' : false}
+        readOnly={mode === 'edit' || !feedback.text ? false : true}
       />
 
-      {!review && (
+      {(!feedback.text || mode === 'edit') && (
         <Group gap={8} grow>
-          <UnstyledButton
+          <Button
             type="submit"
             className={clsx(css.btn, css.btnPrimary)}
+            loading={isLoading ? true : false}
           >
             Save
-          </UnstyledButton>
-          <UnstyledButton
-            onClick={onClose}
-            className={clsx(css.btn, css.btnSecondary)}
+          </Button>
+          <Button
+            onClick={onCancel}
+            classNames={{
+              root: clsx(css.btn, css.btnSecondary),
+              label: css.btnLabel,
+            }}
           >
             Cancel
-          </UnstyledButton>
-        </Group>
-      )}
-      {isEditing && (
-        <Group gap={8} grow>
-          <UnstyledButton
-            type="submit"
-            className={clsx(css.btn, css.btnPrimary)}
-          >
-            Save
-          </UnstyledButton>
-          <UnstyledButton
-            onClick={onClose}
-            className={clsx(css.btn, css.btnSecondary)}
-          >
-            Cancel
-          </UnstyledButton>
+          </Button>
         </Group>
       )}
 
-      <Dialog
+      <Modal
+        size={350}
+        radius={8}
         opened={opened}
-        withCloseButton
-        onClose={close}
-        size="lg"
-        radius="md"
-        w={300}
-        className={css.dialog}
-        pt={30}
+        onClose={modal.close}
+        title="Deleting a review"
+        classNames={{
+          title: css.removeModalTitle,
+        }}
       >
-        <Text size="sm" mb="xs">
+        <Text size="sm" mb={20}>
           Do you want do delete your review???
         </Text>
 
-        <Group justify="center" gap="sm" grow>
-          <Button onClick={close} variant="light" color="red" radius="md">
+        <Group justify="center" gap="md">
+          <Button
+            onClick={onDelete}
+            variant="filled"
+            color="red"
+            radius="md"
+            loading={isLoading ? true : false}
+          >
             Delete
           </Button>
-          <Button onClick={close} variant="light" radius="md">
+          <Button onClick={modal.close} variant="light" radius="md">
             Cancel
           </Button>
         </Group>
-      </Dialog>
+      </Modal>
     </form>
   );
 }
 
 FeedbackForm.propTypes = {
-  feedback: PropTypes.object,
-  onClose: PropTypes.func,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default FeedbackForm;
