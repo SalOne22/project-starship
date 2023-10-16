@@ -1,26 +1,15 @@
-import {
-  Box,
-  Overlay,
-  ActionIcon,
-  createTheme,
-  MantineThemeProvider,
-} from '@mantine/core';
+import { Box, Overlay, CloseButton } from '@mantine/core';
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { IconX } from '@tabler/icons-react';
+import { useTranslation } from 'react-i18next';
 
 import css from './styles/Modal.module.css';
 
 const modalRoot = document.querySelector('#modal-root');
-const theme = createTheme({
-  components: {
-    ActionIcon: ActionIcon.extend({
-      classNames: css,
-    }),
-  },
-});
 
 function Modal({ onClose, children }) {
+  const { t } = useTranslation();
+
   useEffect(() => {
     document.body.style.overflow = 'hidden';
 
@@ -53,18 +42,11 @@ function Modal({ onClose, children }) {
       onClick={handleOverlayClick}
     >
       <Box className={css.modal}>
-        <MantineThemeProvider theme={theme}>
-          <ActionIcon
-            aria-label="Close modal"
-            radius="xl"
-            size={24}
-            variant="transparent"
-            className={css.closeBtn}
-            onClick={onClose}
-          >
-            <IconX style={{ width: '100%', height: '100%' }} stroke={2} />
-          </ActionIcon>
-        </MantineThemeProvider>
+        <CloseButton
+          aria-label={t('common.closeModal')}
+          classNames={{ root: css.closeBtn }}
+          onClick={onClose}
+        />
         {children}
       </Box>
     </Overlay>,

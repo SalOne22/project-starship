@@ -20,6 +20,7 @@ function Layout() {
   const dispatch = useDispatch();
 
   const [searchParams] = useSearchParams();
+  const [opened, { close, open }] = useDisclosure();
 
   const token = useSelector(selectToken);
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -37,8 +38,6 @@ function Layout() {
 
     dispatch(updateToken(newToken));
   }, [token, isAuthenticated, searchParams, dispatch]);
-
-  const [opened, { close, open }] = useDisclosure();
 
   if (!token) return <Outlet />;
 
