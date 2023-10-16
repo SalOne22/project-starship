@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { AppShell } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { useTranslation } from 'react-i18next';
+import { notifications } from '@mantine/notifications';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useSearchParams } from 'react-router-dom';
 
@@ -8,6 +10,7 @@ import Header from '@/modules/Header';
 import SideBar from '@/modules/SideBar';
 
 import {
+  selectError,
   selectIsAuthenticated,
   selectToken,
   updateToken,
@@ -18,14 +21,17 @@ import css from './styles/Layout.module.css';
 
 function Layout() {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const [searchParams] = useSearchParams();
+  const [opened, { close, open }] = useDisclosure();
 
   const token = useSelector(selectToken);
   const isAuthenticated = useSelector(selectIsAuthenticated);
+  const error = useSelector(selectError);
 
   useEffect(() => {
-    if (isAuthenticated) return;
+    if (isAuthenticated || error) return;
 
     if (token) {
       dispatch(refreshUserThunk());
@@ -36,9 +42,18 @@ function Layout() {
     if (!newToken) return;
 
     dispatch(updateToken(newToken));
-  }, [token, isAuthenticated, searchParams, dispatch]);
+  }, [token, isAuthenticated, error, searchParams, dispatch]);
 
-  const [opened, { close, open }] = useDisclosure();
+  useEffect(() => {
+    if (!error || !token) return;
+
+    notifications.show({
+      color: 'red',
+      title: t('errors.cantFetchCurrentUser.title'),
+      message: t('errors.cantFetchCurrentUser.message'),
+      autoClose: 5000,
+    });
+  }, [error, token, t]);
 
   if (!token) return <Outlet />;
 

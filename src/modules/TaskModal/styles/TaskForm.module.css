@@ -1,3 +1,18 @@
+.formWrapper {
+  width: rem(303);
+  padding: rem(48) rem(18) rem(40) rem(18);
+  border-radius: rem(8);
+  background-color: var(--mantine-color-white);
+  @mixin dark {
+    background-color: var(--mantine-color-black);
+  }
+
+  @media (min-width: $mantine-breakpoint-md) {
+    width: rem(396);
+    padding: rem(40) rem(28);
+  }
+}
+
 .input {
   border-radius: rem(8);
   width: 100%;
@@ -11,6 +26,11 @@
   height: rem(46);
   display: flex;
   align-items: center;
+
+  @mixin dark {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background-color: transparent;
+  }
 }
 
 .input::placeholder {
@@ -18,6 +38,10 @@
   font-size: rem(14);
   font-weight: 600;
   line-height: rem(18);
+
+  @mixin dark {
+    color: var(--mantine-color-white);
+  }
 }
 
 .wrapTimes {
@@ -34,6 +58,10 @@
   font-weight: 500;
   line-height: rem(14);
   margin-bottom: rem(8);
+
+  @mixin dark {
+    color: rgba(250, 250, 250, 0.3);
+  }
 }
 
 .wrapTime {
@@ -127,6 +155,10 @@
   font-style: normal;
   font-weight: 600;
   line-height: rem(18);
+
+  @mixin dark {
+    color: var(--mantine-color-white);
+  }
 }
 
 .buttonWrap {
@@ -156,4 +188,9 @@
 .cancelButton {
   background-color: #efefef;
   color: var(--mantine-color-black);
+}
+
+.error {
+  color: var(--mantine-color-red-5);
+  font-size: rem(12);
 }

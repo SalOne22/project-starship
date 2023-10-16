@@ -1,26 +1,75 @@
-import { Box, Button, rem } from '@mantine/core';
+import { Box, Button, Menu } from '@mantine/core';
 import {
   IconCircleArrowRight,
   IconPencil,
   IconTrash,
 } from '@tabler/icons-react';
+import css from '../styles/TaskToolbar.module.css';
+// import { useDispatch } from 'react-redux';
+// import { deleteTask } from '@/modules/Calendar/redux/operations';
+import TaskModal from '@/modules/TaskModal/TaskModal';
+import { useState } from 'react';
 
 function TaskToolbar() {
+  const [isOpen, setModal] = useState(false);
+
+  const task = 'to-do';
+
+  const categories = ['to-do', 'in progress', 'done'].filter(
+    (category) => category !== task,
+  );
+  // const dispatch = useDispatch();
+
+  // const handleDelete = () => {
+  //  dispatch(deleteTask(task.id));
+  // }
+
+  const handleEdit = () => {
+    setModal(true);
+  };
+
+  const onClose = () => {
+    setModal(false);
+  };
+
   return (
-    <Box
-      style={{
-        display: 'flex',
-        gap: rem(10),
-      }}
-    >
+    <Box className={css.taskToolbarWrapper}>
+      <Menu width={200} shadow="md">
+        <Menu.Target>
+          <Button
+            variant="transparent"
+            p={0}
+            styles={{
+              label: { alignItems: 'end' },
+            }}
+          >
+            <IconCircleArrowRight size={18} className={css.icon} />
+          </Button>
+        </Menu.Target>
+
+        <Menu.Dropdown>
+          <ul>
+            <li>
+              {categories[0]}
+              <IconCircleArrowRight size={20} className={css.icon} />
+            </li>
+            <li>
+              {categories[1]}
+              <IconCircleArrowRight size={20} className={css.icon} />
+            </li>
+          </ul>
+        </Menu.Dropdown>
+      </Menu>
+
       <Button
         variant="transparent"
         p={0}
         styles={{
           label: { alignItems: 'end' },
         }}
+        onClick={handleEdit}
       >
-        <IconCircleArrowRight size={16} color="#111111" />
+        <IconPencil size={18} className={css.icon} />
       </Button>
       <Button
         variant="transparent"
@@ -28,18 +77,11 @@ function TaskToolbar() {
         styles={{
           label: { alignItems: 'end' },
         }}
+        // onClick={handleDelete}
       >
-        <IconPencil size={16} color="#111111" />
+        <IconTrash size={18} className={css.icon} />
       </Button>
-      <Button
-        variant="transparent"
-        p={0}
-        styles={{
-          label: { alignItems: 'end' },
-        }}
-      >
-        <IconTrash size={16} color="#111111" />
-      </Button>
+      {isOpen && <TaskModal onClose={onClose} />}
     </Box>
   );
 }

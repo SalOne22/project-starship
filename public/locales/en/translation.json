@@ -1,4 +1,33 @@
 {
+  "common": {
+    "feedback": "Feedback",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "rating": "Rating",
+    "review": "Review",
+    "enterText": "Enter text...",
+    "closeModal": "Close modal"
+  },
+  "feedback": {
+    "form": {
+      "requiredField": "Required field",
+      "lengthTextField": "Message must be less than 300 symbols"
+    },
+    "notification": {
+      "createSuccess": "Your review has been successfully added!",
+      "createError": "Something went wrong. Try adding a review later!",
+      "editSuccess": "Your review has been successfully changed!",
+      "editError": "Something went wrong. Try changing a review later!",
+      "removeSuccess": "Your review has been successfully deleted!",
+      "removeError": "Something went wrong. Try deleting a review later!"
+    },
+    "modal": {
+      "title": "Deleting a review",
+      "text": "Do you want do delete your review?"
+    }
+  },
   "sidebar": {
     "userNav": {
       "title": "User Panel",
@@ -16,5 +45,11 @@
       "account": "User Profile"
     }
   },
-  "main": {}
+  "main": {},
+  "errors": {
+    "cantFetchCurrentUser": {
+      "title": "Can't fetch user",
+      "message": "Unable to retrieve current user information, try logging in again"
+    }
+  }
 }
