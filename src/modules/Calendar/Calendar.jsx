@@ -5,8 +5,6 @@ const Calendar = () => {
   const navigate = useNavigate();
   const { pathname } = window.location;
 
-  console.log(pathname === '/project-starship/calendar');
-
   useEffect(() => {
     const currentDate = new Date();
     const date = new Date(currentDate).toISOString().slice(0, 7);

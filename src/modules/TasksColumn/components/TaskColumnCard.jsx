@@ -2,9 +2,21 @@ import { Box, Text } from '@mantine/core';
 import css from '../styles/TaskColumnCard.module.css';
 import TaskToolbar from './TaskToolbar';
 import PropTypes from 'prop-types';
+import { useDrag } from 'react-dnd';
+import clsx from 'clsx';
 
 function TaskColumnCard({ task }) {
   const priorityColor = getPriorityColor(task.priority);
+
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: 'task',
+    item: {
+      task,
+    },
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
 
   function getPriorityColor(priority) {
     const priorityColors = {
@@ -16,7 +28,10 @@ function TaskColumnCard({ task }) {
     return priorityColors[priority] || '#999';
   }
   return (
-    <li className={css.cardBox}>
+    <li
+      ref={drag}
+      className={clsx(css.cardBox, isDragging ? css.draggedTask : null)}
+    >
       <Text className={css.task}>{task.title}</Text>
       <Box
         style={{

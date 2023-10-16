@@ -14,11 +14,9 @@ const DatePaginator = ({ currentDate, isDateShown }) => {
       const startDayIndex = weekdays.indexOf(
         startDate.toLocaleString('en-us', { weekday: 'short' }),
       );
-      console.log('startDayIndex: ' + startDayIndex);
 
       for (let i = 0; i < 7; i++) {
         const date = new Date(startDate);
-        console.log(`getDate ${startDate.getDate() - (startDayIndex - i)}`);
 
         date.setDate(startDate.getDate() - (startDayIndex - i));
         weekDates.push(date);
@@ -29,6 +27,7 @@ const DatePaginator = ({ currentDate, isDateShown }) => {
 
     const weekDates = generateWeekDates(currentDate);
     setDaysCounter(weekDates);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentDate]);
 
   return (

@@ -58,7 +58,6 @@ const TaskForm = ({ category, onClose }) => {
       values.date = currentDay;
       values.category = category;
 
-      console.log(values);
       notifications.show({
         message: 'New task successfully created!',
         autoClose: 3000,
