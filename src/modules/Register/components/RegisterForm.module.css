@@ -1,4 +1,4 @@
-.boxRegister {
+/* .boxRegister {
   width: 300px;
   margin: 0 auto;
   padding: 20px;
@@ -39,4 +39,14 @@
 
 .buttonRegister:hover {
   background: #0055aa;
+} */
+
+/* ----------- */
+
+.wrappForm {
+  padding: 40px 24px;
+  width: 335;
+  @media (min-width: $mantine-breakpoint-md) {
+    width: 600px;
+  }
 }

@@ -22,20 +22,14 @@ function LoginForm(props) {
       password: '',
     },
 
-    // onSubmit: (values) => {
-    //   console.log(222)
-    //   dispatch(loginUserThunk(values));
-    // },
-
     validate: {
       email: (val) =>
         /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(val)
           ? null
           : 'Invalid email',
+
       password: (val) =>
-        val.length <= 6
-          ? 'Password should include at least 6 characters'
-          : null,
+        val.length < 6 ? 'Password should include at least 6 characters' : null,
     },
   });
 
@@ -43,8 +37,12 @@ function LoginForm(props) {
     window.location.href = 'https://gt-project.onrender.com/api/auth/google';
   }
 
+  const wrappLoginFormStyle = {
+    width: '335px',
+  };
+
   return (
-    <Paper radius="md" p="xl" withBorder {...props}>
+    <Paper style={wrappLoginFormStyle} radius="md" p="xl" withBorder {...props}>
       <Text size="lg" fw={500}>
         Log In
       </Text>
@@ -103,68 +101,3 @@ function LoginForm(props) {
   );
 }
 export default LoginForm;
-
-// -----форма на formik
-// // import React from 'react';
-// import { Navigate } from 'react-router-dom';
-
-// import { useFormik } from 'formik';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { loginUserThunk } from '@/redux/operations';
-// import { selectIsAuthenticated } from '@/redux/slices/authSlice';
-// import css from './LoginForm.module.css';
-
-// function LoginForm() {
-//   const isAuthenticated = useSelector(selectIsAuthenticated);
-//   // console.log('isAuthenticated in login', isAuthenticated)
-//   const dispatch = useDispatch();
-//   const formik = useFormik({
-//     initialValues: {
-//       email: '',
-//       password: '',
-//     },
-//     onSubmit: (values) => {
-//       dispatch(loginUserThunk(values));
-//     },
-//   });
-
-//   if (isAuthenticated) return <Navigate to="/calendar" />;
-//   return (
-//     <div className={css.boxLogin}>
-//       <h2 className={css.headerLogin}>Log In</h2>
-//       <form className={css.formLogin} onSubmit={formik.handleSubmit}>
-//         <label className={css.labelLogin} htmlFor="email">
-//           Email
-//         </label>
-//         <input
-//           className={css.inputLogin}
-//           id="email"
-//           name="email"
-//           type="email"
-//           onChange={formik.handleChange}
-//           value={formik.values.email}
-//           required
-//           maxLength={30}
-//         />
-//         <label className={css.labelLogin} htmlFor="password">
-//           Password
-//         </label>
-//         <input
-//           className={css.inputLogin}
-//           id="password"
-//           name="password"
-//           type="password"
-//           onChange={formik.handleChange}
-//           value={formik.values.password}
-//           minLength={7}
-//           required
-//         />
-//         <button className={css.buttonLogin} type="submit">
-//           Log In
-//         </button>
-//       </form>
-//     </div>
-//   );
-// }
-
-// export default LoginForm;
