@@ -17,7 +17,6 @@ export const fetchTasks = createAsyncThunk(
 export const addTask = createAsyncThunk(
   'tasks/addTask',
   async (task, { rejectWithValue }) => {
-    console.log(task);
     try {
       const { data } = await $instance.post('/tasks', task);
 
