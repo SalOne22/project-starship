@@ -1,11 +1,15 @@
 .form {
-  width: 335px;
+  width: rem(335px);
   padding: rem(28px) rem(20px);
+
+  @media (min-width: $mantine-breakpoint-md) {
+    width: rem(468px);
+    padding: rem(32px);
+  }
 }
 
 .label {
   color: rgba(52, 52, 52, 0.8);
-  font-family: Inter;
   font-size: rem(12px);
   font-style: normal;
   font-weight: 500;
@@ -21,7 +25,6 @@
 }
 
 .btn {
-  padding: rem(12px) 0;
   border-radius: rem(8px);
   text-align: center;
   font-family: Inter;
@@ -29,6 +32,14 @@
   font-style: normal;
   font-weight: 600;
   line-height: 1.28571;
+}
+
+.btnLabel {
+  padding: rem(12px) 0;
+
+  @media (min-width: $mantine-breakpoint-md) {
+    padding: rem(15px) 0;
+  }
 }
 
 .btnPrimary {
@@ -53,8 +64,7 @@
   background-color: var(--mantine-color-blue-1);
 }
 
-.dialog {
-  position: fixed;
-  top: 20%;
-  left: 40.05%;
+.removeModalTitle {
+  font-weight: 700;
+  color: var(--mantine-color-red-6);
 }

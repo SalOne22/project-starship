@@ -30,7 +30,7 @@ import '@mantine/notifications/styles.css';
 function App() {
   return (
     <MantineProvider theme={theme}>
-      <Notifications position="top-right" zIndex={1000} />
+      <Notifications position="top-right" zIndex={1000} autoClose={4000} />
       <Suspense fallback={<ScreenLoader />}>
         <Routes>
           <Route path="/" element={<Layout />}>

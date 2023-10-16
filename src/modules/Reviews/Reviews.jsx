@@ -8,8 +8,6 @@ import ControlPrev from './components/ControlPrev';
 
 import css from './styles/Reviews.module.css';
 import { reviews } from './mock/reviews';
-import FeedbackBtn from '../FeedbackBtn';
-import { DPicker } from '../FeedbackBtn/components/DPicker';
 
 function Reviews() {
   return (
@@ -17,8 +15,6 @@ function Reviews() {
       <Title c="blue.4" className={css.title}>
         Reviews
       </Title>
-      <FeedbackBtn />
-      <DPicker />
       <Carousel
         slideSize={{ base: '100%', xl: '50%' }}
         slideGap={{ base: 0, xl: 24 }}
