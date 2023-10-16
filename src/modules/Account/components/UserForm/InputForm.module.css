@@ -1,0 +1,234 @@
+/* import { em } from '@mantine/core'; */
+.userWrapper {
+  position: relative;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: em(95px);
+  padding-top: rem(135px);
+
+  background-color: light-dark(
+    var(--mantine-color-white),
+    var(--mantine-color-dark-8)
+  );
+  border-radius: var(--mantine-radius-lg);
+
+  border: rem(1px) solid
+    light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-8));
+
+  @media (min-width: em(375px)) {
+    max-width: em(335px);
+    flex-direction: column;
+    margin-right: auto;
+    margin-left: auto;
+    flex-wrap: nowrap;
+  }
+
+  @media (min-width: em(768px)) {
+    margin-top: em(64px);
+    padding-top: rem(40px);
+
+    max-width: em(704px);
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding-left: em(175px);
+    padding-right: em(175px);
+  }
+}
+
+.form {
+  /* flex: 1; */
+  /* padding: var(--mantine-spacing-xl); */
+  /* padding-left: calc(var(--mantine-spacing-xl) * 2); */
+  /* border-left: 0; */
+  /* justify-items: center; */
+}
+
+.mantine-Input-input {
+  display: flex;
+  width: em(299px);
+
+  @media (min-width: em(375px)) {
+    width: em(299px);
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  @media (min-width: em(768px)) {
+    width: em(354px);
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+}
+
+input {
+  @media (min-width: em(375px)) {
+    width: em(299px);
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  @media (min-width: em(768px)) {
+    width: em(354px);
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+}
+
+.m-8fb7ebe7 {
+  @media (min-width: em(375px)) {
+    width: em(299px);
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  @media (min-width: em(768px)) {
+    width: em(354px);
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+}
+
+.fields {
+  /* @media (min-width: em(375px)) {
+   
+    max-width: em(299px);
+    height: em(42px); 
+  } */
+  margin-top: rem(-12px);
+}
+
+/* .fieldInput {
+  flex: 1;
+
+  &+& {
+    margin-left: var(--mantine-spacing-md);
+
+    @media (max-width: mantine-breakpoints-xs) {
+      margin-left: 0;
+      margin-top: var(--mantine-spacing-md);
+    }
+  }
+} */
+
+.fieldsGroup {
+  display: flex;
+
+  @media (max-width: mantine-breakpoints-xs) {
+    flex-direction: column;
+  }
+}
+
+.control {
+  @media (min-width: em(375px)) {
+    /* flex: 1; */
+    margin-bottom: em(40px);
+    margin-top: em(40px);
+    max-width: em(195px);
+    height: em(46px);
+    background-color: var(--mantine-color-blue-4);
+  }
+
+  @media (min-width: em(768px)) {
+    /* flex: 1; */
+    max-width: em(262px);
+    height: em(48px);
+    /* background-color: rgb(39, 99, 158); */
+    background-color: var(--mantine-color-blue-4);
+  }
+}
+
+------------------------------Dropzone------------ .textUsername {
+  font-size: 12px;
+  align-items: center;
+
+  @media (min-width: em(768px)) {
+    margin-bottom: em(8px);
+  }
+}
+
+.textUser {
+  margin-bottom: em(40px);
+  font-size: 12px;
+}
+
+.wrapperDropzone {
+  border: em(1px) solid grey;
+  border-radius: 50%;
+  width: em(72px);
+  height: em(72px);
+
+  @media (max-width: em(767px)) {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -2em;
+  }
+
+  @media (min-width: em(768px)) {
+    /* margin-bottom: em(40px); */
+    margin-left: auto;
+    margin-right: auto;
+    width: em(124px);
+    height: em(130px);
+  }
+}
+
+.dropzone {
+  /* border-width: rem(1px);  */
+  /* padding-bottom: rem(14px);  */
+  margin-bottom: rem(20px);
+  width: em(72px);
+  height: em(72px);
+  /* border: em(1px) solid red; */
+  border-radius: 50%;
+
+  @media (min-width: em(768px)) {
+    /* margin-bottom: em(40px); */
+    width: em(124px);
+    height: em(130px);
+  }
+}
+
+.icon {
+  border-radius: 50%;
+  color: light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-3));
+
+  @media (max-width: em(767px)) {
+    width: em(60px);
+    height: em(60px);
+  }
+
+  /* border: em(1px) solid green; */
+
+  @media (min-width: em(768px)) {
+    /* margin-bottom: em(40px); */
+    width: em(124px);
+    height: em(130px);
+  }
+}
+
+.avatarURL {
+  border-radius: 50%;
+  overflow: hidden;
+
+  @media (max-width: em(767px)) {
+    width: em(72px);
+    height: em(72px);
+  }
+
+  @media (min-width: em(768px)) {
+    width: em(124px);
+    height: em(130px);
+  }
+}
+
+.avatarURL img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Підгонює розмір зображення під відповідний контейнер */
+}
