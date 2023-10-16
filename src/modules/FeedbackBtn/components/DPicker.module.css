@@ -1,0 +1,49 @@
+.calendarHeader {
+}
+
+.calendarHeaderControl {
+  color: white;
+}
+
+.calendarHeaderLevel {
+  color: #fff;
+  text-align: center;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.2;
+  background-color: #3e85f3;
+}
+
+.levelsGroup {
+  background-color: #3e85f3;
+  border-radius: 16px;
+}
+
+.day {
+  color: #fff;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.28571;
+}
+
+.day button[data-weekend='true'] {
+  color: red !important;
+}
+
+.weekday {
+  color: #fff;
+  text-align: center;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.28571;
+}
+
+.weekdaysRow {
+  color: red;
+}

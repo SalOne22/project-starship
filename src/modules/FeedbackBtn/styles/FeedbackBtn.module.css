@@ -1,0 +1,25 @@
+.feedbackBtn {
+  color: var(--mantine-color-white);
+  background-color: var(--mantine-color-blue-4);
+  border-radius: 14px;
+  box-shadow: light-dark(4px 2px rem(16px) 0px rgba(136, 165, 191, 0.48), none);
+  padding: rem(8px) rem(20px);
+
+  font-family: Inter;
+  font-size: rem(12px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.33333;
+
+  transition: background-color 0.25s linear;
+
+  @media (min-width: $mantine-breakpoint-md) {
+    padding: rem(12px) rem(32px);
+    font-size: rem(14px);
+    line-height: 1.28571;
+  }
+}
+
+.feedbackBtn:hover {
+  background-color: var(--mantine-color-blue-5);
+}

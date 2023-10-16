@@ -1,0 +1,146 @@
+.stat__container {
+  padding-top: rem(64);
+  padding-bottom: rem(40);
+
+  @media (min-width: $mantine-breakpoint-xl) {
+    padding-top: rem(32);
+  }
+}
+
+.stat__wrapper {
+  height: rem(684);
+  border-radius: rem(16);
+
+  padding-top: rem(28);
+  padding-bottom: rem(135);
+  padding-left: rem(14);
+  padding-right: rem(14);
+
+  background-color: light-dark(
+    var(--mantine-color-dark-0),
+    var(--mantine-color-gray-7)
+  );
+
+  @media (min-width: $mantine-breakpoint-md) {
+    height: rem(854);
+
+    padding-top: rem(132);
+    padding-bottom: rem(224);
+    padding-left: rem(32);
+    padding-right: rem(32);
+  }
+
+  @media (min-width: $mantine-breakpoint-xl) {
+    height: rem(752);
+
+    padding-top: rem(134);
+    padding-bottom: rem(104);
+    padding-left: rem(114);
+    padding-right: rem(114);
+  }
+}
+
+.stat__header {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: rem(20);
+
+  margin-bottom: rem(40);
+
+  @media (min-width: $mantine-breakpoint-md) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    padding-left: rem(32);
+    padding-right: rem(32);
+  }
+
+  @media (min-width: $mantine-breakpoint-xl) {
+    padding-left: rem(40);
+    padding-right: rem(40);
+  }
+}
+
+.stat__chartWrapper {
+  height: rem(414);
+
+  padding-top: rem(40);
+  padding-bottom: rem(40);
+  padding-left: rem(14);
+  padding-right: rem(14);
+
+  border: rem(1) solid
+    light-dark(var(--mantine-color-blue-1), rgba(227, 243, 255, 0.15));
+  border-radius: rem(20);
+
+  @media (min-width: $mantine-breakpoint-md) {
+    height: rem(424);
+
+    padding-top: rem(32);
+    padding-bottom: rem(32);
+    padding-left: rem(32);
+    padding-right: rem(32);
+  }
+
+  @media (min-width: $mantine-breakpoint-xl) {
+    height: rem(440);
+
+    padding-top: rem(40);
+    padding-bottom: rem(40);
+    padding-left: rem(40);
+    padding-right: rem(40);
+  }
+}
+
+.stat__legendContainer {
+  display: flex;
+  align-items: center;
+  gap: rem(14);
+
+  @media (min-width: $mantine-breakpoint-md) {
+    gap: rem(20);
+  }
+}
+
+.stat__legendItem {
+  display: flex;
+  align-items: center;
+  gap: rem(8);
+
+  font-family: Poppins;
+  font-size: rem(16);
+  line-height: rem(18);
+  color: light-dark(var(--mantine-color-dark-6), var(--mantine-color-dark-0));
+}
+
+.stat__legendDot {
+  width: rem(8);
+  height: rem(8);
+  border-radius: rem(4);
+}
+
+.stat__legendDot_color_pink {
+  background-color: #ffd2dd;
+}
+
+.stat__legendDot_color_blue {
+  background-color: var(--mantine-color-blue-4);
+}
+
+.stat__chartTitle {
+  margin-bottom: rem(12);
+
+  color: light-dark(var(--mantine-color-dark-6), var(--mantine-color-dark-0));
+  font-family: Inter;
+  font-size: rem(14);
+  font-style: normal;
+  font-weight: 600;
+  line-height: rem(21);
+
+  @media (min-width: $mantine-breakpoint-md) {
+    margin-bottom: rem(8);
+  }
+}

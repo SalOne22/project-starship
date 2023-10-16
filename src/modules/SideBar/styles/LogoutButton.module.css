@@ -1,0 +1,28 @@
+.logout {
+  font-size: rem(14px);
+  height: rem(46px);
+  padding: 0 rem(28.5px);
+  box-shadow: 4px 2px 16px 0px rgba(136, 165, 191, 0.48);
+  max-width: fit-content;
+
+  @media (min-width: $mantine-breakpoint-md) {
+    font-size: rem(18px);
+    height: rem(56px);
+    padding: 0 rem(23px);
+  }
+}
+
+.section[data-position='right'] {
+  margin-left: rem(6px);
+
+  @media (min-width: $mantine-breakpoint-md) {
+    margin-left: rem(11px);
+  }
+}
+
+.section > svg {
+  @media (min-width: $mantine-breakpoint-md) {
+    width: rem(20px);
+    height: rem(20px);
+  }
+}

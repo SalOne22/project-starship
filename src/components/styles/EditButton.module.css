@@ -1,9 +1,9 @@
 .root {
   &[data-variant='transparent'] {
-    background-color: #e3f3ff;
+    background-color: light-dark(#e3f3ff, #353647);
     color: var(--mantine-color-blue-4);
 
-    transition: all 0.2s linear;
+    transition: all 0.25s linear;
 
     &:hover {
       color: var(--mantine-color-white);

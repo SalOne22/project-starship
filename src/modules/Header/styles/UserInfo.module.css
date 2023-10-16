@@ -1,0 +1,31 @@
+.avatar {
+  border: 1.8px solid var(--mantine-color-blue-4);
+  border-radius: 50%;
+
+  width: rem(32px);
+
+  @media (min-width: $mantine-breakpoint-md) {
+    width: rem(44px);
+    height: rem(44px);
+  }
+}
+
+.avatar > span {
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  margin: -2px;
+}
+
+.username {
+  font-size: rem(14px);
+  line-height: 1.28571;
+  text-overflow: ellipsis;
+
+  max-width: 75px;
+
+  @media (min-width: $mantine-breakpoint-md) {
+    max-width: none;
+    font-size: rem(18px);
+    line-height: 1;
+  }
+}

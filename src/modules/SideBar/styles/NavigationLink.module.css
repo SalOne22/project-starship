@@ -1,0 +1,53 @@
+.link {
+  font-weight: 600;
+
+  color: light-dark(#9a9a9a, var(--mantine-color-dark-0));
+
+  padding: rem(10px) rem(12px);
+  border-radius: rem(8px);
+
+  @media (min-width: $mantine-breakpoint-md) {
+    padding: rem(16px) rem(20px);
+  }
+}
+
+.link:hover {
+  color: light-dark(var(--mantine-color-blue-4), var(--mantine-color-dark-0));
+  background-color: light-dark(
+    var(--mantine-color-blue-0),
+    var(--mantine-color-blue-4)
+  );
+}
+
+.label {
+  font-size: rem(14px);
+  line-height: 1.2142;
+
+  @media (min-width: $mantine-breakpoint-md) {
+    font-size: rem(16px);
+    line-height: 1.1875;
+  }
+}
+
+.section {
+  margin-right: rem(8px);
+
+  @media (min-width: $mantine-breakpoint-md) {
+    margin-right: rem(10px);
+  }
+}
+
+.section > svg {
+  @media (min-width: $mantine-breakpoint-md) {
+    width: rem(24px);
+    height: rem(24px);
+  }
+}
+
+.active {
+  color: light-dark(var(--mantine-color-blue-4), var(--mantine-color-dark-0));
+  background-color: light-dark(
+    var(--mantine-color-blue-0),
+    var(--mantine-color-blue-4)
+  );
+}

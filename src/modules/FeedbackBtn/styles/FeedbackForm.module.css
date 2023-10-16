@@ -1,0 +1,79 @@
+.form {
+  width: rem(335px);
+  padding: rem(28px) rem(20px);
+
+  @media (min-width: $mantine-breakpoint-md) {
+    width: rem(468px);
+    padding: rem(32px);
+  }
+}
+
+.label {
+  color: ligh-dark(rgba(52, 52, 52, 0.8), rgba(250, 250, 250, 0.3));
+  font-size: rem(12px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.16667;
+}
+
+.labelColor {
+  color: ligh-dark(rgba(52, 52, 52, 0.8), rgba(250, 250, 250, 0.3));
+}
+
+.input {
+  color: light-dark(var(--mantine-color-dark-6), var(--mantine-color-white));
+  font-size: rem(14px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.28571;
+  background-color: light-dark(#f6f6f6, transparent);
+  border-radius: rem(8px);
+  border: light-dark(
+    1px solid transparent,
+    1px solid rgba(255, 255, 255, 0.15)
+  );
+}
+
+.btn {
+  border-radius: rem(8px);
+  text-align: center;
+  font-family: Inter;
+  font-size: rem(14px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.28571;
+}
+
+.btnPrimary {
+  color: var(--mantine-color-white);
+  background-color: var(--mantine-color-blue-4);
+
+  transition: background-color 0.25s linear;
+}
+
+.btnPrimary:hover {
+  background-color: var(--mantine-color-blue-5);
+}
+
+.btnSecondary {
+  color: light-dark(var(--mantine-color-dark-6), var(--mantine-color-white));
+  background-color: light-dark(#e5edfa, var(--mantine-color-gray-7));
+
+  transition: background-color 0.25s linear;
+}
+
+.btnSecondary:hover {
+  background-color: light-dark(
+    var(--mantine-color-blue-1),
+    var(--mantine-color-gray-8)
+  );
+}
+
+.contentModal {
+  border: 1px solid rgba(220, 227, 229, 0.8);
+}
+
+.removeModalTitle {
+  font-weight: 700;
+  color: var(--mantine-color-red-6);
+}
