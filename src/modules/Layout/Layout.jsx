@@ -45,7 +45,6 @@ function Layout() {
   }, [token, isAuthenticated, error, searchParams, dispatch]);
 
   useEffect(() => {
-    console.log(error);
     if (!error || !token) return;
 
     notifications.show({
