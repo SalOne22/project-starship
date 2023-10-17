@@ -10,10 +10,17 @@
   flex-direction: column;
   justify-content: space-between;
 
+  transition: all 300ms ease;
+  cursor: pointer;
+
   @mixin dark {
     background-color: var(--mantine-color-dark-7);
     border-color: rgba(255, 255, 255, 0.15);
   }
+}
+
+.cardBox:hover {
+  border: 1px solid rgba(69, 68, 68, 0.268);
 }
 
 .task {
@@ -28,6 +35,10 @@
   @mixin dark {
     color: var(--mantine-color-white);
   }
+}
+
+.draggedTask {
+  opacity: 0.5;
 }
 
 .avatar {
@@ -45,8 +56,15 @@
 .priority {
   height: rem(20);
   font-size: rem(10);
-  padding-left: rem(12);
-  padding-right: rem(12);
+  padding: rem(4) rem(12);
   border-radius: 4px;
   font-weight: 600;
+}
+
+.priorityText {
+  margin: 0;
+  color: var(--mantine-color-dark-1);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 12px;
 }

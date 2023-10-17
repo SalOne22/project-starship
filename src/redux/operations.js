@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { selectToken } from './slices/authSlice';
 
 export const $instance = axios.create({
   baseURL: 'https://gt-project.onrender.com/api',
@@ -62,6 +63,25 @@ export const refreshUserThunk = createAsyncThunk(
       setToken(token);
       const { data } = await $instance.get('/users/current', token); //
       return data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
+  },
+);
+
+export const updateUserData = createAsyncThunk(
+  'auth/updateUserData',
+  async (formData, thunkApi) => {
+    const token = selectToken(thunkApi.getState());
+
+    try {
+      const response = await $instance.patch('/users/edit', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }

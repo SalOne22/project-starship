@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
-function PeriodTypeSelect({ currentDate }) {
+function PeriodTypeSelect() {
   const navigate = useNavigate();
-
-  console.log(currentDate);
 
   const tabsToggler = (tabName) => {
     if (tabName === 'month') {

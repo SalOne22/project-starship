@@ -7,12 +7,18 @@
   background-color: #fff;
   border: 1px solid #dce3e5cc;
   border-radius: 8px;
+  padding: 14px 60px;
 }
 
 .weekday {
   width: calc(100% / 7);
   text-transform: uppercase;
-  margin-bottom: 15px;
+}
+
+.dayNum {
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .selectedDay {
