@@ -77,3 +77,11 @@
   font-weight: 700;
   color: var(--mantine-color-red-6);
 }
+
+.error {
+  color: var(--mantine-color-error);
+  font-size: var(
+    --input-error-size,
+    calc(var(--mantine-font-size-sm) - 0.125rem * var(--mantine-scale))
+  );
+}

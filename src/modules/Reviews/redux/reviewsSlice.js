@@ -3,11 +3,7 @@ import { findAll, findOne, create, edit, remove } from './reviewsOperations';
 
 const initialState = {
   reviews: [],
-  userReview: {
-    rating: null,
-    text: '',
-  },
-
+  userReview: null,
   isLoading: false,
   error: null,
 };
@@ -40,10 +36,7 @@ const reviewSlice = createSlice({
         ) {
           state.userReview = action.payload;
         } else {
-          state.userReview = {
-            rating: null,
-            review: '',
-          };
+          state.userReview = null;
         }
         state.isLoading = false;
         state.error = null;
