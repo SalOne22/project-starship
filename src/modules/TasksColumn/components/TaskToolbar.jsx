@@ -5,27 +5,26 @@ import {
   IconTrash,
 } from '@tabler/icons-react';
 import css from '../styles/TaskToolbar.module.css';
-// import { useDispatch } from 'react-redux';
-// import { deleteTask } from '@/modules/Calendar/redux/operations';
+import { useDispatch } from 'react-redux';
+import { deleteTask } from '@/modules/Calendar/redux/operations';
 import TaskModal from '@/modules/TaskModal/TaskModal';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
-function TaskToolbar() {
+function TaskToolbar({ task }) {
   const [isOpen, setModal] = useState(false);
 
-  const task = 'to-do';
+  const dispatch = useDispatch();
 
   const categories = ['to-do', 'in progress', 'done']
-    .filter((category) => category !== task)
+    .filter((category) => category !== task.category)
     .map((category) => {
       return category.charAt(0).toUpperCase() + category.slice(1);
     });
 
-  // const dispatch = useDispatch();
-
-  // const handleDelete = () => {
-  //  dispatch(deleteTask(task.id));
-  // }
+  const handleDelete = () => {
+    dispatch(deleteTask(task._id));
+  };
 
   const handleEdit = () => {
     setModal(true);
@@ -80,13 +79,19 @@ function TaskToolbar() {
         styles={{
           label: { alignItems: 'end' },
         }}
-        // onClick={handleDelete}
+        onClick={handleDelete}
       >
         <IconTrash size={18} className={css.icon} />
       </Button>
-      {isOpen && <TaskModal onClose={onClose} />}
+      {isOpen && (
+        <TaskModal onClose={onClose} task={task} category={task.category} />
+      )}
     </Box>
   );
 }
+
+TaskToolbar.propTypes = {
+  task: PropTypes.object,
+};
 
 export default TaskToolbar;

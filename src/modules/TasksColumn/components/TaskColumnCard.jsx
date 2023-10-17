@@ -15,6 +15,10 @@ function TaskColumnCard({ task }) {
 
     return priorityColors[priority] || '#999';
   }
+
+  const taskPriority =
+    task.priority.charAt(0).toUpperCase() + task.priority.slice(1);
+
   return (
     <li className={css.cardBox}>
       <Text className={css.task}>{task.title}</Text>
@@ -39,7 +43,7 @@ function TaskColumnCard({ task }) {
             className={css.priority}
             style={{ backgroundColor: priorityColor }}
           >
-            <p className={css.priorityText}>{task.priority}</p>
+            <p className={css.priorityText}>{taskPriority}</p>
           </Box>
         </Box>
         <TaskToolbar task={task} />
