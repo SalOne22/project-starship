@@ -1,12 +1,21 @@
+ul {
+  padding: 0;
+}
+
 .calendarDaysWrapper {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   list-style: none;
-  border: 1px solid #dce3e5cc;
+  border: 1px solid rgba(220, 227, 229, 0.8);
   border-radius: 8px;
   background-color: #fff;
   padding-left: 0;
+
+  @mixin dark {
+    background-color: var(--mantine-color-gray-7);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
 }
 
 .calendarDay {
@@ -14,18 +23,80 @@
   width: calc((100% - 1px) / 7);
   text-align: right;
   padding: 14px;
+
+  transition: all 300ms ease;
 }
+
+.calendarDay:hover {
+  cursor: pointer;
+
+  background-color: var(--mantine-color-gray-1);
+
+  box-shadow: 3px 3px 34px -16px rgba(95, 100, 125, 1);
+
+  @mixin dark {
+    background-color: var(--mantine-color-gray-8);
+  }
+}
+
+.calendarDay > span {
+  transition: all 300ms ease;
+}
+
+.calendarDay:hover > span {
+  font-weight: 700;
+  text-shadow: 0px 0px 8px #9c9c9c;
+}
+
+.tasksList::-webkit-scrollbar {
+  margin-left: 10px;
+  width: 3px;
+}
+
+.tasksList::-webkit-scrollbar-thumb {
+  background-color: var(--mantine-color-gray-5);
+  border-radius: 10px;
+
+  @mixin dark {
+    background-color: var(--mantine-color-gray-5);
+  }
+}
+
+.tasksList::-webkit-scrollbar-thumb:hover {
+  background-color: var(--mantine-color-gray-4);
+}
+
+.tasksList {
+  overflow-y: scroll;
+  max-height: 90px;
+  padding-top: 7px;
+}
+
 .calendarDay:nth-child(7n) {
-  border-left: 1px solid #dce3e5cc;
-  border-bottom: 1px solid #dce3e5cc;
+  border-left: 1px solid rgba(220, 227, 229, 0.8);
+  border-bottom: 1px solid rgba(220, 227, 229, 0.8);
+
+  @mixin dark {
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
 }
 .calendarDay:nth-child(7n + 1) {
-  border-bottom: 1px solid #dce3e5cc;
+  border-bottom: 1px solid rgba(220, 227, 229, 0.8);
+
+  @mixin dark {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
 }
 
 .calendarDay:not(:nth-child(7n)):not(:nth-child(7n + 1)) {
-  border-left: 1px solid #dce3e5cc;
-  border-bottom: 1px solid #dce3e5cc;
+  border-left: 1px solid rgba(220, 227, 229, 0.8);
+  border-bottom: 1px solid rgba(220, 227, 229, 0.8);
+
+  @mixin dark {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+  }
 }
 
 .selectedDay {
@@ -39,4 +110,40 @@
 
 .otherDays {
   color: #ccc;
+
+  @mixin dark {
+    color: #ccccc01a;
+  }
+}
+
+.task {
+  overflow: hidden;
+  margin-bottom: 5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.4;
+  display: block;
+  text-align: left;
+  text-transform: initial;
+  padding: 4px 4px 4px 10px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  margin-right: 5px;
+}
+
+.task.low {
+  background-color: #ceeefd;
+  color: #3e85f3;
+}
+
+.task.medium {
+  background-color: #fcf0d4;
+  color: #f3b249;
+}
+
+.task.high {
+  background-color: #ffd2dd;
+  color: #ea3d65;
 }

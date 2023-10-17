@@ -8,6 +8,11 @@
   border: 1px solid #dce3e5cc;
   border-radius: 8px;
   padding: 14px 60px;
+
+  @mixin dark {
+    background-color: var(--mantine-color-gray-7);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
 }
 
 .weekday {

@@ -2,6 +2,7 @@ import { useTasks } from '../Calendar/hooks/useTasks';
 import PropTypes from 'prop-types';
 import css from './CalendarDay.module.css';
 import { useNavigate } from 'react-router-dom';
+import clsx from 'clsx';
 
 const CalendarDay = ({ day, changeCurrentDate }) => {
   const { tasks } = useTasks();
@@ -68,9 +69,14 @@ const CalendarDay = ({ day, changeCurrentDate }) => {
             </span>
 
             {day.tasks.length > 0 && (
-              <ul>
+              <ul className={css.tasksList}>
                 {day.tasks.map((task) => (
-                  <li key={task._id}>{task.title}</li>
+                  <li
+                    key={task._id}
+                    className={clsx(css.task, css[task.priority])}
+                  >
+                    {task.title}
+                  </li>
                 ))}
               </ul>
             )}
