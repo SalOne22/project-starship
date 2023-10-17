@@ -4,7 +4,7 @@ function handleError(error) {
   notifications.show({
     title: 'Error',
     message: error,
-    color: 'blue',
+    color: 'red',
   });
 }
 export default handleError;

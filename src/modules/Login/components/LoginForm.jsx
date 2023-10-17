@@ -8,13 +8,18 @@ import {
   Group,
   Button,
   Stack,
+  Divider,
+  Loader,
 } from '@mantine/core';
 import { GoogleButton } from '@/modules/Register/components/GoogleButton';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUserThunk } from '@/redux/operations';
+import css from './LoginForm.module.css';
+import { selectLoading } from '@/redux/slices/authSlice.js';
 
-function LoginForm(props) {
+function LoginForm() {
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectLoading);
 
   const form = useForm({
     initialValues: {
@@ -26,7 +31,7 @@ function LoginForm(props) {
       email: (val) =>
         /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(val)
           ? null
-          : 'Invalid email',
+          : 'Word before @ and domain after the dot',
 
       password: (val) =>
         val.length < 6 ? 'Password should include at least 6 characters' : null,
@@ -37,45 +42,50 @@ function LoginForm(props) {
     window.location.href = 'https://gt-project.onrender.com/api/auth/google';
   }
 
-  const wrappLoginFormStyle = {
-    width: '335px',
-  };
-
   return (
-    <Paper style={wrappLoginFormStyle} radius="md" p="xl" withBorder {...props}>
-      <Text size="lg" fw={500}>
+    <Paper className={css.wrappForm}>
+      <Text className={css.titleForm} c="blue.4">
         Log In
       </Text>
 
-      <Group grow mb="md" mt="md">
-        <GoogleButton onClick={handleGoogleButtonClick} radius="xl">
+      <Group className={css.wrappGoogleButton} grow>
+        <GoogleButton
+          className={css.googleButton}
+          onClick={handleGoogleButtonClick}
+          radius="xl"
+        >
           Google
         </GoogleButton>
       </Group>
-
+      <Divider
+        className={css.divider}
+        label="Or continue with email"
+        labelPosition="center"
+      />
       {/* <form onSubmit={form.onSubmit}> */}
       <form
+        className={css.form}
         onSubmit={form.onSubmit((values) => {
           dispatch(loginUserThunk(values));
         })}
       >
-        <Stack>
+        <Stack className={css.stack}>
           <TextInput
-            required
+            withAsterisk
             label="Email"
-            placeholder="hello@mantine.dev"
+            placeholder="Enter email"
             value={form.values.email}
             onChange={(event) =>
               form.setFieldValue('email', event.currentTarget.value)
             }
             error={form.errors.email && 'Invalid email'}
-            radius="md"
+            className={css.input}
           />
 
           <PasswordInput
-            required
+            withAsterisk
             label="Password"
-            placeholder="Your password"
+            placeholder="Enter password"
             value={form.values.password}
             onChange={(event) =>
               form.setFieldValue('password', event.currentTarget.value)
@@ -84,17 +94,42 @@ function LoginForm(props) {
               form.errors.password &&
               'Password should include at least 6 characters'
             }
-            radius="md"
+            className={css.input}
           />
         </Stack>
 
-        <Group justify="space-between" mt="xl">
+        <Group className={css.wrappButton}>
           <Anchor component="button" size="sm">
             Forgot password?
           </Anchor>
-          <Button type="submit" radius="xl">
-            Log in
-          </Button>
+          {isLoading ? (
+            <Loader c="blue.4" />
+          ) : (
+            <Button
+              className={css.button}
+              // rightSection={<IconL size={18} />}
+              rightSection={
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 19 18"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M11.75 2.25H12.65C13.9101 2.25 14.5402 2.25 15.0215 2.49524C15.4448 2.71095 15.789 3.05516 16.0048 3.47852C16.25 3.95982 16.25 4.58988 16.25 5.85V12.15C16.25 13.4101 16.25 14.0402 16.0048 14.5215C15.789 14.9448 15.4448 15.289 15.0215 15.5048C14.5402 15.75 13.9101 15.75 12.65 15.75H11.75M8 5.25L11.75 9M11.75 9L8 12.75M11.75 9L2.75 9"
+                    stroke="white"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              }
+              type="submit"
+            >
+              <Text className={css.textButtonForm}>Log In</Text>
+            </Button>
+          )}
         </Group>
       </form>
     </Paper>
