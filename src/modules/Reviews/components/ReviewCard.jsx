@@ -3,36 +3,45 @@ import css from '../styles/ReviewCard.module.css';
 import PropTypes from 'prop-types';
 
 function ReviewCard({ review }) {
+  const {
+    rating,
+    text,
+    owner: { username, avatarUrl },
+  } = review;
+
   return (
     <Box className={css.wrap}>
       <Group gap={18} mb={24}>
-        <Avatar
-          variant="transparent"
-          radius="xl"
-          size={50}
-          src={review.avaUrl}
-        />
-        <Stack align="flex-start" justify="flex-start" gap={14}>
+        {avatarUrl ? (
+          <Avatar variant="transparent" radius="xl" size={50} src={avatarUrl} />
+        ) : (
+          <Avatar color="teal" radius="xl" size={50}>
+            {username[0]}
+          </Avatar>
+        )}
+
+        <Stack align="flex-start" justify="flex-start" gap={13}>
           <Title order={3} className={css.username} c="dark.6">
-            {review.username}
+            {username}
           </Title>
-          <Rating value={review.rating} color="orange.4" readOnly />
+          <Rating value={rating} color="orange.4" readOnly />
         </Stack>
       </Group>
       <Text className={css.text} pl={{ base: 0, md: 68 }}>
-        {review.text}
+        {text}
       </Text>
     </Box>
   );
 }
 
 ReviewCard.propTypes = {
-  review: PropTypes.exact({
-    id: PropTypes.number,
-    avaUrl: PropTypes.string,
-    username: PropTypes.string,
+  review: PropTypes.shape({
     rating: PropTypes.number,
     text: PropTypes.string,
+    owner: PropTypes.shape({
+      avatarUrl: PropTypes.string,
+      username: PropTypes.string,
+    }),
   }),
 };
 

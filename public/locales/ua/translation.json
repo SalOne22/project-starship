@@ -7,8 +7,14 @@
     "cancel": "Скасувати",
     "rating": "Рейтинг",
     "review": "Відгук",
+    "reviews": "Відгуки",
     "enterText": "Введіть повідомлення...",
     "closeModal": "Закрити модальне вікно"
+  },
+  "reviews": {
+    "notification": {
+      "fetchError": "На жаль, ми не можемо завантажити відгуки!"
+    }
   },
   "feedback": {
     "form": {

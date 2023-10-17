@@ -63,6 +63,7 @@ function FeedbackForm({ onClose }) {
 
     if (!text || !text.trim()) {
       setIsErrorText(true);
+      setIsErrorTextMsg(t('feedback.form.requiredField'));
       return;
     }
 
