@@ -1,7 +1,12 @@
 .sectionhero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding-top: rem(256px);
   padding-bottom: rem(256px);
   background: var(--mantine-color-blue-4);
+  height: 100dvh;
 
   @media (min-width: $mantine-breakpoint-md) {
     padding-top: rem(331px);
