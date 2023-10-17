@@ -6,10 +6,15 @@ import { ScrollArea } from '@mantine/core';
 import TaskColumnCard from './components/TaskColumnCard';
 import PropTypes from 'prop-types';
 import TaskModal from '../TaskModal';
+import { useDrop } from 'react-dnd';
+import { editTask } from '../Calendar/redux/operations';
+import { useDispatch } from 'react-redux';
+import clsx from 'clsx';
 
 function TasksColumn({ category, tasks }) {
   const [tasksToMap, setTasksToMap] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const onOpen = () => {
     setIsOpen(true);
@@ -18,6 +23,28 @@ function TasksColumn({ category, tasks }) {
   const onClose = () => {
     setIsOpen(false);
   };
+
+  const addItemToSection = (task) => {
+    const newTask = {
+      _id: task._id,
+      title: task.title,
+      start: task.start,
+      end: task.end,
+      priority: task.priority,
+      date: task.date,
+      category,
+    };
+
+    dispatch(editTask(newTask));
+  };
+
+  const [{ isOver }, drop] = useDrop(() => ({
+    accept: 'task',
+    drop: (item) => addItemToSection(item.task),
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+    }),
+  }));
 
   useEffect(() => {
     if (category === 'to-do') {
@@ -39,7 +66,10 @@ function TasksColumn({ category, tasks }) {
   }, [tasks]);
 
   return (
-    <div className={css.tasksColumn}>
+    <div
+      ref={drop}
+      className={clsx(css.tasksColumn, isOver ? css.boxDrop : null)}
+    >
       <ColumnHeadBar title={category} onClick={onOpen} />
       <ScrollArea.Autosize mah={368} offsetScrollbars scrollHideDelay={250}>
         {tasksToMap.length > 0 &&

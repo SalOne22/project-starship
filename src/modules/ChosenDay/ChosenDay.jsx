@@ -6,6 +6,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import DatePaginator from '../CalendarToolbar/components/DatePaginator';
 
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+
 const categories = ['to-do', 'in progress', 'done'];
 
 function ChosenDay() {
@@ -50,16 +53,19 @@ function ChosenDay() {
         isDisabled={false}
       />
       <DatePaginator currentDate={currentDate} isDateShown={true} />
-      <div className={css.chosenDay}>
-        {categories.map((t) => (
-          <TasksColumn
-            key={t}
-            category={t}
-            date={currentDay}
-            tasks={tasksByDay}
-          />
-        ))}
-      </div>
+
+      <DndProvider backend={HTML5Backend}>
+        <div className={css.chosenDay}>
+          {categories.map((t) => (
+            <TasksColumn
+              key={t}
+              category={t}
+              date={currentDay}
+              tasks={tasksByDay}
+            />
+          ))}
+        </div>
+      </DndProvider>
     </div>
   );
 }

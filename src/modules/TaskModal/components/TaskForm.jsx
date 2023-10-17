@@ -11,6 +11,7 @@ import { notifications } from '@mantine/notifications';
 import { useParams } from 'react-router';
 import PropTypes from 'prop-types';
 import { addTask, editTask } from '@/modules/Calendar/redux/operations';
+import theme from '@/theme';
 
 const validationSchema = Yup.object({
   title: Yup.string()
@@ -43,6 +44,7 @@ const TaskForm = ({ category, onClose, task }) => {
   const [selectedPriority, setSelectedPriority] = useState(
     task ? task.priority : 'low',
   );
+
   const dispatch = useDispatch();
 
   const { currentDay } = useParams();
@@ -51,59 +53,34 @@ const TaskForm = ({ category, onClose, task }) => {
     setSelectedPriority(event.target.value);
   };
 
-  const handleSubmitAdd = (values) => {
-    try {
-      values.priority = selectedPriority;
-      values.date = currentDay;
-      values.category = category;
-
-      notifications.show({
-        message: 'New task successfully created!',
-        autoClose: 3000,
-        color: 'green',
-      });
-
-      dispatch(addTask({ ...values }));
-      onClose();
-    } catch (error) {
-      console.error(error);
-      notifications.show({
-        message: 'Something went wrong, please try again later',
-        autoClose: 3000,
-        color: 'red',
-      });
-    }
-  };
-
-  const handleSubmitEdit = (values) => {
-    try {
-      values.priority = selectedPriority;
-      values.date = currentDay;
-      values.category = category;
-
-      notifications.show({
-        message: 'Task successfully edited!',
-        autoClose: 3000,
-        color: 'green',
-      });
-
-      dispatch(editTask({ ...values, _id: task._id }));
-      onClose();
-    } catch (error) {
-      notifications.show({
-        message: 'Something went wrong, please try again later',
-        autoClose: 3000,
-        color: 'red',
-      });
-    }
-  };
-
   const handleSubmit = (values) => {
-    if (!task) {
-      handleSubmitAdd(values);
-    } else {
-      handleSubmitEdit(values);
+    values.priority = selectedPriority;
+    values.date = currentDay;
+    values.category = category;
+
+    try {
+      if (task) {
+        dispatch(editTask({ ...values, _id: task._id }));
+        handleMessage('Task successfully edited!', theme.colors.green[6]);
+      } else {
+        dispatch(addTask({ ...values }));
+        handleMessage('Task successfully created!', theme.colors.green[6]);
+      }
+      onClose();
+    } catch {
+      handleMessage(
+        'Something went wrong, please try again later',
+        theme.colors.red[6],
+      );
     }
+  };
+
+  const handleMessage = (message, color) => {
+    notifications.show({
+      message: message,
+      autoClose: 3000,
+      color: color,
+    });
   };
 
   return (
