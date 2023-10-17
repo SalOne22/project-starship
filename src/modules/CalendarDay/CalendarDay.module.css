@@ -8,7 +8,7 @@ ul {
   flex-wrap: wrap;
   list-style: none;
   border: 1px solid rgba(220, 227, 229, 0.8);
-  border-radius: 8px;
+  border-radius: rem(8px);
   background-color: var(--mantine-color-white);
   padding-left: 0;
   overflow: hidden;
@@ -20,10 +20,10 @@ ul {
 }
 
 .calendarDay {
-  height: 144px;
+  height: rem(144px);
   width: calc((100% - 1px) / 7);
   text-align: right;
-  padding: 14px;
+  padding: rem(14px);
 
   transition: all 300ms ease;
 }
@@ -49,13 +49,13 @@ ul {
 }
 
 .tasksList::-webkit-scrollbar {
-  margin-left: 10px;
+  margin-left: rem(10px);
   width: 3px;
 }
 
 .tasksList::-webkit-scrollbar-thumb {
   background-color: var(--mantine-color-gray-5);
-  border-radius: 10px;
+  border-radius: rem(10px);
 
   @mixin dark {
     background-color: var(--mantine-color-gray-5);
@@ -68,7 +68,7 @@ ul {
 
 .tasksList {
   overflow-y: scroll;
-  max-height: 90px;
+  max-height: rem(90px);
   padding-top: 7px;
 }
 
@@ -100,11 +100,11 @@ ul {
 }
 
 .selectedDay {
-  padding: 4px 8px;
-  border-radius: 8px;
-  color: var(--mantine-color-blue-4);
-  line-height: 18px;
-  font-size: 16px;
+  padding: 4px rem(8px);
+  border-radius: rem(8px);
+  background-color: var(--mantine-color-blue-4);
+  line-height: rem(18px);
+  font-size: rem(16px);
   color: var(--mantine-color-white);
 }
 
@@ -121,14 +121,14 @@ ul {
   margin-bottom: 5px;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 10px;
+  font-size: rem(10px);
   font-weight: 700;
   line-height: 1.4;
   display: block;
   text-align: left;
   text-transform: initial;
-  padding: 4px 4px 4px 10px;
-  border-radius: 8px;
+  padding: 4px 4px 4px rem(10px);
+  border-radius: rem(8px);
   border: 1px solid transparent;
   margin-right: 5px;
 }

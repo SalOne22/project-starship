@@ -29,7 +29,7 @@ const ChosenMonth = () => {
   const nextMonth = () => {
     setIsDisabled(false);
     const nextMonthDate = new Date(currentDate);
-    nextMonthDate.setDate(nextMonthDate.getDate() + 1);
+    nextMonthDate.setMonth(nextMonthDate.getMonth() + 1);
     setCurrentDate(nextMonthDate);
     navigate(
       `/calendar/month/${new Date(nextMonthDate).toISOString().slice(0, 7)}`,
@@ -38,7 +38,7 @@ const ChosenMonth = () => {
 
   const prevMonth = () => {
     const currentDateCopy = new Date(currentDate);
-    currentDateCopy.setDate(currentDateCopy.getDate() - 1);
+    currentDateCopy.setMonth(currentDateCopy.getMonth() - 1);
     setCurrentDate(currentDateCopy);
 
     const today = new Date();
