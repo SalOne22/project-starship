@@ -9,8 +9,9 @@ ul {
   list-style: none;
   border: 1px solid rgba(220, 227, 229, 0.8);
   border-radius: 8px;
-  background-color: #fff;
+  background-color: var(--mantine-color-white);
   padding-left: 0;
+  overflow: hidden;
 
   @mixin dark {
     background-color: var(--mantine-color-gray-7);
@@ -27,7 +28,7 @@ ul {
   transition: all 300ms ease;
 }
 
-.calendarDay:hover {
+.currentMonth.calendarDay:hover {
   cursor: pointer;
 
   background-color: var(--mantine-color-gray-1);
@@ -43,9 +44,8 @@ ul {
   transition: all 300ms ease;
 }
 
-.calendarDay:hover > span {
+.currentMonth.calendarDay:hover > span {
   font-weight: 700;
-  text-shadow: 0px 0px 8px #9c9c9c;
 }
 
 .tasksList::-webkit-scrollbar {
@@ -102,17 +102,17 @@ ul {
 .selectedDay {
   padding: 4px 8px;
   border-radius: 8px;
-  background-color: #3e85f3;
+  color: var(--mantine-color-blue-4);
   line-height: 18px;
   font-size: 16px;
-  color: #fff;
+  color: var(--mantine-color-white);
 }
 
 .otherDays {
-  color: #ccc;
+  color: var(--mantine-color-gray-0);
 
   @mixin dark {
-    color: #ccccc01a;
+    color: rgba(204, 204, 192, 0.1);
   }
 }
 
@@ -134,16 +134,16 @@ ul {
 }
 
 .task.low {
-  background-color: #ceeefd;
-  color: #3e85f3;
+  background-color: var(--mantine-color-blue-0);
+  color: var(--mantine-color-blue-4);
 }
 
 .task.medium {
-  background-color: #fcf0d4;
-  color: #f3b249;
+  background-color: var(--mantine-color-orange-0);
+  color: var(--mantine-color-orange-10);
 }
 
 .task.high {
-  background-color: #ffd2dd;
-  color: #ea3d65;
+  background-color: var(--mantine-color-red-0);
+  color: var(--mantine-color-red-10);
 }

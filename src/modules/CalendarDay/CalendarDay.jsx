@@ -57,7 +57,10 @@ const CalendarDay = ({ day, changeCurrentDate }) => {
             onClick={() => {
               day.currentMonth && handleDayClick(day);
             }}
-            className={css.calendarDay}
+            className={clsx(
+              css.calendarDay,
+              day.currentMonth ? css.currentMonth : null,
+            )}
             key={day.date}
           >
             <span
