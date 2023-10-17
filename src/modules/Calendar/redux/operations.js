@@ -33,7 +33,7 @@ export const deleteTask = createAsyncThunk(
     try {
       const { data } = await $instance.delete(`/tasks/${taskId}`);
 
-      return data;
+      return { ...data, _id: taskId };
     } catch (error) {
       return rejectWithValue(error.message);
     }

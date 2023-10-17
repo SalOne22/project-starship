@@ -5,27 +5,49 @@ import {
   IconTrash,
 } from '@tabler/icons-react';
 import css from '../styles/TaskToolbar.module.css';
-// import { useDispatch } from 'react-redux';
-// import { deleteTask } from '@/modules/Calendar/redux/operations';
+import { useDispatch } from 'react-redux';
+import { deleteTask, editTask } from '@/modules/Calendar/redux/operations';
 import TaskModal from '@/modules/TaskModal/TaskModal';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
+import { notifications } from '@mantine/notifications';
+import theme from '@/theme';
 
-function TaskToolbar() {
+function TaskToolbar({ task }) {
   const [isOpen, setModal] = useState(false);
 
-  const task = 'to-do';
+  const dispatch = useDispatch();
 
   const categories = ['to-do', 'in progress', 'done']
-    .filter((category) => category !== task)
+    .filter((category) => category !== task.category)
     .map((category) => {
       return category.charAt(0).toUpperCase() + category.slice(1);
     });
 
-  // const dispatch = useDispatch();
+  const handleDelete = () => {
+    try {
+      dispatch(deleteTask(task._id));
+      handleMessage('Task is successfully delated', theme.colors.green[6]);
+    } catch {
+      handleMessage(
+        'Something went wrong, please try again later',
+        theme.colors.red[6],
+      );
+    }
+  };
 
-  // const handleDelete = () => {
-  //  dispatch(deleteTask(task.id));
-  // }
+  const handleChangePriority = (newCategory) => {
+    try {
+      const newCategoryEdited =
+        newCategory.charAt(0).toLowerCase() + newCategory.slice(1);
+      dispatch(editTask({ ...task, category: newCategoryEdited }));
+    } catch {
+      handleMessage(
+        'Something went wrong, please try again later',
+        theme.colors.red[6],
+      );
+    }
+  };
 
   const handleEdit = () => {
     setModal(true);
@@ -33,6 +55,14 @@ function TaskToolbar() {
 
   const onClose = () => {
     setModal(false);
+  };
+
+  const handleMessage = (message, color) => {
+    notifications.show({
+      message: message,
+      autoClose: 3000,
+      color: color,
+    });
   };
 
   return (
@@ -46,17 +76,23 @@ function TaskToolbar() {
               label: { alignItems: 'end' },
             }}
           >
-            <IconCircleArrowRight size={18} className={css.icon} />
+            <IconCircleArrowRight size={20} className={css.icon} />
           </Button>
         </Menu.Target>
 
-        <Menu.Dropdown className={css.dropdown} left={210}>
+        <Menu.Dropdown className={css.dropdown}>
           <ul className={css.categoryList}>
-            <li className={css.categoryItem}>
+            <li
+              className={css.categoryItem}
+              onClick={() => handleChangePriority(categories[0])}
+            >
               {categories[0]}
               <IconCircleArrowRight size={20} className={css.icon} />
             </li>
-            <li className={css.categoryItem}>
+            <li
+              className={css.categoryItem}
+              onClick={() => handleChangePriority(categories[1])}
+            >
               {categories[1]}
               <IconCircleArrowRight size={20} className={css.icon} />
             </li>
@@ -72,7 +108,7 @@ function TaskToolbar() {
         }}
         onClick={handleEdit}
       >
-        <IconPencil size={18} className={css.icon} />
+        <IconPencil size={20} className={css.icon} />
       </Button>
       <Button
         variant="transparent"
@@ -80,13 +116,19 @@ function TaskToolbar() {
         styles={{
           label: { alignItems: 'end' },
         }}
-        // onClick={handleDelete}
+        onClick={handleDelete}
       >
-        <IconTrash size={18} className={css.icon} />
+        <IconTrash size={20} className={css.icon} />
       </Button>
-      {isOpen && <TaskModal onClose={onClose} />}
+      {isOpen && (
+        <TaskModal onClose={onClose} task={task} category={task.category} />
+      )}
     </Box>
   );
 }
+
+TaskToolbar.propTypes = {
+  task: PropTypes.object,
+};
 
 export default TaskToolbar;

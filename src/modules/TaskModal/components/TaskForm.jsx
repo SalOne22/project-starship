@@ -1,6 +1,6 @@
 import { Box, Button } from '@mantine/core';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { IconPlus } from '@tabler/icons-react';
+import { IconPlus, IconPencil } from '@tabler/icons-react';
 import clsx from 'clsx';
 import * as Yup from 'yup';
 import { useState } from 'react';
@@ -10,7 +10,8 @@ import { useDispatch } from 'react-redux';
 import { notifications } from '@mantine/notifications';
 import { useParams } from 'react-router';
 import PropTypes from 'prop-types';
-import { addTask } from '@/modules/Calendar/redux/operations';
+import { addTask, editTask } from '@/modules/Calendar/redux/operations';
+import theme from '@/theme';
 
 const validationSchema = Yup.object({
   title: Yup.string()
@@ -39,51 +40,56 @@ const validationSchema = Yup.object({
   priority: Yup.string(),
 });
 
-const TaskForm = ({ category, onClose }) => {
-  const [selectedPriority, setSelectedPriority] = useState('low');
+const TaskForm = ({ category, onClose, task }) => {
+  const [selectedPriority, setSelectedPriority] = useState(
+    task ? task.priority : 'low',
+  );
+
   const dispatch = useDispatch();
 
   const { currentDay } = useParams();
-
-  // const { tasks } = useTasks();
-  // dispatch(fetchTasks());
 
   const handlePriorityChange = (event) => {
     setSelectedPriority(event.target.value);
   };
 
-  const handleSubmit = (values, { resetForm }) => {
+  const handleSubmit = (values) => {
+    values.priority = selectedPriority;
+    values.date = currentDay;
+    values.category = category;
+
     try {
-      values.priority = selectedPriority;
-      values.date = currentDay;
-      values.category = category;
-
-      notifications.show({
-        message: 'New task successfully created!',
-        autoClose: 3000,
-        color: 'green',
-      });
-
-      resetForm();
-      dispatch(addTask({ ...values }));
+      if (task) {
+        dispatch(editTask({ ...values, _id: task._id }));
+        handleMessage('Task successfully edited!', theme.colors.green[6]);
+      } else {
+        dispatch(addTask({ ...values }));
+        handleMessage('Task successfully created!', theme.colors.green[6]);
+      }
       onClose();
-    } catch (error) {
-      console.error(error);
-      notifications.show({
-        message: 'Something went wrong, please try again later',
-        autoClose: 3000,
-        color: 'red',
-      });
+    } catch {
+      handleMessage(
+        'Something went wrong, please try again later',
+        theme.colors.red[6],
+      );
     }
+  };
+
+  const handleMessage = (message, color) => {
+    notifications.show({
+      message: message,
+      autoClose: 3000,
+      color: color,
+    });
   };
 
   return (
     <Box className={css.formWrapper}>
       <Formik
         initialValues={{
-          title: '',
-          start: '',
-          end: '',
+          title: task ? task.title : '',
+          start: task ? task.start : '',
+          end: task ? task.end : '',
         }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
@@ -171,10 +177,18 @@ const TaskForm = ({ category, onClose }) => {
             </label>
           </Box>
           <Box className={css.buttonWrap}>
-            <Button className={clsx(css.button, css.addButton)} type="submit">
-              <IconPlus size={20} />
-              Add
-            </Button>
+            {task ? (
+              <Button className={clsx(css.button, css.addButton)} type="submit">
+                <IconPencil size={18} />
+                Edit
+              </Button>
+            ) : (
+              <Button className={clsx(css.button, css.addButton)} type="submit">
+                <IconPlus size={18} />
+                Add
+              </Button>
+            )}
+
             <Button
               className={[css.button, css.cancelButton]}
               type="button"
@@ -192,6 +206,7 @@ const TaskForm = ({ category, onClose }) => {
 TaskForm.propTypes = {
   category: PropTypes.string,
   onClose: PropTypes.func,
+  task: PropTypes.object,
 };
 
 export default TaskForm;
