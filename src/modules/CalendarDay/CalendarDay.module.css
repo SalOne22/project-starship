@@ -1,12 +1,22 @@
+ul {
+  padding: 0;
+}
+
 .calendarDaysWrapper {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   list-style: none;
-  border: 1px solid #dce3e5cc;
+  border: 1px solid rgba(220, 227, 229, 0.8);
   border-radius: 8px;
-  background-color: #fff;
+  background-color: var(--mantine-color-white);
   padding-left: 0;
+  overflow: hidden;
+
+  @mixin dark {
+    background-color: var(--mantine-color-gray-7);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
 }
 
 .calendarDay {
@@ -14,29 +24,126 @@
   width: calc((100% - 1px) / 7);
   text-align: right;
   padding: 14px;
+
+  transition: all 300ms ease;
 }
+
+.currentMonth.calendarDay:hover {
+  cursor: pointer;
+
+  background-color: var(--mantine-color-gray-1);
+
+  box-shadow: 3px 3px 34px -16px rgba(95, 100, 125, 1);
+
+  @mixin dark {
+    background-color: var(--mantine-color-gray-8);
+  }
+}
+
+.calendarDay > span {
+  transition: all 300ms ease;
+}
+
+.currentMonth.calendarDay:hover > span {
+  font-weight: 700;
+}
+
+.tasksList::-webkit-scrollbar {
+  margin-left: 10px;
+  width: 3px;
+}
+
+.tasksList::-webkit-scrollbar-thumb {
+  background-color: var(--mantine-color-gray-5);
+  border-radius: 10px;
+
+  @mixin dark {
+    background-color: var(--mantine-color-gray-5);
+  }
+}
+
+.tasksList::-webkit-scrollbar-thumb:hover {
+  background-color: var(--mantine-color-gray-4);
+}
+
+.tasksList {
+  overflow-y: scroll;
+  max-height: 90px;
+  padding-top: 7px;
+}
+
 .calendarDay:nth-child(7n) {
-  border-left: 1px solid #dce3e5cc;
-  border-bottom: 1px solid #dce3e5cc;
+  border-left: 1px solid rgba(220, 227, 229, 0.8);
+  border-bottom: 1px solid rgba(220, 227, 229, 0.8);
+
+  @mixin dark {
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
 }
 .calendarDay:nth-child(7n + 1) {
-  border-bottom: 1px solid #dce3e5cc;
+  border-bottom: 1px solid rgba(220, 227, 229, 0.8);
+
+  @mixin dark {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
 }
 
 .calendarDay:not(:nth-child(7n)):not(:nth-child(7n + 1)) {
-  border-left: 1px solid #dce3e5cc;
-  border-bottom: 1px solid #dce3e5cc;
+  border-left: 1px solid rgba(220, 227, 229, 0.8);
+  border-bottom: 1px solid rgba(220, 227, 229, 0.8);
+
+  @mixin dark {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+  }
 }
 
 .selectedDay {
   padding: 4px 8px;
   border-radius: 8px;
-  background-color: #3e85f3;
+  color: var(--mantine-color-blue-4);
   line-height: 18px;
   font-size: 16px;
-  color: #fff;
+  color: var(--mantine-color-white);
 }
 
 .otherDays {
-  color: #ccc;
+  color: var(--mantine-color-gray-0);
+
+  @mixin dark {
+    color: rgba(204, 204, 192, 0.1);
+  }
+}
+
+.task {
+  overflow: hidden;
+  margin-bottom: 5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.4;
+  display: block;
+  text-align: left;
+  text-transform: initial;
+  padding: 4px 4px 4px 10px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  margin-right: 5px;
+}
+
+.task.low {
+  background-color: var(--mantine-color-blue-0);
+  color: var(--mantine-color-blue-4);
+}
+
+.task.medium {
+  background-color: var(--mantine-color-orange-0);
+  color: var(--mantine-color-orange-10);
+}
+
+.task.high {
+  background-color: var(--mantine-color-red-0);
+  color: var(--mantine-color-red-10);
 }
