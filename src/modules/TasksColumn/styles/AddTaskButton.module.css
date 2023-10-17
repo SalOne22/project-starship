@@ -6,9 +6,21 @@
   align-items: center;
   margin-top: 32px;
   justify-content: center;
-  border: 1px dashed #3e85f3;
+  border: 1px dashed var(--mantine-color-blue-4);
   border-radius: 8px;
-  background-color: #e3f3ff;
+  background-color: var(--mantine-color-blue-0);
   font-weight: 600;
-  line-height: 18px;
+  line-height: rem(18px);
+  transition: background-color 350ms ease;
+  @mixin dark {
+    background-color: var(--mantine-color-blue-4);
+    border: 1px transparent;
+  }
+}
+
+.addButton:hover {
+  @mixin dark {
+    background-color: var(--mantine-color-blue-5);
+  }
+  background-color: var(--mantine-color-blue-1);
 }

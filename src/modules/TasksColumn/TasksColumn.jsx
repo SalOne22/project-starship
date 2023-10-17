@@ -2,14 +2,13 @@ import { useEffect, useState } from 'react';
 import AddTaskButton from './components/AddTaskButton';
 import ColumnHeadBar from './components/ColumnHeadBar';
 import css from './styles/TaskColumn.module.css';
-import { ScrollArea } from '@mantine/core';
-import TaskColumnCard from './components/TaskColumnCard';
 import PropTypes from 'prop-types';
 import TaskModal from '../TaskModal';
 import { useDrop } from 'react-dnd';
 import { editTask } from '../Calendar/redux/operations';
 import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
+import ColumnsTasksList from './components/ColumnsTasksList';
 
 function TasksColumn({ category, tasks }) {
   const [tasksToMap, setTasksToMap] = useState([]);
@@ -71,13 +70,7 @@ function TasksColumn({ category, tasks }) {
       className={clsx(css.tasksColumn, isOver ? css.boxDrop : null)}
     >
       <ColumnHeadBar title={category} onClick={onOpen} />
-      <ScrollArea.Autosize mah={368} offsetScrollbars scrollHideDelay={250}>
-        {tasksToMap.length > 0 &&
-          tasksToMap.map((task) => (
-            <TaskColumnCard key={task._id} task={task} />
-          ))}
-      </ScrollArea.Autosize>
-
+      <ColumnsTasksList tasksToMap={tasksToMap} />
       <AddTaskButton onClick={onOpen}>Add task</AddTaskButton>
       {isOpen && <TaskModal category={category} onClose={onClose} />}
     </div>
