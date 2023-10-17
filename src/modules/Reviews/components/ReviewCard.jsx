@@ -20,7 +20,7 @@ function ReviewCard({ review }) {
           </Avatar>
         )}
 
-        <Stack align="flex-start" justify="flex-start" gap={14}>
+        <Stack align="flex-start" justify="flex-start" gap={13}>
           <Title order={3} className={css.username} c="dark.6">
             {username}
           </Title>

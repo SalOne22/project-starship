@@ -24,6 +24,7 @@
     "axios": "^1.5.1",
     "clsx": "^2.0.0",
     "dayjs": "^1.11.10",
+    "embla-carousel-autoplay": "^7.1.0",
     "embla-carousel-react": "^7.1.0",
     "formik": "^2.4.5",
     "i18next": "^23.5.1",

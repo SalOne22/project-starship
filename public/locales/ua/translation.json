@@ -11,6 +11,11 @@
     "enterText": "Введіть повідомлення...",
     "closeModal": "Закрити модальне вікно"
   },
+  "reviews": {
+    "notification": {
+      "fetchError": "На жаль, ми не можемо завантажити відгуки!"
+    }
+  },
   "feedback": {
     "form": {
       "requiredField": "Обов'язкове поле",

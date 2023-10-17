@@ -11,6 +11,11 @@
     "enterText": "Enter text...",
     "closeModal": "Close modal"
   },
+  "reviews": {
+    "notification": {
+      "fetchError": "Oops, we can't load reviews!"
+    }
+  },
   "feedback": {
     "form": {
       "requiredField": "Required field",
