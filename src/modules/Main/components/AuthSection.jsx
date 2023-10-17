@@ -1,8 +1,8 @@
-import { Container, Title } from '@mantine/core';
+import { Container, Title, Button } from '@mantine/core';
 import css from '../styles/AuthSection.module.css';
 import GooseTrackLogo from '@/assets/icons/logo.svg?react';
 import clsx from 'clsx';
-import { Button } from '@mantine/core';
+import { Link } from 'react-router-dom';
 import { IconLogin2 } from '@tabler/icons-react';
 
 function AuthSection() {
@@ -16,6 +16,8 @@ function AuthSection() {
           </Title>
           <div className={css.wraper}>
             <Button
+              component={Link}
+              to="/login"
               className={clsx(css.login)}
               radius="lg"
               rightSection={<IconLogin2 width={18} height={18} />}
@@ -25,7 +27,13 @@ function AuthSection() {
             >
               Log in
             </Button>
-            <Button className={clsx(css.signup)}>Sign up</Button>
+            <Button
+              component={Link}
+              to="/register"
+              className={clsx(css.signup)}
+            >
+              Sign up
+            </Button>
           </div>
         </Container>
       </section>
