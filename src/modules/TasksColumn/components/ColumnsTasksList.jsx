@@ -4,12 +4,18 @@ import PropTypes from 'prop-types';
 
 function ColumnsTasksList({ tasksToMap }) {
   return (
-    <ul className={css.columnsTasksList}>
-      {tasksToMap.length > 0 &&
-        tasksToMap.map((task) => <TaskColumnCard key={task._id} task={task} />)}
-    </ul>
+    <>
+      {tasksToMap.length > 0 && (
+        <ul className={css.columnsTasksList}>
+          {tasksToMap.map((task) => (
+            <TaskColumnCard key={task._id} task={task} />
+          ))}
+        </ul>
+      )}
+    </>
   );
 }
+
 ColumnsTasksList.propTypes = {
   tasksToMap: PropTypes.arrayOf(PropTypes.object),
 };

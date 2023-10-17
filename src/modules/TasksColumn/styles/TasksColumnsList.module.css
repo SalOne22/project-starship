@@ -6,8 +6,8 @@
   display: grid;
   justify-content: start;
   align-items: flex-start;
-  column-gap: 27px;
-  padding: 16px 20px 0px 20px;
+  column-gap: rem(27px);
+  padding: rem(16px) rem(20px) 0px rem(20px);
   overflow: auto;
   grid-template-columns: repeat(3, 1fr);
 

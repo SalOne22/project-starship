@@ -38,7 +38,7 @@ function ChosenDay() {
   };
 
   return (
-    <div style={{ height: '100%' }}>
+    <div>
       <CalendarToolbar
         prevDate={prevDay}
         nextDate={nextDay}
