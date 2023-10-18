@@ -20,6 +20,18 @@
   text-transform: uppercase;
 }
 
+.weekday span {
+  padding: 4px rem(8px);
+  border-radius: rem(8px);
+  line-height: rem(18px);
+  font-size: rem(16px);
+}
+
+.weekday:hover span {
+  background-color: var(--mantine-color-blue-3);
+  color: var(--mantine-color-white);
+}
+
 .clickable {
   cursor: pointer;
 }
@@ -38,8 +50,7 @@
   font-size: rem(16px);
   color: var(--mantine-color-white);
 }
-
-.tools {
+.selectedDay .tools {
   display: flex;
   justify-content: space-between;
 }

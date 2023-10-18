@@ -1,7 +1,7 @@
 .columnsTasksList {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: rem(16px);
   max-height: rem(308px);
   margin: 0;
   padding: 0;
@@ -10,13 +10,12 @@
 }
 
 .columnsTasksList::-webkit-scrollbar {
-  width: 8px; /* Total width including `border-width` of scrollbar thumb */
-  height: 0;
+  width: rem(8px); /* Total width including `border-width` of scrollbar thumb */
 }
 
 .columnsTasksList::-webkit-scrollbar-thumb {
   background-color: var(--mantine-color-gray-5);
-  border-radius: 8px;
+  border-radius: rem(8px);
 
   @mixin dark {
     background-color: var(--mantine-color-gray-5);

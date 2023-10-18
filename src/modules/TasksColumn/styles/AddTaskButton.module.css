@@ -1,13 +1,13 @@
 .addButton {
   width: 100%;
-  padding: 16px 0;
+  padding: rem(16px) 0;
   display: flex;
   cursor: pointer;
   align-items: center;
   margin-top: 32px;
   justify-content: center;
   border: 1px dashed var(--mantine-color-blue-4);
-  border-radius: 8px;
+  border-radius: rem(8px);
   background-color: var(--mantine-color-blue-0);
   font-weight: 600;
   line-height: rem(18px);
