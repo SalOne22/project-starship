@@ -7,9 +7,11 @@ import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 import { selectUserData } from '@/redux/slices/authSlice';
 import theme from '@/theme';
+import { useTranslation } from 'react-i18next';
 
 function TaskColumnCard({ task }) {
   const priorityColor = getPriorityColor(task.priority);
+  const { t } = useTranslation();
 
   const { username, avatarURL } = useSelector(selectUserData) ?? {};
 
@@ -32,9 +34,6 @@ function TaskColumnCard({ task }) {
 
     return priorityColors[priority] || theme.colors.blue[0];
   }
-
-  const taskPriority =
-    task.priority.charAt(0).toUpperCase() + task.priority.slice(1);
 
   return (
     <li
@@ -60,14 +59,16 @@ function TaskColumnCard({ task }) {
             {avatarURL ? (
               <img className={css.avatarImg} src={avatarURL} alt={username} />
             ) : (
-              <span> {username[0].toUpperCase()}</span>
+              <span> {username && username[0].toUpperCase()}</span>
             )}
           </Box>
           <Box
             className={css.priority}
             style={{ backgroundColor: priorityColor }}
           >
-            <p className={css.priorityText}>{taskPriority}</p>
+            <p className={css.priorityText}>
+              {t(`calendar.chosenday.card.priority.${task.priority}`)}
+            </p>
           </Box>
         </Box>
         <TaskToolbar task={task} />
