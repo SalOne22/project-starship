@@ -74,6 +74,57 @@
       "December"
     ],
     "weekdays": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-    "periodSelect": { "month": "Month", "day": "Day" }
+    "periodSelect": { "month": "Month", "day": "Day" },
+    "chosenday": {
+      "notification": {
+        "createSuccess": "Task successfully added!",
+        "editSuccess": "Task successfully edited!",
+        "removeSuccess": "Task successfully deleted!",
+        "error": "Something went wrong, please try again later"
+      },
+      "handleError": {
+        "title": {
+          "required": "Title is required",
+          "matches": "Maximum length is 250 characters"
+        },
+        "start": {
+          "required": "Start is required",
+          "matches": "Format: 09:00"
+        },
+        "end": {
+          "required": "End is required",
+          "matches": "Format: 14:00",
+          "test": "End time should be greater than start time"
+        }
+      },
+      "card": {
+        "priority": {
+          "low": "Low",
+          "medium": "Medium",
+          "high": "High"
+        },
+        "category": {
+          "to-do": "To-do",
+          "in progress": "In progress",
+          "done": "Done"
+        }
+      },
+      "taskform": {
+        "title": "Title",
+        "placeholder": "Enter text",
+        "start": "Start",
+        "end": "End",
+        "priority": {
+          "low": "Low",
+          "medium": "Medium",
+          "high": "High"
+        },
+        "button": {
+          "add": "Add",
+          "edit": "Edit",
+          "cancel": "Cancel"
+        }
+      }
+    }
   }
 }
