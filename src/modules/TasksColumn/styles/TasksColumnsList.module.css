@@ -10,7 +10,8 @@
   padding-top: rem(16px);
   padding-bottom: rem(16px);
 
-  overflow: auto;
+  overflow-y: hidden;
+  overflow-x: auto;
   grid-template-columns: repeat(3, 1fr);
 
   @media (min-width: $mantine-breakpoint-md) {
