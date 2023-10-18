@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import css from '../CalendarToolbar.module.css';
+import clsx from 'clsx';
 
-function PeriodTypeSelect({ currentDate }) {
+function PeriodTypeSelect() {
   const navigate = useNavigate();
-
-  console.log(currentDate);
+  const { pathname } = window.location;
+  const { t } = useTranslation();
 
   const tabsToggler = (tabName) => {
     if (tabName === 'month') {
@@ -15,9 +18,31 @@ function PeriodTypeSelect({ currentDate }) {
   };
 
   return (
-    <div>
-      <button onClick={() => tabsToggler('month')}>Month</button>
-      <button onClick={() => tabsToggler('day')}>Day</button>
+    <div className={css.periodTypeWrapper}>
+      <button
+        className={clsx(
+          css.periodType,
+          css.periodLeft,
+          pathname.includes('month') ? css.activePeriod : null,
+        )}
+        onClick={() => {
+          tabsToggler('month');
+        }}
+      >
+        {t('calendar.periodSelect.month')}
+      </button>
+      <button
+        className={clsx(
+          css.periodType,
+          css.periodRight,
+          pathname.includes('day') ? css.activePeriod : null,
+        )}
+        onClick={() => {
+          tabsToggler('day');
+        }}
+      >
+        {t('calendar.periodSelect.day')}
+      </button>
     </div>
   );
 }

@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: rem(28px);
+}
+
+.title {
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  transition: color 350ms ease;
+}
+
+.button:hover {
+  color: var(--mantine-color-blue-5);
+}

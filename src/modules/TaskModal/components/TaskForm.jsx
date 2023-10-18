@@ -1,86 +1,108 @@
 import { Box, Button } from '@mantine/core';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { IconPlus } from '@tabler/icons-react';
+import { IconPlus, IconPencil } from '@tabler/icons-react';
 import clsx from 'clsx';
 import * as Yup from 'yup';
 import { useState } from 'react';
 import css from '../styles/TaskForm.module.css';
 import { TimeInput } from '@mantine/dates';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { notifications } from '@mantine/notifications';
+import { useParams } from 'react-router';
+import PropTypes from 'prop-types';
+import { addTask, editTask } from '@/modules/Calendar/redux/operations';
+import theme from '@/theme';
+import { useTranslation } from 'react-i18next';
 
-// import { addTask } from '@/modules/Calendar/redux/operations';
+const TaskForm = ({ category, onClose, task }) => {
+  const [selectedPriority, setSelectedPriority] = useState(
+    task ? task.priority : 'low',
+  );
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
 
-const validationSchema = Yup.object({
-  title: Yup.string()
-    .required('Required')
-    .max(250, 'Maximum length is 250 characters'),
-  start: Yup.string()
-    .required('Required')
-    .matches(/^([01]\d|2[0-3]):([0-5]\d)$/, 'Format: 09:00'),
-  end: Yup.string()
-    .required('Required')
-    .matches(/^([01]\d|2[0-3]):([0-5]\d)$/, 'Format: 09:30')
-    .test(
-      'is-greater',
-      'End time should be greater than start time',
-      function (end) {
-        const start = this.parent.start;
-        if (!start || !end) return true;
-        const [startHour, startMinute] = start.split(':');
-        const [endHour, endMinute] = end.split(':');
-        return (
-          endHour > startHour ||
-          (endHour === startHour && endMinute > startMinute)
-        );
-      },
-    ),
-  priority: Yup.string(),
-});
+  const { currentDay } = useParams();
 
-const TaskForm = () => {
-  const [selectedPriority, setSelectedPriority] = useState('low');
-  // const dispatch = useDispatch();
-
-  // const { tasks } = useTasks();
-  // dispatch(fetchTasks());
+  const validationSchema = Yup.object({
+    title: Yup.string()
+      .required(t('calendar.chosenday.handleError.title.required'))
+      .max(250, t('calendar.chosenday.handleError.title.matches')),
+    start: Yup.string()
+      .required(t('calendar.chosenday.handleError.start.required'))
+      .matches(
+        /^([01]\d|2[0-3]):([0-5]\d)$/,
+        t('calendar.chosenday.handleError.start.matches'),
+      ),
+    end: Yup.string()
+      .required(t('calendar.chosenday.handleError.end.required'))
+      .matches(
+        /^([01]\d|2[0-3]):([0-5]\d)$/,
+        t('calendar.chosenday.handleError.end.matches'),
+      )
+      .test(
+        'is-greater',
+        t('calendar.chosenday.handleError.end.test'),
+        function (end) {
+          const start = this.parent.start;
+          if (!start || !end) return true;
+          const [startHour, startMinute] = start.split(':');
+          const [endHour, endMinute] = end.split(':');
+          return (
+            endHour > startHour ||
+            (endHour === startHour && endMinute > startMinute)
+          );
+        },
+      ),
+    priority: Yup.string(),
+  });
 
   const handlePriorityChange = (event) => {
     setSelectedPriority(event.target.value);
   };
 
-  const handleSubmit = (values, { resetForm }) => {
+  const handleSubmit = async (values) => {
+    values.priority = selectedPriority;
+    values.date = currentDay;
+    values.category = category;
+
     try {
-      values.priority = selectedPriority;
-      values.date = '1997-03-02';
-      values.category = 'to-do';
-
-      console.log(values);
-      notifications.show({
-        message: 'New task successfully created!',
-        autoClose: 3000,
-        color: 'green',
-      });
-
-      resetForm();
-      // dispatch(addTask({ ...values }));
-    } catch (error) {
-      console.error(error);
-      notifications.show({
-        message: 'Something went wrong, please try again later',
-        autoClose: 3000,
-        color: 'red',
-      });
+      if (task) {
+        await dispatch(editTask({ ...values, _id: task._id }));
+        handleMessage(
+          t('calendar.chosenday.notification.editSuccess'),
+          theme.colors.green[6],
+        );
+      } else {
+        await dispatch(addTask({ ...values }));
+        handleMessage(
+          t('calendar.chosenday.notification.createSuccess'),
+          theme.colors.green[6],
+        );
+      }
+      onClose();
+    } catch {
+      handleMessage(
+        t('calendar.chosenday.notification.error'),
+        theme.colors.red[6],
+      );
     }
+  };
+
+  const handleMessage = (message, color) => {
+    notifications.show({
+      message: message,
+      autoClose: 3000,
+      color: color,
+    });
   };
 
   return (
     <Box className={css.formWrapper}>
       <Formik
         initialValues={{
-          title: '',
-          start: '',
-          end: '',
+          title: task ? task.title : '',
+          start: task ? task.start : '',
+          end: task ? task.end : '',
         }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
@@ -88,23 +110,25 @@ const TaskForm = () => {
         <Form>
           <Box style={{ display: 'flex', flexDirection: 'column' }}>
             <label className={css.label} htmlFor="title">
-              Title
+              {t('calendar.chosenday.taskform.title')}
             </label>
             <Field
+              aria-label="Enter text"
               className={css.input}
               type="text"
               name="title"
-              placeholder="Enter text"
+              placeholder={t('calendar.chosenday.taskform.placeholder')}
             />
             <ErrorMessage name="title" component="div" className={css.error} />
           </Box>
           <Box className={css.wrapTimes}>
             <Box className={css.wrapTime}>
               <label className={css.label} htmlFor="start">
-                Start
+                {t('calendar.chosenday.taskform.start')}
               </label>
               <Field
                 as={TimeInput}
+                aria-label="Start"
                 variant="unstyled"
                 className={`${css.input} custom-time-input`}
                 type="text"
@@ -118,10 +142,11 @@ const TaskForm = () => {
             </Box>
             <Box className={css.wrapTime}>
               <label className={css.label} htmlFor="end">
-                End
+                {t('calendar.chosenday.taskform.end')}
               </label>
               <Field
                 as={TimeInput}
+                aria-label="End"
                 variant="unstyled"
                 className={`${css.input} custom-time-input`}
                 type="text"
@@ -132,57 +157,81 @@ const TaskForm = () => {
           </Box>
           <Box className={css.radioWrapper}>
             <label className={css.labelPriority}>
-              <input
+              <Field
                 className={clsx(css.radioInput, css.radioInputBlue)}
+                aria-label="Low priority"
                 type="radio"
                 name="priority"
                 value="low"
                 checked={selectedPriority === 'low'}
                 onChange={handlePriorityChange}
               />
-              <span className={css.radioLabel}> Low</span>
+              <span className={css.radioLabel}>
+                {t('calendar.chosenday.taskform.priority.low')}
+              </span>
             </label>
 
             <label className={css.labelPriority}>
-              <input
+              <Field
                 className={clsx(css.radioInput, css.radioInputYellow)}
+                aria-label="Medium priority"
                 type="radio"
                 name="priority"
                 value="medium"
                 checked={selectedPriority === 'medium'}
                 onChange={handlePriorityChange}
               />
-              <span className={css.radioLabel}> Medium</span>
+              <span className={css.radioLabel}>
+                {t('calendar.chosenday.taskform.priority.medium')}
+              </span>
             </label>
 
             <label className={css.labelPriority}>
-              <input
+              <Field
                 className={clsx(css.radioInput, css.radioInputRed)}
+                aria-label="High priority"
                 type="radio"
                 name="priority"
                 value="high"
                 checked={selectedPriority === 'high'}
                 onChange={handlePriorityChange}
               />
-              <span className={css.radioLabel}> High</span>
+              <span className={css.radioLabel}>
+                {t('calendar.chosenday.taskform.priority.high')}
+              </span>
             </label>
           </Box>
           <Box className={css.buttonWrap}>
-            <Button className={clsx(css.button, css.addButton)} type="submit">
-              <IconPlus size={20} />
-              Add
-            </Button>
+            {task ? (
+              <Button className={clsx(css.button, css.addButton)} type="submit">
+                <IconPencil size={18} />
+                {t('calendar.chosenday.taskform.button.edit')}
+              </Button>
+            ) : (
+              <Button className={clsx(css.button, css.addButton)} type="submit">
+                <IconPlus size={18} />
+                {t('calendar.chosenday.taskform.button.add')}
+              </Button>
+            )}
+
             <Button
-              className={clsx(css.button, css.cancelButton)}
+              className={[css.button, css.cancelButton]}
               type="button"
+              onClick={onClose}
             >
-              Cancel
+              {t('calendar.chosenday.taskform.button.cancel')}
             </Button>
           </Box>
         </Form>
       </Formik>
     </Box>
   );
+};
+
+TaskForm.propTypes = {
+  category: PropTypes.string,
+  onClose: PropTypes.func,
+  task: PropTypes.object,
 };
 
 export default TaskForm;

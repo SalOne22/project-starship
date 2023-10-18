@@ -5,7 +5,6 @@ export const fetchTasks = createAsyncThunk(
   'tasks/fetchTasks',
   async (date, { rejectWithValue }) => {
     try {
-      console.log($instance.defaults.headers);
       const { data } = await $instance.get('/tasks', { params: { date } });
 
       return data;
@@ -18,7 +17,6 @@ export const fetchTasks = createAsyncThunk(
 export const addTask = createAsyncThunk(
   'tasks/addTask',
   async (task, { rejectWithValue }) => {
-    console.log(task);
     try {
       const { data } = await $instance.post('/tasks', task);
 
@@ -35,7 +33,7 @@ export const deleteTask = createAsyncThunk(
     try {
       const { data } = await $instance.delete(`/tasks/${taskId}`);
 
-      return data;
+      return { ...data, _id: taskId };
     } catch (error) {
       return rejectWithValue(error.message);
     }

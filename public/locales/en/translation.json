@@ -7,13 +7,19 @@
     "cancel": "Cancel",
     "rating": "Rating",
     "review": "Review",
+    "reviews": "Reviews",
     "enterText": "Enter text...",
     "closeModal": "Close modal"
+  },
+  "reviews": {
+    "notification": {
+      "fetchError": "Oops, we can't load reviews!"
+    }
   },
   "feedback": {
     "form": {
       "requiredField": "Required field",
-      "lengthTextField": "Message must be less than 300 symbols"
+      "lengthTextField": "Text must be 2-300 characters long"
     },
     "notification": {
       "createSuccess": "Your review has been successfully added!",
@@ -50,6 +56,82 @@
     "cantFetchCurrentUser": {
       "title": "Can't fetch user",
       "message": "Unable to retrieve current user information, try logging in again"
+    }
+  },
+  "calendar": {
+    "months": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "weekdays": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    "periodSelect": { "month": "Month", "day": "Day" },
+    "chosenday": {
+      "notification": {
+        "createSuccess": "Task successfully added!",
+        "editSuccess": "Task successfully edited!",
+        "removeSuccess": "Task successfully deleted!",
+        "error": "Something went wrong, please try again later"
+      },
+      "handleError": {
+        "title": {
+          "required": "Title is required",
+          "matches": "Maximum length is 250 characters"
+        },
+        "start": {
+          "required": "Start is required",
+          "matches": "Format: 09:00"
+        },
+        "end": {
+          "required": "End is required",
+          "matches": "Format: 14:00",
+          "test": "End time should be greater than start time"
+        }
+      },
+      "taskColumns": {
+        "titles": {
+          "to-do": "To-do",
+          "in progress": "In progress",
+          "done": "Done"
+        }
+      },
+      "card": {
+        "priority": {
+          "low": "Low",
+          "medium": "Medium",
+          "high": "High"
+        },
+        "category": {
+          "to-do": "To-do",
+          "in progress": "In progress",
+          "done": "Done"
+        }
+      },
+      "taskform": {
+        "title": "Title",
+        "placeholder": "Enter text",
+        "start": "Start",
+        "end": "End",
+        "priority": {
+          "low": "Low",
+          "medium": "Medium",
+          "high": "High"
+        },
+        "button": {
+          "add": "Add",
+          "edit": "Edit",
+          "cancel": "Cancel"
+        }
+      }
     }
   }
 }

@@ -1,0 +1,27 @@
+.columnsTasksList {
+  display: flex;
+  flex-direction: column;
+  gap: rem(16px);
+  max-height: rem(308px);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.columnsTasksList::-webkit-scrollbar {
+  width: rem(8px); /* Total width including `border-width` of scrollbar thumb */
+}
+
+.columnsTasksList::-webkit-scrollbar-thumb {
+  background-color: var(--mantine-color-gray-5);
+  border-radius: rem(8px);
+
+  @mixin dark {
+    background-color: var(--mantine-color-gray-5);
+  }
+}
+
+.columnsTasksList::-webkit-scrollbar-thumb:hover {
+  background-color: var(--mantine-color-gray-4);
+}

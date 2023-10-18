@@ -9,6 +9,7 @@ import IconUkrFlag from '@/assets/icons/ua.svg?react';
 const LangSelect = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isFlipped, setIsFlipped] = useState(false);
+  const { pathname } = window.location;
 
   const { i18n } = useTranslation();
 
@@ -18,6 +19,10 @@ const LangSelect = () => {
   useEffect(() => {
     i18n?.changeLanguage(query);
   }, [i18n, query]);
+
+  useEffect(() => {
+    if (!pathname.includes('lang')) setSearchParams({ lang: currentLanguage });
+  }, [pathname]);
 
   const handleButtonClick = () => {
     const selectedLanguage = currentLanguage === 'en' ? 'ua' : 'en';

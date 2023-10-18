@@ -1,0 +1,23 @@
+.tasksList {
+  width: 100%;
+  /* max-width: rem(375px); */
+  height: 100%;
+  margin: 0 auto;
+  display: grid;
+  justify-content: start;
+  align-items: flex-start;
+  column-gap: rem(27px);
+  padding-top: rem(16px);
+  padding-bottom: rem(16px);
+
+  overflow-y: hidden;
+  overflow-x: auto;
+  grid-template-columns: repeat(3, 1fr);
+
+  @media (min-width: $mantine-breakpoint-md) {
+    /* max-width: rem(768px); */
+  }
+  @media (min-width: $mantine-breakpoint-xl) {
+    /* max-width: 100%; */
+  }
+}

@@ -1,170 +1,145 @@
-import { useForm } from '@mantine/form';
+import { hasLength, isEmail, useForm } from '@mantine/form';
+
 import {
   TextInput,
-  PasswordInput,
   Text,
   Anchor,
   Paper,
   Group,
   Button,
   Stack,
+  Divider,
+  Loader,
+  PasswordInput,
 } from '@mantine/core';
 import { GoogleButton } from '@/modules/Register/components/GoogleButton';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUserThunk } from '@/redux/operations';
+import css from './styles/LoginForm.module.css';
+import { selectLoading } from '@/redux/slices/authSlice.js';
+import {
+  IconAlertCircle,
+  IconCircleCheck,
+  IconLogin2,
+} from '@tabler/icons-react';
+import clsx from 'clsx';
 
-function LoginForm(props) {
+function LoginForm() {
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectLoading);
 
   const form = useForm({
     initialValues: {
       email: '',
       password: '',
     },
-
-    // onSubmit: (values) => {
-    //   console.log(222)
-    //   dispatch(loginUserThunk(values));
-    // },
-
     validate: {
-      email: (val) =>
-        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(val)
-          ? null
-          : 'Invalid email',
-      password: (val) =>
-        val.length <= 6
-          ? 'Password should include at least 6 characters'
-          : null,
+      email: isEmail('Word before @ and domain after the dot'),
+      password: hasLength(
+        { min: 6 },
+        'Password should include at least 6 characters',
+      ),
     },
   });
 
   function handleGoogleButtonClick() {
     window.location.href = 'https://gt-project.onrender.com/api/auth/google';
   }
-
+  const inputSelectors = {
+    wrapper: css.wrapper,
+    label: css.label,
+    required: css.required,
+    error: css.error,
+    rightSection: css.section,
+  };
   return (
-    <Paper radius="md" p="xl" withBorder {...props}>
-      <Text size="lg" fw={500}>
+    <Paper className={css.wrappForm}>
+      <Text className={css.titleForm} c="blue.4">
         Log In
       </Text>
 
-      <Group grow mb="md" mt="md">
-        <GoogleButton onClick={handleGoogleButtonClick} radius="xl">
+      <Group className={css.wrappGoogleButton} grow>
+        <GoogleButton
+          className={css.googleButton}
+          onClick={handleGoogleButtonClick}
+        >
           Google
         </GoogleButton>
       </Group>
-
-      {/* <form onSubmit={form.onSubmit}> */}
+      <Divider
+        className={css.divider}
+        label="Or continue with email"
+        labelPosition="center"
+      />
       <form
+        className={css.form}
         onSubmit={form.onSubmit((values) => {
           dispatch(loginUserThunk(values));
         })}
       >
-        <Stack>
+        <Stack className={css.stack}>
           <TextInput
-            required
+            withAsterisk
             label="Email"
-            placeholder="hello@mantine.dev"
-            value={form.values.email}
-            onChange={(event) =>
-              form.setFieldValue('email', event.currentTarget.value)
+            placeholder="Enter email"
+            rightSection={
+              form.errors?.email ? (
+                <IconAlertCircle color="red" size={18} />
+              ) : form.isValid('email') ? (
+                <IconCircleCheck color="green" size={18} />
+              ) : null
             }
-            error={form.errors.email && 'Invalid email'}
-            radius="md"
+            {...form.getInputProps('email')}
+            classNames={{
+              inputSelectors,
+              input: clsx(
+                css.input,
+                form.isValid('email') ? css.inputCorrect : null,
+              ),
+            }}
           />
 
           <PasswordInput
-            required
+            withAsterisk
             label="Password"
-            placeholder="Your password"
-            value={form.values.password}
-            onChange={(event) =>
-              form.setFieldValue('password', event.currentTarget.value)
+            placeholder="Enter password"
+            rightSection={
+              form.errors?.password ? (
+                <IconAlertCircle color="red" size={18} />
+              ) : form.values.password.length > 5 ? (
+                <IconCircleCheck color="green" size={18} />
+              ) : null
             }
-            error={
-              form.errors.password &&
-              'Password should include at least 6 characters'
-            }
-            radius="md"
+            {...form.getInputProps('password')}
+            classNames={{
+              inputSelectors,
+              input: clsx(
+                css.input,
+                form.isValid('password') ? css.inputCorrect : null,
+              ),
+              innerInput: css.inputInput,
+            }}
           />
         </Stack>
 
-        <Group justify="space-between" mt="xl">
+        <Group className={css.wrappButton}>
           <Anchor component="button" size="sm">
             Forgot password?
           </Anchor>
-          <Button type="submit" radius="xl">
-            Log in
-          </Button>
+          {isLoading ? (
+            <Loader c="blue.4" />
+          ) : (
+            <Button
+              className={css.button}
+              rightSection={<IconLogin2 size={18} />}
+              type="submit"
+            >
+              <Text className={css.textButtonForm}>Log In</Text>
+            </Button>
+          )}
         </Group>
       </form>
     </Paper>
   );
 }
 export default LoginForm;
-
-// -----форма на formik
-// // import React from 'react';
-// import { Navigate } from 'react-router-dom';
-
-// import { useFormik } from 'formik';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { loginUserThunk } from '@/redux/operations';
-// import { selectIsAuthenticated } from '@/redux/slices/authSlice';
-// import css from './LoginForm.module.css';
-
-// function LoginForm() {
-//   const isAuthenticated = useSelector(selectIsAuthenticated);
-//   // console.log('isAuthenticated in login', isAuthenticated)
-//   const dispatch = useDispatch();
-//   const formik = useFormik({
-//     initialValues: {
-//       email: '',
-//       password: '',
-//     },
-//     onSubmit: (values) => {
-//       dispatch(loginUserThunk(values));
-//     },
-//   });
-
-//   if (isAuthenticated) return <Navigate to="/calendar" />;
-//   return (
-//     <div className={css.boxLogin}>
-//       <h2 className={css.headerLogin}>Log In</h2>
-//       <form className={css.formLogin} onSubmit={formik.handleSubmit}>
-//         <label className={css.labelLogin} htmlFor="email">
-//           Email
-//         </label>
-//         <input
-//           className={css.inputLogin}
-//           id="email"
-//           name="email"
-//           type="email"
-//           onChange={formik.handleChange}
-//           value={formik.values.email}
-//           required
-//           maxLength={30}
-//         />
-//         <label className={css.labelLogin} htmlFor="password">
-//           Password
-//         </label>
-//         <input
-//           className={css.inputLogin}
-//           id="password"
-//           name="password"
-//           type="password"
-//           onChange={formik.handleChange}
-//           value={formik.values.password}
-//           minLength={7}
-//           required
-//         />
-//         <button className={css.buttonLogin} type="submit">
-//           Log In
-//         </button>
-//       </form>
-//     </div>
-//   );
-// }
-
-// export default LoginForm;

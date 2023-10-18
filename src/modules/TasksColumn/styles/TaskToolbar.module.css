@@ -15,3 +15,36 @@
 .icon:hover {
   color: var(--mantine-color-blue-4);
 }
+
+.dropdown {
+  padding: rem(20) rem(24);
+  border-radius: 8px;
+  box-shadow: rgba(17, 17, 17, 0.1) 0px 4px 16px 0px;
+
+  @mixin dark {
+    background-color: var(--mantine-color-dark-7);
+  }
+}
+
+.categoryList {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.categoryItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--mantine-color-gray-6);
+  font-weight: 500;
+  cursor: pointer;
+
+  @mixin dark {
+    color: var(--mantine-color-white);
+  }
+}
