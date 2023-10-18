@@ -8,6 +8,8 @@
   border-radius: 8px;
   @media (min-width: $mantine-breakpoint-md) {
     width: rem(480px);
+    padding: rem(40px);
+
     height: auto;
   }
 }
@@ -19,10 +21,19 @@
   text-shadow:
     0px 9.399999618530273px 57.6875px rgba(0, 0, 0, 0.04),
     0px 47px 355px rgba(0, 0, 0, 0.07);
+
+  @media (min-width: $mantine-breakpoint-md) {
+    font-size: rem(24px);
+    line-height: 1;
+    margin-bottom: rem(40px);
+  }
 }
 
 .wrappGoogleButton {
   margin: 0 0 rem(24px) 0;
+  @media (min-width: $mantine-breakpoint-md) {
+    margin: 0 0 rem(32px) 0;
+  }
 }
 .googleButton {
   height: rem(46px);
@@ -33,7 +44,8 @@
   margin: 0 0 rem(24px) 0;
 }
 .form {
-  width: rem(287px);
+  /* width: rem(287px); */
+  width: 100%;
 }
 .stack {
   color: black;
@@ -46,11 +58,7 @@
 
 /* ---form---- */
 
-.mantine-TextInput-wrapper {
-  /* border: 1px solid rgba(220, 227, 229, 0.6) !important;  */
-}
-
-.mantine-TextInput-input {
+.input {
   color: black;
   padding: rem(14px);
   height: rem(46px);
@@ -58,53 +66,71 @@
   font-weight: 400;
   line-height: 1.28;
   border-radius: 8px;
-  /* border: 1px solid rgba(220, 227, 229, 0.6); */
-}
-.mantine-TextInput-input[data-variant='default'] {
   border: 1px solid rgba(220, 227, 229, 0.6);
 }
-.mantine-TextInput-input[aria-invalid='true'] {
+
+.input[aria-invalid='true'] {
   border: 1px solid #da1414;
 }
-
-/* .mantine-TextInput-input[aria-invalid="false"]{
-  border: 1px solid #3CBC81;
-font-size: rem(12px);
-font-weight: 400;
-line-height: 1.16px;
-} */
-.mantine-TextInput-input[aria-invalid='true']::placeholder {
+.input[aria-invalid='true']::placeholder {
   color: #da1414;
 }
-.mantine-TextInput-input::placeholder {
+
+.input::placeholder {
   color: #dce3e5;
 }
-.mantine-TextInput-input:hover {
+.input:focus {
   border-color: black;
 }
 
-.mantine-TextInput-label {
+.inputCorrect {
+  border-color: light-dark(
+    var(--mantine-color-green-5),
+    var(--mantine-color-blue-5)
+  ) !important;
+}
+
+.input[data-error='true'] {
+  border-color: #da1414;
+}
+.inputInput::placeholder {
+  color: #dce3e5;
+}
+.inputInput[data-invalid='true']::placeholder {
+  color: #da1414;
+}
+.input:focus-within {
+  border-color: black;
+}
+
+.label {
   color: black;
   font-size: rem(12px);
   font-weight: 600;
   line-height: normal;
   margin-bottom: 8px;
 }
-.mantine-TextInput-required {
+.required {
   color: #da1414;
+  /* color:#fff */
 }
 
-.mantine-TextInput-error {
+.error {
   color: #da1414;
   font-size: rem(12px);
   font-weight: 400;
   line-height: 1.16;
 }
-.mantine-TextInput-section {
+
+/* .section {
   width: rem(18px);
   height: rem(18px);
   display: none;
 }
+.section[aria-invalid='true'] {
+ color: #da1414;
+  display: block;
+} */
 
 /* ---------------- */
 .wrappButton {
@@ -179,3 +205,64 @@ line-height: 1.16px;
   color: black;
  
 }  */
+/* ------- */
+
+/* .mantine-TextInput-input[data-variant='default'] {
+  border: 1px solid rgba(220, 227, 229, 0.6);
+}
+.mantine-TextInput-input[aria-invalid='true'] {
+  border: 1px solid #da1414;
+} */
+
+/* .mantine-TextInput-input[aria-invalid="false"]{
+  border: 1px solid #3CBC81;
+font-size: rem(12px);
+font-weight: 400;
+line-height: 1.16px;
+} */
+/* .mantine-TextInput-input[aria-invalid='true']::placeholder {
+  color: #da1414;
+} */
+/* .mantine-TextInput-input::placeholder {
+  color: #dce3e5;
+}
+.mantine-TextInput-input:hover {
+  border-color: black;
+} */
+
+/* .mantine-TextInput-label {
+  color: black;
+  font-size: rem(12px);
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: 8px;
+} */
+/* .mantine-TextInput-required {
+  color: #da1414;
+}
+
+.mantine-TextInput-error {
+  color: #da1414;
+  font-size: rem(12px);
+  font-weight: 400;
+  line-height: 1.16;
+} */
+/* .mantine-TextInput-section {
+  width: rem(18px);
+  height: rem(18px);
+  display: none;
+} */
+/* .mantine-TextInput-wrapper {
+  /* border: 1px solid rgba(220, 227, 229, 0.6) !important;  */
+/* }
+
+.mantine-TextInput-input {
+  color: black;
+  padding: rem(14px);
+  height: rem(46px);
+  font-size: rem(14px);
+  font-weight: 400;
+  line-height: 1.28;
+  border-radius: 8px;
+  /* border: 1px solid rgba(220, 227, 229, 0.6); */
+/* }  */

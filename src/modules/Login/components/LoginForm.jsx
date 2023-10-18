@@ -1,7 +1,7 @@
-import { useForm } from '@mantine/form';
+import { hasLength, isEmail, useForm } from '@mantine/form';
+
 import {
   TextInput,
-  // PasswordInput,
   Text,
   Anchor,
   Paper,
@@ -10,13 +10,19 @@ import {
   Stack,
   Divider,
   Loader,
+  PasswordInput,
 } from '@mantine/core';
 import { GoogleButton } from '@/modules/Register/components/GoogleButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUserThunk } from '@/redux/operations';
 import css from './styles/LoginForm.module.css';
 import { selectLoading } from '@/redux/slices/authSlice.js';
-import { IconLogin2 } from '@tabler/icons-react';
+import {
+  IconAlertCircle,
+  IconCircleCheck,
+  IconLogin2,
+} from '@tabler/icons-react';
+import clsx from 'clsx';
 
 function LoginForm() {
   const dispatch = useDispatch();
@@ -27,15 +33,12 @@ function LoginForm() {
       email: '',
       password: '',
     },
-
     validate: {
-      email: (val) =>
-        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(val)
-          ? null
-          : 'Word before @ and domain after the dot',
-
-      password: (val) =>
-        val.length < 6 ? 'Password should include at least 6 characters' : null,
+      email: isEmail('Word before @ and domain after the dot'),
+      password: hasLength(
+        { min: 6 },
+        'Password should include at least 6 characters',
+      ),
     },
   });
 
@@ -43,12 +46,11 @@ function LoginForm() {
     window.location.href = 'https://gt-project.onrender.com/api/auth/google';
   }
   const inputSelectors = {
-    wrapper: css['mantine-TextInput-wrapper'], // Стили корневого элемента
-    input: css['mantine-TextInput-input'], // Стили элемента ввода
-    label: css['mantine-TextInput-label'], // Стили элемента метки
-    required: css['mantine-TextInput-required'], // Стили элемента астериска
-    error: css['mantine-TextInput-error'],
-    rightSection: ['mantine-TextInput-section'], // Стили элемента ошибки
+    wrapper: css.wrapper,
+    label: css.label,
+    required: css.required,
+    error: css.error,
+    rightSection: css.section,
   };
   return (
     <Paper className={css.wrappForm}>
@@ -60,7 +62,6 @@ function LoginForm() {
         <GoogleButton
           className={css.googleButton}
           onClick={handleGoogleButtonClick}
-          radius="xl"
         >
           Google
         </GoogleButton>
@@ -70,7 +71,6 @@ function LoginForm() {
         label="Or continue with email"
         labelPosition="center"
       />
-      {/* <form onSubmit={form.onSubmit}> */}
       <form
         className={css.form}
         onSubmit={form.onSubmit((values) => {
@@ -82,29 +82,43 @@ function LoginForm() {
             withAsterisk
             label="Email"
             placeholder="Enter email"
-            value={form.values.email}
-            onChange={(event) =>
-              form.setFieldValue('email', event.currentTarget.value)
+            rightSection={
+              form.errors?.email ? (
+                <IconAlertCircle color="red" size={18} />
+              ) : form.isValid('email') ? (
+                <IconCircleCheck color="green" size={18} />
+              ) : null
             }
-            error={form.errors.email && 'Invalid email'}
-            // className={css.input}
-            classNames={inputSelectors}
+            {...form.getInputProps('email')}
+            classNames={{
+              inputSelectors,
+              input: clsx(
+                css.input,
+                form.isValid('email') ? css.inputCorrect : null,
+              ),
+            }}
           />
 
-          <TextInput
+          <PasswordInput
             withAsterisk
             label="Password"
             placeholder="Enter password"
-            value={form.values.password}
-            onChange={(event) =>
-              form.setFieldValue('password', event.currentTarget.value)
+            rightSection={
+              form.errors?.password ? (
+                <IconAlertCircle color="red" size={18} />
+              ) : form.values.password.length > 5 ? (
+                <IconCircleCheck color="green" size={18} />
+              ) : null
             }
-            error={
-              form.errors.password &&
-              'Password should include at least 6 characters'
-            }
-            // className={css.input}
-            classNames={inputSelectors}
+            {...form.getInputProps('password')}
+            classNames={{
+              inputSelectors,
+              input: clsx(
+                css.input,
+                form.isValid('password') ? css.inputCorrect : null,
+              ),
+              innerInput: css.inputInput,
+            }}
           />
         </Stack>
 
