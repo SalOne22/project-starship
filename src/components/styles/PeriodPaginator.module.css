@@ -14,11 +14,15 @@
   border: transparent;
   border-radius: rem(8px);
 
+  cursor: pointer;
+
   font-size: rem(14px);
   font-style: normal;
   font-weight: 700;
 
   height: rem(34px);
+
+  transition: all 300ms ease;
 
   padding: 0 rem(12px);
   @media (min-width: $mantine-breakpoint-md) {
@@ -26,16 +30,20 @@
   }
 }
 
+.dateBtn:hover {
+  background-color: var(--mantine-color-blue-5);
+}
+
 .iconWrapper {
   display: flex;
 }
 
 .iconArrow {
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
 
-  /* padding: rem(8px) rem(10px); */
   height: rem(34px);
 
   border: 1px solid rgba(220, 227, 229, 0.5);

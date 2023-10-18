@@ -20,12 +20,17 @@ ul {
 }
 
 .calendarDay {
-  height: rem(144px);
+  height: rem(100px);
   width: calc((100% - 1px) / 7);
   text-align: right;
-  padding: rem(14px);
+  padding: 2px;
 
   transition: all 300ms ease;
+
+  @media (min-width: $mantine-breakpoint-md) {
+    padding: rem(10px);
+    height: rem(144px);
+  }
 }
 
 .currentMonth.calendarDay:hover {
@@ -68,8 +73,12 @@ ul {
 
 .tasksList {
   overflow-y: scroll;
-  max-height: rem(90px);
-  padding-top: 7px;
+  max-height: rem(65px);
+
+  @media (min-width: $mantine-breakpoint-md) {
+    padding-top: 7px;
+    max-height: rem(90px);
+  }
 }
 
 .calendarDay:nth-child(7n) {
@@ -127,10 +136,14 @@ ul {
   display: block;
   text-align: left;
   text-transform: initial;
-  padding: 4px 4px 4px rem(10px);
+  padding: 1px;
   border-radius: rem(8px);
   border: 1px solid transparent;
   margin-right: 5px;
+
+  @media (min-width: $mantine-breakpoint-md) {
+    padding: 4px 4px 4px rem(10px);
+  }
 }
 
 .task.low {
