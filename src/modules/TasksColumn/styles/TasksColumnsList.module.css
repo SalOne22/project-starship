@@ -7,7 +7,9 @@
   justify-content: start;
   align-items: flex-start;
   column-gap: rem(27px);
-  padding: rem(16px) rem(20px) 0px rem(20px);
+  padding-top: rem(16px);
+  padding-bottom: rem(16px);
+
   overflow: auto;
   grid-template-columns: repeat(3, 1fr);
 

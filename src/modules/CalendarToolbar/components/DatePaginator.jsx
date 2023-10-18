@@ -5,9 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import clsx from 'clsx';
+import { useMediaQuery } from '@mantine/hooks';
+import { em } from '@mantine/core';
 
 const DatePaginator = ({ currentDate, isDateShown }) => {
   const [daysCounter, setDaysCounter] = useState([]);
+  const isMobile = useMediaQuery(`(max-width: ${em(475)})`);
+
   const navigate = useNavigate();
 
   const { t } = useTranslation();
@@ -56,7 +60,7 @@ const DatePaginator = ({ currentDate, isDateShown }) => {
               isDateShown && pickDay(date);
             }}
           >
-            <p className={css.dayNum}>{weekday}</p>
+            <p className={css.dayNum}>{isMobile ? weekday[0] : weekday}</p>
 
             {isDateShown && (
               <span
