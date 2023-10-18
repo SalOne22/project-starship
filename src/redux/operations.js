@@ -1,11 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import handleError from '@/modules/Register/components/HandleError';
 import { selectToken } from './slices/authSlice';
 
 export const $instance = axios.create({
   baseURL: 'https://gt-project.onrender.com/api',
-  // baseURL: 'http:localhost:3333/api',
-  // baseURL: 'https://connections-api.herokuapp.com/'
 });
 export const setToken = (token) => {
   $instance.defaults.headers['Authorization'] = `Bearer ${token}`;
@@ -19,11 +18,12 @@ export const registerUserThunk = createAsyncThunk(
   async (user, thunkApi) => {
     try {
       const { data } = await $instance.post('/auth/signup', user);
-      // console.log("data", data)
       setToken(data.token);
       return data;
     } catch (error) {
-      return thunkApi.rejectWithValue(error.message);
+      const errorMessage = error.response.data.message;
+      handleError(errorMessage);
+      return thunkApi.rejectWithValue(errorMessage);
     }
   },
 );
@@ -36,7 +36,9 @@ export const loginUserThunk = createAsyncThunk(
       setToken(data.token);
       return data;
     } catch (error) {
-      return thunkApi.rejectWithValue(error.message);
+      const errorMessage = error.response.data.message;
+      handleError(errorMessage);
+      return thunkApi.rejectWithValue(errorMessage);
     }
   },
 );
@@ -48,7 +50,7 @@ export const logoutUserThunk = createAsyncThunk(
       await $instance.post('/auth/logout', user);
       clearToken();
     } catch (error) {
-      return thunkApi.rejectWithValue(error.message);
+      return thunkApi.rejectWithValue(error.response.data.message);
     }
   },
 );
@@ -64,7 +66,7 @@ export const refreshUserThunk = createAsyncThunk(
       const { data } = await $instance.get('/users/current', token); //
       return data;
     } catch (error) {
-      return thunkApi.rejectWithValue(error.message);
+      return thunkApi.rejectWithValue(error.response.data.message);
     }
   },
 );
@@ -83,7 +85,7 @@ export const updateUserData = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
-      return thunkApi.rejectWithValue(error.message);
+      return thunkApi.rejectWithValue(error.response.data.message);
     }
   },
 );

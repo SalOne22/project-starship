@@ -1,21 +1,30 @@
 //  ----форма montin на двух роутах
 
 import { useForm } from '@mantine/form';
+// import { hasLength, isEmail, useForm } from '@mantine/form';
+
 import {
   TextInput,
-  PasswordInput,
+  // PasswordInput,
   Text,
   Paper,
   Group,
   Button,
   Stack,
+  Loader,
+  Divider,
 } from '@mantine/core';
 import { GoogleButton } from './GoogleButton.jsx';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { registerUserThunk } from '@/redux/operations';
+import css from './styles/RegisterForm.module.css';
+import { selectLoading } from '@/redux/slices/authSlice.js';
+import { IconLogin2 } from '@tabler/icons-react';
+// import theme from '@/theme';
 
 function RegisterForm(props) {
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectLoading);
 
   const form = useForm({
     initialValues: {
@@ -23,74 +32,109 @@ function RegisterForm(props) {
       username: '',
       password: '',
     },
-
-    // onSubmit: (values) => {
-    //   // console.log(222)
-    //   dispatch(registerUserThunk(values));
-    // },
-
     validate: {
+      username: (val) =>
+        /^[A-Za-z\s]+$/.test(val)
+          ? null
+          : 'Name should only contain letters and spaces',
+
       email: (val) =>
         /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(val)
           ? null
-          : 'Invalid email',
+          : 'Word before @ and domain after the dot',
+
       password: (val) =>
-        val.length <= 6
-          ? 'Password should include at least 6 characters'
-          : null,
+        val.length < 6 ? 'Password should include at least 6 characters' : null,
     },
+
+    // validate: {
+    //   username: hasLength({ min: 2 }, 'Enter a name with a minimum of 2 characters'),
+    //   email: isEmail('Word before @ and domain after the dot'),
+    //   password: hasLength({ min: 6 }, 'Password should include at least 6 characters')
+    // },
   });
 
   function handleGoogleButtonClick() {
     window.location.href = 'https://gt-project.onrender.com/api/auth/google';
   }
 
+  const handleSubmit = async (values) => {
+    // try {
+    //   await dispatch(registerUserThunk(values))
+    // } catch (error) {
+    //   handleError(error)
+    // }
+    dispatch(registerUserThunk(values));
+  };
+  // const iconError = <IconAlertCircle/>
+  // // const iconCorrect = <IconCheckCircle/>
+
+  const inputSelectors = {
+    wrapper: css['mantine-TextInput-wrapper'], // Стили корневого элемента
+    input: css['mantine-TextInput-input'], // Стили элемента ввода
+    label: css['mantine-TextInput-label'], // Стили элемента метки
+    required: css['mantine-TextInput-required'], // Стили элемента астериска
+    error: css['mantine-TextInput-error'],
+    rightSection: ['mantine-TextInput-section'], // Стили элемента ошибки
+  };
   return (
-    <Paper radius="md" p="xl" withBorder {...props}>
-      <Text size="lg" fw={500}>
+    <Paper className={css.wrappForm} c="white" withBorder {...props}>
+      <Text className={css.titleForm} c="blue.4">
         Sign Up
       </Text>
 
-      <Group grow mb="md" mt="md">
-        <GoogleButton onClick={handleGoogleButtonClick} radius="xl">
-          {/* <GoogleButton onClick={form.onClick} radius="xl"> */}
+      <Group className={css.wrappGoogleButton} grow>
+        <GoogleButton
+          className={css.googleButton}
+          onClick={handleGoogleButtonClick}
+        >
           Google
         </GoogleButton>
       </Group>
-
-      {/* <form onSubmit={form.onSubmit}> */}
-      <form
-        onSubmit={form.onSubmit((values) => {
-          dispatch(registerUserThunk(values));
-        })}
-      >
-        <Stack>
+      <Divider
+        className={css.divider}
+        label="Or continue with email"
+        labelPosition="center"
+      />
+      <form className={css.form} onSubmit={form.onSubmit(handleSubmit)}>
+        <Stack className={css.stack}>
           <TextInput
+            withAsterisk
             label="Name"
-            placeholder="Your name"
+            placeholder="Enter your name"
+            // rightSection={iconError}
             value={form.values.username}
-            onChange={(event) =>
-              form.setFieldValue('username', event.currentTarget.value)
+            // {...form.getInputProps('username')}
+            onChange={(event) => {
+              form.setFieldValue('username', event.currentTarget.value);
+            }}
+            error={
+              form.errors.username &&
+              'Enter a name with a minimum of 2 characters'
             }
-            radius="md"
+            // className={css.input}
+            classNames={inputSelectors}
           />
 
           <TextInput
-            required
+            withAsterisk
             label="Email"
-            placeholder="hello@mantine.dev"
+            placeholder="Enter email"
             value={form.values.email}
             onChange={(event) =>
               form.setFieldValue('email', event.currentTarget.value)
             }
-            error={form.errors.email && 'Invalid email'}
-            radius="md"
+            error={
+              form.errors.email &&
+              'Word is needed before @ and domain after the dot'
+            }
+            classNames={inputSelectors}
           />
 
-          <PasswordInput
-            required
+          <TextInput
+            withAsterisk
             label="Password"
-            placeholder="Your password"
+            placeholder="Enter password"
             value={form.values.password}
             onChange={(event) =>
               form.setFieldValue('password', event.currentTarget.value)
@@ -99,14 +143,22 @@ function RegisterForm(props) {
               form.errors.password &&
               'Password should include at least 6 characters'
             }
-            radius="md"
+            classNames={inputSelectors}
           />
         </Stack>
 
-        <Group justify="space-between" mt="xl">
-          <Button type="submit" radius="xl">
-            Sign Up
-          </Button>
+        <Group className={css.wrappButton}>
+          {isLoading ? (
+            <Loader c="blue.4" />
+          ) : (
+            <Button
+              className={css.button}
+              rightSection={<IconLogin2 size={18} />}
+              type="submit"
+            >
+              <Text className={css.textButtonForm}> Sign Up</Text>
+            </Button>
+          )}
         </Group>
       </form>
     </Paper>
@@ -114,236 +166,47 @@ function RegisterForm(props) {
 }
 export default RegisterForm;
 
-//  ----форма montin на одном роуте
+// -----------------------------------
+{
+  /* <Button disabled={isLoading} type="submit" radius="xl">
+            Sign Up
+          </Button> */
+}
+{
+  /* <form
+        onSubmit={form.onSubmit((values) => {
+          dispatch(registerUserThunk(values));
+        })}
+      > */
+}
+{
+  /* <span  style={{ width: '18px' }} className={css.iconButtonForm}>
+              {<svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11.75 2.25H12.65C13.9101 2.25 14.5402 2.25 15.0215 2.49524C15.4448 2.71095 15.789 3.05516 16.0048 3.47852C16.25 3.95982 16.25 4.58988 16.25 5.85V12.15C16.25 13.4101 16.25 14.0402 16.0048 14.5215C15.789 14.9448 15.4448 15.289 15.0215 15.5048C14.5402 15.75 13.9101 15.75 12.65 15.75H11.75M8 5.25L11.75 9M11.75 9L8 12.75M11.75 9L2.75 9" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>}
+              </span> */
+}
 
-// import { useToggle, upperFirst } from '@mantine/hooks';
-// import { useForm } from '@mantine/form';
-// import {
-//   TextInput,
-//   PasswordInput,
-//   Text,
-//   Paper,
-//   Group,
-//   Button,
-//   Divider,
-//   // Checkbox,
-//   Anchor,
-//   Stack,
-// } from '@mantine/core';
-// import { GoogleButton } from './GoogleButton.jsx';
-// import { useDispatch,  } from 'react-redux';
-// import { registerUserThunk, loginUserThunk } from '@/redux/operations';
-
-//  function AuthenticationForm(props) {
-
-//  const dispatch = useDispatch();
-
-//   const [type,
-//     toggle
-//   ] = useToggle(['login', 'register']);
-//   const form = useForm({
-//     initialValues: {
-//       email: '',
-//       username: '',
-//       password: '',
-//     },
-
-//     onSubmit: ({email, username, password}) => {
-//       if (type === 'register') {
-//         dispatch(registerUserThunk(email, username, password));
-//       } else if (type === 'login') {
-//         dispatch(loginUserThunk(email, password));
-//       }
-//     },
-
-//     // onClick: ()=>{
-//     //   window.location.href = 'https://gt-project.onrender.com/api/auth/google';
-//     // },
-
-//     validate: {
-//       email: (val) => (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(val) ? null : 'Invalid email'),
-//       password: (val) => (val.length <= 6 ? 'Password should include at least 6 characters' : null),
-//     },
-//   });
-
-//   function handleGoogleButtonClick (){
-//     window.location.href = 'https://gt-project.onrender.com/api/auth/google';
-//   }
-
-//   return (
-//     <Paper radius="md" p="xl" withBorder {...props}>
-//       <Text size="lg" fw={500}>
-//          {type}
-//         Sin Up
-//       </Text>
-
-//       <Group grow mb="md" mt="md">
-//          <GoogleButton onClick={handleGoogleButtonClick} radius="xl">
-//          {/* <GoogleButton onClick={form.onClick} radius="xl"> */}
-
-//           Google
-//           </GoogleButton>
-//       </Group>
-
-//       <Divider label="Or continue with email" labelPosition="center" my="lg" />
-
-//       {/* <form onSubmit={form.onSubmit}> */}
-//       <form onSubmit={form.onSubmit((values) => {
-//         const {email, username, password} = values
-//         dispatch(registerUserThunk(values));
-//         // {type === 'register'
-//         //       ? dispatch(registerUserThunk(values))
-//         //       : dispatch(loginUserThunk(values))
-//         // }
-//         if (type === 'register') {
-//           console.log(222, values)
-//           dispatch(registerUserThunk(email, username, password));
-//         } else if (type === 'login') {
-//           console.log(333, email, password)
-//           dispatch(loginUserThunk(email, password));
-//         }
-//       }
-//       )}
-//       >
-
-//         <Stack>
-//           {type === 'register' && (
-//             <TextInput
-//               label="Name"
-//               placeholder="Your name"
-//               value={form.values.username}
-//               onChange={(event) => form.setFieldValue('username', event.currentTarget.value)}
-//               radius="md"
-//             />
-//           )}
-
-//           <TextInput
-//             required
-//             label="Email"
-//             placeholder="hello@mantine.dev"
-//             value={form.values.email}
-//             onChange={(event) => form.setFieldValue('email', event.currentTarget.value)}
-//             error={form.errors.email && 'Invalid email'}
-//             radius="md"
-//           />
-
-//           <PasswordInput
-//             required
-//             label="Password"
-//             placeholder="Your password"
-//             value={form.values.password}
-//             onChange={(event) => form.setFieldValue('password', event.currentTarget.value)}
-//             error={form.errors.password && 'Password should include at least 6 characters'}
-//             radius="md"
-//           />
-
-//         </Stack>
-
-//         <Group justify="space-between" mt="xl">
-
-//           <Anchor component="button" type="button" c="dimmed" onClick={() => toggle()} size="xs">
-//             {type === 'register'
-//               ? 'Already have an account? Login'
-//               : "Don't have an account? Register"}
-//           </Anchor>
-//           <Button type="submit" radius="xl">
-//             {upperFirst(type)}
-
-//           </Button>
-//         </Group>
-//       </form>
-//     </Paper>
-//   );
+// <svg  className={css.icon} width="18" height="18">
+//   <use href=""></use>
+// </svg>
+// rightSection={
+//   <svg
+//     width="18"
+//     height="18"
+//     viewBox="0 0 19 18"
+//     fill="none"
+//     xmlns="http://www.w3.org/2000/svg"
+//   >
+//     <path
+//       d="M11.75 2.25H12.65C13.9101 2.25 14.5402 2.25 15.0215 2.49524C15.4448 2.71095 15.789 3.05516 16.0048 3.47852C16.25 3.95982 16.25 4.58988 16.25 5.85V12.15C16.25 13.4101 16.25 14.0402 16.0048 14.5215C15.789 14.9448 15.4448 15.289 15.0215 15.5048C14.5402 15.75 13.9101 15.75 12.65 15.75H11.75M8 5.25L11.75 9M11.75 9L8 12.75M11.75 9L2.75 9"
+//       stroke="white"
+//       strokeWidth="1.5"
+//       strokeLinecap="round"
+//       strokeLinejoin="round"
+//     />
+//   </svg>
 // }
-// export default AuthenticationForm
-
-// -----------------------
-
-// -----форма на formik
-// // import React from 'react'
-// import { Navigate } from 'react-router-dom';
-// import { useFormik } from 'formik';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { registerUserThunk } from '@/redux/operations';
-// import { selectIsAuthenticated } from '@/redux/slices/authSlice';
-// import RegisterSchema from '@/modules/Register/components/RegisterSchema';
-// import { yupResolver } from '@mantine/form';
-// import css from './RegisterForm.module.css';
-
-// function RegisterForm() {
-//   const isAuthenticated = useSelector(selectIsAuthenticated);
-//   // console.log("isAuthenticated in register", isAuthenticated)//
-//   const dispatch = useDispatch();
-
-//   const formik = useFormik({
-//     initialValues: {
-//       username: '',
-//       email: '',
-//       password: '',
-//     },
-//     resolver: yupResolver(RegisterSchema),
-
-//     onSubmit: (values) => {
-//       dispatch(registerUserThunk(values));
-//     },
-//   });
-
-//   if (isAuthenticated) {
-//     return <Navigate to="/calendar" />;
-//   } //потім /calendar/month
-
-//   return (
-//     <div className={css.boxRegister}>
-//       <h2 className={css.headerRegister}>Sing Up</h2>
-//       <form className={css.formRegister} onSubmit={formik.handleSubmit}>
-//         <label className={css.labelRegister} htmlFor="username">
-//           Name
-//         </label>
-//         <input
-//           className={css.inputRegister}
-//           id="username"
-//           name="username"
-//           type="text"
-//           onChange={formik.handleChange}
-//           value={formik.values.name}
-//           placeholder="Enter your name"
-//           minLength={2}
-//           required
-//         />
-//         <label className={css.labelRegister} htmlFor="email">
-//           Email
-//         </label>
-//         <input
-//           className={css.inputRegister}
-//           id="email"
-//           name="email"
-//           type="email"
-//           onChange={formik.handleChange}
-//           value={formik.values.email}
-//           placeholder="Enter email"
-//           required
-//           maxLength={30}
-//         />
-//         <label className={css.labelRegister} htmlFor="password">
-//           Password
-//         </label>
-//         <input
-//           className={css.inputRegister}
-//           id="password"
-//           name="password"
-//           type="password"
-//           onChange={formik.handleChange}
-//           value={formik.values.password}
-//           placeholder="Enter password"
-//           minLength={7}
-//           required
-//         />
-//         <button className={css.buttonRegister} type="submit">
-//           Sign Up
-//         </button>
-//       </form>
-//     </div>
-//   );
-// }
-
-// export default RegisterForm;
+{
+  /* <GoogleButton onClick={form.onClick} radius="xl"> */
+}
