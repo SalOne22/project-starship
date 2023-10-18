@@ -19,7 +19,7 @@
   "feedback": {
     "form": {
       "requiredField": "Required field",
-      "lengthTextField": "Message must be less than 300 symbols"
+      "lengthTextField": "Text must be 2-300 characters long"
     },
     "notification": {
       "createSuccess": "Your review has been successfully added!",
