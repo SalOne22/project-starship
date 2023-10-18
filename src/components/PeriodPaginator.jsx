@@ -1,13 +1,27 @@
 import PropTypes from 'prop-types';
+import css from './styles/PeriodPaginator.module.css';
+import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
+import clsx from 'clsx';
 
 function PeriodPaginator({ nameOfDate, prevDate, nextDate, isDisabled }) {
   return (
-    <div>
-      <button>{nameOfDate}</button>
-      <button onClick={prevDate} disabled={isDisabled}>
-        arrow_back
-      </button>
-      <button onClick={nextDate}>arrow_forward</button>
+    <div className={css.periodPaginatorWrapper}>
+      <button className={css.dateBtn}>{nameOfDate}</button>
+      <div className={css.iconWrapper}>
+        <button
+          className={clsx(css.iconArrow, css.iconLeft)}
+          onClick={prevDate}
+          disabled={isDisabled}
+        >
+          <IconChevronLeft className={css.icon} />
+        </button>
+        <button
+          className={clsx(css.iconArrow, css.iconRight)}
+          onClick={nextDate}
+        >
+          <IconChevronRight className={css.icon} />
+        </button>
+      </div>
     </div>
   );
 }

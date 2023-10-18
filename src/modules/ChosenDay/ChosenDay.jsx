@@ -5,6 +5,7 @@ import DatePaginator from '../CalendarToolbar/components/DatePaginator';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import TasksColumnsList from '../TasksColumn/TasksColumnsList';
+import css from './ChosenDay.module.css';
 
 function ChosenDay() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -38,7 +39,7 @@ function ChosenDay() {
   };
 
   return (
-    <div>
+    <div className={css.calendar}>
       <CalendarToolbar
         prevDate={prevDay}
         nextDate={nextDay}
