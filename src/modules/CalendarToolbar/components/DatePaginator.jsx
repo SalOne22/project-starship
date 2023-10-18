@@ -2,13 +2,18 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import css from '../CalendarToolbar.module.css';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
 import clsx from 'clsx';
 
 const DatePaginator = ({ currentDate, isDateShown }) => {
   const [daysCounter, setDaysCounter] = useState([]);
   const navigate = useNavigate();
 
-  const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const { t } = useTranslation();
+  const weekdays = t('calendar.weekdays', {
+    returnObjects: true,
+  });
 
   useEffect(() => {
     function generateWeekDates(startDate) {
