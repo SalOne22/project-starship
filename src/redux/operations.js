@@ -89,3 +89,19 @@ export const updateUserData = createAsyncThunk(
     }
   },
 );
+
+export const resetUserThunk = createAsyncThunk(
+  'auth/reset',
+  async (email, thunkApi) => {
+    console.log('email', email);
+
+    try {
+      const { data } = await $instance.post('/auth/reset', email);
+      return data;
+    } catch (error) {
+      const errorMessage = error.response.data.message;
+      handleError(errorMessage);
+      return thunkApi.rejectWithValue(errorMessage);
+    }
+  },
+);
