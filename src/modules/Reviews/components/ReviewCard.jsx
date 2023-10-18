@@ -6,14 +6,14 @@ function ReviewCard({ review }) {
   const {
     rating,
     text,
-    owner: { username, avatarUrl },
+    owner: { username, avatarURL },
   } = review;
 
   return (
     <Box className={css.wrap}>
       <Group gap={18} mb={24}>
-        {avatarUrl ? (
-          <Avatar variant="transparent" radius="xl" size={50} src={avatarUrl} />
+        {avatarURL ? (
+          <Avatar variant="transparent" radius="xl" size={50} src={avatarURL} />
         ) : (
           <Avatar color="teal" radius="xl" size={50}>
             {username[0]}
@@ -39,7 +39,7 @@ ReviewCard.propTypes = {
     rating: PropTypes.number,
     text: PropTypes.string,
     owner: PropTypes.shape({
-      avatarUrl: PropTypes.string,
+      avatarURL: PropTypes.string,
       username: PropTypes.string,
     }),
   }),
