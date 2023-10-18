@@ -1,7 +1,7 @@
 import { useForm } from '@mantine/form';
 import {
   TextInput,
-  PasswordInput,
+  // PasswordInput,
   Text,
   Anchor,
   Paper,
@@ -14,8 +14,9 @@ import {
 import { GoogleButton } from '@/modules/Register/components/GoogleButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUserThunk } from '@/redux/operations';
-import css from './LoginForm.module.css';
+import css from './styles/LoginForm.module.css';
 import { selectLoading } from '@/redux/slices/authSlice.js';
+import { IconLogin2 } from '@tabler/icons-react';
 
 function LoginForm() {
   const dispatch = useDispatch();
@@ -41,7 +42,14 @@ function LoginForm() {
   function handleGoogleButtonClick() {
     window.location.href = 'https://gt-project.onrender.com/api/auth/google';
   }
-
+  const inputSelectors = {
+    wrapper: css['mantine-TextInput-wrapper'], // Стили корневого элемента
+    input: css['mantine-TextInput-input'], // Стили элемента ввода
+    label: css['mantine-TextInput-label'], // Стили элемента метки
+    required: css['mantine-TextInput-required'], // Стили элемента астериска
+    error: css['mantine-TextInput-error'],
+    rightSection: ['mantine-TextInput-section'], // Стили элемента ошибки
+  };
   return (
     <Paper className={css.wrappForm}>
       <Text className={css.titleForm} c="blue.4">
@@ -79,10 +87,11 @@ function LoginForm() {
               form.setFieldValue('email', event.currentTarget.value)
             }
             error={form.errors.email && 'Invalid email'}
-            className={css.input}
+            // className={css.input}
+            classNames={inputSelectors}
           />
 
-          <PasswordInput
+          <TextInput
             withAsterisk
             label="Password"
             placeholder="Enter password"
@@ -94,7 +103,8 @@ function LoginForm() {
               form.errors.password &&
               'Password should include at least 6 characters'
             }
-            className={css.input}
+            // className={css.input}
+            classNames={inputSelectors}
           />
         </Stack>
 
@@ -107,24 +117,7 @@ function LoginForm() {
           ) : (
             <Button
               className={css.button}
-              // rightSection={<IconL size={18} />}
-              rightSection={
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 19 18"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M11.75 2.25H12.65C13.9101 2.25 14.5402 2.25 15.0215 2.49524C15.4448 2.71095 15.789 3.05516 16.0048 3.47852C16.25 3.95982 16.25 4.58988 16.25 5.85V12.15C16.25 13.4101 16.25 14.0402 16.0048 14.5215C15.789 14.9448 15.4448 15.289 15.0215 15.5048C14.5402 15.75 13.9101 15.75 12.65 15.75H11.75M8 5.25L11.75 9M11.75 9L8 12.75M11.75 9L2.75 9"
-                    stroke="white"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              }
+              rightSection={<IconLogin2 size={18} />}
               type="submit"
             >
               <Text className={css.textButtonForm}>Log In</Text>

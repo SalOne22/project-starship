@@ -1,0 +1,18 @@
+.containerStyle {
+  border: '1px solid red';
+  display: 'flex';
+  justify-content: 'center';
+  align-items: 'center';
+  flex-direction: 'column';
+  width: '100%';
+}
+.pageStyle {
+  background: '#DCEBF7';
+  min-height: '100vh';
+  padding-top: '155px';
+  padding-bottom: '155px';
+  /* 
+    display: 'flex';  
+    justify-content: 'center';
+    align-items: 'center'; */
+}

@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import Register from '@/modules/Register/components/RegisterForm';
 import AuthNavigate from '@/components/AuthNavigate';
-import { Container } from '@mantine/core';
+import { Center, Container } from '@mantine/core';
+// import css from './styles/RegisterPage.module.css'
 
 function RegisterPage() {
   const containerStyle = {
@@ -10,34 +11,28 @@ function RegisterPage() {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    // width: '100%'
   };
   const pageStyle = {
     background: '#DCEBF7',
     minHeight: '100vh',
     paddingTop: '155px',
     paddingBottom: '155px',
-
-    // display: 'flex',   //три св-ва вместо Center
-    // justifyContent: 'center',
-    // alignItems: 'center',
   };
 
   return (
-    // <div>
-    //   <Register />
-    //   <AuthNavigate route="/login" text="Log In" />
-    // </div>
-    <div
-      //  <Center
+    <Center
+      // className={css.pageStyle}
+      // c="blue.4"
       style={pageStyle}
     >
-      <Container style={containerStyle}>
+      <Container
+        // className={css.containerStyle}
+        style={containerStyle}
+      >
         <Register />
         <AuthNavigate route="/login" text="Log In" />
       </Container>
-    </div>
-    //  </Center>
+    </Center>
   );
 }
 RegisterPage.propTypes = {
