@@ -1,11 +1,10 @@
 //  ----форма montin на двух роутах
 
-import { useForm } from '@mantine/form';
-// import { hasLength, isEmail, useForm } from '@mantine/form';
+// import { useForm } from '@mantine/form';
+import { hasLength, isEmail, useForm } from '@mantine/form';
 
 import {
   TextInput,
-  // PasswordInput,
   Text,
   Paper,
   Group,
@@ -13,14 +12,19 @@ import {
   Stack,
   Loader,
   Divider,
+  PasswordInput,
 } from '@mantine/core';
 import { GoogleButton } from './GoogleButton.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUserThunk } from '@/redux/operations';
 import css from './styles/RegisterForm.module.css';
 import { selectLoading } from '@/redux/slices/authSlice.js';
-import { IconLogin2 } from '@tabler/icons-react';
-// import theme from '@/theme';
+import {
+  IconAlertCircle,
+  IconCircleCheck,
+  IconLogin2,
+} from '@tabler/icons-react';
+import clsx from 'clsx';
 
 function RegisterForm(props) {
   const dispatch = useDispatch();
@@ -32,26 +36,18 @@ function RegisterForm(props) {
       username: '',
       password: '',
     },
+
     validate: {
-      username: (val) =>
-        /^[A-Za-z\s]+$/.test(val)
-          ? null
-          : 'Name should only contain letters and spaces',
-
-      email: (val) =>
-        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(val)
-          ? null
-          : 'Word before @ and domain after the dot',
-
-      password: (val) =>
-        val.length < 6 ? 'Password should include at least 6 characters' : null,
+      username: hasLength(
+        { min: 2 },
+        'Enter a name with a minimum of 2 characters',
+      ),
+      email: isEmail('Word before @ and domain after the dot'),
+      password: hasLength(
+        { min: 6 },
+        'Password should include at least 6 characters',
+      ),
     },
-
-    // validate: {
-    //   username: hasLength({ min: 2 }, 'Enter a name with a minimum of 2 characters'),
-    //   email: isEmail('Word before @ and domain after the dot'),
-    //   password: hasLength({ min: 6 }, 'Password should include at least 6 characters')
-    // },
   });
 
   function handleGoogleButtonClick() {
@@ -59,23 +55,15 @@ function RegisterForm(props) {
   }
 
   const handleSubmit = async (values) => {
-    // try {
-    //   await dispatch(registerUserThunk(values))
-    // } catch (error) {
-    //   handleError(error)
-    // }
     dispatch(registerUserThunk(values));
   };
-  // const iconError = <IconAlertCircle/>
-  // // const iconCorrect = <IconCheckCircle/>
 
   const inputSelectors = {
-    wrapper: css['mantine-TextInput-wrapper'], // Стили корневого элемента
-    input: css['mantine-TextInput-input'], // Стили элемента ввода
-    label: css['mantine-TextInput-label'], // Стили элемента метки
-    required: css['mantine-TextInput-required'], // Стили элемента астериска
-    error: css['mantine-TextInput-error'],
-    rightSection: ['mantine-TextInput-section'], // Стили элемента ошибки
+    wrapper: css.wrapper,
+    label: css.label,
+    required: css.required,
+    error: css.error,
+    rightSection: css.section,
   };
   return (
     <Paper className={css.wrappForm} c="white" withBorder {...props}>
@@ -102,48 +90,65 @@ function RegisterForm(props) {
             withAsterisk
             label="Name"
             placeholder="Enter your name"
-            // rightSection={iconError}
-            value={form.values.username}
-            // {...form.getInputProps('username')}
-            onChange={(event) => {
-              form.setFieldValue('username', event.currentTarget.value);
-            }}
-            error={
-              form.errors.username &&
-              'Enter a name with a minimum of 2 characters'
+            rightSection={
+              form.errors?.username ? (
+                <IconAlertCircle color="red" size={18} />
+              ) : form.values.username.length > 1 ? (
+                <IconCircleCheck color="green" size={18} />
+              ) : null
             }
-            // className={css.input}
-            classNames={inputSelectors}
+            {...form.getInputProps('username')}
+            classNames={{
+              inputSelectors,
+              input: clsx(
+                css.input,
+                form.isValid('username') ? css.inputCorrect : null,
+              ),
+            }}
           />
 
           <TextInput
             withAsterisk
             label="Email"
             placeholder="Enter email"
-            value={form.values.email}
-            onChange={(event) =>
-              form.setFieldValue('email', event.currentTarget.value)
+            rightSection={
+              form.errors?.email ? (
+                <IconAlertCircle color="red" size={18} />
+              ) : form.isValid('email') ? (
+                <IconCircleCheck color="green" size={18} />
+              ) : null
             }
-            error={
-              form.errors.email &&
-              'Word is needed before @ and domain after the dot'
-            }
-            classNames={inputSelectors}
+            {...form.getInputProps('email')}
+            classNames={{
+              inputSelectors,
+              input: clsx(
+                css.input,
+                form.isValid('email') ? css.inputCorrect : null,
+              ),
+            }}
           />
 
-          <TextInput
+          {/* <TextInput */}
+          <PasswordInput
             withAsterisk
             label="Password"
             placeholder="Enter password"
-            value={form.values.password}
-            onChange={(event) =>
-              form.setFieldValue('password', event.currentTarget.value)
+            rightSection={
+              form.errors?.password ? (
+                <IconAlertCircle color="red" size={18} />
+              ) : form.values.password.length > 5 ? (
+                <IconCircleCheck color="green" size={18} />
+              ) : null
             }
-            error={
-              form.errors.password &&
-              'Password should include at least 6 characters'
-            }
-            classNames={inputSelectors}
+            {...form.getInputProps('password')}
+            classNames={{
+              inputSelectors,
+              input: clsx(
+                css.input,
+                form.isValid('password') ? css.inputCorrect : null,
+              ),
+              innerInput: css.inputInput,
+            }}
           />
         </Stack>
 
@@ -165,48 +170,3 @@ function RegisterForm(props) {
   );
 }
 export default RegisterForm;
-
-// -----------------------------------
-{
-  /* <Button disabled={isLoading} type="submit" radius="xl">
-            Sign Up
-          </Button> */
-}
-{
-  /* <form
-        onSubmit={form.onSubmit((values) => {
-          dispatch(registerUserThunk(values));
-        })}
-      > */
-}
-{
-  /* <span  style={{ width: '18px' }} className={css.iconButtonForm}>
-              {<svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M11.75 2.25H12.65C13.9101 2.25 14.5402 2.25 15.0215 2.49524C15.4448 2.71095 15.789 3.05516 16.0048 3.47852C16.25 3.95982 16.25 4.58988 16.25 5.85V12.15C16.25 13.4101 16.25 14.0402 16.0048 14.5215C15.789 14.9448 15.4448 15.289 15.0215 15.5048C14.5402 15.75 13.9101 15.75 12.65 15.75H11.75M8 5.25L11.75 9M11.75 9L8 12.75M11.75 9L2.75 9" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>}
-              </span> */
-}
-
-// <svg  className={css.icon} width="18" height="18">
-//   <use href=""></use>
-// </svg>
-// rightSection={
-//   <svg
-//     width="18"
-//     height="18"
-//     viewBox="0 0 19 18"
-//     fill="none"
-//     xmlns="http://www.w3.org/2000/svg"
-//   >
-//     <path
-//       d="M11.75 2.25H12.65C13.9101 2.25 14.5402 2.25 15.0215 2.49524C15.4448 2.71095 15.789 3.05516 16.0048 3.47852C16.25 3.95982 16.25 4.58988 16.25 5.85V12.15C16.25 13.4101 16.25 14.0402 16.0048 14.5215C15.789 14.9448 15.4448 15.289 15.0215 15.5048C14.5402 15.75 13.9101 15.75 12.65 15.75H11.75M8 5.25L11.75 9M11.75 9L8 12.75M11.75 9L2.75 9"
-//       stroke="white"
-//       strokeWidth="1.5"
-//       strokeLinecap="round"
-//       strokeLinejoin="round"
-//     />
-//   </svg>
-// }
-{
-  /* <GoogleButton onClick={form.onClick} radius="xl"> */
-}
