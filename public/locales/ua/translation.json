@@ -19,7 +19,7 @@
   "feedback": {
     "form": {
       "requiredField": "Обов'язкове поле",
-      "lengthTextField": "Повідомлення має бути менше 300 символів"
+      "lengthTextField": "Текст має бути 2-300 символів"
     },
     "notification": {
       "createSuccess": "Ваш відгук успішно додано!",
