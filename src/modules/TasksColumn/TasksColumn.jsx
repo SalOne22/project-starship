@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import ColumnsTasksList from './components/ColumnsTasksList';
 
-function TasksColumn({ category, tasks }) {
+function TasksColumn({ category, tasks, title }) {
   const [tasksToMap, setTasksToMap] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
@@ -69,7 +69,7 @@ function TasksColumn({ category, tasks }) {
       ref={drop}
       className={clsx(css.tasksColumn, isOver ? css.boxDrop : null)}
     >
-      <ColumnHeadBar title={category} onClick={onOpen} />
+      <ColumnHeadBar title={title} onClick={onOpen} />
       <ColumnsTasksList tasksToMap={tasksToMap} />
       <AddTaskButton onClick={onOpen}>Add task</AddTaskButton>
       {isOpen && <TaskModal category={category} onClose={onClose} />}
@@ -80,6 +80,7 @@ function TasksColumn({ category, tasks }) {
 TasksColumn.propTypes = {
   category: PropTypes.string,
   tasks: PropTypes.arrayOf(PropTypes.object),
+  title: PropTypes.string,
 };
 
 export default TasksColumn;

@@ -97,6 +97,13 @@
           "test": "End time should be greater than start time"
         }
       },
+      "taskColumns": {
+        "titles": {
+          "to-do": "To-do",
+          "in progress": "In progress",
+          "done": "Done"
+        }
+      },
       "card": {
         "priority": {
           "low": "Low",
