@@ -1,6 +1,7 @@
 import { Box, Button, Loader, Menu } from '@mantine/core';
 import {
   IconCircleArrowRight,
+  IconCircleArrowLeft,
   IconPencil,
   IconTrash,
 } from '@tabler/icons-react';
@@ -12,32 +13,46 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { notifications } from '@mantine/notifications';
 import theme from '@/theme';
+import { useTranslation } from 'react-i18next';
 
 function TaskToolbar({ task }) {
   const [isOpen, setModal] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
 
-  console.log(isDeleting);
-  // const isLoading = useSelector((state) => state.tasks.isLoading);
+  const categories = ['to-do', 'in progress', 'done'];
 
-  const categories = ['to-do', 'in progress', 'done']
-
-    .filter((category) => category !== task.category)
-    .map((category) => {
-      return category.charAt(0).toUpperCase() + category.slice(1);
-    });
+  const getIconForCategory = (category) => {
+    switch (category) {
+      case 'to-do':
+        return <IconCircleArrowLeft size={20} className={css.icon} />;
+      case 'in progress':
+        return task.category === 'done' ? (
+          <IconCircleArrowLeft size={20} className={css.icon} />
+        ) : (
+          <IconCircleArrowRight size={20} className={css.icon} />
+        );
+      case 'done':
+        return <IconCircleArrowRight size={20} className={css.icon} />;
+      default:
+        return null;
+    }
+  };
 
   const handleDelete = async () => {
     setIsDeleting(true);
     try {
       await dispatch(deleteTask(task._id));
       setIsDeleting(false);
-      handleMessage('Task is successfully delated', theme.colors.green[6]);
+      handleMessage(
+        t('calendar.chosenday.notification.removeSuccess'),
+        theme.colors.green[6],
+      );
     } catch {
       handleMessage(
-        'Something went wrong, please try again later',
+        t('calendar.chosenday.notification.error'),
         theme.colors.red[6],
       );
     }
@@ -50,7 +65,7 @@ function TaskToolbar({ task }) {
       await dispatch(editTask({ ...task, category: newCategoryEdited }));
     } catch {
       handleMessage(
-        'Something went wrong, please try again later',
+        t('calendar.chosenday.notification.error'),
         theme.colors.red[6],
       );
     }
@@ -89,20 +104,18 @@ function TaskToolbar({ task }) {
 
         <Menu.Dropdown className={css.dropdown}>
           <ul className={css.categoryList}>
-            <li
-              className={css.categoryItem}
-              onClick={() => handleChangePriority(categories[0])}
-            >
-              {categories[0]}
-              <IconCircleArrowRight size={20} className={css.icon} />
-            </li>
-            <li
-              className={css.categoryItem}
-              onClick={() => handleChangePriority(categories[1])}
-            >
-              {categories[1]}
-              <IconCircleArrowRight size={20} className={css.icon} />
-            </li>
+            {categories
+              .filter((category) => category !== task.category)
+              .map((category) => (
+                <li
+                  key={category}
+                  className={css.categoryItem}
+                  onClick={() => handleChangePriority(category)}
+                >
+                  {t(`calendar.chosenday.card.category.${category}`)}
+                  {getIconForCategory(category)}
+                </li>
+              ))}
           </ul>
         </Menu.Dropdown>
       </Menu>
@@ -124,6 +137,7 @@ function TaskToolbar({ task }) {
           label: { alignItems: 'end' },
         }}
         onClick={handleDelete}
+        disabled={isDeleting}
       >
         {isDeleting ? (
           <Loader size={20} />
