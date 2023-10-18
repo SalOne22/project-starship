@@ -51,6 +51,13 @@
   overflow: hidden;
 }
 
+.avatarImg {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
 .priority {
   height: rem(20);
   font-size: rem(10);

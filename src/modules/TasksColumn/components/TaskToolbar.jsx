@@ -1,4 +1,4 @@
-import { Box, Button, Menu } from '@mantine/core';
+import { Box, Button, Loader, Menu } from '@mantine/core';
 import {
   IconCircleArrowRight,
   IconPencil,
@@ -15,18 +15,25 @@ import theme from '@/theme';
 
 function TaskToolbar({ task }) {
   const [isOpen, setModal] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const dispatch = useDispatch();
 
+  console.log(isDeleting);
+  // const isLoading = useSelector((state) => state.tasks.isLoading);
+
   const categories = ['to-do', 'in progress', 'done']
+
     .filter((category) => category !== task.category)
     .map((category) => {
       return category.charAt(0).toUpperCase() + category.slice(1);
     });
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
+    setIsDeleting(true);
     try {
-      dispatch(deleteTask(task._id));
+      await dispatch(deleteTask(task._id));
+      setIsDeleting(false);
       handleMessage('Task is successfully delated', theme.colors.green[6]);
     } catch {
       handleMessage(
@@ -36,11 +43,11 @@ function TaskToolbar({ task }) {
     }
   };
 
-  const handleChangePriority = (newCategory) => {
+  const handleChangePriority = async (newCategory) => {
     try {
       const newCategoryEdited =
         newCategory.charAt(0).toLowerCase() + newCategory.slice(1);
-      dispatch(editTask({ ...task, category: newCategoryEdited }));
+      await dispatch(editTask({ ...task, category: newCategoryEdited }));
     } catch {
       handleMessage(
         'Something went wrong, please try again later',
@@ -118,7 +125,11 @@ function TaskToolbar({ task }) {
         }}
         onClick={handleDelete}
       >
-        <IconTrash size={20} className={css.icon} />
+        {isDeleting ? (
+          <Loader size={20} />
+        ) : (
+          <IconTrash size={20} className={css.icon} />
+        )}
       </Button>
       {isOpen && (
         <TaskModal onClose={onClose} task={task} category={task.category} />

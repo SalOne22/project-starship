@@ -53,17 +53,17 @@ const TaskForm = ({ category, onClose, task }) => {
     setSelectedPriority(event.target.value);
   };
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     values.priority = selectedPriority;
     values.date = currentDay;
     values.category = category;
 
     try {
       if (task) {
-        dispatch(editTask({ ...values, _id: task._id }));
+        await dispatch(editTask({ ...values, _id: task._id }));
         handleMessage('Task successfully edited!', theme.colors.green[6]);
       } else {
-        dispatch(addTask({ ...values }));
+        await dispatch(addTask({ ...values }));
         handleMessage('Task successfully created!', theme.colors.green[6]);
       }
       onClose();

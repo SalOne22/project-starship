@@ -58,7 +58,7 @@ function TaskColumnCard({ task }) {
         >
           <Box className={css.avatar}>
             {avatarURL ? (
-              <img src={avatarURL} alt={username} />
+              <img className={css.avatarImg} src={avatarURL} alt={username} />
             ) : (
               <span> {username[0].toUpperCase()}</span>
             )}
