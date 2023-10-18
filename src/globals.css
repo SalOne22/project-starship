@@ -135,7 +135,3 @@ body {
     max-width: rem(1440px);
   }
 }
-
-.mantine-ScrollArea-scrollbar-thumb {
-  background-color: transparent !important;
-}

@@ -1,21 +1,17 @@
-import { useTasks } from '../Calendar/hooks/useTasks';
-import css from './ChosenDay.module.css';
-import TasksColumn from '../TasksColumn';
 import CalendarToolbar from '../CalendarToolbar';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import DatePaginator from '../CalendarToolbar/components/DatePaginator';
-
-const categories = ['to-do', 'in progress', 'done'];
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import TasksColumnsList from '../TasksColumn/TasksColumnsList';
 
 function ChosenDay() {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const { tasks } = useTasks();
+
   const navigate = useNavigate();
 
   const { currentDay } = useParams();
-
-  const tasksByDay = tasks.filter((task) => task.date.includes(currentDay));
 
   const changeCurrentDate = (date) => {
     setCurrentDate(new Date(date));
@@ -42,7 +38,7 @@ function ChosenDay() {
   };
 
   return (
-    <div>
+    <div style={{ height: '100%' }}>
       <CalendarToolbar
         prevDate={prevDay}
         nextDate={nextDay}
@@ -50,16 +46,9 @@ function ChosenDay() {
         isDisabled={false}
       />
       <DatePaginator currentDate={currentDate} isDateShown={true} />
-      <div className={css.chosenDay}>
-        {categories.map((t) => (
-          <TasksColumn
-            key={t}
-            category={t}
-            date={currentDay}
-            tasks={tasksByDay}
-          />
-        ))}
-      </div>
+      <DndProvider backend={HTML5Backend}>
+        <TasksColumnsList />
+      </DndProvider>
     </div>
   );
 }

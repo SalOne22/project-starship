@@ -3,11 +3,9 @@ import { $instance } from '@/redux/operations';
 
 export const findAll = createAsyncThunk(
   'reviews/findAll',
-  async ({ page, limit }, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
-      const { data } = await $instance.get(
-        `/reviews?page=${page}&limit=${limit}`,
-      );
+      const { data } = await $instance.get(`/reviews`);
       return data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);

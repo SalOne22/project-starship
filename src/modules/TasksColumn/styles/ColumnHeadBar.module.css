@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 28px;
+  margin-bottom: rem(28px);
 }
 
 .title {
@@ -17,4 +17,9 @@
   cursor: pointer;
   background-color: transparent;
   border: none;
+  transition: color 350ms ease;
+}
+
+.button:hover {
+  color: var(--mantine-color-blue-5);
 }

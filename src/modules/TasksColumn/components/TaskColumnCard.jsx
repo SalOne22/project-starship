@@ -2,22 +2,46 @@ import { Box, Text } from '@mantine/core';
 import css from '../styles/TaskColumnCard.module.css';
 import TaskToolbar from './TaskToolbar';
 import PropTypes from 'prop-types';
+import { useDrag } from 'react-dnd';
+import clsx from 'clsx';
+import { useSelector } from 'react-redux';
+import { selectUserData } from '@/redux/slices/authSlice';
+import theme from '@/theme';
 
-function TaskColumnCard() {
-  const priorityColor = getPriorityColor('high');
+function TaskColumnCard({ task }) {
+  const priorityColor = getPriorityColor(task.priority);
+
+  const { username, avatarURL } = useSelector(selectUserData) ?? {};
+
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: 'task',
+    item: {
+      task,
+    },
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
 
   function getPriorityColor(priority) {
     const priorityColors = {
-      high: '#EA3D65',
-      medium: '#F3B249',
-      low: '#72C2F8',
+      high: theme.colors.red[10],
+      medium: theme.colors.orange[10],
+      low: theme.colors.blue[10],
     };
 
-    return priorityColors[priority] || '#999';
+    return priorityColors[priority] || theme.colors.blue[0];
   }
+
+  const taskPriority =
+    task.priority.charAt(0).toUpperCase() + task.priority.slice(1);
+
   return (
-    <Box className={css.cardBox}>
-      <Text className={css.task}>title</Text>
+    <li
+      ref={drag}
+      className={clsx(css.cardBox, isDragging ? css.draggedTask : null)}
+    >
+      <Text className={css.task}>{task.title}</Text>
       <Box
         style={{
           display: 'flex',
@@ -33,16 +57,22 @@ function TaskColumnCard() {
           }}
         >
           <Box className={css.avatar}>
-            <span>A</span>
+            {avatarURL ? (
+              <img src={avatarURL} alt={username} />
+            ) : (
+              <span> {username[0].toUpperCase()}</span>
+            )}
           </Box>
           <Box
             className={css.priority}
             style={{ backgroundColor: priorityColor }}
-          ></Box>
+          >
+            <p className={css.priorityText}>{taskPriority}</p>
+          </Box>
         </Box>
-        <TaskToolbar />
+        <TaskToolbar task={task} />
       </Box>
-    </Box>
+    </li>
   );
 }
 

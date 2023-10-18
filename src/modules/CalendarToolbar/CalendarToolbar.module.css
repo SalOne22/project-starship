@@ -4,24 +4,39 @@
   list-style: none;
   padding-left: 0;
   text-align: center;
-  background-color: #fff;
+  background-color: var(--mantine-color-white);
   border: 1px solid #dce3e5cc;
-  border-radius: 8px;
+  border-radius: rem(8px);
+  padding: rem(14px) rem(60px);
+
+  @mixin dark {
+    background-color: var(--mantine-color-gray-7);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
 }
 
 .weekday {
   width: calc(100% / 7);
   text-transform: uppercase;
-  margin-bottom: 15px;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.dayNum {
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .selectedDay {
-  padding: 4px 8px;
-  border-radius: 8px;
-  background-color: #3e85f3;
-  line-height: 18px;
-  font-size: 16px;
-  color: #fff;
+  padding: 4px rem(8px);
+  border-radius: rem(8px);
+  background-color: var(--mantine-color-blue-4);
+  line-height: rem(18px);
+  font-size: rem(16px);
+  color: var(--mantine-color-white);
 }
 
 .tools {

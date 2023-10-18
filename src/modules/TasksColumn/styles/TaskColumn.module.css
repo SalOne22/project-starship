@@ -1,14 +1,25 @@
-.task {
-  overflow: auto;
-  max-height: 368px;
-  scroll-behavior: smooth;
-  scrollbar-width: 2px;
-}
-
 .tasksColumn {
-  background-color: #fff;
+  background-color: var(--mantine-color-white);
   width: 100%;
+  min-width: rem(335px);
   border-radius: 8px;
   border: 1px solid rgba(220, 227, 229, 0.8);
   padding: 20px;
+  @mixin dark {
+    background-color: var(--mantine-color-gray-7);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  @media (min-width: $mantine-breakpoint-md) {
+    min-width: rem(344px);
+  }
+}
+
+.addBtnIcon:hover {
+  background-color: var(--mantine-color-dark-2);
+}
+
+.boxDrop {
+  background-color: rgba(174, 172, 172, 0.138);
+  scale: 1.01;
+  transition: all 300ms ease;
 }

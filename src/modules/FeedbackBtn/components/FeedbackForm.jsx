@@ -7,12 +7,14 @@ import {
   Modal,
   Stack,
   rem,
+  Box,
 } from '@mantine/core';
+import { useForm, isInRange, hasLength } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
-import { useDisclosure } from '@mantine/hooks';
-import { useToggle } from '@mantine/hooks';
+import { useDisclosure, useToggle } from '@mantine/hooks';
+
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
@@ -32,58 +34,46 @@ import {
 } from '@/modules/Reviews/redux/reviewsOperations';
 
 function FeedbackForm({ onClose }) {
+  const [opened, modal] = useDisclosure(false);
+  const [mode, toggleMode] = useToggle(['view', 'edit']);
+
   const feedback = useSelector(selectUserReview);
   const isLoading = useSelector(selectReviewsIsLoading);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const [opened, modal] = useDisclosure(false);
-  const [mode, toggleMode] = useToggle(['view', 'edit']);
+  const form = useForm({
+    initialValues: {
+      rating: 0,
+      text: '',
+    },
+    validate: {
+      rating: isInRange({ min: 1, max: 5 }, 'Required field'),
+      text: hasLength(
+        { min: 2, max: 300 },
+        'Text must be 2-300 characters long',
+      ),
+    },
+  });
 
-  const [rating, setRating] = useState(feedback.rating);
-  const [text, setText] = useState(feedback.text);
-  const [isErrorRating, setIsErrorRating] = useState(false);
-  const [isErrorText, setIsErrorText] = useState(false);
-  const [errorTextMsg, setIsErrorTextMsg] = useState('');
+  useEffect(() => {
+    if (!feedback) toggleMode();
+    form.setInitialValues(feedback);
+    form.setValues(feedback);
+  }, []);
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!rating && !text) {
-      setIsErrorRating(true);
-      setIsErrorText(true);
-      setIsErrorTextMsg(t('feedback.form.requiredField'));
-      return;
-    }
-
-    if (!rating) {
-      setIsErrorRating(true);
-      return;
-    }
-
-    if (!text || !text.trim()) {
-      setIsErrorText(true);
-      return;
-    }
-
-    if (text.trim().length > 300) {
-      console.log(text.length);
-      setIsErrorText((prev) => !prev);
-      setIsErrorTextMsg(t('feedback.form.lengthTextField'));
-      return;
-    }
-
+  const onSubmit = async ({ rating, text }) => {
     if (mode === 'edit') {
       try {
         await dispatch(edit({ rating, text }));
         toggleMode();
+        onClose();
         notifications.show({
           color: 'teal',
           icon: <IconCheck style={{ width: rem(20), height: rem(20) }} />,
           title: t('common.feedback'),
           message: t('feedback.notification.editSuccess'),
         });
-        onClose();
       } catch (error) {
         notifications.show({
           color: 'red',
@@ -97,13 +87,13 @@ function FeedbackForm({ onClose }) {
 
     try {
       await dispatch(create({ rating, text }));
+      onClose();
       notifications.show({
         color: 'teal',
         icon: <IconCheck style={{ width: rem(20), height: rem(20) }} />,
         title: t('common.feedback'),
         message: t('feedback.notification.createSuccess'),
       });
-      onClose();
     } catch (error) {
       notifications.show({
         color: 'red',
@@ -114,29 +104,17 @@ function FeedbackForm({ onClose }) {
     }
   };
 
-  const onChangeRating = (value) => {
-    setRating(value);
-    setIsErrorRating(false);
-  };
-
-  const onChangeText = (e) => {
-    setText(e.currentTarget.value);
-    setIsErrorText(false);
-  };
-
   const onDelete = async () => {
     try {
       await dispatch(remove());
       modal.close();
-      setRating(null);
-      setText('');
+      onClose();
       notifications.show({
         color: 'teal',
         title: t('common.feedback'),
         icon: <IconCheck style={{ width: rem(20), height: rem(20) }} />,
         message: t('feedback.notification.removeSuccess'),
       });
-      onClose();
     } catch (error) {
       notifications.show({
         color: 'red',
@@ -149,106 +127,104 @@ function FeedbackForm({ onClose }) {
 
   const onCancel = () => {
     if (mode === 'edit') {
-      setRating(feedback.rating);
-      setText(feedback.text);
       toggleMode();
       return;
     }
-
     onClose();
   };
 
   return (
-    <form onSubmit={onSubmit} className={css.form}>
-      <Stack align="flex-start" justify="flex-start" gap={8} mb={20}>
-        <Text className={css.label} c={isErrorRating ? 'red' : css.label.color}>
-          {t('common.rating')}
-        </Text>
-        <Rating
-          value={rating}
-          onChange={onChangeRating}
-          readOnly={mode === 'edit' || !feedback.rating ? false : true}
-        />
-      </Stack>
+    <Box className={css.form}>
+      <form onSubmit={form.onSubmit(onSubmit)}>
+        <Stack align="flex-start" justify="flex-start" gap={8} mb={20}>
+          <Text className={css.label}>{t('common.rating')}</Text>
+          <Rating
+            value={form.values.rating}
+            onChange={(val) => form.setFieldValue('rating', val)}
+            readOnly={mode === 'view'}
+          />
+          {form.errors?.rating && (
+            <Text className={css.error}>{form.errors.rating}</Text>
+          )}
+        </Stack>
 
-      <Group mb={8} justify="space-between">
-        <Text className={css.label}>{t('common.review')}</Text>
-        {feedback.text && (
-          <Group justify="center" gap={8}>
-            <EditButton handleEdit={toggleMode} />
-            <DeleteButton handleDelete={modal.open} />
+        <Group mb={8} justify="space-between">
+          <Text className={css.label}>{t('common.review')}</Text>
+          {feedback && (
+            <Group justify="center" gap={8}>
+              <EditButton handleEdit={toggleMode} />
+              <DeleteButton handleDelete={modal.open} />
+            </Group>
+          )}
+        </Group>
+
+        <Textarea
+          mb={14}
+          rows={6}
+          classNames={{ input: css.input }}
+          placeholder={t('common.enterText')}
+          withAsterisk
+          readOnly={mode === 'view'}
+          {...form.getInputProps('text')}
+        />
+
+        {mode === 'edit' && (
+          <Group gap={8} grow>
+            <Button
+              type="submit"
+              size="md"
+              classNames={{
+                root: clsx(css.btn, css.btnPrimary),
+              }}
+              loading={isLoading ? true : false}
+            >
+              {t('common.save')}
+            </Button>
+            <Button
+              size="md"
+              onClick={onCancel}
+              classNames={{
+                root: clsx(css.btn, css.btnSecondary),
+                label: css.btnLabel,
+              }}
+            >
+              {t('common.cancel')}
+            </Button>
           </Group>
         )}
-      </Group>
 
-      <Textarea
-        mb={14}
-        rows={6}
-        classNames={{ input: css.input }}
-        placeholder={t('common.enterText')}
-        value={text}
-        onChange={onChangeText}
-        withAsterisk
-        error={isErrorText ? errorTextMsg : false}
-        readOnly={mode === 'edit' || !feedback.text ? false : true}
-      />
+        <Modal
+          size={350}
+          radius={8}
+          opened={opened}
+          onClose={modal.close}
+          title={t('feedback.modal.title')}
+          classNames={{
+            content: css.contentModal,
+            title: css.removeModalTitle,
+          }}
+        >
+          <Text size="sm" mb={20}>
+            {t('feedback.modal.text')}
+          </Text>
 
-      {(!feedback.text || mode === 'edit') && (
-        <Group gap={8} grow>
-          <Button
-            type="submit"
-            size="md"
-            classNames={{
-              root: clsx(css.btn, css.btnPrimary),
-            }}
-            loading={isLoading ? true : false}
-          >
-            {t('common.save')}
-          </Button>
-          <Button
-            size="md"
-            onClick={onCancel}
-            classNames={{
-              root: clsx(css.btn, css.btnSecondary),
-              label: css.btnLabel,
-            }}
-          >
-            {t('common.cancel')}
-          </Button>
-        </Group>
-      )}
-
-      <Modal
-        size={350}
-        radius={8}
-        opened={opened}
-        onClose={modal.close}
-        title={t('feedback.modal.title')}
-        classNames={{
-          content: css.contentModal,
-          title: css.removeModalTitle,
-        }}
-      >
-        <Text size="sm" mb={20}>
-          {t('feedback.modal.text')}
-        </Text>
-
-        <Group justify="center" gap="md">
-          <Button
-            onClick={onDelete}
-            variant="filled"
-            color="red"
-            radius="md"
-            loading={isLoading ? true : false}
-          >
-            {t('common.delete')}
-          </Button>
-          <Button onClick={modal.close} variant="light" radius="md">
-            {t('common.cancel')}
-          </Button>
-        </Group>
-      </Modal>
-    </form>
+          <Group justify="center" gap="md">
+            <Button
+              onClick={onDelete}
+              variant="filled"
+              color="red"
+              radius="md"
+              loading={isLoading ? true : false}
+            >
+              {t('common.delete')}
+            </Button>
+            <Button onClick={modal.close} variant="light" radius="md">
+              {t('common.cancel')}
+            </Button>
+          </Group>
+        </Modal>
+      </form>
+    </Box>
   );
 }
 

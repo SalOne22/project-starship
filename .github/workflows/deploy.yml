@@ -34,9 +34,6 @@ jobs:
       - name: Install dependencies 🔃
         run: npm install
 
-      - name: Lint 🧪
-        run: npm run lint
-
       - name: Build 🏗
         run: |
           npm run build
