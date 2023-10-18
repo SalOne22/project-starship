@@ -22,6 +22,7 @@ const LangSelect = () => {
 
   useEffect(() => {
     if (!pathname.includes('lang')) setSearchParams({ lang: currentLanguage });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   const handleButtonClick = () => {
@@ -30,7 +31,6 @@ const LangSelect = () => {
     setIsFlipped(!isFlipped);
     setSearchParams({ lang: selectedLanguage });
   };
-
   return (
     <ActionIcon
       w={{ base: 24, md: 32 }}
