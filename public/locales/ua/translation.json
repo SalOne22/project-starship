@@ -74,6 +74,7 @@
       "Грудень"
     ],
     "weekdays": ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд"],
+    "periodSelect": { "month": "Місяць", "day": "День" },
     "chosenday": {
       "notification": {
         "createSuccess": "Завдання успішно додано!",

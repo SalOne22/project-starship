@@ -1,0 +1,17 @@
+.calendar {
+  width: 100%;
+  padding-top: rem(64px);
+  padding-left: rem(20px);
+  padding-right: rem(20px);
+  /* padding-bottom: rem(32px); */
+
+  @media (min-width: $mantine-breakpoint-md) {
+    padding-top: rem(64px);
+    padding-left: rem(32px);
+    padding-right: rem(32px);
+  }
+
+  @media (min-width: $mantine-breakpoint-xl) {
+    padding-top: rem(38px);
+  }
+}
