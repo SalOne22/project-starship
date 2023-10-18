@@ -73,6 +73,7 @@
       "November",
       "December"
     ],
-    "weekdays": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    "weekdays": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    "periodSelect": { "month": "Month", "day": "Day" }
   }
 }
