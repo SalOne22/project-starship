@@ -23,7 +23,7 @@ function UserInfo() {
         breakpoint="md"
         order={3}
       >
-        {username} some long text
+        {username}
       </Marquee>
 
       <Avatar className={css.avatar} variant="outline" src={avatarURL}>
