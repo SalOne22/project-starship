@@ -51,6 +51,10 @@
       "account": "User Profile"
     }
   },
+  "notFound": {
+    "message": "We’re sorry, the page you requested could not be found. Please go back to the homepage.",
+    "back": "Back to home"
+  },
   "main": {},
   "errors": {
     "cantFetchCurrentUser": {
