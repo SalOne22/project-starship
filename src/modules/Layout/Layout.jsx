@@ -59,7 +59,7 @@ function Layout() {
           <Header onOpen={open} />
         </AppShell.Header>
 
-        <AppShell.Navbar bg="transparent">
+        <AppShell.Navbar bg="transparent" onClick={close}>
           <SideBar onClose={close} />
         </AppShell.Navbar>
 
