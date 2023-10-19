@@ -49,6 +49,10 @@
       "calendar": "Calendar",
       "statistics": "Statistics",
       "account": "User Profile"
+    },
+    "subtitle": {
+      "first": "Let go",
+      "second": " of the past and focus on the present!"
     }
   },
   "notFound": {

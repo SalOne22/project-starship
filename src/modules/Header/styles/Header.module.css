@@ -18,6 +18,16 @@
   }
 }
 
+.subtitle {
+  font-size: rem(14px);
+  font-weight: 600;
+  line-height: 1.28571;
+}
+
+.subtitle > span {
+  color: var(--mantine-color-blue-4);
+}
+
 .burger {
   @mixin dark {
     color: var(--mantine-color-dark-0);
