@@ -55,7 +55,7 @@ function App() {
 
             <Route
               element={
-                <PrivateRoute to="/login">
+                <PrivateRoute to="/">
                   <Outlet />
                 </PrivateRoute>
               }
