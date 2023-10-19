@@ -21,8 +21,6 @@
   line-height: 1.28571;
   text-overflow: ellipsis;
 
-  max-width: 75px;
-
   @media (min-width: $mantine-breakpoint-md) {
     max-width: none;
     font-size: rem(18px);
