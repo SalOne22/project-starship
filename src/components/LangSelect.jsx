@@ -1,14 +1,15 @@
-import { ActionIcon } from '@mantine/core';
-import { useEffect, useState } from 'react';
+import { ActionIcon, Dialog } from '@mantine/core';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 
 import IconEngFlag from '@/assets/icons/eng.svg?react';
 import IconUkrFlag from '@/assets/icons/ua.svg?react';
 
+import css from './styles/LangSelect.module.css';
+
 const LangSelect = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [isFlipped, setIsFlipped] = useState(false);
   const { pathname } = window.location;
 
   const { i18n } = useTranslation();
@@ -25,25 +26,41 @@ const LangSelect = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
-  const handleButtonClick = () => {
-    const selectedLanguage = currentLanguage === 'en' ? 'ua' : 'en';
-
-    setIsFlipped(!isFlipped);
-    setSearchParams({ lang: selectedLanguage });
+  const handleButtonClick = (lang) => {
+    setSearchParams({ lang });
   };
+
   return (
-    <ActionIcon
-      w={{ base: 24, md: 32 }}
-      h={{ base: 24, md: 32 }}
-      variant="transparent"
-      onClick={handleButtonClick}
+    <Dialog
+      opened
+      w="fit-content"
+      size="xs"
+      mih={0}
+      py={8}
+      px={8}
+      className={css.dialog}
     >
-      {currentLanguage === 'en' ? (
-        <IconEngFlag style={{ width: '75%', height: '75%' }} />
-      ) : (
-        <IconUkrFlag style={{ width: '75%', height: '75%' }} />
-      )}
-    </ActionIcon>
+      <ActionIcon.Group>
+        <ActionIcon
+          className={css.iconButton}
+          aria-label="set english language"
+          disabled={currentLanguage === 'en'}
+          variant="subtle"
+          onClick={() => handleButtonClick('en')}
+        >
+          <IconEngFlag style={{ width: '75%', height: '75%' }} />
+        </ActionIcon>
+        <ActionIcon
+          className={css.iconButton}
+          aria-label="встановити українську мову"
+          disabled={currentLanguage === 'ua'}
+          variant="subtle"
+          onClick={() => handleButtonClick('ua')}
+        >
+          <IconUkrFlag style={{ width: '75%', height: '75%' }} />
+        </ActionIcon>
+      </ActionIcon.Group>
+    </Dialog>
   );
 };
 
