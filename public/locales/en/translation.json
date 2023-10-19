@@ -126,5 +126,14 @@
         }
       }
     }
+  },
+  "userform": {
+    "user": "User",
+    "userName": "User Name",
+    "birthday": "Birthday",
+    "email": "Email",
+    "phone": "Phone",
+    "skype": "Skype",
+    "button": "Save changes"
   }
 }
