@@ -1,9 +1,9 @@
-import { Box, Button } from '@mantine/core';
+import { ActionIcon, Box, Button, rem } from '@mantine/core';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { IconPlus, IconPencil } from '@tabler/icons-react';
+import { IconPlus, IconPencil, IconClock } from '@tabler/icons-react';
 import clsx from 'clsx';
 import * as Yup from 'yup';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import css from '../styles/TaskForm.module.css';
 import { TimeInput } from '@mantine/dates';
 import { useDispatch } from 'react-redux';
@@ -96,6 +96,19 @@ const TaskForm = ({ category, onClose, task }) => {
     });
   };
 
+  const startRef = useRef(null);
+  const endRef = useRef(null);
+
+  const createPickerControl = (ref) => (
+    <ActionIcon
+      variant="subtle"
+      color="gray"
+      onClick={() => ref.current?.showPicker()}
+    >
+      <IconClock style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
+    </ActionIcon>
+  );
+
   return (
     <Box className={css.formWrapper}>
       <Formik
@@ -126,14 +139,19 @@ const TaskForm = ({ category, onClose, task }) => {
               <label className={css.label} htmlFor="start">
                 {t('calendar.chosenday.taskform.start')}
               </label>
-              <Field
-                as={TimeInput}
-                aria-label="Start"
-                variant="unstyled"
-                className={`${css.input} custom-time-input`}
-                type="text"
-                name="start"
-              />
+              <Field name="start">
+                {({ field }) => (
+                  <TimeInput
+                    ref={startRef}
+                    leftSection={createPickerControl(startRef)}
+                    aria-label="Start"
+                    variant="unstyled"
+                    className={`${css.input} custom-time-input`}
+                    type="text"
+                    {...field}
+                  />
+                )}
+              </Field>
               <ErrorMessage
                 name="start"
                 component="div"
@@ -144,14 +162,19 @@ const TaskForm = ({ category, onClose, task }) => {
               <label className={css.label} htmlFor="end">
                 {t('calendar.chosenday.taskform.end')}
               </label>
-              <Field
-                as={TimeInput}
-                aria-label="End"
-                variant="unstyled"
-                className={`${css.input} custom-time-input`}
-                type="text"
-                name="end"
-              />
+              <Field name="end">
+                {({ field }) => (
+                  <TimeInput
+                    ref={endRef}
+                    leftSection={createPickerControl(endRef)}
+                    aria-label="End"
+                    variant="unstyled"
+                    className={`${css.input} custom-time-input`}
+                    type="text"
+                    {...field}
+                  />
+                )}
+              </Field>
               <ErrorMessage name="end" component="div" className={css.error} />
             </Box>
           </Box>
