@@ -49,7 +49,15 @@
       "calendar": "Calendar",
       "statistics": "Statistics",
       "account": "User Profile"
+    },
+    "subtitle": {
+      "first": "Let go",
+      "second": " of the past and focus on the present!"
     }
+  },
+  "notFound": {
+    "message": "We’re sorry, the page you requested could not be found. Please go back to the homepage.",
+    "back": "Back to home"
   },
   "main": {},
   "errors": {
@@ -133,5 +141,14 @@
         }
       }
     }
+  },
+  "userform": {
+    "user": "User",
+    "userName": "User Name",
+    "birthday": "Birthday",
+    "email": "Email",
+    "phone": "Phone",
+    "skype": "Skype",
+    "button": "Save changes"
   }
 }

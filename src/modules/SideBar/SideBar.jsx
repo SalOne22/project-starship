@@ -11,7 +11,7 @@ import CloseButton from './components/CloseButton';
 
 function SideBar({ onClose }) {
   return (
-    <Box className={css.sidebar}>
+    <Box className={css.sidebar} onClick={(e) => e.stopPropagation()}>
       <Container className={css.container}>
         <Flex
           align="center"

@@ -11,8 +11,11 @@ import { Link } from 'react-router-dom';
 import Rocket from '@/assets/images/404/rocket.svg?react';
 
 import css from './styles/NotFound.module.css';
+import { useTranslation } from 'react-i18next';
 
 function NotFound() {
+  const { t } = useTranslation();
+
   return (
     <Center h="100dvh">
       <Container className={css.container}>
@@ -24,12 +27,9 @@ function NotFound() {
             <span>4</span>
           </Title>
         </Center>
-        <Text className={css.text}>
-          We’re sorry, the page you requested could not be found. Please go back
-          to the homepage.
-        </Text>
+        <Text className={css.text}>{t('notFound.message')}</Text>
         <Button className={css.goBackBtn} component={Link} to="/">
-          Back to home
+          {t('notFound.back')}
         </Button>
       </Container>
     </Center>

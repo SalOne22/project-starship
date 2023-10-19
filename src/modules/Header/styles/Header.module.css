@@ -5,6 +5,14 @@
   width: 100%;
 }
 
+.titleWrapper {
+  display: none;
+
+  @media (min-width: $mantine-breakpoint-xl) {
+    display: flex;
+  }
+}
+
 .title {
   display: none;
 
@@ -16,6 +24,16 @@
     font-size: rem(32px);
     line-height: 1;
   }
+}
+
+.subtitle {
+  font-size: rem(14px);
+  font-weight: 600;
+  line-height: 1.28571;
+}
+
+.subtitle > span {
+  color: var(--mantine-color-blue-4);
 }
 
 .burger {
