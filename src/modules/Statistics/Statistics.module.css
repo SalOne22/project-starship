@@ -65,7 +65,7 @@
 }
 
 .stat__chartWrapper {
-  height: rem(414);
+  /* height: rem(414); */
 
   padding-top: rem(40);
   padding-bottom: rem(40);
@@ -77,7 +77,7 @@
   border-radius: rem(20);
 
   @media (min-width: $mantine-breakpoint-md) {
-    height: rem(424);
+    /* height: rem(424); */
 
     padding-top: rem(32);
     padding-bottom: rem(32);
@@ -86,7 +86,7 @@
   }
 
   @media (min-width: $mantine-breakpoint-xl) {
-    height: rem(440);
+    /* height: rem(440); */
 
     padding-top: rem(40);
     padding-bottom: rem(40);
@@ -131,6 +131,7 @@
 }
 
 .stat__chartTitle {
+  margin: 0;
   margin-bottom: rem(12);
 
   color: light-dark(var(--mantine-color-dark-6), var(--mantine-color-dark-0));
