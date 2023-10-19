@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { Box, Text } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
+import { useElementSize, useMediaQuery } from '@mantine/hooks';
 
 import theme from '@/theme';
 
@@ -12,10 +12,14 @@ function Marquee({
   width = '100%',
   duration = '15s',
   component = Text,
+  active = false,
   breakpoint,
   ...props
 }) {
   const C = component;
+
+  const { ref: componentRef, width: componentWidth } = useElementSize();
+  const { ref: boxRef, width: boxWidth } = useElementSize();
 
   const isMatchesBreakpoint = useMediaQuery(
     `(min-width: ${theme.breakpoints[breakpoint]})`,
@@ -23,10 +27,15 @@ function Marquee({
 
   return (
     <Box
-      className={clsx(css.marquee, isMatchesBreakpoint && css.unset)}
+      className={clsx(
+        css.marquee,
+        (isMatchesBreakpoint || (componentWidth <= boxWidth && !active)) &&
+          css.unset,
+      )}
       style={{ '--_width': width, '--_duration': duration }}
     >
-      <C className={clsx(className, css.text)} {...props} />
+      <Box pos="absolute" ref={boxRef} w={width} h={0} />
+      <C ref={componentRef} className={clsx(className, css.text)} {...props} />
     </Box>
   );
 }
@@ -36,6 +45,7 @@ Marquee.propTypes = {
   width: PropTypes.string,
   duration: PropTypes.string,
   component: PropTypes.elementType,
+  active: PropTypes.bool,
   breakpoint: PropTypes.string,
 };
 
