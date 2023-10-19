@@ -25,6 +25,7 @@ import {
   IconLogin2,
 } from '@tabler/icons-react';
 import clsx from 'clsx';
+import theme from '@/theme.js';
 
 function RegisterForm(props) {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ function RegisterForm(props) {
         'Enter a name with a minimum of 2 characters',
       ),
       email: isEmail('Word before @ and domain after the dot'),
+
       password: hasLength(
         { min: 6 },
         'Password should include at least 6 characters',
@@ -58,13 +60,6 @@ function RegisterForm(props) {
     dispatch(registerUserThunk(values));
   };
 
-  const inputSelectors = {
-    wrapper: css.wrapper,
-    label: css.label,
-    required: css.required,
-    error: css.error,
-    rightSection: css.section,
-  };
   return (
     <Paper className={css.wrappForm} c="white" withBorder {...props}>
       <Text className={css.titleForm} c="blue.4">
@@ -92,14 +87,26 @@ function RegisterForm(props) {
             placeholder="Enter your name"
             rightSection={
               form.errors?.username ? (
-                <IconAlertCircle color="red" size={18} />
+                <IconAlertCircle color={theme.colors.red[4]} size={18} />
               ) : form.values.username.length > 1 ? (
-                <IconCircleCheck color="green" size={18} />
+                <IconCircleCheck color={theme.colors.green[6]} size={18} />
               ) : null
             }
             {...form.getInputProps('username')}
             classNames={{
-              inputSelectors,
+              label: form.isValid('username')
+                ? css.labelCorrect
+                : form.errors.username
+                ? css.labelError
+                : css.label,
+              error: css.error,
+              required: form.isValid('username')
+                ? css.requiredCorrect
+                : form.errors.username
+                ? css.requiredError
+                : css.required,
+
+              rightSection: css.section,
               input: clsx(
                 css.input,
                 form.isValid('username') ? css.inputCorrect : null,
@@ -113,14 +120,25 @@ function RegisterForm(props) {
             placeholder="Enter email"
             rightSection={
               form.errors?.email ? (
-                <IconAlertCircle color="red" size={18} />
+                <IconAlertCircle color={theme.colors.red[4]} size={18} />
               ) : form.isValid('email') ? (
-                <IconCircleCheck color="green" size={18} />
+                <IconCircleCheck color={theme.colors.green[6]} size={18} />
               ) : null
             }
             {...form.getInputProps('email')}
             classNames={{
-              inputSelectors,
+              label: form.isValid('email')
+                ? css.labelCorrect
+                : form.errors.email
+                ? css.labelError
+                : css.label,
+              error: css.error,
+              required: form.isValid('email')
+                ? css.requiredCorrect
+                : form.errors.username
+                ? css.requiredError
+                : css.required,
+              rightSection: css.section,
               input: clsx(
                 css.input,
                 form.isValid('email') ? css.inputCorrect : null,
@@ -135,14 +153,25 @@ function RegisterForm(props) {
             placeholder="Enter password"
             rightSection={
               form.errors?.password ? (
-                <IconAlertCircle color="red" size={18} />
+                <IconAlertCircle color={theme.colors.red[4]} size={18} />
               ) : form.values.password.length > 5 ? (
-                <IconCircleCheck color="green" size={18} />
+                <IconCircleCheck color={theme.colors.green[6]} size={18} />
               ) : null
             }
             {...form.getInputProps('password')}
             classNames={{
-              inputSelectors,
+              label: form.isValid('password')
+                ? css.labelCorrect
+                : form.errors.password
+                ? css.labelError
+                : css.label,
+              error: css.error,
+              required: form.isValid('password')
+                ? css.requiredCorrect
+                : form.errors.username
+                ? css.requiredError
+                : css.required,
+              rightSection: css.section,
               input: clsx(
                 css.input,
                 form.isValid('password') ? css.inputCorrect : null,
@@ -154,7 +183,7 @@ function RegisterForm(props) {
 
         <Group className={css.wrappButton}>
           {isLoading ? (
-            <Loader c="blue.4" />
+            <Loader c={theme.colors.blue[4]} />
           ) : (
             <Button
               className={css.button}
