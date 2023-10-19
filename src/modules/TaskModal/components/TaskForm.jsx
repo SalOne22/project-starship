@@ -147,7 +147,8 @@ const TaskForm = ({ category, onClose, task }) => {
                     aria-label="Start"
                     variant="unstyled"
                     className={`${css.input} custom-time-input`}
-                    type="text"
+                    type="time"
+                    inputMode="numeric"
                     {...field}
                   />
                 )}
@@ -170,7 +171,8 @@ const TaskForm = ({ category, onClose, task }) => {
                     aria-label="End"
                     variant="unstyled"
                     className={`${css.input} custom-time-input`}
-                    type="text"
+                    type="time"
+                    inputMode="numeric"
                     {...field}
                   />
                 )}
