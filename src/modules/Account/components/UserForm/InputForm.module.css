@@ -1,23 +1,26 @@
-/* import { em } from '@mantine/core'; */
-.userWrapper {
+/* .userWrapper {
   position: relative;
-}
+} */
 
 .wrapper {
+  position: relative;
+
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: em(95px);
-  padding-top: rem(135px);
+  padding-top: rem(59px);
 
   background-color: light-dark(
     var(--mantine-color-white),
     var(--mantine-color-dark-8)
   );
-  border-radius: var(--mantine-radius-lg);
+  /* border-radius: var(--mantine-radius-lg); */
+  border-radius: 16px;
+  background: #fff;
 
-  border: rem(1px) solid
-    light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-8));
+  /* border: rem(1px) solid
+    light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-8)); */
 
   @media (min-width: em(375px)) {
     max-width: em(335px);
@@ -38,19 +41,75 @@
     padding-right: em(175px);
   }
 }
-
-.form {
-  /* flex: 1; */
-  /* padding: var(--mantine-spacing-xl); */
-  /* padding-left: calc(var(--mantine-spacing-xl) * 2); */
-  /* border-left: 0; */
-  /* justify-items: center; */
+.text {
 }
 
-.mantine-Input-input {
+.textusername {
+  margin-bottom: em(4px);
+  color: #343434;
+  /* color: red; */
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 18px; /* 128.571% */
+  align-items: center;
+
+  @media (min-width: em(768px)) {
+    margin-bottom: em(8px);
+  }
+}
+
+.wrapper label {
+  color: #111;
+  color: red;
+  font-family: Inter;
+  font-size: em(12px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: em(14px); /* 116.667% */
+  border-radius: 8px;
+  /* width: 299px; */
+  /* height: 92px; */
+  @media (min-width: em(768px)) {
+    font-size: em(14px);
+    line-height: em(18px); /* 128.571% */
+  }
+}
+.input::placeholder {
+  color: rgba(17, 17, 17, 0.15);
+  font-family: Inter;
+  font-size: em(16px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: em(18px); /* 112.5% */
+
+  color: purple;
+}
+
+/* .mantine-TextInput-input  */
+
+.input {
+  width: 299px;
+  height: 42px;
+
+  color: #111;
+  font-family: Inter;
+  font-size: em(14px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: em(18px); /* 128.571% */
+  color: green;
+
+  @media (min-width: em(768px)) {
+    font-size: em(16px);
+    line-height: (18px); /* 112.5% */
+  }
+}
+/* .mantine-Input-input {
   display: flex;
   width: em(299px);
-
+  color: orange;
   @media (min-width: em(375px)) {
     width: em(299px);
     flex-direction: column;
@@ -62,9 +121,9 @@
     flex-direction: column;
     flex-wrap: nowrap;
   }
-}
+} */
 
-input {
+/* input {
   @media (min-width: em(375px)) {
     width: em(299px);
     flex-direction: column;
@@ -76,9 +135,9 @@ input {
     flex-direction: column;
     flex-wrap: nowrap;
   }
-}
+} */
 
-.m-8fb7ebe7 {
+/* .m-8fb7ebe7 {
   @media (min-width: em(375px)) {
     width: em(299px);
     flex-direction: column;
@@ -90,7 +149,7 @@ input {
     flex-direction: column;
     flex-wrap: nowrap;
   }
-}
+} */
 
 .fields {
   /* @media (min-width: em(375px)) {
@@ -122,15 +181,29 @@ input {
   }
 }
 
+/* .group button {
+  width: em(195px);
+} */
+.root button {
+  width: em(195px);
+}
 .control {
-  @media (min-width: em(375px)) {
-    /* flex: 1; */
-    margin-bottom: em(40px);
-    margin-top: em(40px);
-    max-width: em(195px);
-    height: em(46px);
-    background-color: var(--mantine-color-blue-4);
-  }
+  margin-bottom: em(40px);
+  margin-top: em(40px);
+  width: em(195px);
+  height: em(46px);
+  border-radius: 16px;
+  background-color: var(--mantine-color-blue-4);
+  padding: 14px 50px;
+
+  color: #fff;
+  text-align: center;
+  font-family: Inter;
+  font-size: em(14px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: em(18px); /* 128.571% */
+  /* @media (min-width: em(375px)) { */
 
   @media (min-width: em(768px)) {
     /* flex: 1; */
@@ -141,55 +214,27 @@ input {
   }
 }
 
-------------------------------Dropzone------------ .textUsername {
-  font-size: 12px;
-  align-items: center;
-
-  @media (min-width: em(768px)) {
-    margin-bottom: em(8px);
-  }
-}
-
-.textUser {
-  margin-bottom: em(40px);
-  font-size: 12px;
-}
-
-.wrapperDropzone {
-  border: em(1px) solid grey;
-  border-radius: 50%;
-  width: em(72px);
-  height: em(72px);
-
-  @media (max-width: em(767px)) {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: -2em;
-  }
-
-  @media (min-width: em(768px)) {
-    /* margin-bottom: em(40px); */
-    margin-left: auto;
-    margin-right: auto;
-    width: em(124px);
-    height: em(130px);
-  }
-}
+/*------------------------------Dropzone------------*/
 
 .dropzone {
-  /* border-width: rem(1px);  */
-  /* padding-bottom: rem(14px);  */
-  margin-bottom: rem(20px);
+  border-radius: 72px;
+  border: 2px solid #3e85f3;
+  background:
+    url(../../../../assets/images/userPNG.png),
+    lightgray 50% / cover no-repeat;
   width: em(72px);
   height: em(72px);
-  /* border: em(1px) solid red; */
-  border-radius: 50%;
-
+  flex-shrink: 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -2em;
   @media (min-width: em(768px)) {
     /* margin-bottom: em(40px); */
+    /* margin-left: auto;
+    margin-right: auto; */
     width: em(124px);
-    height: em(130px);
+    height: em(124px);
   }
 }
 
@@ -202,7 +247,7 @@ input {
     height: em(60px);
   }
 
-  /* border: em(1px) solid green; */
+  border: em(1px) solid green;
 
   @media (min-width: em(768px)) {
     /* margin-bottom: em(40px); */
@@ -214,21 +259,28 @@ input {
 .avatarURL {
   border-radius: 50%;
   overflow: hidden;
+  object-fit: cover;
+  /* @media (max-width: em(767px)) {
+    /* width: em(72px);
+    height: em(72px); }*/
 
-  @media (max-width: em(767px)) {
-    width: em(72px);
-    height: em(72px);
-  }
-
+  /* 
   @media (min-width: em(768px)) {
     width: em(124px);
     height: em(130px);
+  } */
+}
+
+.textUsername {
+  font-size: 12px;
+  align-items: center;
+
+  @media (min-width: em(768px)) {
+    margin-bottom: em(8px);
   }
 }
 
-.avatarURL img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* Підгонює розмір зображення під відповідний контейнер */
+.textUser {
+  margin-bottom: em(40px);
+  font-size: 12px;
 }
