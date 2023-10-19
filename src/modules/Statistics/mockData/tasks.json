@@ -1,0 +1,80 @@
+[
+  {
+    "_id": "652db25ca8c43c6192b54d07",
+    "title": "Learn React",
+    "start": "09:00",
+    "end": "09:30",
+    "priority": "low",
+    "date": "2023-10-31",
+    "category": "to-do",
+    "owner": {
+      "_id": "652dadd8a8c43c6192b54c82",
+      "username": "Rapid"
+    }
+  },
+  {
+    "_id": "652db299a8c43c6192b54d0e",
+    "title": "Learn CSS",
+    "start": "09:00",
+    "end": "09:30",
+    "priority": "low",
+    "date": "2023-10-31",
+    "category": "in progress",
+    "owner": {
+      "_id": "652dadd8a8c43c6192b54c82",
+      "username": "Rapid"
+    }
+  },
+  {
+    "_id": "652db2b6a8c43c6192b54d11",
+    "title": "Learn HTML",
+    "start": "09:00",
+    "end": "09:30",
+    "priority": "low",
+    "date": "2023-10-31",
+    "category": "done",
+    "owner": {
+      "_id": "652dadd8a8c43c6192b54c82",
+      "username": "Rapid"
+    }
+  },
+  {
+    "_id": "652db351a8c43c6192b54d2f",
+    "title": "Learn HTML",
+    "start": "09:00",
+    "end": "09:30",
+    "priority": "low",
+    "date": "2023-10-01",
+    "category": "in progress",
+    "owner": {
+      "_id": "652dadd8a8c43c6192b54c82",
+      "username": "Rapid"
+    }
+  },
+  {
+    "_id": "652db3f5a8c43c6192b54d38",
+    "title": "Learn HTML",
+    "start": "09:00",
+    "end": "09:30",
+    "priority": "low",
+    "date": "2023-10-01",
+    "category": "in progress",
+    "owner": {
+      "_id": "652dadd8a8c43c6192b54c82",
+      "username": "Rapid"
+    }
+  },
+  {
+    "_id": "652db459a8c43c6192b54d3e",
+    "title": "Learn React",
+    "start": "09:00",
+    "end": "09:30",
+    "priority": "low",
+    "date": "2023-10-05",
+    "category": "to-do",
+    "owner": {
+      "_id": "652dadd8a8c43c6192b54c82",
+      "username": "Rapid"
+    }
+  }
+]
