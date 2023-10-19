@@ -30,6 +30,7 @@ function Layout() {
       try {
         if (!isAuthenticated) await dispatch(refreshUserThunk()).unwrap();
       } catch {
+        // TODO: Do not show notification on every request
         notifications.show({
           color: 'red',
           icon: <IconX style={{ width: rem(20), height: rem(20) }} />,
