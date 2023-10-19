@@ -5,6 +5,14 @@
   width: 100%;
 }
 
+.titleWrapper {
+  display: none;
+
+  @media (min-width: $mantine-breakpoint-xl) {
+    display: flex;
+  }
+}
+
 .title {
   display: none;
 
