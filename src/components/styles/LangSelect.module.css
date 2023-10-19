@@ -1,0 +1,15 @@
+.dialog {
+  @mixin dark {
+    background-color: var(--mantine-color-black);
+  }
+}
+
+.iconButton {
+  width: rem(24px);
+  height: rem(24px);
+
+  @media (min-width: $mantine-breakpoint-md) {
+    width: rem(32px);
+    height: rem(32px);
+  }
+}

@@ -5,12 +5,27 @@ import { useParams } from 'react-router-dom';
 import TasksColumn from './TasksColumn';
 import { useEffect } from 'react';
 import { fetchTasks } from '@/modules/Calendar/redux/operations';
-
-const categories = ['to-do', 'in progress', 'done'];
+import { useTranslation } from 'react-i18next';
 
 function TasksColumnsList() {
   const { tasks } = useTasks();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+
+  const categories = [
+    {
+      category: 'to-do',
+      title: t('calendar.chosenday.taskColumns.titles.to-do'),
+    },
+    {
+      category: 'in progress',
+      title: t('calendar.chosenday.taskColumns.titles.in progress'),
+    },
+    {
+      category: 'done',
+      title: t('calendar.chosenday.taskColumns.titles.done'),
+    },
+  ];
 
   const { currentDay } = useParams();
 
@@ -24,8 +39,9 @@ function TasksColumnsList() {
     <div className={css.tasksList}>
       {categories.map((t) => (
         <TasksColumn
-          key={t}
-          category={t}
+          key={t.category}
+          category={t.category}
+          title={t.title}
           date={currentDay}
           tasks={tasksByDay}
         />

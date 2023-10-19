@@ -23,10 +23,18 @@ import {
   IconLogin2,
 } from '@tabler/icons-react';
 import clsx from 'clsx';
+import Modal from '@/components/Modal';
+import { ForgotPassword } from './ForgotPassword';
+import { useState } from 'react';
 
 function LoginForm() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectLoading);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleCloseModal = () => {
+    setIsOpen((prev) => !prev);
+  };
 
   const form = useForm({
     initialValues: {
@@ -123,7 +131,12 @@ function LoginForm() {
         </Stack>
 
         <Group className={css.wrappButton}>
-          <Anchor component="button" size="sm">
+          <Anchor
+            component="button"
+            type="button"
+            size="sm"
+            onClick={handleCloseModal}
+          >
             Forgot password?
           </Anchor>
           {isLoading ? (
@@ -139,6 +152,11 @@ function LoginForm() {
           )}
         </Group>
       </form>
+      {isOpen && (
+        <Modal onClose={handleCloseModal}>
+          <ForgotPassword onClose={handleCloseModal} />
+        </Modal>
+      )}
     </Paper>
   );
 }

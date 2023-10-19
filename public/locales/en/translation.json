@@ -49,7 +49,15 @@
       "calendar": "Calendar",
       "statistics": "Statistics",
       "account": "User Profile"
+    },
+    "subtitle": {
+      "first": "Let go",
+      "second": " of the past and focus on the present!"
     }
+  },
+  "notFound": {
+    "message": "We’re sorry, the page you requested could not be found. Please go back to the homepage.",
+    "back": "Back to home"
   },
   "main": {},
   "errors": {
@@ -95,6 +103,13 @@
           "required": "End is required",
           "matches": "Format: 14:00",
           "test": "End time should be greater than start time"
+        }
+      },
+      "taskColumns": {
+        "titles": {
+          "to-do": "To-do",
+          "in progress": "In progress",
+          "done": "Done"
         }
       },
       "card": {
