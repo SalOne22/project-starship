@@ -100,9 +100,8 @@ export function UserInputForm() {
     setFormChange(true);
   };
 
-  function validateUserData(email, phone) {
+  function validateUserEmail(email) {
     const emailValidationRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-    const phoneValidationRegex = /^\+380\d{9}$/;
 
     if (!emailValidationRegex.test(email)) {
       notifications.show({
@@ -112,6 +111,13 @@ export function UserInputForm() {
       });
       return false;
     }
+
+    return true;
+  }
+
+  function validateUserPhone(phone) {
+    const phoneValidationRegex = /^\+380\d{9}$/;
+
     if (!phoneValidationRegex.test(phone)) {
       notifications.show({
         message: 'Phone must be in format +380971234567',
@@ -123,13 +129,40 @@ export function UserInputForm() {
 
     return true;
   }
+  // function validateUserData(email, phone) {
+  //   const emailValidationRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+  //   const phoneValidationRegex = /^\+380\d{9}$/;
+
+  //   if (!emailValidationRegex.test(email)) {
+  //     notifications.show({
+  //       message: 'Email is not valid',
+  //       autoClose: 5000,
+  //       color: 'red',
+  //     });
+  //     return false;
+  //   }
+  //   if (!phoneValidationRegex.test(phone)) {
+  //     notifications.show({
+  //       message: 'Phone must be in format +380971234567',
+  //       autoClose: 10000,
+  //       color: 'red',
+  //     });
+  //     return false;
+  //   }
+
+  //   return true;
+  // }
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    validateUserEmail(userData.email);
 
-    if (!validateUserData(userData.email, userData.phone)) {
-      return;
+    if (userData.phone) {
+      if (!validateUserPhone(userData.phone)) {
+        return;
+      }
     }
+
     const formData = new FormData();
     formData.append('username', userData.username);
     formData.append('birthday', formattedDate);
@@ -158,11 +191,7 @@ export function UserInputForm() {
 
   return (
     <Paper shadow="md" radius="lg" className={classes.wrapper}>
-      <form
-        className={classes.form}
-        onSubmit={handleFormSubmit}
-        onChange={handleInputChange}
-      >
+      <form onSubmit={handleFormSubmit} onChange={handleInputChange}>
         <Dropzone
           accept={IMAGE_MIME_TYPE}
           onDrop={handleDropavatarURL}
@@ -245,7 +274,7 @@ export function UserInputForm() {
         </Text>
         {/* </div> */}
         <div className={classes.fields}>
-          <SimpleGrid cols={{ base: 1, xl: 2 }}>
+          <SimpleGrid cols={{ base: 1, xl: 2 }} spacing="lg">
             <TextInput
               name="username"
               label={t('userform.userName')}
@@ -279,7 +308,7 @@ export function UserInputForm() {
               name="phone"
               // colSpan={2}
               label={t('userform.phone')}
-              placeholder="38 (097) 123 45 67"
+              placeholder="+380971234567"
               defaultValue={userAuth?.phone}
               classNames={{ wrapper: classes.label, input: classes.input }}
               onChange={handleInputChange}
@@ -295,22 +324,21 @@ export function UserInputForm() {
               onChange={handleInputChange}
             />
           </SimpleGrid>
-
-          <Group
-            justify="center"
-            mt="md"
-            classNames={{ group: classes.button }}
-          >
-            <Button
-              type="submit"
-              className={classes.control}
-              classNames={{ root: classes.button }}
-              disabled={!formChange}
-            >
-              {t('userform.button')}
-            </Button>
-          </Group>
         </div>
+        <Group
+          justify="center"
+          // grow preventGrowOverflow={false}
+          classNames={{ group: classes.button }}
+        >
+          <Button
+            type="submit"
+            className={classes.control}
+            classNames={{ root: classes.button }}
+            disabled={!formChange}
+          >
+            {t('userform.button')}
+          </Button>
+        </Group>
       </form>
     </Paper>
   );
