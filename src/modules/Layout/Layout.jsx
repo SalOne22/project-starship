@@ -7,8 +7,8 @@ import { Outlet, useSearchParams } from 'react-router-dom';
 import Header from '@/modules/Header';
 import SideBar from '@/modules/SideBar';
 
-import { selectIsAuthenticated, selectToken } from '@/redux/slices/authSlice';
-import { refreshUserThunk } from '@/redux/operations';
+import { selectIsAuthenticated } from '@/redux/slices/authSlice';
+import { logoutUserThunk, refreshUserThunk } from '@/redux/operations';
 
 import css from './styles/Layout.module.css';
 
@@ -17,12 +17,18 @@ function Layout() {
   const [searchParams] = useSearchParams();
   const [opened, { close, open }] = useDisclosure();
 
-  const token = useSelector(selectToken);
+  const token = localStorage.getItem('refreshToken');
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const isLoading = useSelector(selectIsAuthenticated);
 
   useEffect(() => {
-    !isLoading && dispatch(refreshUserThunk());
+    (async () => {
+      try {
+        !isLoading && token && (await dispatch(refreshUserThunk()).unwrap());
+      } catch (err) {
+        if (err === 'Token invalid') dispatch(logoutUserThunk());
+      }
+    })();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

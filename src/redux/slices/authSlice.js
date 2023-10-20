@@ -102,12 +102,16 @@ const slice = createSlice({
         state.isAuthenticated = false;
         state.user = null;
         state.token = null;
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('token');
       })
       .addCase(logoutUserThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.isAuthenticated = false;
         state.user = null;
         state.token = null;
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('token');
         state.error = action.payload;
       })
 
