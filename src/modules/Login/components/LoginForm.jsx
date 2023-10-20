@@ -26,6 +26,7 @@ import clsx from 'clsx';
 import Modal from '@/components/Modal';
 import { ForgotPassword } from './ForgotPassword';
 import { useState } from 'react';
+import theme from '@/theme';
 
 function LoginForm() {
   const dispatch = useDispatch();
@@ -53,13 +54,7 @@ function LoginForm() {
   function handleGoogleButtonClick() {
     window.location.href = 'https://gt-project.onrender.com/api/auth/google';
   }
-  const inputSelectors = {
-    wrapper: css.wrapper,
-    label: css.label,
-    required: css.required,
-    error: css.error,
-    rightSection: css.section,
-  };
+
   return (
     <Paper className={css.wrappForm}>
       <Text className={css.titleForm} c="blue.4">
@@ -99,7 +94,18 @@ function LoginForm() {
             }
             {...form.getInputProps('email')}
             classNames={{
-              inputSelectors,
+              label: form.isValid('email')
+                ? css.labelCorrect
+                : form.errors.email
+                ? css.labelError
+                : css.label,
+              error: css.error,
+              required: form.isValid('email')
+                ? css.requiredCorrect
+                : form.errors.username
+                ? css.requiredError
+                : css.required,
+              rightSection: css.section,
               input: clsx(
                 css.input,
                 form.isValid('email') ? css.inputCorrect : null,
@@ -120,7 +126,18 @@ function LoginForm() {
             }
             {...form.getInputProps('password')}
             classNames={{
-              inputSelectors,
+              label: form.isValid('password')
+                ? css.labelCorrect
+                : form.errors.password
+                ? css.labelError
+                : css.label,
+              error: css.error,
+              required: form.isValid('password')
+                ? css.requiredCorrect
+                : form.errors.username
+                ? css.requiredError
+                : css.required,
+              rightSection: css.section,
               input: clsx(
                 css.input,
                 form.isValid('password') ? css.inputCorrect : null,
@@ -140,7 +157,7 @@ function LoginForm() {
             Forgot password?
           </Anchor>
           {isLoading ? (
-            <Loader c="blue.4" />
+            <Loader c={theme.colors.blue[4]} />
           ) : (
             <Button
               className={css.button}

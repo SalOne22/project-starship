@@ -9,11 +9,21 @@ import { editTask } from '../Calendar/redux/operations';
 import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import ColumnsTasksList from './components/ColumnsTasksList';
+import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function TasksColumn({ category, tasks, title }) {
   const [tasksToMap, setTasksToMap] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [isValidDate, setIsValidDate] = useState(false);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+
+  const { currentDay } = useParams();
+
+  useEffect(() => {
+    setIsValidDate(new Date(currentDay) >= new Date().setHours(0, 0, 0, 0));
+  }, [currentDay]);
 
   const onOpen = () => {
     setIsOpen(true);
@@ -46,32 +56,37 @@ function TasksColumn({ category, tasks, title }) {
   }));
 
   useEffect(() => {
-    if (category === 'to-do') {
-      const tasksToDone = tasks.filter((task) => task.category === 'to-do');
-      setTasksToMap(tasksToDone);
-      return;
-    } else if (category === 'in progress') {
-      const tasksInProgress = tasks.filter(
-        (task) => task.category === 'in progress',
-      );
-      setTasksToMap(tasksInProgress);
-      return;
-    } else if (category === 'done') {
-      const tasksDone = tasks.filter((task) => task.category === 'done');
-      setTasksToMap(tasksDone);
-      return;
+    switch (category) {
+      case 'to-do':
+        return setTasksToMap(tasks.filter((task) => task.category === 'to-do'));
+
+      case 'in progress':
+        return setTasksToMap(
+          tasks.filter((task) => task.category === 'in progress'),
+        );
+
+      case 'done':
+        return setTasksToMap(tasks.filter((task) => task.category === 'done'));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tasks]);
+  }, [category, tasks]);
 
   return (
     <div
-      ref={drop}
-      className={clsx(css.tasksColumn, isOver ? css.boxDrop : null)}
+      ref={isValidDate ? drop : null}
+      className={clsx(
+        css.tasksColumn,
+        isOver ? css.boxDrop : null,
+        tasksToMap.length > 3 ? css.tasksColumnScroll : null,
+      )}
     >
-      <ColumnHeadBar title={title} onClick={onOpen} />
-      <ColumnsTasksList tasksToMap={tasksToMap} />
-      <AddTaskButton onClick={onOpen}>Add task</AddTaskButton>
+      <ColumnHeadBar title={title} onClick={onOpen} isValidDate={isValidDate} />
+      <ColumnsTasksList tasksToMap={tasksToMap} isValidDate={isValidDate} />
+      {isValidDate && (
+        <AddTaskButton onClick={onOpen}>
+          {t('calendar.chosenday.taskColumns.addBtn')}
+        </AddTaskButton>
+      )}
+
       {isOpen && <TaskModal category={category} onClose={onClose} />}
     </div>
   );
