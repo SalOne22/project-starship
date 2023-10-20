@@ -110,7 +110,8 @@
           "to-do": "To-do",
           "in progress": "In progress",
           "done": "Done"
-        }
+        },
+        "addBtn": "Add task"
       },
       "card": {
         "priority": {

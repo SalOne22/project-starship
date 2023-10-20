@@ -6,13 +6,18 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import TasksColumnsList from '../TasksColumn/TasksColumnsList';
 import css from './ChosenDay.module.css';
+import { useTasks } from '../Calendar/hooks/useTasks';
+import { useDispatch } from 'react-redux';
+import { fetchTasks } from '../Calendar/redux/operations';
+import { useMemo } from 'react';
 
 function ChosenDay() {
   const [currentDate, setCurrentDate] = useState(new Date());
-
+  const { tasks } = useTasks();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const { currentDay } = useParams();
+  const slice = useMemo(() => currentDay.slice(0, 7), [currentDay]);
 
   const changeCurrentDate = (date) => {
     setCurrentDate(new Date(date));
@@ -38,6 +43,10 @@ function ChosenDay() {
     );
   };
 
+  useEffect(() => {
+    dispatch(fetchTasks(slice));
+  }, [slice, dispatch]);
+
   return (
     <div className={css.calendar}>
       <CalendarToolbar
@@ -48,7 +57,7 @@ function ChosenDay() {
       />
       <DatePaginator currentDate={currentDate} isDateShown={true} />
       <DndProvider backend={HTML5Backend}>
-        <TasksColumnsList />
+        <TasksColumnsList tasks={tasks} />
       </DndProvider>
     </div>
   );
