@@ -45,9 +45,14 @@
 
   border-radius: rem(72px);
   border: rem(2px) solid #3e85f3;
-  background:
+  background: transparent;
+  /* background:
     url(../../../../assets/images/userSVG.svg) no-repeat,
-    lightgray 100% / cover no-repeat;
+    lightgray 100% / cover no-repeat; */
+
+  background:
+    no-repeat,
+    100% / cover no-repeat;
 
   @media (min-width: rem(768px)) {
     position: static;
@@ -58,6 +63,43 @@
 
     width: rem(124px);
     height: rem(124px);
+  }
+}
+
+.userIcon {
+  object-fit: none;
+
+  @media (max-width: rem(376px)) {
+    width: rem(15px);
+    height: rem(15px);
+    /* object-fit: scale-down; */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -2em;
+  }
+}
+
+.plusIcon {
+  object-fit: scale-down;
+  position: absolute;
+  @media (max-width: rem(767px)) {
+    width: rem(15px);
+    height: rem(15px);
+
+    left: 56%;
+    transform: translateX(-50%);
+    top: 3.5%;
+  }
+  @media (min-width: rem(768px)) {
+    left: 53%;
+    top: 16.5%;
+    width: rem(24px);
+    height: rem(24px);
+  }
+  @media (min-width: rem(1440px)) {
+    left: 52%;
+    top: 21.5%;
   }
 }
 
