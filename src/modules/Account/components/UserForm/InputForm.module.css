@@ -46,7 +46,7 @@
   border-radius: rem(72px);
   border: rem(2px) solid #3e85f3;
   background:
-    url(../../../../assets/images/userSVG.svg),
+    url(../../../../assets/images/userSVG.svg) no-repeat,
     lightgray 100% / cover no-repeat;
 
   @media (min-width: rem(768px)) {
@@ -146,7 +146,8 @@
 }
 
 .input {
-  max-width: rem(299px);
+  width: rem(299px);
+  /* width:100%; */
   height: rem(42px);
 
   padding-top: rem(12px);
