@@ -6,13 +6,11 @@ import { useDispatch } from 'react-redux';
 import { fetchTasks } from '../Calendar/redux/operations';
 import DatePaginator from '../CalendarToolbar/components/DatePaginator';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useTasks } from '../Calendar/hooks/useTasks';
 
 const ChosenMonth = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [isDisabled, setIsDisabled] = useState(true);
 
-  const { isLoading } = useTasks();
   const navigate = useNavigate();
   const { currentMonth } = useParams();
 
@@ -53,27 +51,20 @@ const ChosenMonth = () => {
     );
   };
 
-  if (isLoading) {
-    return <p>Loading</p>;
-  } else {
-    return (
-      <div className={css.calendar}>
-        <CalendarToolbar
-          nextDate={nextMonth}
-          prevDate={prevMonth}
-          currentDate={currentDate}
-          isDisabled={isDisabled}
-        />
-        <div className={css.calendarBody}>
-          <DatePaginator currentDate={currentDate} isDateShown={false} />
-          <CalendarDay
-            day={currentDate}
-            changeCurrentDate={changeCurrentDate}
-          />
-        </div>
+  return (
+    <div className={css.calendar}>
+      <CalendarToolbar
+        nextDate={nextMonth}
+        prevDate={prevMonth}
+        currentDate={currentDate}
+        isDisabled={isDisabled}
+      />
+      <div className={css.calendarBody}>
+        <DatePaginator currentDate={currentDate} isDateShown={false} />
+        <CalendarDay day={currentDate} changeCurrentDate={changeCurrentDate} />
       </div>
-    );
-  }
+    </div>
+  );
 };
 
 export default ChosenMonth;
