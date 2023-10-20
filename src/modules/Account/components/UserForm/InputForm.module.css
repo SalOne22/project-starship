@@ -107,8 +107,18 @@
 }
 
 .simplGride {
-  gap: 20px;
+  gap: rem(18px);
+
+  @media (min-width: rem(768px)) {
+    gap: rem(24px);
+  }
+  @media (min-width: rem(1440px)) {
+    /* gap: rem(50px); */
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 24px 50px;
+  }
 }
+
 .wrapper label {
   color: #111;
   /* color: red; */
@@ -161,19 +171,19 @@
   }
 }
 
-.control {
-  border: box;
+.button {
   margin-left: auto;
   margin-right: auto;
-
   margin-top: rem(40px);
+  padding: rem(14px) rem(50px);
   width: rem(195px);
   height: rem(46px);
 
   border-radius: rem(16px);
   background-color: var(--mantine-color-blue-4);
-  padding: rem(14px) rem(50px);
+  /* background-color: red; */
 
+  overflow: hidden;
   color: #fff;
   text-align: center;
   font-family: Inter;
@@ -191,4 +201,8 @@
   @media (min-width: rem(1440px)) {
     margin-top: 88px;
   }
+}
+
+.buttonLabel {
+  overflow: visible;
 }

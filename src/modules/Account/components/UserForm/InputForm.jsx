@@ -126,7 +126,7 @@ export function UserInputForm() {
 
     if (!emailValidationRegex.test(email)) {
       notifications.show({
-        message: 'Email is not valid',
+        message: t('userform.notificationEmail'),
         autoClose: 5000,
         color: 'red',
       });
@@ -141,7 +141,7 @@ export function UserInputForm() {
 
     if (!phoneValidationRegex.test(phone)) {
       notifications.show({
-        message: 'Phone must be in format +380971234567',
+        message: t('userform.notificationPhone'),
         autoClose: 10000,
         color: 'red',
       });
@@ -298,7 +298,8 @@ export function UserInputForm() {
           <SimpleGrid
             cols={{ base: 1, xl: 2 }}
             //  spacing="lg"
-            className={classes.simplGride}
+            // className={classes.simplGride}
+            classNames={{ root: classes.simplGride }}
           >
             <TextInput
               name="username"
@@ -359,8 +360,8 @@ export function UserInputForm() {
         >
           <Button
             type="submit"
-            className={classes.control}
-            classNames={{ root: classes.button }}
+            // className={classes.control}
+            classNames={{ root: classes.button, label: classes.buttonLabel }}
             disabled={!formChange}
           >
             {t('userform.button')}
