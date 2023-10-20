@@ -46,8 +46,8 @@
   border-radius: rem(72px);
   border: rem(2px) solid #3e85f3;
   background:
-    url(../../../../assets/images/userPNG.png),
-    lightgray 50% / cover no-repeat;
+    url(../../../../assets/images/userSVG.svg),
+    lightgray 100% / cover no-repeat;
 
   @media (min-width: rem(768px)) {
     position: static;
@@ -106,6 +106,9 @@
   }
 }
 
+.simplGride {
+  gap: 20px;
+}
 .wrapper label {
   color: #111;
   /* color: red; */

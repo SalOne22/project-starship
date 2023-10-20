@@ -11,12 +11,13 @@ import { useEffect, useRef, useState } from 'react';
 import { DateInput } from '@mantine/dates';
 import classes from './InputForm.module.css';
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
-import { IconCloudUpload } from '@tabler/icons-react';
+import { IconChevronDown, IconCloudUpload } from '@tabler/icons-react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserData } from '@/redux/operations';
 import { notifications } from '@mantine/notifications';
 import { useTranslation } from 'react-i18next';
+// import { hasLength, isEmail, useForm } from '@mantine/form';
 // import { selectUserData } from '@/redux/slices/authSlice';
 
 export function UserInputForm() {
@@ -38,6 +39,26 @@ export function UserInputForm() {
     skype: '',
     avatarURL: '',
   });
+
+  // const form = useForm({
+  //   initialValues: {
+  //     email: '',
+  //     username: '',
+  //     password: '',
+  //   },
+
+  //   validate: {
+  //     username: hasLength(
+  //       { min: 2 },
+  //       'Enter a name with a minimum of 2 characters',
+  //     ),
+  //     email: isEmail('Word before @ and domain after the dot'),
+  //     password: hasLength(
+  //       { min: 6 },
+  //       'Password should include at least 6 characters',
+  //     ),
+  //   },
+  // });
 
   //   useEffect(() => {
   //     console.log(userData);
@@ -274,7 +295,11 @@ export function UserInputForm() {
         </Text>
         {/* </div> */}
         <div className={classes.fields}>
-          <SimpleGrid cols={{ base: 1, xl: 2 }} spacing="lg">
+          <SimpleGrid
+            cols={{ base: 1, xl: 2 }}
+            //  spacing="lg"
+            className={classes.simplGride}
+          >
             <TextInput
               name="username"
               label={t('userform.userName')}
@@ -285,6 +310,7 @@ export function UserInputForm() {
               classNames={{ wrapper: classes.label, input: classes.input }}
               defaultValue={userAuth?.username}
               onChange={handleInputChange}
+              // {...form.getInputProps('username')}
             />
             <DateInput
               name="birthday"
@@ -294,6 +320,7 @@ export function UserInputForm() {
               value={userData?.birthday || parseDateBirthday}
               classNames={{ wrapper: classes.label, input: classes.input }}
               onChange={handleDateChange}
+              rightSection={<IconChevronDown size={18} color={'#111111'} />}
             />
             <TextInput
               name="email"
