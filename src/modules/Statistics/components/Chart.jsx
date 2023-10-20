@@ -1,5 +1,5 @@
+import { px, useMantineTheme } from '@mantine/core';
 import PropTypes from 'prop-types';
-
 import {
   Bar,
   BarChart,
@@ -8,27 +8,63 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
+import { breakpoints, chartDimensions } from '../helpers';
 
 // eslint-disable-next-line react/prop-types
-export function Chart({ data }) {
+export function Chart({ data, width }) {
+  const theme = useMantineTheme();
+
+  const currentBreakpoint =
+    width < px(theme.breakpoints.md)
+      ? breakpoints.sm
+      : width < px(theme.breakpoints.xl)
+      ? breakpoints.md
+      : breakpoints.xl;
+
+  const barLabel = {
+    position: 'top',
+    fontFamily: 'Poppins',
+    fontWeight: 500,
+    fontSize: chartDimensions[currentBreakpoint].barLabelFontSize,
+    fill: '#343434',
+    formatter: (value) => `${value}%`,
+    style: {
+      lineHeight: 1.5,
+      color: '#343434',
+    },
+  };
+
   console.log('render', 'Chart');
   console.log('data', data);
+  console.log(width);
+  console.log(theme.breakpoints);
+  console.log('currentBreakpoint', currentBreakpoint);
+  console.log(
+    'chartDimensions[currentBreakpoint].responsiveContainerMinHeight',
+    chartDimensions[currentBreakpoint].barChartHeight,
+  );
+
   return (
     <>
-      <ResponsiveContainer width="100%" height="100%" minHeight={300}>
+      <ResponsiveContainer
+        width="100%"
+        minHeight={chartDimensions[currentBreakpoint].barChartHeight}
+      >
         <BarChart
           width="100%"
+          height={chartDimensions[currentBreakpoint].barChartHeight}
           data={data}
-          margin={{ top: 18, left: -20 }}
-          barGap="11%"
-          barCategoryGap="17%"
+          margin={chartDimensions[currentBreakpoint].barChartMargin}
+          barGap={chartDimensions[currentBreakpoint].barGap}
+          barCategoryGap={chartDimensions[currentBreakpoint].barCategoryGap}
+          barSize={chartDimensions[currentBreakpoint].barSize}
         >
           <CartesianGrid stroke="#E3F3FF" vertical={false} />
           <XAxis
             dataKey="name"
             axisLine={false}
             tickLine={false}
-            tickMargin={24}
+            tickMargin={20}
             tick={({ x, y, payload }) => (
               <text
                 x={x}
@@ -36,9 +72,13 @@ export function Chart({ data }) {
                 textAnchor="middle"
                 fill="#343434"
                 fontFamily="Inter"
-                fontSize={12}
+                fontSize={chartDimensions[currentBreakpoint].xTickFontSize}
                 fontWeight={400}
-                style={{ lineHeight: '1.33', textTransform: 'capitalize' }}
+                style={{
+                  color: '#343434',
+                  lineHeight: '1.33',
+                  textTransform: 'capitalize',
+                }}
               >
                 {payload.value}
               </text>
@@ -48,7 +88,7 @@ export function Chart({ data }) {
             axisLine={false}
             tickLine={false}
             ticks={[0, 20, 40, 60, 80, 100]}
-            tickMargin={8}
+            tickMargin={chartDimensions[currentBreakpoint].yTickMargin}
             tick={({ x, y, payload }) => (
               <text
                 x={x}
@@ -59,7 +99,7 @@ export function Chart({ data }) {
                 fontFamily="Inter"
                 fontSize={14}
                 fontWeight={400}
-                style={{ lineHeight: 1.5 }}
+                style={{ color: '#343434', lineHeight: 1.5 }}
               >
                 {payload.value}
               </text>
@@ -78,30 +118,14 @@ export function Chart({ data }) {
           <Bar
             dataKey="byDay"
             fill="url(#redGradient)"
-            label={{
-              position: 'top',
-              fontFamily: 'Poppins',
-              fontWeight: 500,
-              fontSize: 12,
-              fill: '#343434',
-              formatter: (value) => `${value}%`,
-            }}
+            label={barLabel}
             radius={[0, 0, 7, 7]}
-            maxBarSize={27}
           />
           <Bar
             dataKey="byMonth"
             fill="url(#blueGradient)"
-            label={{
-              position: 'top',
-              fontFamily: 'Poppins',
-              fontWeight: 500,
-              fontSize: 12,
-              fill: '#343434',
-              formatter: (value) => `${value}%`,
-            }}
+            label={barLabel}
             radius={[0, 0, 7, 7]}
-            maxBarSize={27}
           />
         </BarChart>
       </ResponsiveContainer>
@@ -111,4 +135,5 @@ export function Chart({ data }) {
 
 Chart.prototype = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  width: PropTypes.number.isRequired,
 };

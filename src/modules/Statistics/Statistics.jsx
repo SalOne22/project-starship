@@ -1,5 +1,12 @@
 import PeriodPaginator from '@/components/PeriodPaginator';
-import { Chart, ChartTitle, ChartWrapper, Legend, Wrapper } from './components';
+import {
+  Chart,
+  ChartTitle,
+  ChartWrapper,
+  Legend,
+  ResponsiveChartWrapper,
+  Wrapper,
+} from './components';
 import { Box, Container, Notification, rem } from '@mantine/core';
 import ScreenLoader from '@/components/ScreenLoader';
 import { useTasks } from '@/modules/Calendar/hooks/useTasks';
@@ -86,7 +93,9 @@ function Statistics() {
           </Box>
           <ChartWrapper>
             <ChartTitle>Tasks</ChartTitle>
-            <Chart data={dataForChart} />
+            <ResponsiveChartWrapper>
+              <Chart data={dataForChart} />
+            </ResponsiveChartWrapper>
           </ChartWrapper>
         </Wrapper>
       </Container>
