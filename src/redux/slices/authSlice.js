@@ -119,7 +119,8 @@ const slice = createSlice({
       .addCase(refreshUserThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isAuthenticated = true;
-        state.user = action.payload;
+        state.user = action.payload.user;
+        state.token = action.payload.token;
       })
       .addCase(refreshUserThunk.rejected, (state, action) => {
         state.isLoading = false;

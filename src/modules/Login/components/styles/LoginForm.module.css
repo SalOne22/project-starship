@@ -1,10 +1,15 @@
-/* import theme from '@/theme'; */
+/* --transition-dur-and-func: 250ms cubic-bezier(0.4, 0, 0.2, 1); */
 
 .wrappForm {
+  /* padding: rem(40px) rem(24px) !important; */
   padding: rem(40px) rem(24px);
   width: rem(335px);
   border: none;
   border-radius: 8px;
+  background: light-dark(
+    var(--mantine-color-white),
+    var(--mantine-color-dark-5)
+  );
   @media (min-width: $mantine-breakpoint-md) {
     width: rem(480px);
     padding: rem(40px);
@@ -37,6 +42,7 @@
 .googleButton {
   height: rem(46px);
   border-radius: rem(16px);
+  border-color: light-dark(_, var(--mantine-color-blue-4));
 }
 
 .divider {
@@ -47,7 +53,8 @@
   width: 100%;
 }
 .stack {
-  color: black;
+  /* color: black; */
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
   font-size: rem(12px);
   font-weight: 600;
   line-height: normal;
@@ -58,74 +65,113 @@
 /* ---form---- */
 
 .input {
-  color: black;
+  /* color: black; */
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
   padding: rem(14px);
   height: rem(46px);
   font-size: rem(14px);
   font-weight: 400;
   line-height: 1.28;
   border-radius: 8px;
-  border: 1px solid rgba(220, 227, 229, 0.6);
-}
+  border: 1px solid var(--mantine-color-blue-11);
+  /* border-color: 1px solid rgba(220, 227, 229, 0.6); */
 
+  transition: border-color 350ms ease;
+}
 .input[aria-invalid='true'] {
-  border: 1px solid #da1414;
+  border: 1px solid var(--mantine-color-red-4);
 }
 .input[aria-invalid='true']::placeholder {
-  color: #da1414;
+  /* color: #da1414; */
+  font-size: rem(14px);
+  font-weight: 400;
+  line-height: 1.28;
+
+  color: var(--mantine-color-red-4);
 }
 
 .input::placeholder {
-  color: #dce3e5;
+  /* color: #dce3e5; */
+  color: var(--mantine-color-blue-11);
+  font-size: rem(14px);
+  font-weight: 400;
+  line-height: 1.28;
 }
 .input:focus {
-  border-color: black;
+  /* border-color: black; */
+  border-color: var(--mantine-color-black);
 }
 
 .inputCorrect {
-  border-color: light-dark(
-    var(--mantine-color-green-5),
-    var(--mantine-color-blue-5)
-  ) !important;
-}
-
-.inputInput::placeholder {
-  color: #dce3e5;
+  border-color: var(--mantine-color-green-6) !important;
 }
 
 .input[data-error='true'] {
-  border-color: #da1414;
+  /* border-color: #da1414; */
+  border-color: var(--mantine-color-red-4);
 }
-
+.inputInput::placeholder {
+  /* color: #dce3e5; */
+  color: var(--mantine-color-blue-11);
+  font-size: rem(14px);
+  font-weight: 400;
+  line-height: 1.28;
+}
 .inputInput[data-invalid='true']::placeholder {
-  color: #da1414;
+  /* color: #da1414; */
+  color: var(--mantine-color-red-4);
 }
-
 .input:focus-within {
-  border-color: black;
+  /* border-color: black; */
+  border-color: light-dark(
+    var(--mantine-color-black),
+    var(--mantine-color-blue-4)
+  );
 }
 
 .label {
-  color: black;
+  /* color: var(--mantine-color-black); */
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-blue-4));
   font-size: rem(12px);
   font-weight: 600;
   line-height: normal;
   margin-bottom: 8px;
 }
+.labelCorrect {
+  color: var(--mantine-color-green-6);
+  font-size: rem(12px);
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: 8px;
+}
+.labelError {
+  color: var(--mantine-color-red-4);
+  font-size: rem(12px);
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: 8px;
+}
+
 .required {
-  color: #da1414;
-  /* color:#fff */
+  /* color: white;
+  color: var(--mantine-color-white); */
+  color: var(--mantine-color-red-4);
+}
+.requiredCorrect {
+  color: var(--mantine-color-green-6);
+}
+.requiredError {
+  color: var(--mantine-color-red-4);
 }
 
 .error {
-  color: #da1414;
+  color: var(--mantine-color-red-4);
   font-size: rem(12px);
   font-weight: 400;
   line-height: 1.16;
 }
 
 /* ---------------- */
-
 .wrappButton {
   margin-top: 0;
   display: flex;
@@ -137,7 +183,11 @@
   height: 100%;
   padding: rem(14px 103px);
   border-radius: rem(16px);
-  box-shadow: 4px 2px 16px 0px rgba(136, 165, 191, 0.48);
+  /* box-shadow: 4px 2px 16px 0px rgba(136, 165, 191, 0.48); */
+  box-shadow: light-dark(
+    (4px 2px 16px 0px rgba(136, 165, 191, 0.48)),
+    (4px 2px 16px 0px rgba(18, 19, 20, 0.48))
+  );
 }
 
 .textButtonForm {

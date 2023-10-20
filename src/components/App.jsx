@@ -20,6 +20,7 @@ const Calendar = lazy(() => import('@/modules/Calendar'));
 import ScreenLoader from './ScreenLoader';
 import PrivateRoute from './PrivateRoute';
 import RestrictedRoute from './RestrictedRoute';
+import LangSelect from './LangSelect';
 
 import theme from '@/theme';
 
@@ -27,7 +28,6 @@ import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
 import '@mantine/dates/styles.css';
 import '@mantine/notifications/styles.css';
-//import CalendarPage from '../pages/CalendarPage';
 
 function App() {
   return (
@@ -38,6 +38,9 @@ function App() {
         autoClose={4000}
         containerWidth={340}
       />
+      <Suspense>
+        <LangSelect />
+      </Suspense>
       <Suspense fallback={<ScreenLoader />}>
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -55,7 +58,7 @@ function App() {
 
             <Route
               element={
-                <PrivateRoute to="/login">
+                <PrivateRoute to="/">
                   <Outlet />
                 </PrivateRoute>
               }
@@ -70,7 +73,6 @@ function App() {
               <Route path="account" element={<Account />} />
             </Route>
           </Route>
-
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
