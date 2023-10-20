@@ -21,7 +21,7 @@ function SideBar({ onClose }) {
           <Logo />
           <CloseButton onClose={onClose} />
         </Flex>
-        <UserNav />
+        <UserNav cb={onClose} />
         <Stack justify="end" className={css.logoutBtnWrapper}>
           <LogoutButton />
         </Stack>
