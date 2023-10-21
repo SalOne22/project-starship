@@ -1,10 +1,10 @@
 import { UserInputForm } from './InputForm.jsx';
-import classes from './InputForm.module.css';
+import css from './InputForm.module.css';
 
 function UserForm() {
   console.log('UserForm is working');
   return (
-    <div className={classes.userWrapper}>
+    <div className={css.userWrapper}>
       <UserInputForm />
     </div>
   );
