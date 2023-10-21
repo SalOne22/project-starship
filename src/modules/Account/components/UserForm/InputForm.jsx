@@ -9,7 +9,7 @@ import {
 } from '@mantine/core';
 import { useEffect, useRef, useState } from 'react';
 import { DateInput } from '@mantine/dates';
-import classes from './InputForm.module.css';
+import css from './InputForm.module.css';
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { IconChevronDown, IconCloudUpload } from '@tabler/icons-react';
 
@@ -18,11 +18,8 @@ import { updateUserData } from '@/redux/operations';
 import { notifications } from '@mantine/notifications';
 import { useTranslation } from 'react-i18next';
 
-// import userImgSVG from '@/assets/images/userForm/userSVG.svg';
 import userImgSVG from '@/assets/images/userForm/user.svg';
 import plusSVG from '@/assets/images/userForm/plus.svg';
-// import { hasLength, isEmail, useForm } from '@mantine/form';
-// import { selectUserData } from '@/redux/slices/authSlice';
 
 export function UserInputForm() {
   const dispatch = useDispatch();
@@ -30,11 +27,7 @@ export function UserInputForm() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const userAuth = useSelector((state) => state.auth.user) ?? {};
-  // const username = userAuth.username ?? {};
-  // const firstLaterUsername =  username[0].toUpperCase();
-  // const { username = 'User' } = useSelector(selectUserData) ?? {};
-  // console.log(username)
-  // console.log(firstLaterUsername)
+
   const [userData, setUserData] = useState({
     username: '',
     birthday: '',
@@ -154,29 +147,6 @@ export function UserInputForm() {
 
     return true;
   }
-  // function validateUserData(email, phone) {
-  //   const emailValidationRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-  //   const phoneValidationRegex = /^\+380\d{9}$/;
-
-  //   if (!emailValidationRegex.test(email)) {
-  //     notifications.show({
-  //       message: 'Email is not valid',
-  //       autoClose: 5000,
-  //       color: 'red',
-  //     });
-  //     return false;
-  //   }
-  //   if (!phoneValidationRegex.test(phone)) {
-  //     notifications.show({
-  //       message: 'Phone must be in format +380971234567',
-  //       autoClose: 10000,
-  //       color: 'red',
-  //     });
-  //     return false;
-  //   }
-
-  //   return true;
-  // }
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -215,58 +185,26 @@ export function UserInputForm() {
   //   console.log('typeof parseDateBirthday:', typeof parseDateBirthday);
 
   return (
-    <Paper shadow="md" radius="lg" className={classes.wrapper}>
+    <Paper shadow="md" radius="lg" className={css.wrapper}>
       <form onSubmit={handleFormSubmit} onChange={handleInputChange}>
         <Dropzone
           accept={IMAGE_MIME_TYPE}
           onDrop={handleDropavatarURL}
           openRef={openRef}
-          className={classes.dropzone}
+          className={css.dropzone}
           radius="md"
         >
-          {/* ----------------------1------------------------
-           */}
-          {/* {userAuth?.avatarURL !== ' ' && imageUrl === '' ? (
-            <SimpleGrid className={classes.avatarURL}>
-              <Image
-                src={userAuth?.avatarURL}
-                onLoad={() => URL.revokeObjectURL(imageUrl)}
-              />
-            </SimpleGrid>
-          ) : file.length === 0 ? (
-            <div style={{ pointerEvents: 'none' }}>
-              <Group justify="center">
-                <Dropzone.Idle>
-                  <IconCloudUpload stroke={1.5} className={classes.icon} />
-                </Dropzone.Idle>
-              </Group>
-            </div>
-          ) : (
-            <SimpleGrid className={classes.avatarURL}>
-              <Image
-                src={imageUrl}
-                onLoad={() => URL.revokeObjectURL(imageUrl)}
-              />
-            </SimpleGrid>
-          )} */}
-
-          {/* ------------------------------------2------------------------------------------ */}
-          {/* ------------------------------------2------------------------------------------ */}
-          {/* ------------------------------------2------------------------------------------ */}
-          {/* ------------------------------------2------------------------------------------ */}
-          {/* ------------------------------------2------------------------------------------ */}
-          {/* ------------------------------------2------------------------------------------ */}
           {userAuth?.avatarURL !== ' ' && imageUrl === '' ? (
             userAuth?.avatarURL ? (
               <Image
                 src={userAuth?.avatarURL}
-                className={classes.avatarURL}
+                className={css.avatarURL}
                 onLoad={() => URL.revokeObjectURL(imageUrl)}
               />
             ) : (
               <Image
                 src={userImgSVG}
-                className={classes.userIcon}
+                className={css.userIcon}
                 onLoad={() => URL.revokeObjectURL(imageUrl)}
               />
             )
@@ -274,44 +212,43 @@ export function UserInputForm() {
             <div style={{ pointerEvents: 'none' }}>
               <Group justify="center">
                 <Dropzone.Idle>
-                  <IconCloudUpload stroke={1.5} className={classes.icon} />
+                  <IconCloudUpload stroke={1.5} className={css.icon} />
                 </Dropzone.Idle>
               </Group>
             </div>
           ) : (
-            <SimpleGrid className={classes.avatarURL}>
+            <SimpleGrid className={css.avatarURL}>
               <Image
                 src={imageUrl}
                 onLoad={() => URL.revokeObjectURL(imageUrl)}
               />
             </SimpleGrid>
           )}
-          {/* ----------------------------------------------------------------- */}
         </Dropzone>
         <Image
           src={plusSVG}
-          className={classes.plusIcon}
+          className={css.plusIcon}
           onLoad={() => URL.revokeObjectURL(imageUrl)}
         />
-        {/* <div className={classes.text}> */}
+
         <Text
           ta="center"
-          className={classes.textusername}
-          //  classNames={{root: classes.text}}
-          //  classNames={{root: classes.textusername}}
+          className={css.textusername}
+          //  classNames={{root: css.text}}
+          //  classNames={{root: css.textusername}}
         >
           {userAuth?.username}
         </Text>
-        <Text ta="center" className={classes.textUser}>
+        <Text ta="center" className={css.textUser}>
           {t('userform.user')}
         </Text>
-        {/* </div> */}
-        <div className={classes.fields}>
+
+        <div className={css.fields}>
           <SimpleGrid
             cols={{ base: 1, xl: 2 }}
             //  spacing="lg"
-            // className={classes.simplGride}
-            classNames={{ root: classes.simplGride }}
+            // className={css.simplGride}
+            classNames={{ root: css.simplGride }}
           >
             <TextInput
               name="username"
@@ -319,8 +256,8 @@ export function UserInputForm() {
               placeholder="Enter your name"
               required
               maxLength={16}
-              // className={classes.input}
-              classNames={{ wrapper: classes.label, input: classes.input }}
+              // className={css.input}
+              classNames={{ wrapper: css.label, input: css.input }}
               defaultValue={userAuth?.username}
               onChange={handleInputChange}
               // {...form.getInputProps('username')}
@@ -331,7 +268,7 @@ export function UserInputForm() {
               label={t('userform.birthday')}
               placeholder="select your date of birth"
               value={userData?.birthday || parseDateBirthday}
-              classNames={{ wrapper: classes.label, input: classes.input }}
+              classNames={{ wrapper: css.label, input: css.input }}
               onChange={handleDateChange}
               rightSection={<IconChevronDown size={18} color={'#111111'} />}
             />
@@ -341,7 +278,7 @@ export function UserInputForm() {
               placeholder="Enter your email"
               required
               defaultValue={userAuth?.email}
-              classNames={{ wrapper: classes.label, input: classes.input }}
+              classNames={{ wrapper: css.label, input: css.input }}
               onChange={handleInputChange}
             />
             <TextInput
@@ -350,7 +287,7 @@ export function UserInputForm() {
               label={t('userform.phone')}
               placeholder="+380971234567"
               defaultValue={userAuth?.phone}
-              classNames={{ wrapper: classes.label, input: classes.input }}
+              classNames={{ wrapper: css.label, input: css.input }}
               onChange={handleInputChange}
             />
             <TextInput
@@ -360,7 +297,7 @@ export function UserInputForm() {
               placeholder="Add a skype number"
               maxLength={16}
               defaultValue={userAuth?.skype}
-              classNames={{ wrapper: classes.label, input: classes.input }}
+              classNames={{ wrapper: css.label, input: css.input }}
               onChange={handleInputChange}
             />
           </SimpleGrid>
@@ -368,12 +305,12 @@ export function UserInputForm() {
         <Group
           justify="center"
           // grow preventGrowOverflow={false}
-          classNames={{ group: classes.button }}
+          classNames={{ group: css.button }}
         >
           <Button
             type="submit"
-            // className={classes.control}
-            classNames={{ root: classes.button, label: classes.buttonLabel }}
+            // className={css.control}
+            classNames={{ root: css.button, label: css.buttonLabel }}
             disabled={!formChange}
           >
             {t('userform.button')}

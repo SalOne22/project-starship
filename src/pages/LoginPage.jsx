@@ -1,36 +1,23 @@
 import PropTypes from 'prop-types';
 import Login from '@/modules/Login';
 import AuthNavigate from '@/components/AuthNavigate';
-import { Container } from '@mantine/core';
+import { Box, Center, Container } from '@mantine/core';
+import css from './styles/LoginPage.module.css';
+import Rocket from '@/assets/images/login/rocket.svg?react';
 
 function LoginPage() {
-  const containerStyle = {
-    // border: '1px solid red',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
-  };
-  const pageStyle = {
-    background: '#DCEBF7',
-    minHeight: '100vh',
-    paddingTop: '155px',
-    paddingBottom: '155px',
-  };
-
   return (
-    // <div>
-    //   <Login />
-    //   <AuthNavigate route="/register" text="Sign Up" />
-    // </div>
-    //  <Center>
-    <div style={pageStyle}>
-      <Container style={containerStyle}>
-        <Login />
-        <AuthNavigate route="/register" text="Sign Up" />
+    <Center className={css.pageStyle}>
+      <Container className={css.containerStyle}>
+        <Box className={css.wrapper}>
+          <Login />
+          <AuthNavigate route="/register" text="Sign Up" />
+        </Box>
+        <Box className={css.images}>
+          <Rocket className={css.rocket} />
+        </Box>
       </Container>
-    </div>
-    // </Center>
+    </Center>
   );
 }
 LoginPage.propTypes = {

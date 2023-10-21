@@ -9,6 +9,7 @@
 .containerStyle {
   padding: 0 rem(20px);
 }
+
 .wrapper {
   display: flex;
   justify-content: center;
@@ -22,9 +23,10 @@
 
 .images {
   position: fixed;
-  bottom: -5px;
-  left: rem(29px);
+  bottom: 19px;
+  right: rem(60px);
   display: none;
+
   @media (min-width: $mantine-breakpoint-xl) {
     display: block;
   }
