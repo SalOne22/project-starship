@@ -46,12 +46,12 @@ function Statistics() {
       currentMonth === dayjs(tasks[0].date).format('YYYY-MM') &&
       !isLoading
     ) {
-      console.log('Statements in Statistics useEffect');
+      // console.log('Statements in Statistics useEffect');
       return;
     }
 
     dispatch(fetchTasks(currentMonth));
-    console.log('Statistics useEffect to get tasks');
+    // console.log('Statistics useEffect to get tasks');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentMonth, dispatch]);
 
@@ -66,8 +66,8 @@ function Statistics() {
 
   const dataForChart = getChartData(tasks, currentDay);
 
-  console.log('render', 'Statistics');
-  console.log('tasks', tasks);
+  // console.log('render', 'Statistics');
+  // console.log('tasks', tasks);
 
   return (
     <>
