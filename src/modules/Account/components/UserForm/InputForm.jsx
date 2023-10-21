@@ -17,6 +17,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateUserData } from '@/redux/operations';
 import { notifications } from '@mantine/notifications';
 import { useTranslation } from 'react-i18next';
+
+// import userImgSVG from '@/assets/images/userForm/userSVG.svg';
+import userImgSVG from '@/assets/images/userForm/user.svg';
+import plusSVG from '@/assets/images/userForm/plus.svg';
 // import { hasLength, isEmail, useForm } from '@mantine/form';
 // import { selectUserData } from '@/redux/slices/authSlice';
 
@@ -220,7 +224,9 @@ export function UserInputForm() {
           className={classes.dropzone}
           radius="md"
         >
-          {userAuth?.avatarURL !== ' ' && imageUrl === '' ? (
+          {/* ----------------------1------------------------
+           */}
+          {/* {userAuth?.avatarURL !== ' ' && imageUrl === '' ? (
             <SimpleGrid className={classes.avatarURL}>
               <Image
                 src={userAuth?.avatarURL}
@@ -242,13 +248,15 @@ export function UserInputForm() {
                 onLoad={() => URL.revokeObjectURL(imageUrl)}
               />
             </SimpleGrid>
-          )}
+          )} */}
 
-          {/* {userAuth?.avatarURL !== ' ' && imageUrl === '' ? (
-           
-
-
-            
+          {/* ------------------------------------2------------------------------------------ */}
+          {/* ------------------------------------2------------------------------------------ */}
+          {/* ------------------------------------2------------------------------------------ */}
+          {/* ------------------------------------2------------------------------------------ */}
+          {/* ------------------------------------2------------------------------------------ */}
+          {/* ------------------------------------2------------------------------------------ */}
+          {userAuth?.avatarURL !== ' ' && imageUrl === '' ? (
             userAuth?.avatarURL ? (
               <Image
                 src={userAuth?.avatarURL}
@@ -256,14 +264,13 @@ export function UserInputForm() {
                 onLoad={() => URL.revokeObjectURL(imageUrl)}
               />
             ) : (
-              <Avatar className={classes.avatarURL} variant="outline">
-                your photo
-              </Avatar>
-          
+              <Image
+                src={userImgSVG}
+                className={classes.userIcon}
+                onLoad={() => URL.revokeObjectURL(imageUrl)}
+              />
             )
-          ) : 
-
-          file.length === 0 ? (
+          ) : file.length === 0 ? (
             <div style={{ pointerEvents: 'none' }}>
               <Group justify="center">
                 <Dropzone.Idle>
@@ -278,9 +285,14 @@ export function UserInputForm() {
                 onLoad={() => URL.revokeObjectURL(imageUrl)}
               />
             </SimpleGrid>
-          )} */}
+          )}
+          {/* ----------------------------------------------------------------- */}
         </Dropzone>
-
+        <Image
+          src={plusSVG}
+          className={classes.plusIcon}
+          onLoad={() => URL.revokeObjectURL(imageUrl)}
+        />
         {/* <div className={classes.text}> */}
         <Text
           ta="center"

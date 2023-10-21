@@ -5,7 +5,7 @@ import { NavLink as RouterNavLink } from 'react-router-dom';
 
 import css from '../styles/NavigationLink.module.css';
 
-function NavigationLink({ icon, title, to }) {
+function NavigationLink({ icon, title, to, cb }) {
   return (
     <NavLink
       className={css.link}
@@ -20,6 +20,7 @@ function NavigationLink({ icon, title, to }) {
       to={to}
       label={title}
       leftSection={icon}
+      onClick={cb}
       classNames={{
         section: css.section,
         label: css.label,
@@ -33,6 +34,7 @@ NavigationLink.propTypes = {
   icon: PropTypes.element,
   title: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,
+  cb: PropTypes.func,
 };
 
 export default NavigationLink;

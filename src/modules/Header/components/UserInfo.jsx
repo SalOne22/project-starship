@@ -8,6 +8,7 @@ import ThemeToggler from './ThemeToggler';
 import { selectUserData } from '@/redux/slices/authSlice';
 
 import css from '../styles/UserInfo.module.css';
+import { Link } from 'react-router-dom';
 
 function UserInfo() {
   const { username = 'User', avatarURL } = useSelector(selectUserData) ?? {};
@@ -26,9 +27,11 @@ function UserInfo() {
         {username}
       </Marquee>
 
-      <Avatar className={css.avatar} variant="outline" src={avatarURL}>
-        {username[0].toUpperCase()}
-      </Avatar>
+      <Link to="/account">
+        <Avatar className={css.avatar} variant="outline" src={avatarURL}>
+          {username[0].toUpperCase()}
+        </Avatar>
+      </Link>
     </Flex>
   );
 }
