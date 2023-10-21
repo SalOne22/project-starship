@@ -135,5 +135,5 @@ export function Chart({ data, width }) {
 
 Chart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
-  width: PropTypes.number.isRequired,
+  width: PropTypes.number,
 };
