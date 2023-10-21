@@ -44,7 +44,6 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
   gap: rem(20);
 
   margin-bottom: rem(40);
@@ -65,7 +64,7 @@
 }
 
 .stat__chartWrapper {
-  height: rem(414);
+  /* height: rem(414); */
 
   padding-top: rem(40);
   padding-bottom: rem(40);
@@ -77,7 +76,7 @@
   border-radius: rem(20);
 
   @media (min-width: $mantine-breakpoint-md) {
-    height: rem(424);
+    /* height: rem(424); */
 
     padding-top: rem(32);
     padding-bottom: rem(32);
@@ -86,7 +85,7 @@
   }
 
   @media (min-width: $mantine-breakpoint-xl) {
-    height: rem(440);
+    /* height: rem(440); */
 
     padding-top: rem(40);
     padding-bottom: rem(40);
@@ -131,6 +130,7 @@
 }
 
 .stat__chartTitle {
+  margin: 0;
   margin-bottom: rem(12);
 
   color: light-dark(var(--mantine-color-dark-6), var(--mantine-color-dark-0));
@@ -139,6 +139,8 @@
   font-style: normal;
   font-weight: 600;
   line-height: rem(21);
+
+  text-transform: capitalize;
 
   @media (min-width: $mantine-breakpoint-md) {
     margin-bottom: rem(8);
