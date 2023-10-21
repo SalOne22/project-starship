@@ -1,8 +1,4 @@
-//  ----форма montin на двух роутах
-
-// import { useForm } from '@mantine/form';
 import { hasLength, isEmail, useForm } from '@mantine/form';
-
 import {
   TextInput,
   Text,
@@ -87,13 +83,14 @@ function RegisterForm(props) {
             placeholder="Enter your name"
             rightSection={
               form.errors?.username ? (
-                <IconAlertCircle color={theme.colors.red[4]} size={18} />
+                <IconAlertCircle className={css.iconAlertCircle} />
               ) : form.values.username.length > 1 ? (
-                <IconCircleCheck color={theme.colors.green[6]} size={18} />
+                <IconCircleCheck className={css.iconCircleCheck} />
               ) : null
             }
             {...form.getInputProps('username')}
             classNames={{
+              wrapper: css.wrapper,
               label: form.isValid('username')
                 ? css.labelCorrect
                 : form.errors.username
@@ -120,13 +117,14 @@ function RegisterForm(props) {
             placeholder="Enter email"
             rightSection={
               form.errors?.email ? (
-                <IconAlertCircle color={theme.colors.red[4]} size={18} />
+                <IconAlertCircle className={css.iconAlertCircle} />
               ) : form.isValid('email') ? (
-                <IconCircleCheck color={theme.colors.green[6]} size={18} />
+                <IconCircleCheck className={css.iconCircleCheck} />
               ) : null
             }
             {...form.getInputProps('email')}
             classNames={{
+              wrapper: css.wrapper,
               label: form.isValid('email')
                 ? css.labelCorrect
                 : form.errors.email
@@ -146,20 +144,20 @@ function RegisterForm(props) {
             }}
           />
 
-          {/* <TextInput */}
           <PasswordInput
             withAsterisk
             label="Password"
             placeholder="Enter password"
             rightSection={
               form.errors?.password ? (
-                <IconAlertCircle color={theme.colors.red[4]} size={18} />
+                <IconAlertCircle className={css.iconAlertCircle} />
               ) : form.values.password.length > 5 ? (
-                <IconCircleCheck color={theme.colors.green[6]} size={18} />
+                <IconCircleCheck className={css.iconCircleCheck} />
               ) : null
             }
             {...form.getInputProps('password')}
             classNames={{
+              wrapper: css.wrapper,
               label: form.isValid('password')
                 ? css.labelCorrect
                 : form.errors.password
@@ -187,10 +185,10 @@ function RegisterForm(props) {
           ) : (
             <Button
               className={css.button}
-              rightSection={<IconLogin2 size={18} />}
+              rightSection={<IconLogin2 className={css.iconButton} />}
               type="submit"
             >
-              <Text className={css.textButtonForm}> Sign Up</Text>
+              <Text className={css.textButtonForm}>Sign Up</Text>
             </Button>
           )}
         </Group>
