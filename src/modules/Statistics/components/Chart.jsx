@@ -39,8 +39,8 @@ export function Chart({ data, width }) {
     formatter: (value) => `${value}%`,
   };
 
-  console.log('render', 'Chart');
-  console.log('data', data);
+  // console.log('render', 'Chart');
+  // console.log('data', data);
 
   return (
     <>
