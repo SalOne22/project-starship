@@ -65,6 +65,7 @@ function LoginForm() {
         <GoogleButton
           className={css.googleButton}
           onClick={handleGoogleButtonClick}
+          tabIndex={1}
         >
           Google
         </GoogleButton>
@@ -87,13 +88,14 @@ function LoginForm() {
             placeholder="Enter email"
             rightSection={
               form.errors?.email ? (
-                <IconAlertCircle color="red" size={18} />
+                <IconAlertCircle className={css.iconAlertCircle} />
               ) : form.isValid('email') ? (
-                <IconCircleCheck color="green" size={18} />
+                <IconCircleCheck className={css.iconCircleCheck} />
               ) : null
             }
             {...form.getInputProps('email')}
             classNames={{
+              wrapper: css.wrapper,
               label: form.isValid('email')
                 ? css.labelCorrect
                 : form.errors.email
@@ -111,6 +113,7 @@ function LoginForm() {
                 form.isValid('email') ? css.inputCorrect : null,
               ),
             }}
+            tabIndex={2}
           />
 
           <PasswordInput
@@ -119,13 +122,14 @@ function LoginForm() {
             placeholder="Enter password"
             rightSection={
               form.errors?.password ? (
-                <IconAlertCircle color="red" size={18} />
+                <IconAlertCircle className={css.iconAlertCircle} />
               ) : form.values.password.length > 5 ? (
-                <IconCircleCheck color="green" size={18} />
+                <IconCircleCheck className={css.iconCircleCheck} />
               ) : null
             }
             {...form.getInputProps('password')}
             classNames={{
+              wrapper: css.wrapper,
               label: form.isValid('password')
                 ? css.labelCorrect
                 : form.errors.password
@@ -144,6 +148,7 @@ function LoginForm() {
               ),
               innerInput: css.inputInput,
             }}
+            tabIndex={3}
           />
         </Stack>
 
@@ -153,6 +158,7 @@ function LoginForm() {
             type="button"
             size="sm"
             onClick={handleCloseModal}
+            tabIndex={5}
           >
             Forgot password?
           </Anchor>
@@ -161,8 +167,9 @@ function LoginForm() {
           ) : (
             <Button
               className={css.button}
-              rightSection={<IconLogin2 size={18} />}
+              rightSection={<IconLogin2 className={css.iconButton} />}
               type="submit"
+              tabIndex={4}
             >
               <Text className={css.textButtonForm}>Log In</Text>
             </Button>
