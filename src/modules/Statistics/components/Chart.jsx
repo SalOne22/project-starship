@@ -1,4 +1,4 @@
-import { px, useMantineTheme } from '@mantine/core';
+import { px, useMantineColorScheme, useMantineTheme } from '@mantine/core';
 import PropTypes from 'prop-types';
 import {
   Bar,
@@ -13,7 +13,17 @@ import { breakpoints, chartDimensions } from '../helpers';
 // eslint-disable-next-line react/prop-types
 export function Chart({ data, width }) {
   const theme = useMantineTheme();
-
+  const { colorScheme } = useMantineColorScheme();
+  const chartColors = {
+    light: {
+      text: theme.colors.dark[6],
+      grid: theme.colors.blue[0],
+    },
+    dark: {
+      text: theme.colors.dark[0],
+      grid: theme.colors.gray[2],
+    },
+  };
   const currentBreakpoint =
     width < px(theme.breakpoints.md)
       ? breakpoints.sm
@@ -26,12 +36,8 @@ export function Chart({ data, width }) {
     fontFamily: 'Poppins',
     fontWeight: 500,
     fontSize: chartDimensions[currentBreakpoint].barLabelFontSize,
-    fill: '#343434',
+    fill: chartColors[colorScheme].text,
     formatter: (value) => `${value}%`,
-    style: {
-      lineHeight: 1.5,
-      color: '#343434',
-    },
   };
 
   console.log('render', 'Chart');
@@ -43,6 +49,7 @@ export function Chart({ data, width }) {
     'chartDimensions[currentBreakpoint].responsiveContainerMinHeight',
     chartDimensions[currentBreakpoint].barChartHeight,
   );
+  console.log('colorScheme', colorScheme);
 
   return (
     <>
@@ -59,7 +66,10 @@ export function Chart({ data, width }) {
           barCategoryGap={chartDimensions[currentBreakpoint].barCategoryGap}
           barSize={chartDimensions[currentBreakpoint].barSize}
         >
-          <CartesianGrid stroke="#E3F3FF" vertical={false} />
+          <CartesianGrid
+            stroke={chartColors[colorScheme].grid}
+            vertical={false}
+          />
           <XAxis
             dataKey="name"
             axisLine={false}
@@ -70,12 +80,11 @@ export function Chart({ data, width }) {
                 x={x}
                 y={y}
                 textAnchor="middle"
-                fill="#343434"
+                fill={chartColors[colorScheme].text}
                 fontFamily="Inter"
                 fontSize={chartDimensions[currentBreakpoint].xTickFontSize}
                 fontWeight={400}
                 style={{
-                  color: '#343434',
                   lineHeight: '1.33',
                   textTransform: 'capitalize',
                 }}
@@ -95,11 +104,11 @@ export function Chart({ data, width }) {
                 y={y}
                 dy={5}
                 textAnchor="end"
-                fill="#343434"
+                fill={chartColors[colorScheme].text}
                 fontFamily="Inter"
                 fontSize={14}
                 fontWeight={400}
-                style={{ color: '#343434', lineHeight: 1.5 }}
+                style={{ lineHeight: 1.5 }}
               >
                 {payload.value}
               </text>
