@@ -7,13 +7,12 @@ import {
   ResponsiveChartWrapper,
   Wrapper,
 } from './components';
-import { Box, Container, Notification, rem } from '@mantine/core';
+import { Box, Container } from '@mantine/core';
 import ScreenLoader from '@/components/ScreenLoader';
 import { useTasks } from '@/modules/Calendar/hooks/useTasks';
 import { fetchTasks } from '@/modules/Calendar/redux/operations';
-import { IconX } from '@tabler/icons-react';
 import dayjs from 'dayjs';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from './Statistics.module.css';
 import {
@@ -21,29 +20,33 @@ import {
   calculateTasksTypePercentage,
   getChartData,
 } from './helpers';
+import { notifications } from '@mantine/notifications';
 
 // import mockTasks from './mockData/tasks.json';
 
 function Statistics() {
-  //icon for Notification
-  const xIcon = <IconX style={{ width: rem(20), height: rem(20) }} />;
-
   const dispatch = useDispatch();
-
-  const selectedDayDate =
-    useSelector((state) => state?.calendar?.selectedDayDate) ??
-    dayjs(new Date(2023, 9, 31)).format('YYYY-MM-DD');
-  const byDay = (tasks) => tasks.date === selectedDayDate;
-
   const { tasks, isLoading, error } = useTasks();
+  const currentDate =
+    useSelector((state) => state?.calendar?.currentDate) ?? dayjs();
+  const currentDay = dayjs(currentDate).format('YYYY-MM-DD');
+  const [currentMonth, setCurrentMonth] = useState(
+    dayjs(currentDate).format('YYYY-MM'),
+  );
+  const byDay = (tasks) => tasks.date === currentDate;
 
-  //if not tasks, dispatch action to get tasks using selectedDayDate formated as YYYY-MM
   useEffect(() => {
-    if (!tasks && !isLoading && !error) {
-      dispatch(fetchTasks(dayjs(selectedDayDate).format('YYYY-MM')));
-      console.log('Chart useEffect to get tasks');
+    if (
+      tasks.length > 0 &&
+      currentMonth === dayjs(tasks[0].date).format('YYYY-MM') &&
+      !isLoading
+    ) {
+      return;
     }
-  }, [dispatch, error, isLoading, selectedDayDate, tasks]);
+
+    dispatch(fetchTasks(currentMonth));
+    console.log('Statistics useEffect to get tasks');
+  }, [currentMonth, dispatch, isLoading, tasks]);
 
   //if tasks, getTaskTypeDistribution
 
@@ -52,20 +55,23 @@ function Statistics() {
     return (
       <>
         {isLoading && <ScreenLoader />}
-        {error && (
-          <Notification icon={xIcon} color="red" title="Bummer!">
-            Something went wrong
-          </Notification>
-        )}
+        {error &&
+          notifications.show({
+            title: 'Bummer!',
+            message: error.message,
+            color: 'red',
+            withCloseButton: true,
+          })}
       </>
     );
   }
 
-  const dataForChart = getChartData(tasks, selectedDayDate);
+  const dataForChart = getChartData(tasks, currentDay);
 
   console.log('render', 'Statistics');
   console.log('tasks', tasks);
-  console.log(selectedDayDate);
+  console.log(currentDay);
+  console.log(currentMonth);
 
   console.log(
     'byDayPercentage',
@@ -79,16 +85,18 @@ function Statistics() {
   return (
     <>
       {isLoading && <ScreenLoader />}
-      {error && (
-        <Notification icon={xIcon} color="red" title="Bummer!">
-          Something went wrong
-        </Notification>
-      )}
+      {error &&
+        notifications.show({
+          title: 'Bummer!',
+          message: error.message,
+          color: 'red',
+          withCloseButton: true,
+        })}
 
       <Container className={classes.stat__container}>
         <Wrapper>
           <Box className={classes.stat__header}>
-            <PeriodPaginator />
+            {/* <PeriodPaginator /> */}
             <Legend />
           </Box>
           <ChartWrapper>

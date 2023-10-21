@@ -10,7 +10,6 @@ import {
 } from 'recharts';
 import { breakpoints, chartDimensions } from '../helpers';
 
-// eslint-disable-next-line react/prop-types
 export function Chart({ data, width }) {
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
@@ -42,14 +41,6 @@ export function Chart({ data, width }) {
 
   console.log('render', 'Chart');
   console.log('data', data);
-  console.log(width);
-  console.log(theme.breakpoints);
-  console.log('currentBreakpoint', currentBreakpoint);
-  console.log(
-    'chartDimensions[currentBreakpoint].responsiveContainerMinHeight',
-    chartDimensions[currentBreakpoint].barChartHeight,
-  );
-  console.log('colorScheme', colorScheme);
 
   return (
     <>
@@ -142,7 +133,7 @@ export function Chart({ data, width }) {
   );
 }
 
-Chart.prototype = {
+Chart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   width: PropTypes.number.isRequired,
 };
