@@ -22,6 +22,7 @@ function DescriptionItem({ descr, className }) {
           </div>
           <div>
             <Image
+              className={css.img}
               src={image}
               alt="Description Image"
               sizes={[

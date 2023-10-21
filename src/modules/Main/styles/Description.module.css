@@ -35,7 +35,7 @@ body {
   list-style: none;
 }
 
-img {
+.img {
   @media (min-width: $mantine-breakpoint-xl) {
     height: 700px;
   }
