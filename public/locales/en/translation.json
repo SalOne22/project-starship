@@ -152,6 +152,7 @@
     "skype": "Skype",
     "button": "Save changes",
     "notificationEmail": "Email is not valid",
-    "notificationPhone": "Phone must be in format +380971234567"
+    "notificationPhone": "Phone must be in format +380971234567",
+    "notificationSubmit": "Changes sent successfully"
   }
 }

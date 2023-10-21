@@ -92,8 +92,8 @@ export const refreshUserThunk = createAsyncThunk(
   },
 );
 
-export const updateUserData = createAsyncThunk(
-  'auth/updateUserData',
+export const updateUserThunk = createAsyncThunk(
+  'auth/updateUserThunk',
   async (formData, thunkApi) => {
     const token = selectToken(thunkApi.getState());
 
@@ -106,6 +106,8 @@ export const updateUserData = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
+      const errorMessage = error.response.data.message;
+      handleError(errorMessage);
       return thunkApi.rejectWithValue(error.response.data.message);
     }
   },

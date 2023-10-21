@@ -5,7 +5,7 @@ import {
   refreshUserThunk,
   setToken,
   logoutUserThunk,
-  updateUserData,
+  updateUserThunk,
   resetUserThunk,
 } from '../operations';
 // const isRejectedAction = (action) =>
@@ -132,15 +132,15 @@ const slice = createSlice({
       })
 
       //---------------update user data-----------
-      .addCase(updateUserData.pending, (state) => {
+      .addCase(updateUserThunk.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(updateUserData.fulfilled, (state, action) => {
+      .addCase(updateUserThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload;
       })
-      .addCase(updateUserData.rejected, (state, action) => {
+      .addCase(updateUserThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
       })
