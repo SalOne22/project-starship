@@ -9,7 +9,7 @@ import { selectUserData } from '@/redux/slices/authSlice';
 import theme from '@/theme';
 import { useTranslation } from 'react-i18next';
 
-function TaskColumnCard({ task }) {
+function TaskColumnCard({ task, isValidDate }) {
   const priorityColor = getPriorityColor(task.priority);
   const { t } = useTranslation();
 
@@ -36,42 +36,44 @@ function TaskColumnCard({ task }) {
   }
 
   return (
-    <li
-      ref={drag}
-      className={clsx(css.cardBox, isDragging ? css.draggedTask : null)}
-    >
-      <Text className={css.task}>{task.title}</Text>
+    <li style={{ marginRight: '8px' }}>
       <Box
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'end',
-        }}
+        ref={drag}
+        className={clsx(css.cardBox, isDragging ? css.draggedTask : null)}
       >
+        <Text className={css.task}>{task.title}</Text>
         <Box
           style={{
             display: 'flex',
+            justifyContent: 'space-between',
             alignItems: 'end',
-            gap: '8px',
           }}
         >
-          <Box className={css.avatar}>
-            {avatarURL ? (
-              <img className={css.avatarImg} src={avatarURL} alt={username} />
-            ) : (
-              <span> {username && username[0].toUpperCase()}</span>
-            )}
-          </Box>
           <Box
-            className={css.priority}
-            style={{ backgroundColor: priorityColor }}
+            style={{
+              display: 'flex',
+              alignItems: 'end',
+              gap: '8px',
+            }}
           >
-            <p className={css.priorityText}>
-              {t(`calendar.chosenday.card.priority.${task.priority}`)}
-            </p>
+            <Box className={css.avatar}>
+              {avatarURL ? (
+                <img className={css.avatarImg} src={avatarURL} alt={username} />
+              ) : (
+                <span> {username && username[0].toUpperCase()}</span>
+              )}
+            </Box>
+            <Box
+              className={css.priority}
+              style={{ backgroundColor: priorityColor }}
+            >
+              <p className={css.priorityText}>
+                {t(`calendar.chosenday.card.priority.${task.priority}`)}
+              </p>
+            </Box>
           </Box>
+          {isValidDate && <TaskToolbar task={task} />}
         </Box>
-        <TaskToolbar task={task} />
       </Box>
     </li>
   );
@@ -82,6 +84,7 @@ TaskColumnCard.propTypes = {
     priority: PropTypes.oneOf(['high', 'medium', 'low']),
     title: PropTypes.string,
   }),
+  isValidDate: PropTypes.bool,
 };
 
 export default TaskColumnCard;
