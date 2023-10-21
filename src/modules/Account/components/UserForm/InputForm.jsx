@@ -11,12 +11,17 @@ import { useEffect, useRef, useState } from 'react';
 import { DateInput } from '@mantine/dates';
 import classes from './InputForm.module.css';
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
-import { IconCloudUpload } from '@tabler/icons-react';
+import { IconChevronDown, IconCloudUpload } from '@tabler/icons-react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserData } from '@/redux/operations';
 import { notifications } from '@mantine/notifications';
 import { useTranslation } from 'react-i18next';
+
+// import userImgSVG from '@/assets/images/userForm/userSVG.svg';
+import userImgSVG from '@/assets/images/userForm/user.svg';
+import plusSVG from '@/assets/images/userForm/plus.svg';
+// import { hasLength, isEmail, useForm } from '@mantine/form';
 // import { selectUserData } from '@/redux/slices/authSlice';
 
 export function UserInputForm() {
@@ -38,6 +43,26 @@ export function UserInputForm() {
     skype: '',
     avatarURL: '',
   });
+
+  // const form = useForm({
+  //   initialValues: {
+  //     email: '',
+  //     username: '',
+  //     password: '',
+  //   },
+
+  //   validate: {
+  //     username: hasLength(
+  //       { min: 2 },
+  //       'Enter a name with a minimum of 2 characters',
+  //     ),
+  //     email: isEmail('Word before @ and domain after the dot'),
+  //     password: hasLength(
+  //       { min: 6 },
+  //       'Password should include at least 6 characters',
+  //     ),
+  //   },
+  // });
 
   //   useEffect(() => {
   //     console.log(userData);
@@ -100,22 +125,13 @@ export function UserInputForm() {
     setFormChange(true);
   };
 
-  function validateUserData(email, phone) {
+  function validateUserEmail(email) {
     const emailValidationRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-    const phoneValidationRegex = /^\+380\d{9}$/;
 
     if (!emailValidationRegex.test(email)) {
       notifications.show({
-        message: 'Email is not valid',
+        message: t('userform.notificationEmail'),
         autoClose: 5000,
-        color: 'red',
-      });
-      return false;
-    }
-    if (!phoneValidationRegex.test(phone)) {
-      notifications.show({
-        message: 'Phone must be in format +380971234567',
-        autoClose: 10000,
         color: 'red',
       });
       return false;
@@ -124,12 +140,54 @@ export function UserInputForm() {
     return true;
   }
 
+  function validateUserPhone(phone) {
+    const phoneValidationRegex = /^\+380\d{9}$/;
+
+    if (!phoneValidationRegex.test(phone)) {
+      notifications.show({
+        message: t('userform.notificationPhone'),
+        autoClose: 10000,
+        color: 'red',
+      });
+      return false;
+    }
+
+    return true;
+  }
+  // function validateUserData(email, phone) {
+  //   const emailValidationRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+  //   const phoneValidationRegex = /^\+380\d{9}$/;
+
+  //   if (!emailValidationRegex.test(email)) {
+  //     notifications.show({
+  //       message: 'Email is not valid',
+  //       autoClose: 5000,
+  //       color: 'red',
+  //     });
+  //     return false;
+  //   }
+  //   if (!phoneValidationRegex.test(phone)) {
+  //     notifications.show({
+  //       message: 'Phone must be in format +380971234567',
+  //       autoClose: 10000,
+  //       color: 'red',
+  //     });
+  //     return false;
+  //   }
+
+  //   return true;
+  // }
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    validateUserEmail(userData.email);
 
-    if (!validateUserData(userData.email, userData.phone)) {
-      return;
+    if (userData.phone) {
+      if (!validateUserPhone(userData.phone)) {
+        return;
+      }
     }
+
     const formData = new FormData();
     formData.append('username', userData.username);
     formData.append('birthday', formattedDate);
@@ -158,11 +216,7 @@ export function UserInputForm() {
 
   return (
     <Paper shadow="md" radius="lg" className={classes.wrapper}>
-      <form
-        className={classes.form}
-        onSubmit={handleFormSubmit}
-        onChange={handleInputChange}
-      >
+      <form onSubmit={handleFormSubmit} onChange={handleInputChange}>
         <Dropzone
           accept={IMAGE_MIME_TYPE}
           onDrop={handleDropavatarURL}
@@ -170,7 +224,9 @@ export function UserInputForm() {
           className={classes.dropzone}
           radius="md"
         >
-          {userAuth?.avatarURL !== ' ' && imageUrl === '' ? (
+          {/* ----------------------1------------------------
+           */}
+          {/* {userAuth?.avatarURL !== ' ' && imageUrl === '' ? (
             <SimpleGrid className={classes.avatarURL}>
               <Image
                 src={userAuth?.avatarURL}
@@ -192,13 +248,15 @@ export function UserInputForm() {
                 onLoad={() => URL.revokeObjectURL(imageUrl)}
               />
             </SimpleGrid>
-          )}
+          )} */}
 
-          {/* {userAuth?.avatarURL !== ' ' && imageUrl === '' ? (
-           
-
-
-            
+          {/* ------------------------------------2------------------------------------------ */}
+          {/* ------------------------------------2------------------------------------------ */}
+          {/* ------------------------------------2------------------------------------------ */}
+          {/* ------------------------------------2------------------------------------------ */}
+          {/* ------------------------------------2------------------------------------------ */}
+          {/* ------------------------------------2------------------------------------------ */}
+          {userAuth?.avatarURL !== ' ' && imageUrl === '' ? (
             userAuth?.avatarURL ? (
               <Image
                 src={userAuth?.avatarURL}
@@ -206,14 +264,13 @@ export function UserInputForm() {
                 onLoad={() => URL.revokeObjectURL(imageUrl)}
               />
             ) : (
-              <Avatar className={classes.avatarURL} variant="outline">
-                your photo
-              </Avatar>
-          
+              <Image
+                src={userImgSVG}
+                className={classes.userIcon}
+                onLoad={() => URL.revokeObjectURL(imageUrl)}
+              />
             )
-          ) : 
-
-          file.length === 0 ? (
+          ) : file.length === 0 ? (
             <div style={{ pointerEvents: 'none' }}>
               <Group justify="center">
                 <Dropzone.Idle>
@@ -228,9 +285,14 @@ export function UserInputForm() {
                 onLoad={() => URL.revokeObjectURL(imageUrl)}
               />
             </SimpleGrid>
-          )} */}
+          )}
+          {/* ----------------------------------------------------------------- */}
         </Dropzone>
-
+        <Image
+          src={plusSVG}
+          className={classes.plusIcon}
+          onLoad={() => URL.revokeObjectURL(imageUrl)}
+        />
         {/* <div className={classes.text}> */}
         <Text
           ta="center"
@@ -245,7 +307,12 @@ export function UserInputForm() {
         </Text>
         {/* </div> */}
         <div className={classes.fields}>
-          <SimpleGrid cols={{ base: 1, xl: 2 }}>
+          <SimpleGrid
+            cols={{ base: 1, xl: 2 }}
+            //  spacing="lg"
+            // className={classes.simplGride}
+            classNames={{ root: classes.simplGride }}
+          >
             <TextInput
               name="username"
               label={t('userform.userName')}
@@ -256,6 +323,7 @@ export function UserInputForm() {
               classNames={{ wrapper: classes.label, input: classes.input }}
               defaultValue={userAuth?.username}
               onChange={handleInputChange}
+              // {...form.getInputProps('username')}
             />
             <DateInput
               name="birthday"
@@ -265,6 +333,7 @@ export function UserInputForm() {
               value={userData?.birthday || parseDateBirthday}
               classNames={{ wrapper: classes.label, input: classes.input }}
               onChange={handleDateChange}
+              rightSection={<IconChevronDown size={18} color={'#111111'} />}
             />
             <TextInput
               name="email"
@@ -279,7 +348,7 @@ export function UserInputForm() {
               name="phone"
               // colSpan={2}
               label={t('userform.phone')}
-              placeholder="38 (097) 123 45 67"
+              placeholder="+380971234567"
               defaultValue={userAuth?.phone}
               classNames={{ wrapper: classes.label, input: classes.input }}
               onChange={handleInputChange}
@@ -295,22 +364,21 @@ export function UserInputForm() {
               onChange={handleInputChange}
             />
           </SimpleGrid>
-
-          <Group
-            justify="center"
-            mt="md"
-            classNames={{ group: classes.button }}
-          >
-            <Button
-              type="submit"
-              className={classes.control}
-              classNames={{ root: classes.button }}
-              disabled={!formChange}
-            >
-              {t('userform.button')}
-            </Button>
-          </Group>
         </div>
+        <Group
+          justify="center"
+          // grow preventGrowOverflow={false}
+          classNames={{ group: classes.button }}
+        >
+          <Button
+            type="submit"
+            // className={classes.control}
+            classNames={{ root: classes.button, label: classes.buttonLabel }}
+            disabled={!formChange}
+          >
+            {t('userform.button')}
+          </Button>
+        </Group>
       </form>
     </Paper>
   );

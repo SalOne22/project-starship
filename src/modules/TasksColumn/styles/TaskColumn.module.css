@@ -5,7 +5,7 @@
   border-radius: rem(8px);
   border: 1px solid rgba(220, 227, 229, 0.8);
   padding: rem(20px);
-  padding-right: rem(15px);
+  padding-right: rem(12px);
   @mixin dark {
     background-color: var(--mantine-color-gray-7);
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -13,6 +13,10 @@
   @media (min-width: $mantine-breakpoint-md) {
     min-width: rem(344px);
   }
+}
+
+.tasksColumnScroll {
+  padding-right: rem(8px);
 }
 
 .addBtnIcon:hover {

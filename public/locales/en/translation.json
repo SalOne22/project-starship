@@ -110,7 +110,8 @@
           "to-do": "To-do",
           "in progress": "In progress",
           "done": "Done"
-        }
+        },
+        "addBtn": "Add task"
       },
       "card": {
         "priority": {
@@ -149,6 +150,8 @@
     "email": "Email",
     "phone": "Phone",
     "skype": "Skype",
-    "button": "Save changes"
+    "button": "Save changes",
+    "notificationEmail": "Email is not valid",
+    "notificationPhone": "Phone must be in format +380971234567"
   }
 }
