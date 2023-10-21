@@ -140,6 +140,8 @@
   font-weight: 600;
   line-height: rem(21);
 
+  text-transform: capitalize;
+
   @media (min-width: $mantine-breakpoint-md) {
     margin-bottom: rem(8);
   }

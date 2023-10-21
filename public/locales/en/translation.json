@@ -153,5 +153,10 @@
     "button": "Save changes",
     "notificationEmail": "Email is not valid",
     "notificationPhone": "Phone must be in format +380971234567"
+  },
+  "statistics": {
+    "byDay": "by day",
+    "byMonth": "by month",
+    "tasks": "tasks"
   }
 }

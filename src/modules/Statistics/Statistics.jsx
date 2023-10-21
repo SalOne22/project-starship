@@ -17,11 +17,13 @@ import { useDispatch } from 'react-redux';
 import classes from './Statistics.module.css';
 import { getChartData } from './helpers';
 import { notifications } from '@mantine/notifications';
+import { useTranslation } from 'react-i18next';
 
 // import mockTasks from './mockData/tasks.json';
 
 function Statistics() {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const { tasks, isLoading, error } = useTasks();
   // const [isTasks, setIsTasks] = useState(true);
   // useSelector((state) => state?.calendar?.currentDate) ?? dayjs();
@@ -90,7 +92,7 @@ function Statistics() {
             <Legend />
           </Box>
           <ChartWrapper>
-            <ChartTitle>Tasks</ChartTitle>
+            <ChartTitle>{t('statistics.tasks')}</ChartTitle>
             {/* {!isTasks &&
               notifications.show({
                 title: "You don't have any tasks for this month",
