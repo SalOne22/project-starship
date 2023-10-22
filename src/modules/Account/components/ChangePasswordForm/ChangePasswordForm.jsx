@@ -6,10 +6,11 @@ import PropTypes from 'prop-types';
 import { updatePassword } from '@/redux/operations';
 import { notifications } from '@mantine/notifications';
 import css from './ChangePasswordForm.module.css';
-import { clearError, selectError } from '@/redux/slices/authSlice';
+import { selectError } from '@/redux/slices/authSlice';
 import clsx from 'clsx';
-import { IconEyeCheck, IconEyeOff } from '@tabler/icons-react';
+import { IconEye, IconEyeOff } from '@tabler/icons-react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function ChangePasswordForm({ onClose }) {
   const dispatch = useDispatch();
@@ -17,8 +18,10 @@ function ChangePasswordForm({ onClose }) {
   const [revealPassword, setRevealPassword] = useState(false);
   const [revealConfirmPassword, setRevealConfirmPassword] = useState(false);
 
+  const { t } = useTranslation();
+
   const error = useSelector(selectError);
-  console.log(error);
+
   const form = useForm({
     initialValues: {
       oldPassword: '',
@@ -28,9 +31,7 @@ function ChangePasswordForm({ onClose }) {
 
     validate: {
       oldPassword: (value) =>
-        error
-          ? ''
-          : value.length < 6
+        value.length < 6
           ? 'Password should be at least 6 characters long'
           : null,
 
@@ -50,6 +51,9 @@ function ChangePasswordForm({ onClose }) {
   });
 
   const handleSubmitForm = async (values) => {
+    // form.clearErrors();
+    // console.log(form.errors);
+    console.log(error);
     if (values.oldPassword === values.confirmPassword) {
       handleMessage('Old and new passwords cannot be the same', 'red');
       values.password = '';
@@ -84,12 +88,10 @@ function ChangePasswordForm({ onClose }) {
     <Box w={340} mx="auto" className={css.changePassWrap}>
       <form onSubmit={form.onSubmit(handleSubmitForm)} className={css.form}>
         <PasswordInput
-          label="Old Password"
-          placeholder="Old Password"
+          withAsterisk
+          label={t('changePasswordForm.oldPassword')}
+          placeholder={t('changePasswordForm.oldPassword')}
           visible={revealOldPassword}
-          styles={{
-            section: { right: '10px' },
-          }}
           rightSection={
             <div className={css.iconWrap}>
               <span
@@ -97,19 +99,9 @@ function ChangePasswordForm({ onClose }) {
                 onClick={() => setRevealOldPassword((prev) => !prev)}
               >
                 {revealOldPassword ? (
-                  <IconEyeOff
-                    style={{
-                      width: 'var(--psi-icon-size)',
-                      height: 'var(--psi-icon-size)',
-                    }}
-                  />
+                  <IconEyeOff size={20} />
                 ) : (
-                  <IconEyeCheck
-                    style={{
-                      width: 'var(--psi-icon-size)',
-                      height: 'var(--psi-icon-size)',
-                    }}
-                  />
+                  <IconEye size={20} />
                 )}
               </span>
               {form.errors?.oldPassword || error ? (
@@ -121,33 +113,43 @@ function ChangePasswordForm({ onClose }) {
           }
           {...form.getInputProps('oldPassword')}
           classNames={{
-            label: form.isValid('oldPassword')
-              ? css.labelCorrect
-              : form.errors.oldPassword || error
-              ? css.labelError
-              : css.label,
+            label:
+              form.isValid('oldPassword') && !error
+                ? css.labelCorrect
+                : form.errors.oldPassword || error
+                ? css.labelError
+                : css.label,
             error: error ? css.labelError : null,
-            required: form.isValid('oldPassword')
-              ? css.requiredCorrect
-              : form.errors.oldPassword || error
-              ? css.requiredError
-              : css.required,
+            required: clsx(
+              form.isValid('oldPassword')
+                ? css.requiredCorrect
+                : form.errors.oldPassword
+                ? css.requiredError
+                : css.required,
+              error && css.requiredError,
+            ),
             rightSection: css.section,
             input: clsx(
               css.input,
               form.isValid('oldPassword') ? css.inputCorrect : null,
               error ? css.inputError : null,
             ),
+            section: clsx(
+              css.eyeBtnSection,
+              !form.errors.oldPassword &&
+                form.isValid('oldPassword') &&
+                css.eyeBtnSectionActive,
+              form.errors.oldPassword && css.eyeBtnSectionActive,
+              error && css.eyeBtnSectionInActive,
+            ),
           }}
         />
 
         <PasswordInput
-          label="Password"
-          placeholder="Password"
+          withAsterisk
+          label={t('changePasswordForm.newPassword')}
+          placeholder={t('changePasswordForm.newPassword')}
           visible={revealPassword}
-          styles={{
-            section: { right: '10px' },
-          }}
           rightSection={
             <div className={css.iconWrap}>
               <span
@@ -155,19 +157,9 @@ function ChangePasswordForm({ onClose }) {
                 onClick={() => setRevealPassword((prev) => !prev)}
               >
                 {revealPassword ? (
-                  <IconEyeOff
-                    style={{
-                      width: 'var(--psi-icon-size)',
-                      height: 'var(--psi-icon-size)',
-                    }}
-                  />
+                  <IconEyeOff size={20} />
                 ) : (
-                  <IconEyeCheck
-                    style={{
-                      width: 'var(--psi-icon-size)',
-                      height: 'var(--psi-icon-size)',
-                    }}
-                  />
+                  <IconEye size={20} />
                 )}
               </span>
               {form.errors?.password ? (
@@ -195,16 +187,21 @@ function ChangePasswordForm({ onClose }) {
               css.input,
               form.isValid('password') ? css.inputCorrect : null,
             ),
+            section: clsx(
+              css.eyeBtnSection,
+              !form.errors.password &&
+                form.isValid('password') &&
+                css.eyeBtnSectionActive,
+              form.errors.password && css.eyeBtnSectionActive,
+            ),
           }}
         />
 
         <PasswordInput
-          label="Confirm Password"
-          placeholder="Confirm Password"
+          withAsterisk
+          label={t('changePasswordForm.confirmedPassword')}
+          placeholder={t('changePasswordForm.confirmedPassword')}
           visible={revealConfirmPassword}
-          styles={{
-            section: { right: '10px' },
-          }}
           rightSection={
             <div className={css.iconWrap}>
               <span
@@ -212,19 +209,9 @@ function ChangePasswordForm({ onClose }) {
                 onClick={() => setRevealConfirmPassword((prev) => !prev)}
               >
                 {revealConfirmPassword ? (
-                  <IconEyeOff
-                    style={{
-                      width: 'var(--psi-icon-size)',
-                      height: 'var(--psi-icon-size)',
-                    }}
-                  />
+                  <IconEyeOff size={20} />
                 ) : (
-                  <IconEyeCheck
-                    style={{
-                      width: 'var(--psi-icon-size)',
-                      height: 'var(--psi-icon-size)',
-                    }}
-                  />
+                  <IconEye size={20} />
                 )}
               </span>
               {form.errors?.confirmPassword ? (
@@ -252,11 +239,20 @@ function ChangePasswordForm({ onClose }) {
               css.input,
               form.isValid('confirmPassword') ? css.inputCorrect : null,
             ),
+            section: clsx(
+              css.eyeBtnSection,
+              !form.errors.confirmPassword &&
+                form.isValid('confirmPassword') &&
+                css.eyeBtnSectionActive,
+              form.errors.confirmPassword && css.eyeBtnSectionActive,
+            ),
           }}
         />
 
         <Group justify="center" mt="md">
-          <Button type="submit">Change Password</Button>
+          <Button className={css.button} type="submit">
+            {t('changePasswordForm.changePassBtn')}
+          </Button>
         </Group>
       </form>
     </Box>

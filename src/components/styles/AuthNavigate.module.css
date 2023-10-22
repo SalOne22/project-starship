@@ -1,0 +1,14 @@
+.link {
+  font-size: rem(12px);
+  font-weight: 600;
+  line-height: 1.16;
+
+  color: var(--mantine-color-blue-4);
+  text-shadow:
+    0px 9.399999618530273px 57.6875px rgba(0, 0, 0, 0.04),
+    0px 47px 355px rgba(0, 0, 0, 0.07);
+  @media (min-width: $mantine-breakpoint-md) {
+    font-size: rem(18px);
+    line-height: 1.33;
+  }
+}

@@ -135,3 +135,9 @@ body {
     max-width: rem(1440px);
   }
 }
+
+.mantine-Popover-dropdown:has(> div[data-calendar='true']) {
+  border: 1px solid var(--mantine-color-blue-4);
+  background-color: var(--mantine-color-blue-4);
+  border-radius: rem(16px);
+}

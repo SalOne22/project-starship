@@ -67,13 +67,13 @@ const TaskForm = ({ category, onClose, task }) => {
 
     try {
       if (task) {
-        await dispatch(editTask({ ...values, _id: task._id }));
+        await dispatch(editTask({ ...values, _id: task._id })).unwrap();
         handleMessage(
           t('calendar.chosenday.notification.editSuccess'),
           theme.colors.green[6],
         );
       } else {
-        await dispatch(addTask({ ...values }));
+        await dispatch(addTask({ ...values })).unwrap();
         handleMessage(
           t('calendar.chosenday.notification.createSuccess'),
           theme.colors.green[6],

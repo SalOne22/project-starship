@@ -1,5 +1,4 @@
 import { hasLength, isEmail, useForm } from '@mantine/form';
-
 import {
   TextInput,
   Text,
@@ -20,6 +19,8 @@ import { selectLoading } from '@/redux/slices/authSlice.js';
 import {
   IconAlertCircle,
   IconCircleCheck,
+  IconEye,
+  IconEyeOff,
   IconLogin2,
 } from '@tabler/icons-react';
 import clsx from 'clsx';
@@ -27,11 +28,13 @@ import Modal from '@/components/Modal';
 import { ForgotPassword } from './ForgotPassword';
 import { useState } from 'react';
 import theme from '@/theme';
+import { useDisclosure } from '@mantine/hooks';
 
 function LoginForm() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectLoading);
   const [isOpen, setIsOpen] = useState(false);
+  const [visible, { toggle }] = useDisclosure(false);
 
   const handleCloseModal = () => {
     setIsOpen((prev) => !prev);
@@ -65,6 +68,7 @@ function LoginForm() {
         <GoogleButton
           className={css.googleButton}
           onClick={handleGoogleButtonClick}
+          tabIndex={1}
         >
           Google
         </GoogleButton>
@@ -87,13 +91,14 @@ function LoginForm() {
             placeholder="Enter email"
             rightSection={
               form.errors?.email ? (
-                <IconAlertCircle color="red" size={18} />
+                <IconAlertCircle className={css.iconAlertCircle} />
               ) : form.isValid('email') ? (
-                <IconCircleCheck color="green" size={18} />
+                <IconCircleCheck className={css.iconCircleCheck} />
               ) : null
             }
             {...form.getInputProps('email')}
             classNames={{
+              wrapper: css.wrapper,
               label: form.isValid('email')
                 ? css.labelCorrect
                 : form.errors.email
@@ -105,27 +110,45 @@ function LoginForm() {
                 : form.errors.username
                 ? css.requiredError
                 : css.required,
-              rightSection: css.section,
+              section: css.section,
               input: clsx(
                 css.input,
                 form.isValid('email') ? css.inputCorrect : null,
               ),
             }}
+            tabIndex={2}
           />
 
           <PasswordInput
             withAsterisk
             label="Password"
             placeholder="Enter password"
+            visible={visible}
+            onVisibilityChange={toggle}
             rightSection={
-              form.errors?.password ? (
-                <IconAlertCircle color="red" size={18} />
-              ) : form.values.password.length > 5 ? (
-                <IconCircleCheck color="green" size={18} />
-              ) : null
+              <div className={css.wrapperIcon}>
+                <Button
+                  className={css.buttonIcon}
+                  variant="link"
+                  onClick={toggle}
+                >
+                  {visible ? (
+                    <IconEye className={css.iconEye} />
+                  ) : (
+                    <IconEyeOff className={css.iconEyeOff} />
+                  )}
+                </Button>
+
+                {form.errors?.password ? (
+                  <IconAlertCircle className={css.iconAlertCircle} />
+                ) : form.values.password.length > 5 ? (
+                  <IconCircleCheck className={css.iconCircleCheck} />
+                ) : null}
+              </div>
             }
             {...form.getInputProps('password')}
             classNames={{
+              wrapper: css.wrapper,
               label: form.isValid('password')
                 ? css.labelCorrect
                 : form.errors.password
@@ -137,13 +160,14 @@ function LoginForm() {
                 : form.errors.username
                 ? css.requiredError
                 : css.required,
-              rightSection: css.section,
+              section: css.sectionPassword,
               input: clsx(
                 css.input,
                 form.isValid('password') ? css.inputCorrect : null,
               ),
               innerInput: css.inputInput,
             }}
+            tabIndex={3}
           />
         </Stack>
 
@@ -153,6 +177,7 @@ function LoginForm() {
             type="button"
             size="sm"
             onClick={handleCloseModal}
+            tabIndex={5}
           >
             Forgot password?
           </Anchor>
@@ -161,8 +186,9 @@ function LoginForm() {
           ) : (
             <Button
               className={css.button}
-              rightSection={<IconLogin2 size={18} />}
+              rightSection={<IconLogin2 className={css.iconButton} />}
               type="submit"
+              tabIndex={4}
             >
               <Text className={css.textButtonForm}>Log In</Text>
             </Button>

@@ -1,0 +1,140 @@
+.container {
+  max-width: rem(335px);
+  padding: rem(44px) rem(20px);
+  padding-bottom: rem(24px);
+  @media (min-width: $mantine-breakpoint-md) {
+    max-width: 100%;
+    padding: rem(64px) rem(74px);
+  }
+}
+
+.confirmContainer {
+  padding: rem(44px) rem(44px);
+  @media (min-width: $mantine-breakpoint-md) {
+    max-width: 100%;
+    padding: rem(64px) rem(74px);
+  }
+}
+
+.title {
+  margin: 0;
+  margin-bottom: rem(12px);
+  font-size: rem(16px);
+  text-align: center;
+  @media (min-width: $mantine-breakpoint-md) {
+    font-size: rem(20px);
+  }
+}
+
+.deleteUserText {
+  margin: 0;
+  text-align: center;
+  margin-bottom: rem(24px);
+}
+
+.deleteUserSpan {
+  text-transform: uppercase;
+  color: var(--mantine-color-red-4);
+}
+
+.inputSuccess {
+  border-color: var(--mantine-color-green-4);
+  @mixin dark {
+    border-color: var(--mantine-color-green-4);
+  }
+}
+.inputError {
+  border-color: var(--mantine-color-red-4);
+}
+
+.deleteBtn {
+  background-color: var(--mantine-color-red-5);
+  color: var(--mantine-color-white);
+}
+
+.deleteBtn:disabled {
+  cursor: not-allowed;
+  background-color: var(--mantine-color-red-1);
+}
+
+.deleteBtn:disabled:hover {
+  background-color: var(--mantine-color-red-1);
+}
+
+.input {
+  border-radius: rem(8px);
+  width: 100%;
+  padding: rem(14px) rem(18px);
+  font-size: rem(14px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: rem(18px);
+  height: rem(46px);
+  display: flex;
+  align-items: center;
+  margin-top: rem(8px);
+  transition: all 350ms ease;
+
+  @mixin dark {
+    background-color: transparent;
+  }
+}
+.button {
+  display: flex;
+  margin: 0 auto;
+  margin-top: rem(24px);
+  padding: rem(12px) rem(24px);
+  border: none;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  border-radius: rem(8px);
+  font-size: rem(14px);
+  font-weight: 600;
+  line-height: rem(18px);
+  text-transform: uppercase;
+  color: var(--mantine-color-white);
+  transition: background-color 350ms ease;
+}
+.cancelBtn {
+  background-color: #efefef;
+  color: var(--mantine-color-black);
+  @mixin dark {
+    background-color: var(--mantine-color-gray-3);
+  }
+}
+.cancelBtn:hover {
+  background-color: var(--mantine-color-gray-3);
+  @mixin dark {
+    background-color: var(--mantine-color-gray-4);
+  }
+}
+
+.cancelBtn:disabled {
+  background-color: var(--mantine-color-dark-1);
+  color: var(--mantine-color-dark-2);
+  cursor: not-allowed;
+}
+.input:focus-within {
+  border: 1px solid var(--mantine-color-black);
+  @mixin dark {
+    border-color: var(--mantine-color-white);
+  }
+}
+.input:focus-within.inputSuccess {
+  border: 1px solid var(--mantine-color-green-7);
+}
+.input:focus-within.inputError {
+  border: 1px solid var(--mantine-color-red-7);
+}
+.deleteBtn:hover {
+  background-color: var(--mantine-color-red-8);
+}
+
+.eyeBtnSectionActive {
+  width: 80px;
+}
+
+.eyeBtnSection {
+  transition: all 350ms ease;
+}

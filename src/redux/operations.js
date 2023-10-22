@@ -16,7 +16,12 @@ export const setToken = (token) => {
 $instance.interceptors.response.use(
   async (response) => response,
   async (error) => {
-    if (error.response.status === 401 && !error.config._retry) {
+    if (
+      error.response.status === 401 &&
+      error.response.data.message !== 'Password invalid' &&
+      error.response.data.message !== 'Email or password invalid' &&
+      !error.config._retry
+    ) {
       error.config._retry = true;
       const refreshToken = localStorage.getItem('refreshToken');
       try {
@@ -92,8 +97,8 @@ export const refreshUserThunk = createAsyncThunk(
   },
 );
 
-export const updateUserData = createAsyncThunk(
-  'auth/updateUserData',
+export const updateUserThunk = createAsyncThunk(
+  'auth/updateUserThunk',
   async (formData, thunkApi) => {
     const token = selectToken(thunkApi.getState());
 
@@ -106,6 +111,8 @@ export const updateUserData = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
+      const errorMessage = error.response.data.message;
+      handleError(errorMessage);
       return thunkApi.rejectWithValue(error.response.data.message);
     }
   },
@@ -140,6 +147,23 @@ export const updatePassword = createAsyncThunk(
       return response.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.response.data.message);
+    }
+  },
+);
+
+export const deleteUserThunk = createAsyncThunk(
+  'auth/delete',
+  async (password, thunkApi) => {
+    try {
+      const { data } = await $instance.delete('/users/delete', {
+        data: password,
+      });
+
+      return data;
+    } catch (error) {
+      const errorMessage = error.response.data.message;
+      handleError(errorMessage);
+      return thunkApi.rejectWithValue(errorMessage);
     }
   },
 );
