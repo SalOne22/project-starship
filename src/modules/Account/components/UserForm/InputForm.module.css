@@ -51,6 +51,8 @@
   border: rem(2px) solid var(--mantine-color-blue-4);
   cursor: pointer;
 
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
+  overflow: hidden;
   @media (min-width: $mantine-breakpoint-md) {
     position: static;
     margin-left: auto;
@@ -63,10 +65,20 @@
   }
 }
 
-.dropzone:hover {
-  border: rem(3px) solid var(--mantine-color-blue-5);
-  transition: color 350ms ease;
+.dropzone img {
+  transition:
+    all 0.5s,
+    filter 0.5s ease-in-out;
+  filter: grayscale(30%);
 }
+
+.dropzone:hover img {
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
+
+  filter: grayscale(0);
+  scale: 1.1;
+}
+
 .userIcon {
   object-fit: none;
 }
@@ -74,6 +86,8 @@
 .plusIcon {
   object-fit: scale-down;
   position: absolute;
+  cursor: pointer;
+
   @media (max-width: $mantine-breakpoint-md) {
     width: rem(15px);
     height: rem(15px);
@@ -94,10 +108,29 @@
   }
 }
 
+.previeAvatar {
+  object-fit: cover;
+  overflow: hidden;
+  @media (max-width: rem(767px)) {
+    width: rem(68px);
+    height: rem(68px);
+  }
+  @media (min-width: $mantine-breakpoint-md) {
+    width: rem(122px);
+    height: rem(119px);
+  }
+  @media (min-width: $mantine-breakpoint-xl) {
+    width: 121px;
+    height: 120px;
+  }
+}
+
 .avatarURL {
   border-radius: 50%;
   overflow: hidden;
   object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 .textusername {
@@ -164,7 +197,7 @@
   }
 }
 .input::placeholder {
-  color: rgba(17, 17, 17, 0.15);
+  color: light-dark(rgba(17, 17, 17, 0.15), rgba(250, 250, 250, 0.3));
   font-family: Inter;
   font-size: rem(16px);
   font-style: normal;
@@ -180,13 +213,20 @@
   padding-bottom: rem(12px);
   padding-left: rem(14px);
   border-radius: rem(8px);
-  border: 1px solid rgba(17, 17, 17, 0.15);
+  border: light-dark(
+    1px solid rgba(17, 17, 17, 0.15),
+    1px solid rgba(255, 255, 255, 0.15)
+  );
   color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
   font-family: Inter;
   font-size: rem(14px);
-  /* font-style: normal; */
+  font-style: normal;
   font-weight: 600;
   line-height: 1.29;
+  background-color: light-dark(
+    var(--mantine-color-white),
+    var(--mantine-color-gray-7)
+  );
 
   @media (min-width: $mantine-breakpoint-md) {
     width: rem(354px);
@@ -217,7 +257,7 @@
   text-align: center;
   font-family: Inter;
   font-size: rem(14px);
-  /* font-style: normal; */
+  font-style: normal;
   font-weight: 600;
   line-height: 1.29;
 
@@ -231,9 +271,13 @@
     margin-top: rem(88px);
   }
 }
+
 .button:hover {
   background-color: var(--mantine-color-blue-5);
 }
 .buttonLabel {
   overflow: visible;
+}
+.button:disabled {
+  background-color: grey;
 }
