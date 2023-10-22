@@ -198,5 +198,15 @@
     "link": "Log In",
     "title": "Lon In",
     "forgotPassword": "Forgot password?"
+  },
+  "forrgotPassword": {
+    "successTitle": "Password reset success!",
+    "successMessageStart": "The password has been sent! Please check your email ",
+    "successMessageEnd": "for further instructions.",
+    "question": " Forgot your password?",
+    "cta": "Enter email to  reset password",
+    "back": "Back to login",
+    "resetPassword": "Reset password",
+    "validateError": "Enter email should match abc@mail.com"
   }
 }
