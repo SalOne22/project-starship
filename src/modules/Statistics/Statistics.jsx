@@ -1,4 +1,5 @@
 import PeriodPaginator from '@/components/PeriodPaginator';
+import ScreenLoader from '@/components/ScreenLoader';
 import {
   Chart,
   ChartTitle,
@@ -8,22 +9,24 @@ import {
   Wrapper,
 } from './components';
 import { Box, Container } from '@mantine/core';
-import ScreenLoader from '@/components/ScreenLoader';
+import { notifications } from '@mantine/notifications';
 import { useTasks } from '@/modules/Calendar/hooks/useTasks';
 import { fetchTasks } from '@/modules/Calendar/redux/operations';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import classes from './Statistics.module.css';
-import { getChartData } from './helpers';
-import { notifications } from '@mantine/notifications';
+import { getChartData, translateDataItemsNames } from './helpers';
 import { useTranslation } from 'react-i18next';
+import classes from './Statistics.module.css';
 
 // import mockTasks from './mockData/tasks.json';
 
 function Statistics() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const types = t('statistics.types', {
+    returnObjects: true,
+  });
   const { tasks, isLoading, error } = useTasks();
   // const [isTasks, setIsTasks] = useState(true);
   // useSelector((state) => state?.calendar?.currentDate) ?? dayjs();
@@ -40,6 +43,11 @@ function Statistics() {
     setCurrentDate(currentDate.add(1, 'day'));
   };
 
+  const dataForChart = translateDataItemsNames(
+    getChartData(tasks, currentDay),
+    types,
+  );
+
   useEffect(() => {
     if (
       tasks.length > 0 &&
@@ -49,7 +57,6 @@ function Statistics() {
       // console.log('Statements in Statistics useEffect');
       return;
     }
-
     dispatch(fetchTasks(currentMonth));
     // console.log('Statistics useEffect to get tasks');
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -63,8 +70,6 @@ function Statistics() {
   //     setIsTasks(true);
   //   }
   // }, [tasks.length, isLoading]);
-
-  const dataForChart = getChartData(tasks, currentDay);
 
   // console.log('render', 'Statistics');
   // console.log('tasks', tasks);

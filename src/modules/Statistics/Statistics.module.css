@@ -109,7 +109,7 @@
   align-items: center;
   gap: rem(8);
 
-  font-family: Poppins;
+  font-family: Poppins, Roboto, sans-serif;
   font-size: rem(16);
   line-height: rem(18);
   color: light-dark(var(--mantine-color-dark-6), var(--mantine-color-dark-0));
