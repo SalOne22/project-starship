@@ -173,5 +173,25 @@
     "byDay": "by day",
     "byMonth": "by month",
     "tasks": "tasks"
+  },
+  "register": {
+    "link": "Sing Up",
+    "title": "Sing Up",
+    "divider": "Or continue with email",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "namePlcholder": "Your name",
+    "emailPlcholder": "Your email",
+    "passwordPlcholder": "Your password",
+
+    "errorName": "Enter a name with a minimum of 2 characters",
+    "errorEmail": "Word before @ and domain after the dot",
+    "errorPassword": "Password should include at least 6 characters"
+  },
+  "login": {
+    "link": "Log In",
+    "title": "Lon In",
+    "forgotPassword": "Forgot password?"
   }
 }
