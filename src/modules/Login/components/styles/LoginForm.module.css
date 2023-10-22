@@ -217,7 +217,6 @@
 }
 
 .required {
-  /* color: var(--mantine-color-white); */
   color: var(--mantine-color-red-4);
   transition: color 350ms ease;
 }
@@ -310,7 +309,10 @@
 .buttonIcon {
   margin: 0;
   padding: 0;
-  background: var(--mantine-color-white);
+  background: light-dark(
+    var(--mantine-color-white),
+    var(--mantine-color-dark-5)
+  );
 }
 
 /* -------button log in ------*/
@@ -319,6 +321,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: rem(32px);
+  @media (min-width: $mantine-breakpoint-md) {
+    gap: rem(48px);
+  }
 }
 
 .button {
