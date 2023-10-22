@@ -167,7 +167,9 @@
     "buttons": {
       "delete": "Delete my account",
       "confirm": "Confirm"
-    }
+    },
+    "message": "Account was deleted succesfully",
+    "label": "Password"
   },
   "changePasswordForm": {
     "oldPassword": "Old Password",
