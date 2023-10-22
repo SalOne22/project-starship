@@ -172,6 +172,11 @@
   "statistics": {
     "byDay": "by day",
     "byMonth": "by month",
-    "tasks": "tasks"
+    "tasks": "tasks",
+    "types": {
+      "to-do": "to do",
+      "in progress": "in progress",
+      "done": "done"
+    }
   }
 }

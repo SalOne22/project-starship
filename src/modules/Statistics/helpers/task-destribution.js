@@ -18,7 +18,6 @@ export const calculateTasksTypePercentage = (tasksTypeDistribution) => {
     (acc, value) => acc + value,
     0,
   );
-
   Object.keys(tasksTypeDistribution).forEach((taskType) => {
     tasksTypePercentage[taskType] = Math.round(
       (tasksTypeDistribution[taskType] / allTasks) * 100,
@@ -47,4 +46,14 @@ export const getChartData = (tasks, day) => {
   }));
 
   return data;
+};
+
+export const translateDataItemsNames = (data, i18n) => {
+  return data.map((item) => {
+    const translatedName = i18n[item.name] || item.name;
+    return {
+      ...item,
+      name: translatedName,
+    };
+  });
 };
