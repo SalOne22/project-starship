@@ -34,3 +34,7 @@
   background: transparent;
   box-shadow: none;
 }
+
+.controlIcon {
+  stroke: light-dark(var(--mantine-color-dark), var(--mantine-color-white));
+}

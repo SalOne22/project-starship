@@ -39,6 +39,7 @@ function Modal({ onClose, children }) {
       backgroundOpacity={0.35}
       blur={3}
       center
+      fixed
       onClick={handleOverlayClick}
     >
       <Box className={css.modal}>

@@ -160,12 +160,62 @@
       "notificationPhone": "Phone must be in format +380971234567",
       "notificationSuccess": "Changes successfully added"
     },
-
     "placeholder": {
       "userName": "Enter your name",
       "email": "Enter your email",
       "phone": "Phone in format +38(099)1234567",
       "skype": "Add a skype number"
     }
+  },
+  "userDeleteForm": {
+    "errors": {
+      "required": "Password is a required field",
+      "length": "Password should include at least 6 characters"
+    },
+    "titles": {
+      "main": "Enter password to delete GooseTrack account",
+      "sub": "Confirm to delete my account",
+      "text": "This action is irreversible, you will delete your account forever!"
+    },
+    "buttons": {
+      "delete": "Delete my account",
+      "confirm": "Confirm"
+    }
+  },
+  "changePasswordForm": {
+    "oldPassword": "Old Password",
+    "newPassword": "New Password",
+    "confirmedPassword": "Confirm Password",
+    "changePassBtn": "Change Password"
+  },
+  "statistics": {
+    "byDay": "by day",
+    "byMonth": "by month",
+    "tasks": "tasks",
+    "types": {
+      "to-do": "to do",
+      "in progress": "in progress",
+      "done": "done"
+    }
+  },
+  "register": {
+    "link": "Sing Up",
+    "title": "Sing Up",
+    "divider": "Or continue with email",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "namePlcholder": "Your name",
+    "emailPlcholder": "Your email",
+    "passwordPlcholder": "Your password",
+
+    "errorName": "Enter a name with a minimum of 2 characters",
+    "errorEmail": "Word before @ and domain after the dot",
+    "errorPassword": "Password should include at least 6 characters"
+  },
+  "login": {
+    "link": "Log In",
+    "title": "Lon In",
+    "forgotPassword": "Forgot password?"
   }
 }

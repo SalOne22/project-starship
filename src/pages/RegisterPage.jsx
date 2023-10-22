@@ -4,8 +4,11 @@ import AuthNavigate from '@/components/AuthNavigate';
 import { Box, Center, Container } from '@mantine/core';
 import css from './styles/RegisterPage.module.css';
 import Goose from '@/assets/images/register/goose.svg?react';
+import { useTranslation } from 'react-i18next';
 
 function RegisterPage() {
+  const { t } = useTranslation();
+
   return (
     <Center className={css.pageStyle}>
       <Container className={css.containerStyle}>
@@ -14,7 +17,7 @@ function RegisterPage() {
         </Box>
         <Box className={css.wrapper}>
           <Register />
-          <AuthNavigate route="/login" text="Log In" />
+          <AuthNavigate route="/login" text={t('login.link')} />
         </Box>
       </Container>
     </Center>

@@ -18,14 +18,20 @@ import { selectLoading } from '@/redux/slices/authSlice.js';
 import {
   IconAlertCircle,
   IconCircleCheck,
+  IconEye,
+  IconEyeOff,
   IconLogin2,
 } from '@tabler/icons-react';
 import clsx from 'clsx';
 import theme from '@/theme.js';
+import { useDisclosure } from '@mantine/hooks';
+import { useTranslation } from 'react-i18next';
 
 function RegisterForm(props) {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectLoading);
+  const [visible, { toggle }] = useDisclosure(false);
+  const { t } = useTranslation();
 
   const form = useForm({
     initialValues: {
@@ -35,16 +41,10 @@ function RegisterForm(props) {
     },
 
     validate: {
-      username: hasLength(
-        { min: 2 },
-        'Enter a name with a minimum of 2 characters',
-      ),
-      email: isEmail('Word before @ and domain after the dot'),
+      username: hasLength({ min: 2 }, t('register.errorName')),
+      email: isEmail(t('register.errorEmail')),
 
-      password: hasLength(
-        { min: 6 },
-        'Password should include at least 6 characters',
-      ),
+      password: hasLength({ min: 6 }, t('register.errorPassword')),
     },
   });
 
@@ -59,28 +59,29 @@ function RegisterForm(props) {
   return (
     <Paper className={css.wrappForm} c="white" withBorder {...props}>
       <Text className={css.titleForm} c="blue.4">
-        Sign Up
+        {t('register.title')}
       </Text>
 
       <Group className={css.wrappGoogleButton} grow>
         <GoogleButton
           className={css.googleButton}
           onClick={handleGoogleButtonClick}
+          tabIndex={1}
         >
           Google
         </GoogleButton>
       </Group>
       <Divider
         className={css.divider}
-        label="Or continue with email"
+        label={t('register.divider')}
         labelPosition="center"
       />
       <form className={css.form} onSubmit={form.onSubmit(handleSubmit)}>
         <Stack className={css.stack}>
           <TextInput
             withAsterisk
-            label="Name"
-            placeholder="Enter your name"
+            label={t('register.name')}
+            placeholder={t('register.namePlcholder')}
             rightSection={
               form.errors?.username ? (
                 <IconAlertCircle className={css.iconAlertCircle} />
@@ -102,19 +103,19 @@ function RegisterForm(props) {
                 : form.errors.username
                 ? css.requiredError
                 : css.required,
-
-              rightSection: css.section,
+              section: css.section,
               input: clsx(
                 css.input,
                 form.isValid('username') ? css.inputCorrect : null,
               ),
             }}
+            tabIndex={2}
           />
 
           <TextInput
             withAsterisk
-            label="Email"
-            placeholder="Enter email"
+            label={t('register.email')}
+            placeholder={t('register.emailPlcholder')}
             rightSection={
               form.errors?.email ? (
                 <IconAlertCircle className={css.iconAlertCircle} />
@@ -136,24 +137,41 @@ function RegisterForm(props) {
                 : form.errors.username
                 ? css.requiredError
                 : css.required,
-              rightSection: css.section,
+              section: css.section,
               input: clsx(
                 css.input,
                 form.isValid('email') ? css.inputCorrect : null,
               ),
             }}
+            tabIndex={3}
           />
 
           <PasswordInput
             withAsterisk
-            label="Password"
-            placeholder="Enter password"
+            label={t('register.password')}
+            placeholder={t('register.passwordPlcholder')}
+            visible={visible}
+            onVisibilityChange={toggle}
             rightSection={
-              form.errors?.password ? (
-                <IconAlertCircle className={css.iconAlertCircle} />
-              ) : form.values.password.length > 5 ? (
-                <IconCircleCheck className={css.iconCircleCheck} />
-              ) : null
+              <div className={css.wrapperIcon}>
+                <Button
+                  className={css.buttonIcon}
+                  variant="link"
+                  onClick={toggle}
+                >
+                  {visible ? (
+                    <IconEye className={css.iconEye} />
+                  ) : (
+                    <IconEyeOff className={css.iconEyeOff} />
+                  )}
+                </Button>
+
+                {form.errors?.password ? (
+                  <IconAlertCircle className={css.iconAlertCircle} />
+                ) : form.values.password.length > 5 ? (
+                  <IconCircleCheck className={css.iconCircleCheck} />
+                ) : null}
+              </div>
             }
             {...form.getInputProps('password')}
             classNames={{
@@ -169,13 +187,14 @@ function RegisterForm(props) {
                 : form.errors.username
                 ? css.requiredError
                 : css.required,
-              rightSection: css.section,
+              section: css.sectionPassword,
               input: clsx(
                 css.input,
                 form.isValid('password') ? css.inputCorrect : null,
               ),
               innerInput: css.inputInput,
             }}
+            tabIndex={4}
           />
         </Stack>
 
@@ -187,8 +206,9 @@ function RegisterForm(props) {
               className={css.button}
               rightSection={<IconLogin2 className={css.iconButton} />}
               type="submit"
+              tabIndex={5}
             >
-              <Text className={css.textButtonForm}>Sign Up</Text>
+              <Text className={css.textButtonForm}>{t('register.link')}</Text>
             </Button>
           )}
         </Group>
