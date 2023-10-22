@@ -16,7 +16,12 @@ export const setToken = (token) => {
 $instance.interceptors.response.use(
   async (response) => response,
   async (error) => {
-    if (error.response.status === 401 && !error.config._retry) {
+    if (
+      error.response.status === 401 &&
+      error.response.data.message !== 'Password invalid' &&
+      error.response.data.message !== 'Email or password invalid' &&
+      !error.config._retry
+    ) {
       error.config._retry = true;
       const refreshToken = localStorage.getItem('refreshToken');
       try {
