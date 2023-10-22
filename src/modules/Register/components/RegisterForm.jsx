@@ -18,15 +18,18 @@ import { selectLoading } from '@/redux/slices/authSlice.js';
 import {
   IconAlertCircle,
   IconCircleCheck,
+  IconEye,
+  IconEyeOff,
   IconLogin2,
 } from '@tabler/icons-react';
 import clsx from 'clsx';
 import theme from '@/theme.js';
+import { useDisclosure } from '@mantine/hooks';
 
 function RegisterForm(props) {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectLoading);
-
+  const [visible, { toggle }] = useDisclosure(false);
   const form = useForm({
     initialValues: {
       email: '',
@@ -102,8 +105,7 @@ function RegisterForm(props) {
                 : form.errors.username
                 ? css.requiredError
                 : css.required,
-
-              rightSection: css.section,
+              section: css.section,
               input: clsx(
                 css.input,
                 form.isValid('username') ? css.inputCorrect : null,
@@ -136,7 +138,7 @@ function RegisterForm(props) {
                 : form.errors.username
                 ? css.requiredError
                 : css.required,
-              rightSection: css.section,
+              section: css.section,
               input: clsx(
                 css.input,
                 form.isValid('email') ? css.inputCorrect : null,
@@ -148,12 +150,28 @@ function RegisterForm(props) {
             withAsterisk
             label="Password"
             placeholder="Enter password"
+            visible={visible}
+            onVisibilityChange={toggle}
             rightSection={
-              form.errors?.password ? (
-                <IconAlertCircle className={css.iconAlertCircle} />
-              ) : form.values.password.length > 5 ? (
-                <IconCircleCheck className={css.iconCircleCheck} />
-              ) : null
+              <div className={css.wrapperIcon}>
+                <Button
+                  className={css.buttonIcon}
+                  variant="link"
+                  onClick={toggle}
+                >
+                  {visible ? (
+                    <IconEye className={css.iconEye} />
+                  ) : (
+                    <IconEyeOff className={css.iconEyeOff} />
+                  )}
+                </Button>
+
+                {form.errors?.password ? (
+                  <IconAlertCircle className={css.iconAlertCircle} />
+                ) : form.values.password.length > 5 ? (
+                  <IconCircleCheck className={css.iconCircleCheck} />
+                ) : null}
+              </div>
             }
             {...form.getInputProps('password')}
             classNames={{
@@ -169,7 +187,7 @@ function RegisterForm(props) {
                 : form.errors.username
                 ? css.requiredError
                 : css.required,
-              rightSection: css.section,
+              section: css.sectionPassword,
               input: clsx(
                 css.input,
                 form.isValid('password') ? css.inputCorrect : null,
