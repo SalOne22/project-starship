@@ -1,8 +1,29 @@
-import { Box, Text, Group, Avatar, Stack, Title, Rating } from '@mantine/core';
+import {
+  Box,
+  Text,
+  Group,
+  Avatar,
+  Stack,
+  Title,
+  Rating,
+  UnstyledButton,
+} from '@mantine/core';
+import { useState, useEffect } from 'react';
 import css from '../styles/ReviewCard.module.css';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 
 function ReviewCard({ review }) {
+  const [isTruncateText, setIsTruncateText] = useState(true);
+
+  useEffect(() => {
+    setIsTruncateText(true);
+  }, [review]);
+
+  const showTruncateText = () => {
+    setIsTruncateText(!isTruncateText);
+  };
+
   const {
     rating,
     text,
@@ -21,15 +42,20 @@ function ReviewCard({ review }) {
         )}
 
         <Stack align="flex-start" justify="flex-start" gap={13}>
-          <Title order={3} className={css.username} c="dark.6">
+          <Title order={3} className={css.username}>
             {username}
           </Title>
           <Rating value={rating} color="orange.4" readOnly />
         </Stack>
       </Group>
-      <Text className={css.text} pl={{ base: 0, md: 68 }}>
-        {text}
-      </Text>
+      <UnstyledButton type="button" onClick={showTruncateText}>
+        <Text
+          className={clsx(css.text, !isTruncateText && css.truncateText)}
+          pl={{ base: 0, md: 68 }}
+        >
+          {text}
+        </Text>
+      </UnstyledButton>
     </Box>
   );
 }
