@@ -177,7 +177,9 @@
     "buttons": {
       "delete": "Видалити мій акаунт",
       "confirm": "Підтвердити"
-    }
+    },
+    "message": "Акаунт було успішно видалено",
+    "label": "Пароль"
   },
   "changePasswordForm": {
     "oldPassword": "Старий пароль",
