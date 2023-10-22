@@ -44,7 +44,7 @@ function TaskToolbar({ task }) {
   const handleDelete = async () => {
     setIsDeleting(true);
     try {
-      await dispatch(deleteTask(task._id));
+      await dispatch(deleteTask(task._id)).unwrap();
       setIsDeleting(false);
       handleMessage(
         t('calendar.chosenday.notification.removeSuccess'),
@@ -62,7 +62,9 @@ function TaskToolbar({ task }) {
     try {
       const newCategoryEdited =
         newCategory.charAt(0).toLowerCase() + newCategory.slice(1);
-      await dispatch(editTask({ ...task, category: newCategoryEdited }));
+      await dispatch(
+        editTask({ ...task, category: newCategoryEdited }),
+      ).unwrap();
     } catch {
       handleMessage(
         t('calendar.chosenday.notification.error'),

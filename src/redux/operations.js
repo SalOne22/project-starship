@@ -132,6 +132,25 @@ export const resetUserThunk = createAsyncThunk(
   },
 );
 
+export const updatePassword = createAsyncThunk(
+  'auth/updatePassword',
+  async (formData, thunkApi) => {
+    const token = selectToken(thunkApi.getState());
+
+    try {
+      const response = await $instance.patch('/users/edit/password', formData, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.response.data.message);
+    }
+  },
+);
+
 export const deleteUserThunk = createAsyncThunk(
   'auth/delete',
   async (password, thunkApi) => {

@@ -7,6 +7,7 @@ import {
   logoutUserThunk,
   updateUserThunk,
   resetUserThunk,
+  updatePassword,
   deleteUserThunk,
 } from '../operations';
 // const isRejectedAction = (action) =>
@@ -56,6 +57,9 @@ const slice = createSlice({
     updateToken(state, { payload }) {
       state.token = payload;
       setToken(payload);
+    },
+    clearError(state) {
+      state.error = null;
     },
   },
 
@@ -160,6 +164,19 @@ const slice = createSlice({
         state.error = action.payload;
       })
 
+      // -------------------Change password-----------
+      .addCase(updatePassword.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updatePassword.fulfilled, (state) => {
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(updatePassword.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
       //---------------delete user-----------
       .addCase(deleteUserThunk.pending, (state) => {
         state.isLoading = true;
@@ -178,6 +195,7 @@ const slice = createSlice({
         state.error = action.payload;
       }),
 });
+
 export const selectLoading = (state) => state.auth.isLoading;
 export const selectError = (state) => state.auth.error;
 export const selectToken = (state) => state.auth.token;

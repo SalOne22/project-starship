@@ -1,0 +1,14 @@
+.button {
+  display: flex;
+  width: rem(182);
+  height: rem(48);
+  padding: rem(10) rem(20);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: rem(8);
+  gap: rem(10);
+  font-size: rem(14);
+  font-weight: 600;
+  line-height: rem(18);
+}

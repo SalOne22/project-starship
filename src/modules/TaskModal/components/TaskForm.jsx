@@ -67,13 +67,13 @@ const TaskForm = ({ category, onClose, task }) => {
 
     try {
       if (task) {
-        await dispatch(editTask({ ...values, _id: task._id }));
+        await dispatch(editTask({ ...values, _id: task._id })).unwrap();
         handleMessage(
           t('calendar.chosenday.notification.editSuccess'),
           theme.colors.green[6],
         );
       } else {
-        await dispatch(addTask({ ...values }));
+        await dispatch(addTask({ ...values })).unwrap();
         handleMessage(
           t('calendar.chosenday.notification.createSuccess'),
           theme.colors.green[6],
@@ -145,6 +145,11 @@ const TaskForm = ({ category, onClose, task }) => {
                     ref={startRef}
                     leftSection={createPickerControl(startRef)}
                     aria-label="Start"
+                    styles={{
+                      input: {
+                        width: '80px',
+                      },
+                    }}
                     variant="unstyled"
                     className={`${css.input} custom-time-input`}
                     type="time"
@@ -170,6 +175,11 @@ const TaskForm = ({ category, onClose, task }) => {
                     leftSection={createPickerControl(endRef)}
                     aria-label="End"
                     variant="unstyled"
+                    styles={{
+                      input: {
+                        width: '80px',
+                      },
+                    }}
                     className={`${css.input} custom-time-input`}
                     type="time"
                     inputMode="numeric"

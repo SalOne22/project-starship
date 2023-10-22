@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteUserThunk } from '@/redux/operations';
 import { IconAlertCircle, IconCircleCheck } from '@tabler/icons-react';
 import clsx from 'clsx';
+import { notifications } from '@mantine/notifications';
 import { selectLoading } from '@/redux/slices/authSlice';
 import { useTranslation } from 'react-i18next';
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
@@ -40,6 +41,11 @@ function DeleteUserForm({ onClose }) {
   const deleteUserOnClick = async () => {
     try {
       await dispatch(deleteUserThunk(password)).unwrap();
+      notifications.show({
+        message: t('userDeleteForm.message'),
+        autoClose: 3000,
+        color: 'var(--mantine-color-green-5)',
+      });
     } catch (error) {
       form.setErrors({ password: error });
       setIsConfirm(false);
@@ -57,7 +63,7 @@ function DeleteUserForm({ onClose }) {
           >
             <PasswordInput
               withAsterisk
-              label="Password"
+              label={t('userDeleteForm.label')}
               disabled={isConfirm}
               visible={visible}
               onVisibilityChange={toggle}
@@ -82,6 +88,7 @@ function DeleteUserForm({ onClose }) {
                 <>
                   <Button
                     type="button"
+                    tabIndex={-1}
                     className={css.eyeBtn}
                     variant="transparent"
                     size={'compact-xs'}
