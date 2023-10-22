@@ -150,6 +150,8 @@
     "email": "Email",
     "phone": "Phone",
     "skype": "Skype",
-    "button": "Save changes"
+    "button": "Save changes",
+    "notificationEmail": "Email is not valid",
+    "notificationPhone": "Phone must be in format +380971234567"
   }
 }

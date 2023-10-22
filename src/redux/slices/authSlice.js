@@ -7,6 +7,7 @@ import {
   logoutUserThunk,
   updateUserData,
   resetUserThunk,
+  updatePassword,
 } from '../operations';
 // const isRejectedAction = (action) =>
 //   action.type.endsWith('rejected') && action.type.includes('user');
@@ -56,6 +57,9 @@ const slice = createSlice({
       state.token = payload;
       setToken(payload);
     },
+    clearError(state) {
+      state.error = null;
+    },
   },
 
   extraReducers: (builder) =>
@@ -102,12 +106,16 @@ const slice = createSlice({
         state.isAuthenticated = false;
         state.user = null;
         state.token = null;
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('token');
       })
       .addCase(logoutUserThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.isAuthenticated = false;
         state.user = null;
         state.token = null;
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('token');
         state.error = action.payload;
       })
 
@@ -153,8 +161,22 @@ const slice = createSlice({
       .addCase(resetUserThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+
+      // -------------------Change password-----------
+      .addCase(updatePassword.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updatePassword.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(updatePassword.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
       }),
 });
+
 export const selectLoading = (state) => state.auth.isLoading;
 export const selectError = (state) => state.auth.error;
 export const selectToken = (state) => state.auth.token;
