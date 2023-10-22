@@ -14,7 +14,7 @@ import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { IconChevronDown, IconCloudUpload } from '@tabler/icons-react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { updateUserData } from '@/redux/operations';
+import { updateUserThunk } from '@/redux/operations';
 import { notifications } from '@mantine/notifications';
 import { useTranslation } from 'react-i18next';
 
@@ -37,33 +37,8 @@ export function UserInputForm() {
     avatarURL: '',
   });
 
-  // const form = useForm({
-  //   initialValues: {
-  //     email: '',
-  //     username: '',
-  //     password: '',
-  //   },
-
-  //   validate: {
-  //     username: hasLength(
-  //       { min: 2 },
-  //       'Enter a name with a minimum of 2 characters',
-  //     ),
-  //     email: isEmail('Word before @ and domain after the dot'),
-  //     password: hasLength(
-  //       { min: 6 },
-  //       'Password should include at least 6 characters',
-  //     ),
-  //   },
-  // });
-
-  //   useEffect(() => {
-  //     console.log(userData);
-  //   }, [userData]);
-
   useEffect(() => {
-    const dateBirthday = userAuth?.birthday;
-
+    const dateBirthday = userAuth.birthday ? userAuth.birthday : new Date();
     const parseDateBirthday = dateBirthday ? new Date(dateBirthday) : null;
     const selectUserDataFromAuth = () => {
       setUserData({
@@ -80,31 +55,27 @@ export function UserInputForm() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    // console.log('name', name);
-    // console.log('value:', value);
+
     setUserData({ ...userData, [name]: value });
     setFormChange(true);
-    // console.log(userData);
   };
 
-  const openRef = useRef(null); // для dropzone
-  const [file, setFile] = useState([]); //avatarURL
-  //   console.log(file);
-  const [imageUrl, setImageUrl] = useState(''); // Стан для URL превью зображен
-  //   console.log(imageUrl);
+  const openRef = useRef(null);
+  const [file, setFile] = useState([]);
+  const [imageUrl, setImageUrl] = useState('');
 
-  const [formChange, setFormChange] = useState(false); //для деактивації кнопки
+  const [formChange, setFormChange] = useState(false);
 
-  const selectedDate = new Date(userData?.birthday); // Отримана дата з localUserData
+  const selectedDate = new Date(userData?.birthday);
 
   const formattedDate = `${
     selectedDate.getMonth() + 1
-  }/${selectedDate.getDate()}/${selectedDate.getFullYear()}`; //форматована для відправки на сервер
+  }/${selectedDate.getDate()}/${selectedDate.getFullYear()}`;
 
   const handleDropavatarURL = (droppedFiles) => {
     if (droppedFiles.length > 0) {
-      const lastFile = droppedFiles[droppedFiles.length - 1]; // берем останній в масиві
-      const url = URL.createObjectURL(lastFile); //створюємо тимчасове посилання
+      const lastFile = droppedFiles[droppedFiles.length - 1];
+      const url = URL.createObjectURL(lastFile);
       setImageUrl(url);
       setFile(droppedFiles);
       setFormChange(true);
@@ -114,7 +85,6 @@ export function UserInputForm() {
 
   const handleDateChange = (date) => {
     setUserData({ ...userData, birthday: date });
-    // console.log(userData.birthday);
     setFormChange(true);
   };
 
@@ -150,7 +120,11 @@ export function UserInputForm() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    validateUserEmail(userData.email);
+    if (userData.email) {
+      if (!validateUserEmail(userData.email)) {
+        return;
+      }
+    }
 
     if (userData.phone) {
       if (!validateUserPhone(userData.phone)) {
@@ -167,13 +141,14 @@ export function UserInputForm() {
     if (file.length > 0) {
       formData.append('avatarURL', file[0]);
     }
-    dispatch(updateUserData(formData))
+    dispatch(updateUserThunk(formData))
       .then(() => {
         console.log('Запит на оновлення даних відправлено');
       })
       .catch((error) => {
         console.error('Помилка під час відправки PATCH-запиту:', error);
       });
+
     setFormChange(false);
   };
 
@@ -228,15 +203,14 @@ export function UserInputForm() {
         <Image
           src={plusSVG}
           className={css.plusIcon}
+          role="button"
           onLoad={() => URL.revokeObjectURL(imageUrl)}
+          onClick={() => openRef.current && openRef.current()}
+
+          //
         />
 
-        <Text
-          ta="center"
-          className={css.textusername}
-          //  classNames={{root: css.text}}
-          //  classNames={{root: css.textusername}}
-        >
+        <Text ta="center" className={css.textusername}>
           {userAuth?.username}
         </Text>
         <Text ta="center" className={css.textUser}>
@@ -246,8 +220,6 @@ export function UserInputForm() {
         <div className={css.fields}>
           <SimpleGrid
             cols={{ base: 1, xl: 2 }}
-            //  spacing="lg"
-            // className={css.simplGride}
             classNames={{ root: css.simplGride }}
           >
             <TextInput
@@ -256,11 +228,9 @@ export function UserInputForm() {
               placeholder="Enter your name"
               required
               maxLength={16}
-              // className={css.input}
               classNames={{ wrapper: css.label, input: css.input }}
               defaultValue={userAuth?.username}
               onChange={handleInputChange}
-              // {...form.getInputProps('username')}
             />
             <DateInput
               name="birthday"
@@ -292,7 +262,6 @@ export function UserInputForm() {
             />
             <TextInput
               name="skype"
-              // colSpan={2}
               label={t('userform.skype')}
               placeholder="Add a skype number"
               maxLength={16}
@@ -302,14 +271,9 @@ export function UserInputForm() {
             />
           </SimpleGrid>
         </div>
-        <Group
-          justify="center"
-          // grow preventGrowOverflow={false}
-          classNames={{ group: css.button }}
-        >
+        <Group justify="center" classNames={{ group: css.button }}>
           <Button
             type="submit"
-            // className={css.control}
             classNames={{ root: css.button, label: css.buttonLabel }}
             disabled={!formChange}
           >
@@ -320,5 +284,3 @@ export function UserInputForm() {
     </Paper>
   );
 }
-
-// /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/

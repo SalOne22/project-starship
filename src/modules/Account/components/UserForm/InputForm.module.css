@@ -8,13 +8,13 @@
   padding-bottom: rem(40px);
 
   border-radius: rem(16px);
-  background: #fff;
+  background: var(--mantine-color-white);
   background: light-dark(
     var(--mantine-color-white),
     var(--mantine-color-gray-7)
   );
 
-  @media (min-width: rem(375px)) {
+  @media (min-width: $mantine-breakpoint-xs) {
     max-width: rem(335px);
     margin-left: auto;
     margin-right: auto;
@@ -22,7 +22,7 @@
     flex-wrap: nowrap;
   }
 
-  @media (min-width: rem(768px)) {
+  @media (min-width: $mantine-breakpoint-md) {
     max-width: rem(704px);
     flex-direction: column;
     flex-wrap: nowrap;
@@ -31,7 +31,7 @@
     padding-left: rem(175px);
     padding-right: rem(175px);
   }
-  @media (min-width: rem(1440)) {
+  @media (min-width: $mantine-breakpoint-xl) {
     max-width: rem(1087px);
     padding-top: rem(60px);
     padding-bottom: rem(60px);
@@ -48,17 +48,10 @@
   height: rem(72px);
 
   border-radius: rem(72px);
-  border: rem(2px) solid #3e85f3;
-  background: transparent;
-  /* background:
-    url(../../../../assets/images/userSVG.svg) no-repeat,
-    lightgray 100% / cover no-repeat; */
+  border: rem(2px) solid var(--mantine-color-blue-4);
+  cursor: pointer;
 
-  background:
-    no-repeat,
-    100% / cover no-repeat;
-
-  @media (min-width: rem(768px)) {
+  @media (min-width: $mantine-breakpoint-md) {
     position: static;
     margin-left: auto;
     margin-right: auto;
@@ -70,22 +63,18 @@
   }
 }
 
+.dropzone:hover {
+  border: rem(3px) solid var(--mantine-color-blue-5);
+  transition: color 350ms ease;
+}
 .userIcon {
   object-fit: none;
-
-  @media (max-width: rem(376px)) {
-    /* object-fit: scale-down; */
-    /* position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: -2em; */
-  }
 }
 
 .plusIcon {
   object-fit: scale-down;
   position: absolute;
-  @media (max-width: rem(767px)) {
+  @media (max-width: $mantine-breakpoint-md) {
     width: rem(15px);
     height: rem(15px);
 
@@ -93,13 +82,13 @@
     transform: translateX(-50%);
     top: 3.5%;
   }
-  @media (min-width: rem(768px)) {
+  @media (min-width: $mantine-breakpoint-md) {
     left: 53%;
     top: 16.5%;
     width: rem(24px);
     height: rem(24px);
   }
-  @media (min-width: rem(1440px)) {
+  @media (min-width: $mantine-breakpoint-xl) {
     left: 52%;
     top: 21.5%;
   }
@@ -114,17 +103,16 @@
 .textusername {
   margin-bottom: rem(4px);
   color: light-dark(var(--mantine-color-dark-6), var(--mantine-color-white));
-  /* color: blueviolet; */
+
   font-family: Inter;
   font-size: rem(14px);
   font-style: normal;
   font-weight: 700;
-  line-height: rem(18px); /* 128.571% */
+  line-height: 1.29;
   align-items: center;
 
-  @media (min-width: rem(768px)) {
+  @media (min-width: $mantine-breakpoint-md) {
     margin-bottom: rem(8px);
-
     font-size: rem(18px);
   }
 }
@@ -133,20 +121,18 @@
   margin-bottom: rem(40px);
   font-size: rem(12px);
 
-  color: #343434;
   color: light-dark(var(--mantine-color-gray-6), rgba(250, 250, 250, 0.3));
-  /* color: blue; */
   font-family: Inter;
   font-size: rem(12px);
   font-style: normal;
   font-weight: 600;
-  line-height: rem(14px); /* 116.667% */
+  line-height: 1.17;
 
-  @media (min-width: rem(768px)) {
+  @media (min-width: $mantine-breakpoint-md) {
     font-size: 14px;
-    line-height: 18px; /* 128.571% */
+    line-height: 1.29;
   }
-  @media (min-width: rem(768px)) {
+  @media (min-width: $mantine-breakpoint-md) {
     margin-bottom: rem(44px);
   }
 }
@@ -154,11 +140,10 @@
 .simplGride {
   gap: rem(18px);
 
-  @media (min-width: rem(768px)) {
+  @media (min-width: $mantine-breakpoint-md) {
     gap: rem(24px);
   }
   @media (min-width: rem(1440px)) {
-    /* gap: rem(50px); */
     grid-template-columns: 1fr 1fr;
     grid-gap: 24px 50px;
   }
@@ -166,17 +151,16 @@
 
 .wrapper label {
   color: light-dark(var(--mantine-color-black), rgba(250, 250, 250, 0.3));
-  /* color: red; */
   font-family: Inter;
   font-size: rem(12px);
   font-style: normal;
   font-weight: 400;
-  line-height: rem(14px); /* 116.667% */
+  line-height: 1.17;
   border-radius: rem(8px);
 
-  @media (min-width: rem(768px)) {
+  @media (min-width: $mantine-breakpoint-md) {
     font-size: rem(14px);
-    line-height: rem(18px); /* 128.571% */
+    line-height: 1.29;
   }
 }
 .input::placeholder {
@@ -185,14 +169,11 @@
   font-size: rem(16px);
   font-style: normal;
   font-weight: 600;
-  line-height: rem(18px); /* 112.5% */
-
-  /* color: purple; */
+  line-height: 1.12;
 }
 
 .input {
   width: rem(299px);
-  /* width:100%; */
   height: rem(42px);
 
   padding-top: rem(12px);
@@ -201,26 +182,24 @@
   border-radius: rem(8px);
   border: 1px solid rgba(17, 17, 17, 0.15);
   color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
-  /* color: red; */
   font-family: Inter;
   font-size: rem(14px);
-  font-style: normal;
+  /* font-style: normal; */
   font-weight: 600;
-  line-height: rem(18px); /* 128.571% */
-  /* color: green; */
+  line-height: 1.29;
 
-  @media (min-width: rem(768px)) {
+  @media (min-width: $mantine-breakpoint-md) {
     width: rem(354px);
     height: rem(46px);
     font-size: rem(16px);
-    line-height: rem(18px); /* 112.5% */
+    line-height: 1.13;
   }
   @media (min-width: rem(1440px)) {
   }
 }
 .input:hover {
   border-radius: 8px;
-  border: 1px solid #111;
+  border: 1px solid var(--mantine-color-black);
 }
 .button {
   margin-left: auto;
@@ -232,25 +211,24 @@
 
   border-radius: rem(16px);
   background-color: var(--mantine-color-blue-4);
-  /* background-color: red; */
 
   overflow: hidden;
-  color: #fff;
+  color: var(--mantine-color-white);
   text-align: center;
   font-family: Inter;
   font-size: rem(14px);
-  font-style: normal;
+  /* font-style: normal; */
   font-weight: 600;
-  line-height: rem(18px); /* 128.571% */
+  line-height: 1.29;
 
-  @media (min-width: rem(768px)) {
+  @media (min-width: $mantine-breakpoint-md) {
     width: rem(262px);
     height: rem(48px);
 
     background-color: var(--mantine-color-blue-4);
   }
   @media (min-width: rem(1440px)) {
-    margin-top: 88px;
+    margin-top: rem(88px);
   }
 }
 .button:hover {
