@@ -7,6 +7,7 @@ import {
   logoutUserThunk,
   updateUserData,
   resetUserThunk,
+  deleteUserThunk,
 } from '../operations';
 // const isRejectedAction = (action) =>
 //   action.type.endsWith('rejected') && action.type.includes('user');
@@ -155,6 +156,24 @@ const slice = createSlice({
         state.isAuthenticated = true;
       })
       .addCase(resetUserThunk.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
+      //---------------delete user-----------
+      .addCase(deleteUserThunk.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(deleteUserThunk.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isAuthenticated = false;
+        state.user = null;
+        state.token = null;
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('token');
+      })
+      .addCase(deleteUserThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       }),

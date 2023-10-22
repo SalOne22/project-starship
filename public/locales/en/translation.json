@@ -154,6 +154,21 @@
     "notificationEmail": "Email is not valid",
     "notificationPhone": "Phone must be in format +380971234567"
   },
+  "userDeleteForm": {
+    "errors": {
+      "required": "Password is a required field",
+      "length": "Password should include at least 6 characters"
+    },
+    "titles": {
+      "main": "Enter password to delete GooseTrack account",
+      "sub": "Confirm to delete my account",
+      "text": "This action is irreversible, you will delete your account forever!"
+    },
+    "buttons": {
+      "delete": "Delete my account",
+      "confirm": "Confirm"
+    }
+  },
   "statistics": {
     "byDay": "by day",
     "byMonth": "by month",
