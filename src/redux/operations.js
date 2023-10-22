@@ -131,3 +131,20 @@ export const resetUserThunk = createAsyncThunk(
     }
   },
 );
+
+export const deleteUserThunk = createAsyncThunk(
+  'auth/delete',
+  async (password, thunkApi) => {
+    try {
+      const { data } = await $instance.delete('/users/delete', {
+        data: password,
+      });
+
+      return data;
+    } catch (error) {
+      const errorMessage = error.response.data.message;
+      handleError(errorMessage);
+      return thunkApi.rejectWithValue(errorMessage);
+    }
+  },
+);
