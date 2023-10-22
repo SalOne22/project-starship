@@ -206,5 +206,15 @@
     "link": "Вхід",
     "title": "Логінізація",
     "forgotPassword": "Забули пароль?"
+  },
+  "forrgotPassword": {
+    "successTitle": "Пароль успішно оновлено!",
+    "successMessageStart": "Пароль було відправлено! Будь-ласка перевірте свою пошту ",
+    "successMessageEnd": "для подальших інструкцій.",
+    "question": "Забули пароль?",
+    "cta": "Введіть пошту для відновлення",
+    "back": "Назад",
+    "resetPassword": "Відновити пароль",
+    "validateError": "Пошта має бути у форматі abc@mail.com"
   }
 }
