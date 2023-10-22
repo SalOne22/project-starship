@@ -11,15 +11,16 @@ import { useEffect, useRef, useState } from 'react';
 import { DateInput } from '@mantine/dates';
 import css from './InputForm.module.css';
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
-import { IconChevronDown, IconCloudUpload } from '@tabler/icons-react';
+import { IconChevronDown } from '@tabler/icons-react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserThunk } from '@/redux/operations';
 import { notifications } from '@mantine/notifications';
 import { useTranslation } from 'react-i18next';
 
-import userImgSVG from '@/assets/images/userForm/user.svg';
+import userSVG from '@/assets/images/userForm/user.svg';
 import plusSVG from '@/assets/images/userForm/plus.svg';
+import InputMask from 'react-input-mask';
 
 export function UserInputForm() {
   const dispatch = useDispatch();
@@ -27,7 +28,6 @@ export function UserInputForm() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const userAuth = useSelector((state) => state.auth.user) ?? {};
-
   const [userData, setUserData] = useState({
     username: '',
     birthday: '',
@@ -36,21 +36,27 @@ export function UserInputForm() {
     skype: '',
     avatarURL: '',
   });
+  const [value, setValue] = useState(null);
+  const [file, setFile] = useState([]);
+  const [imageUrl, setImageUrl] = useState('');
+  const [formChange, setFormChange] = useState(false);
+  const openRef = useRef(null);
 
   useEffect(() => {
-    const dateBirthday = userAuth.birthday ? userAuth.birthday : new Date();
-    const parseDateBirthday = dateBirthday ? new Date(dateBirthday) : null;
     const selectUserDataFromAuth = () => {
       setUserData({
         username: userAuth.username,
-        birthday: parseDateBirthday,
         email: userAuth.email,
         phone: userAuth.phone,
         skype: userAuth.skype,
         avatarURL: userAuth.avatarURL,
       });
+      if (userAuth.birthday) {
+        setValue(new Date(userAuth.birthday));
+      }
     };
     selectUserDataFromAuth();
+    setFormChange(false);
   }, [userAuth]);
 
   const handleInputChange = (e) => {
@@ -59,18 +65,6 @@ export function UserInputForm() {
     setUserData({ ...userData, [name]: value });
     setFormChange(true);
   };
-
-  const openRef = useRef(null);
-  const [file, setFile] = useState([]);
-  const [imageUrl, setImageUrl] = useState('');
-
-  const [formChange, setFormChange] = useState(false);
-
-  const selectedDate = new Date(userData?.birthday);
-
-  const formattedDate = `${
-    selectedDate.getMonth() + 1
-  }/${selectedDate.getDate()}/${selectedDate.getFullYear()}`;
 
   const handleDropavatarURL = (droppedFiles) => {
     if (droppedFiles.length > 0) {
@@ -84,7 +78,7 @@ export function UserInputForm() {
   };
 
   const handleDateChange = (date) => {
-    setUserData({ ...userData, birthday: date });
+    setValue(date);
     setFormChange(true);
   };
 
@@ -93,8 +87,9 @@ export function UserInputForm() {
 
     if (!emailValidationRegex.test(email)) {
       notifications.show({
-        message: t('userform.notificationEmail'),
-        autoClose: 5000,
+        title: t('userform.notification.title.error'),
+        message: t('userform.notification.notificationEmail'),
+        autoClose: 3000,
         color: 'red',
       });
       return false;
@@ -104,12 +99,13 @@ export function UserInputForm() {
   }
 
   function validateUserPhone(phone) {
-    const phoneValidationRegex = /^\+380\d{9}$/;
+    const phoneValidationRegex = /\+38 \(\d{3}\) \d{3}-\d{2}-\d{2}/;
 
     if (!phoneValidationRegex.test(phone)) {
       notifications.show({
-        message: t('userform.notificationPhone'),
-        autoClose: 10000,
+        title: t('userform.notification.title.error'),
+        message: t('userform.notification.notificationPhone'),
+        autoClose: 3000,
         color: 'red',
       });
       return false;
@@ -118,8 +114,14 @@ export function UserInputForm() {
     return true;
   }
 
+  const selectedDate = new Date(value);
+  const formattedDate = `${
+    selectedDate.getMonth() + 1
+  }/${selectedDate.getDate()}/${selectedDate.getFullYear()}`;
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
     if (userData.email) {
       if (!validateUserEmail(userData.email)) {
         return;
@@ -138,26 +140,35 @@ export function UserInputForm() {
     formData.append('email', userData.email);
     formData.append('phone', userData.phone);
     formData.append('skype', userData.skype);
+
     if (file.length > 0) {
       formData.append('avatarURL', file[0]);
     }
+
     dispatch(updateUserThunk(formData))
       .then(() => {
-        console.log('Запит на оновлення даних відправлено');
+        notifications.show({
+          title: t('userform.notification.title.success'),
+          message: t('userform.notification.notificationSuccess'),
+          color: 'green',
+        });
       })
       .catch((error) => {
-        console.error('Помилка під час відправки PATCH-запиту:', error);
+        notifications.show({
+          title: t('userform.notification.title.error'),
+          message: error.message,
+          autoClose: 5000,
+          color: 'red',
+        });
       });
 
     setFormChange(false);
   };
 
-  const dateBirthday = userAuth?.birthday;
-
-  const parseDateBirthday = dateBirthday ? new Date(dateBirthday) : null;
-
-  //   console.log('typeof userAuth date:', typeof userAuth.birthday);
-  //   console.log('typeof parseDateBirthday:', typeof parseDateBirthday);
+  const today = new Date();
+  const formattedToday = `${today.getFullYear()}/${(today.getMonth() + 1)
+    .toString()
+    .padStart(2, '0')}/${today.getDate().toString().padStart(2, '0')}`;
 
   return (
     <Paper shadow="md" radius="lg" className={css.wrapper}>
@@ -178,23 +189,23 @@ export function UserInputForm() {
               />
             ) : (
               <Image
-                src={userImgSVG}
+                src={userSVG}
                 className={css.userIcon}
                 onLoad={() => URL.revokeObjectURL(imageUrl)}
               />
             )
           ) : file.length === 0 ? (
-            <div style={{ pointerEvents: 'none' }}>
-              <Group justify="center">
-                <Dropzone.Idle>
-                  <IconCloudUpload stroke={1.5} className={css.icon} />
-                </Dropzone.Idle>
-              </Group>
-            </div>
+            <Image
+              src={userSVG}
+              className={css.userIcon}
+              onLoad={() => URL.revokeObjectURL(imageUrl)}
+            />
           ) : (
+            // </div>
             <SimpleGrid className={css.avatarURL}>
               <Image
                 src={imageUrl}
+                className={css.previeAvatar}
                 onLoad={() => URL.revokeObjectURL(imageUrl)}
               />
             </SimpleGrid>
@@ -206,8 +217,6 @@ export function UserInputForm() {
           role="button"
           onLoad={() => URL.revokeObjectURL(imageUrl)}
           onClick={() => openRef.current && openRef.current()}
-
-          //
         />
 
         <Text ta="center" className={css.textusername}>
@@ -225,7 +234,7 @@ export function UserInputForm() {
             <TextInput
               name="username"
               label={t('userform.userName')}
-              placeholder="Enter your name"
+              placeholder={t('userform.placeholder.userName')}
               required
               maxLength={16}
               classNames={{ wrapper: css.label, input: css.input }}
@@ -236,16 +245,16 @@ export function UserInputForm() {
               name="birthday"
               valueFormat="YYYY/MM/DD"
               label={t('userform.birthday')}
-              placeholder="select your date of birth"
-              value={userData?.birthday || parseDateBirthday}
-              classNames={{ wrapper: css.label, input: css.input }}
+              placeholder={formattedToday}
+              value={value}
               onChange={handleDateChange}
+              classNames={{ wrapper: css.label, input: css.input }}
               rightSection={<IconChevronDown size={18} color={'#111111'} />}
             />
             <TextInput
               name="email"
               label={t('userform.email')}
-              placeholder="Enter your email"
+              placeholder={t('userform.placeholder.email')}
               required
               defaultValue={userAuth?.email}
               classNames={{ wrapper: css.label, input: css.input }}
@@ -255,15 +264,18 @@ export function UserInputForm() {
               name="phone"
               // colSpan={2}
               label={t('userform.phone')}
-              placeholder="+380971234567"
+              placeholder={t('userform.placeholder.phone')}
               defaultValue={userAuth?.phone}
               classNames={{ wrapper: css.label, input: css.input }}
               onChange={handleInputChange}
+              component={InputMask}
+              mask="+38 (099) 999-99-99"
             />
+
             <TextInput
               name="skype"
               label={t('userform.skype')}
-              placeholder="Add a skype number"
+              placeholder={t('userform.placeholder.skype')}
               maxLength={16}
               defaultValue={userAuth?.skype}
               classNames={{ wrapper: css.label, input: css.input }}

@@ -151,7 +151,21 @@
     "phone": "Phone",
     "skype": "Skype",
     "button": "Save changes",
-    "notificationEmail": "Email is not valid",
-    "notificationPhone": "Phone must be in format +380971234567"
+    "notification": {
+      "title": {
+        "success": "Success",
+        "error": "Error"
+      },
+      "notificationEmail": "Email is not valid",
+      "notificationPhone": "Phone must be in format +380971234567",
+      "notificationSuccess": "Changes successfully added"
+    },
+
+    "placeholder": {
+      "userName": "Enter your name",
+      "email": "Enter your email",
+      "phone": "Phone in format +38(099)1234567",
+      "skype": "Add a skype number"
+    }
   }
 }
