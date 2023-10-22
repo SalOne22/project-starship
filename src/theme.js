@@ -29,6 +29,8 @@ const theme = createTheme({
       '#21222c', // brand gray.7
       '#171820', // brand gray.8
       '#13151a', // brand gray.9
+      '#EFEFEF',
+      '#e0e0e0',
     ],
     blue: [
       '#e3f3ff', // brand blue.0

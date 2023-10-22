@@ -169,6 +169,12 @@
       "confirm": "Confirm"
     }
   },
+  "changePasswordForm": {
+    "oldPassword": "Old Password",
+    "newPassword": "New Password",
+    "confirmedPassword": "Confirm Password",
+    "changePassBtn": "Change Password"
+  },
   "statistics": {
     "byDay": "by day",
     "byMonth": "by month",

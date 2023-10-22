@@ -179,6 +179,12 @@
       "confirm": "Підтвердити"
     }
   },
+  "changePasswordForm": {
+    "oldPassword": "Старий пароль",
+    "newPassword": "Новий пароль",
+    "confirmedPassword": "Підтвердіть пароль",
+    "changePassBtn": "Змінити пароль"
+  },
   "register": {
     "link": "Зареєструватися",
     "title": "Реєстрація",
