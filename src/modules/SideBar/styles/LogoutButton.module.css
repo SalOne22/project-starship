@@ -5,6 +5,8 @@
   box-shadow: 4px 2px 16px 0px rgba(136, 165, 191, 0.48);
   max-width: fit-content;
 
+  transition: background-color 350ms ease;
+
   @media (min-width: $mantine-breakpoint-md) {
     font-size: rem(18px);
     height: rem(56px);

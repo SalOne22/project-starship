@@ -157,7 +157,12 @@
   "statistics": {
     "byDay": "за день",
     "byMonth": "за місяць",
-    "tasks": "завдання"
+    "tasks": "завдання",
+    "types": {
+      "to-do": "зробити",
+      "in progress": "в процесі",
+      "done": "зроблено"
+    }
   },
   "userDeleteForm": {
     "errors": {
