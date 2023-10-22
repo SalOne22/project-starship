@@ -157,7 +157,12 @@
   "statistics": {
     "byDay": "за день",
     "byMonth": "за місяць",
-    "tasks": "завдання"
+    "tasks": "завдання",
+    "types": {
+      "to-do": "зробити",
+      "in progress": "в процесі",
+      "done": "зроблено"
+    }
   },
   "userDeleteForm": {
     "errors": {
@@ -179,5 +184,25 @@
     "newPassword": "Новий пароль",
     "confirmedPassword": "Підтвердіть пароль",
     "changePassBtn": "Змінити пароль"
+  },
+  "register": {
+    "link": "Зареєструватися",
+    "title": "Реєстрація",
+    "divider": "Продовжити за допомогою електронної адреси",
+    "name": "Імʼя",
+    "email": "Електронна адреса",
+    "password": "Пароль",
+    "namePlcholder": "Вaше імʼя",
+    "emailPlcholder": "Ваша електронна адреса",
+    "passwordPlcholder": "Ваш пароль",
+
+    "errorName": "Введіть імʼя не меньш ніж з двох символів",
+    "errorEmail": "Слово перед @ i домен після крапки",
+    "errorPassword": "Введіть пароль не меньш ніж з 6 символів"
+  },
+  "login": {
+    "link": "Вхід",
+    "title": "Логінізація",
+    "forgotPassword": "Забули пароль?"
   }
 }

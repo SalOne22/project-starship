@@ -50,8 +50,8 @@ function Reviews() {
             slidesToScroll={{ base: 1, xl: 2 }}
             loop
             align="start"
-            nextControlIcon={<ControlNext />}
-            previousControlIcon={<ControlPrev />}
+            nextControlIcon={<ControlNext className={css.controlIcon} />}
+            previousControlIcon={<ControlPrev className={css.controlIcon} />}
             classNames={{
               controls: css.controls,
               control: css.control,

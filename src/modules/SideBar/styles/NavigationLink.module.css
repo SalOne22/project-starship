@@ -6,6 +6,8 @@
   padding: rem(10px) rem(12px);
   border-radius: rem(8px);
 
+  transition: background-color 350ms ease;
+
   @media (min-width: $mantine-breakpoint-md) {
     padding: rem(16px) rem(20px);
   }
