@@ -213,7 +213,15 @@
     "oldPassword": "Old Password",
     "newPassword": "New Password",
     "confirmedPassword": "Confirm Password",
-    "changePassBtn": "Change Password"
+    "changePassBtn": "Change Password",
+    "errors": {
+      "length": "Password must be at least 6 characters long",
+      "matches": "Passwords do not match"
+    },
+    "notifications": {
+      "error": "Old and new passwords cannot be the same",
+      "success": "Password change success"
+    }
   },
   "statistics": {
     "byDay": "by day",

@@ -11,6 +11,7 @@ import clsx from 'clsx';
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import theme from '@/theme';
 
 function ChangePasswordForm({ onClose }) {
   const dispatch = useDispatch();
@@ -31,19 +32,15 @@ function ChangePasswordForm({ onClose }) {
 
     validate: {
       oldPassword: (value) =>
-        value.length < 6
-          ? 'Password should be at least 6 characters long'
-          : null,
+        value.length < 6 ? t('changePasswordForm.errors.length') : null,
 
       password: (value) =>
-        value.length < 6
-          ? 'Password should be at least 6 characters long'
-          : null,
+        value.length < 6 ? t('changePasswordForm.errors.length') : null,
       confirmPassword: (value, values) => {
         if (value !== values.password) {
-          return 'Passwords do not match';
+          return t('changePasswordForm.errors.matches');
         } else if (value.length < 6) {
-          return 'Password must be at least 6 characters long';
+          return t('changePasswordForm.errors.length');
         }
         return null;
       },
@@ -51,11 +48,11 @@ function ChangePasswordForm({ onClose }) {
   });
 
   const handleSubmitForm = async (values) => {
-    // form.clearErrors();
-    // console.log(form.errors);
-    console.log(error);
     if (values.oldPassword === values.confirmPassword) {
-      handleMessage('Old and new passwords cannot be the same', 'red');
+      handleMessage(
+        t('changePasswordForm.notifications.error'),
+        theme.colors.red[6],
+      );
       values.password = '';
       values.confirmPassword = '';
       return;
@@ -69,7 +66,10 @@ function ChangePasswordForm({ onClose }) {
         }),
       ).unwrap();
 
-      handleMessage('Password change success', 'green');
+      handleMessage(
+        t('changePasswordForm.notifications.success'),
+        theme.colors.green[6],
+      );
       onClose();
     } catch (error) {
       handleMessage(error, 'red');
