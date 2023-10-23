@@ -9,6 +9,7 @@
 }
 
 .dateBtn {
+  min-width: rem(190px);
   color: var(--mantine-color-white);
   background-color: var(--mantine-color-blue-4);
   border: transparent;

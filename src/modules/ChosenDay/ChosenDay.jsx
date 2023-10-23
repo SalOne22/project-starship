@@ -1,4 +1,5 @@
 import CalendarToolbar from '../CalendarToolbar';
+import { DatePicker } from '@mantine/dates';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import DatePaginator from '../CalendarToolbar/components/DatePaginator';
@@ -13,6 +14,7 @@ import { useMemo } from 'react';
 
 function ChosenDay() {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [openedCalendar, setOpenedCalendar] = useState(false);
   const { tasks } = useTasks();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -43,18 +45,43 @@ function ChosenDay() {
     );
   };
 
+  const onChangeCalendar = (val) => {
+    setCurrentDate(val);
+    setOpenedCalendar(false);
+  };
+
   useEffect(() => {
     dispatch(fetchTasks(slice));
   }, [slice, dispatch]);
 
   return (
-    <div className={css.calendar}>
-      <CalendarToolbar
-        prevDate={prevDay}
-        nextDate={nextDay}
-        currentDate={currentDate}
-        isDisabled={false}
-      />
+    <div className={css.wrapper}>
+      <div className={css.thumb}>
+        <CalendarToolbar
+          prevDate={prevDay}
+          nextDate={nextDay}
+          currentDate={currentDate}
+          openedCalendar={setOpenedCalendar}
+        />
+        {openedCalendar && (
+          <DatePicker
+            defaultDate={currentDate}
+            value={currentDate}
+            onChange={onChangeCalendar}
+            hideOutsideDates
+            className={css.datePicker}
+            classNames={{
+              calendarHeaderControl: css.calendarHeaderControl,
+              calendarHeaderLevel: css.calendarHeaderLevel,
+              yearsListCell: css.yearsListCell,
+              monthsListCell: css.monthsListCell,
+              weekday: css.weekday,
+              day: css.day,
+            }}
+          />
+        )}
+      </div>
+
       <DatePaginator currentDate={currentDate} isDateShown={true} />
       <DndProvider backend={HTML5Backend}>
         <TasksColumnsList tasks={tasks} />

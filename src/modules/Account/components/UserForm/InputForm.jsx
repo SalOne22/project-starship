@@ -21,6 +21,8 @@ import { useTranslation } from 'react-i18next';
 import userSVG from '@/assets/images/userForm/user.svg';
 import plusSVG from '@/assets/images/userForm/plus.svg';
 import InputMask from 'react-input-mask';
+import ChangePassButton from '../ChangePassButton/ChangePassButton';
+import DeleteUserBtn from '../DeleteUserBtn';
 
 export function UserInputForm() {
   const dispatch = useDispatch();
@@ -293,6 +295,13 @@ export function UserInputForm() {
           </Button>
         </Group>
       </form>
+
+      <div className={css.divider}></div>
+
+      <div className={css.dangerZone}>
+        <ChangePassButton />
+        <DeleteUserBtn />
+      </div>
     </Paper>
   );
 }

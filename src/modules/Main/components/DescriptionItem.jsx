@@ -2,9 +2,10 @@ import { List, Title, Text, Image } from '@mantine/core';
 import PropTypes from 'prop-types';
 import css from '../styles/Description.module.css';
 import clsx from 'clsx';
+import descrsImgs from '../data/descriptionData';
 
-function DescriptionItem({ descr, className }) {
-  const { number, title, text, description, image, id } = descr;
+function DescriptionItem({ descr, className, order }) {
+  const { number, title, text, description, id } = descr;
 
   return (
     <div>
@@ -23,7 +24,7 @@ function DescriptionItem({ descr, className }) {
           <div>
             <Image
               className={css.img}
-              src={image}
+              src={descrsImgs[order].image}
               alt="Description Image"
               sizes={[
                 { maxWidth: 375, size: '100vw' },
@@ -45,8 +46,8 @@ DescriptionItem.propTypes = {
     title: PropTypes.string,
     text: PropTypes.string,
     description: PropTypes.string,
-    image: PropTypes.string,
   }),
+  order: PropTypes.number,
   className: PropTypes.string,
 };
 

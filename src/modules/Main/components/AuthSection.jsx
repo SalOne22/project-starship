@@ -4,8 +4,10 @@ import GooseTrackLogo from '@/assets/icons/logo.svg?react';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import { IconLogin2 } from '@tabler/icons-react';
+import { useTranslation } from 'react-i18next';
 
 function AuthSection() {
+  const { t } = useTranslation();
   return (
     <div>
       <section className={css.sectionhero}>
@@ -25,14 +27,14 @@ function AuthSection() {
                 section: css.section,
               }}
             >
-              Log in
+              {t('main.auth.login')}
             </Button>
             <Button
               component={Link}
               to="/register"
               className={clsx(css.signup)}
             >
-              Sign up
+              {t('main.auth.signup')}
             </Button>
           </div>
         </Container>
