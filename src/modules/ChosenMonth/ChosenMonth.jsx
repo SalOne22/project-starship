@@ -70,7 +70,7 @@ const ChosenMonth = () => {
         />
         {openedCalendar && (
           <DatePicker
-            date={currentDate}
+            defaultDate={currentDate}
             value={currentDate}
             onChange={onChangeCalendar}
             hideOutsideDates
