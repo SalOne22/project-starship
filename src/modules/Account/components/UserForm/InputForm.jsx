@@ -12,11 +12,11 @@ import { DateInput } from '@mantine/dates';
 import css from './InputForm.module.css';
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { IconChevronDown } from '@tabler/icons-react';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserThunk } from '@/redux/operations';
 import { notifications } from '@mantine/notifications';
 import { useTranslation } from 'react-i18next';
+import { handlerError } from './helpers/handlerError';
 
 import userSVG from '@/assets/images/userForm/user.svg';
 import plusSVG from '@/assets/images/userForm/plus.svg';
@@ -148,6 +148,7 @@ export function UserInputForm() {
     }
 
     dispatch(updateUserThunk(formData))
+      .unwrap()
       .then(() => {
         notifications.show({
           title: t('userform.notification.title.success'),
@@ -156,12 +157,7 @@ export function UserInputForm() {
         });
       })
       .catch((error) => {
-        notifications.show({
-          title: t('userform.notification.title.error'),
-          message: error.message,
-          autoClose: 5000,
-          color: 'red',
-        });
+        handlerError(error);
       });
 
     setFormChange(false);
