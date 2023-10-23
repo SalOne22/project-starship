@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import classes from '../Statistics.module.css';
+import classes from '../styles/Statistics.module.css';
 
 ChartTitle.propTypes = {
   children: PropTypes.node.isRequired,

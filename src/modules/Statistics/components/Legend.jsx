@@ -1,6 +1,6 @@
 // import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import classes from '../Statistics.module.css';
+import classes from '../styles/Statistics.module.css';
 import { Box, Text } from '@mantine/core';
 
 export function Legend() {
