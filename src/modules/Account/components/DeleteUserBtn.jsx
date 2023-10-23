@@ -17,7 +17,7 @@ function DeleteUserBtn() {
   return (
     <>
       <button type="button" className={css.deleteUserBtn} onClick={openModal}>
-        Delete my account
+        Delete account
       </button>
       {isOpen && <DeleteUserModal onClose={closeModal} />}
     </>

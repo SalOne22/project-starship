@@ -1,13 +1,17 @@
 .deleteUserBtn {
-  background-color: var(--mantine-color-red-5);
+  background-color: transparent;
   border: none;
   cursor: pointer;
-  color: var(--mantine-color-white);
-  padding: rem(10px) rem(24px);
+  color: var(--mantine-color-red-5);
+  padding: rem(10) rem(20);
+
   border-radius: rem(8px);
-  font-size: rem(16px);
+  font-size: rem(14);
+  font-weight: 600;
+  line-height: rem(18);
   transition: all 350ms ease;
 }
 .deleteUserBtn:hover {
   background-color: var(--mantine-color-red-8);
+  color: var(--mantine-color-white);
 }

@@ -227,6 +227,7 @@
     var(--mantine-color-white),
     var(--mantine-color-gray-7)
   );
+  transition: all 350ms ease;
 
   @media (min-width: $mantine-breakpoint-md) {
     width: rem(354px);
@@ -260,6 +261,7 @@
   font-style: normal;
   font-weight: 600;
   line-height: 1.29;
+  transition: all 350ms ease;
 
   @media (min-width: $mantine-breakpoint-md) {
     width: rem(262px);
@@ -280,4 +282,20 @@
 }
 .button:disabled {
   background-color: grey;
+}
+
+.dangerZone {
+  margin-top: rem(25px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: rem(16px);
+}
+
+.divider {
+  margin-top: rem(25px);
+  display: block;
+  height: 1px;
+  width: 90%;
+  background-color: rgba(255, 255, 255, 0.15);
 }
