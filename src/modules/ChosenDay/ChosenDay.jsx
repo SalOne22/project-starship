@@ -61,7 +61,6 @@ function ChosenDay() {
           prevDate={prevDay}
           nextDate={nextDay}
           currentDate={currentDate}
-          isDisabled={false}
           openedCalendar={setOpenedCalendar}
         />
         {openedCalendar && (
