@@ -262,5 +262,13 @@
     "back": "Back to login",
     "resetPassword": "Reset password",
     "validateError": "Enter email should match abc@mail.com"
+  },
+  "handleError": {
+    "errorRegister": "Email already exist",
+    "errorLogin": "Email or password invalid",
+    "errorServer": "Server error. Please try again later",
+    "errorValid": "Email or password invalid",
+    "errorAuthorized": "Please log in",
+    "title": "Error"
   }
 }

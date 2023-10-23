@@ -17,7 +17,9 @@ function RegisterPage() {
         </Box>
         <Box className={css.wrapper}>
           <Register />
-          <AuthNavigate route="/login" text={t('login.link')} />
+          <Box className={css.box}>
+            <AuthNavigate route="/login" text={t('login.link')} />
+          </Box>
         </Box>
       </Container>
     </Center>
