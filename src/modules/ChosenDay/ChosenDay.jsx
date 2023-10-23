@@ -48,6 +48,11 @@ function ChosenDay() {
   const onChangeCalendar = (val) => {
     setCurrentDate(val);
     setOpenedCalendar(false);
+    const nextDay = new Date(val);
+    nextDay.setDate(val.getDate() + 1);
+
+    const nextDayString = nextDay.toISOString().slice(0, 10);
+    navigate(`/calendar/day/${nextDayString}`);
   };
 
   useEffect(() => {
