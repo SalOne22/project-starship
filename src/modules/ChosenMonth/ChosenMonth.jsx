@@ -47,7 +47,15 @@ const ChosenMonth = () => {
   };
 
   const onChangeCalendar = (val) => {
-    setCurrentDate(val);
+    const pickedDate = new Date(val);
+
+    const newDateObj = {
+      year: pickedDate.getFullYear(),
+      month: pickedDate.getMonth(),
+      number: currentDate.getDate(),
+    };
+
+    changeCurrentDate(newDateObj);
     setOpenedCalendar(false);
 
     const nextMonth = new Date(val);
