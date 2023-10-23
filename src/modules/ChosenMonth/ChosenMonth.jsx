@@ -47,6 +47,7 @@ const ChosenMonth = () => {
   const onChangeCalendar = (val) => {
     setCurrentDate(val);
     setOpenedCalendar(false);
+    navigate(`/calendar/month/${new Date(val).toISOString().slice(0, 7)}`);
   };
 
   return (
