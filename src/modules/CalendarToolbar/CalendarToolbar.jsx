@@ -48,6 +48,5 @@ CalendarToolbar.propTypes = {
   prevDate: PropTypes.func.isRequired,
   nextDate: PropTypes.func.isRequired,
   currentDate: PropTypes.instanceOf(Date).isRequired,
-  isDisabled: PropTypes.bool.isRequired,
   openedCalendar: PropTypes.func,
 };
