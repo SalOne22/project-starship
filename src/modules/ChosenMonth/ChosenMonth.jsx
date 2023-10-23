@@ -10,6 +10,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import 'dayjs/locale/uk';
 import 'dayjs/locale/en';
+import { Modal } from '@mantine/core';
 
 const ChosenMonth = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -65,22 +66,33 @@ const ChosenMonth = () => {
           openedCalendar={setOpenedCalendar}
         />
         {openedCalendar && (
-          <MonthPicker
-            locale={i18n.language === 'en' ? 'en' : 'uk'}
-            defaultDate={currentDate}
-            value={currentDate}
-            onChange={onChangeCalendar}
-            hideOutsideDates
-            className={css.datePicker}
+          <Modal
+            opened={openedCalendar}
+            onClose={() => setOpenedCalendar((prev) => !prev)}
+            withCloseButton={false}
+            size="auto"
             classNames={{
-              calendarHeaderControl: css.calendarHeaderControl,
-              calendarHeaderLevel: css.calendarHeaderLevel,
-              yearsListCell: css.yearsListCell,
-              monthsListCell: css.monthsListCell,
-              weekday: css.weekday,
-              day: css.day,
+              body: css.body,
             }}
-          />
+            transitionProps={{ duration: 300, transition: 'fade' }}
+          >
+            <MonthPicker
+              locale={i18n.language === 'en' ? 'en' : 'uk'}
+              defaultDate={currentDate}
+              value={currentDate}
+              onChange={onChangeCalendar}
+              hideOutsideDates
+              className={css.datePicker}
+              classNames={{
+                calendarHeaderControl: css.calendarHeaderControl,
+                calendarHeaderLevel: css.calendarHeaderLevel,
+                yearsListCell: css.yearsListCell,
+                monthsListCell: css.monthsListCell,
+                weekday: css.weekday,
+                day: css.day,
+              }}
+            />
+          </Modal>
         )}
       </div>
 

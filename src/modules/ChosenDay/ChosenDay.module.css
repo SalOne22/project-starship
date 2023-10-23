@@ -27,7 +27,7 @@
   position: absolute;
   left: 50%;
   top: 0;
-  transform: translate(-50%, 0%);
+  transform: translate(-50%, 50%);
   border: 1px solid var(--mantine-color-blue-4);
   background-color: var(--mantine-color-blue-4);
   border-radius: rem(16px);
@@ -117,4 +117,8 @@
   opacity: 1;
   color: var(--mantine-color-blue-4);
   background-color: var(--mantine-color-white);
+}
+
+.body {
+  position: absolute;
 }
