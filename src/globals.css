@@ -144,8 +144,8 @@ body {
   }
 }
 
-.mantine-Popover-dropdown:has(> div[data-calendar='true']) {
+/* .mantine-Popover-dropdown:has(> div[data-calendar='true']) {
   border: 1px solid var(--mantine-color-blue-4);
   background-color: var(--mantine-color-blue-4);
   border-radius: rem(16px);
-}
+} */
