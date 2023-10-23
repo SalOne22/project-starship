@@ -1,4 +1,4 @@
-import { DatePicker } from '@mantine/dates';
+import { MonthPicker } from '@mantine/dates';
 import { useEffect, useState } from 'react';
 import css from './ChosenMonth.module.css';
 import CalendarDay from '../CalendarDay';
@@ -7,10 +7,14 @@ import { useDispatch } from 'react-redux';
 import { fetchTasks } from '../Calendar/redux/operations';
 import DatePaginator from '../CalendarToolbar/components/DatePaginator';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import 'dayjs/locale/uk';
+import 'dayjs/locale/en';
 
 const ChosenMonth = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [openedCalendar, setOpenedCalendar] = useState(false);
+  const { i18n } = useTranslation();
 
   const navigate = useNavigate();
   const { currentMonth } = useParams();
@@ -29,9 +33,6 @@ const ChosenMonth = () => {
     const nextMonthDate = new Date(currentDate);
     nextMonthDate.setMonth(nextMonthDate.getMonth() + 1);
     setCurrentDate(nextMonthDate);
-    navigate(
-      `/calendar/month/${new Date(nextMonthDate).toISOString().slice(0, 7)}`,
-    );
   };
 
   const prevMonth = () => {
@@ -47,7 +48,11 @@ const ChosenMonth = () => {
   const onChangeCalendar = (val) => {
     setCurrentDate(val);
     setOpenedCalendar(false);
-    navigate(`/calendar/month/${new Date(val).toISOString().slice(0, 7)}`);
+
+    const nextMonth = new Date(val);
+    nextMonth.setMonth(val.getMonth() + 1);
+    const nextMonthString = nextMonth.toISOString().slice(0, 7);
+    navigate(`/calendar/month/${nextMonthString}`);
   };
 
   return (
@@ -60,7 +65,8 @@ const ChosenMonth = () => {
           openedCalendar={setOpenedCalendar}
         />
         {openedCalendar && (
-          <DatePicker
+          <MonthPicker
+            locale={i18n.language === 'en' ? 'en' : 'uk'}
             defaultDate={currentDate}
             value={currentDate}
             onChange={onChangeCalendar}
