@@ -1,9 +1,11 @@
 .pageStyle {
+  padding: rem(40px) 0;
   background: light-dark(
     var(--mantine-color-blue-2),
     var(--mantine-color-dark-7)
   );
-  height: 100dvh;
+  min-height: 100dvh;
+  height: 100%;
 }
 
 .containerStyle {
@@ -30,4 +32,7 @@
   @media (min-width: $mantine-breakpoint-xl) {
     display: block;
   }
+}
+.box {
+  height: rem(40px);
 }

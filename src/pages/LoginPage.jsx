@@ -14,7 +14,9 @@ function LoginPage() {
       <Container className={css.containerStyle}>
         <Box className={css.wrapper}>
           <Login />
-          <AuthNavigate route="/register" text={t('register.link')} />
+          <Box className={css.box}>
+            <AuthNavigate route="/register" text={t('register.link')} />
+          </Box>
         </Box>
         <Box className={css.images}>
           <Rocket className={css.rocket} />
