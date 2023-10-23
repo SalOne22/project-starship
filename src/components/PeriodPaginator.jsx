@@ -3,13 +3,7 @@ import css from './styles/PeriodPaginator.module.css';
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 import clsx from 'clsx';
 
-function PeriodPaginator({
-  nameOfDate,
-  prevDate,
-  nextDate,
-  isDisabled,
-  openedCalendar,
-}) {
+function PeriodPaginator({ nameOfDate, prevDate, nextDate, openedCalendar }) {
   return (
     <div className={css.periodPaginatorWrapper}>
       <button className={css.dateBtn} onClick={() => openedCalendar(true)}>
@@ -19,7 +13,6 @@ function PeriodPaginator({
         <button
           className={clsx(css.iconArrow, css.iconLeft)}
           onClick={prevDate}
-          disabled={isDisabled}
         >
           <IconChevronLeft className={css.icon} />
         </button>
