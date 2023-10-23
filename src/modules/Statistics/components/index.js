@@ -4,3 +4,4 @@ export { Legend } from './Legend.jsx';
 export { Wrapper } from './Wrapper.jsx';
 export { ChartTitle } from './ChartTitle.jsx';
 export { ResponsiveChartWrapper } from './ResponsiveChartWrapper.jsx';
+export { StatPeriodPaginator } from './StatPeriodPaginator.jsx';
