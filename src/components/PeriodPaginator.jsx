@@ -33,6 +33,5 @@ PeriodPaginator.propTypes = {
   nameOfDate: PropTypes.string.isRequired,
   prevDate: PropTypes.func.isRequired,
   nextDate: PropTypes.func.isRequired,
-  isDisabled: PropTypes.bool,
   openedCalendar: PropTypes.func,
 };
