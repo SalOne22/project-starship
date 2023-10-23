@@ -175,51 +175,53 @@ export function UserInputForm() {
   return (
     <Paper shadow="md" radius="lg" className={css.wrapper}>
       <form onSubmit={handleFormSubmit} onChange={handleInputChange}>
-        <Dropzone
-          accept={IMAGE_MIME_TYPE}
-          onDrop={handleDropavatarURL}
-          openRef={openRef}
-          className={css.dropzone}
-          radius="md"
-        >
-          {userAuth?.avatarURL !== ' ' && imageUrl === '' ? (
-            userAuth?.avatarURL ? (
-              <Image
-                src={userAuth?.avatarURL}
-                className={css.avatarURL}
-                onLoad={() => URL.revokeObjectURL(imageUrl)}
-              />
-            ) : (
+        <div className={css.wrapDropzone}>
+          <Dropzone
+            accept={IMAGE_MIME_TYPE}
+            onDrop={handleDropavatarURL}
+            openRef={openRef}
+            className={css.dropzone}
+            radius="md"
+          >
+            {userAuth?.avatarURL !== ' ' && imageUrl === '' ? (
+              userAuth?.avatarURL ? (
+                <Image
+                  src={userAuth?.avatarURL}
+                  className={css.avatarURL}
+                  onLoad={() => URL.revokeObjectURL(imageUrl)}
+                />
+              ) : (
+                <Image
+                  src={userSVG}
+                  className={css.userIcon}
+                  onLoad={() => URL.revokeObjectURL(imageUrl)}
+                />
+              )
+            ) : file.length === 0 ? (
               <Image
                 src={userSVG}
                 className={css.userIcon}
                 onLoad={() => URL.revokeObjectURL(imageUrl)}
               />
-            )
-          ) : file.length === 0 ? (
-            <Image
-              src={userSVG}
-              className={css.userIcon}
-              onLoad={() => URL.revokeObjectURL(imageUrl)}
-            />
-          ) : (
-            // </div>
-            <SimpleGrid className={css.avatarURL}>
-              <Image
-                src={imageUrl}
-                className={css.previeAvatar}
-                onLoad={() => URL.revokeObjectURL(imageUrl)}
-              />
-            </SimpleGrid>
-          )}
-        </Dropzone>
-        <Image
-          src={plusSVG}
-          className={css.plusIcon}
-          role="button"
-          onLoad={() => URL.revokeObjectURL(imageUrl)}
-          onClick={() => openRef.current && openRef.current()}
-        />
+            ) : (
+              // </div>
+              <SimpleGrid className={css.avatarURL}>
+                <Image
+                  src={imageUrl}
+                  className={css.previeAvatar}
+                  onLoad={() => URL.revokeObjectURL(imageUrl)}
+                />
+              </SimpleGrid>
+            )}
+          </Dropzone>
+          <Image
+            src={plusSVG}
+            className={css.plusIcon}
+            role="button"
+            onLoad={() => URL.revokeObjectURL(imageUrl)}
+            onClick={() => openRef.current && openRef.current()}
+          />
+        </div>
 
         <Text ta="center" className={css.textusername}>
           {userAuth?.username}

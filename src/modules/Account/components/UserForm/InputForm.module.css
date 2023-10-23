@@ -37,12 +37,15 @@
     padding-bottom: rem(60px);
   }
 }
-
+.wrapDropzone {
+  position: relative;
+}
 .dropzone {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: -2em;
+
+  top: -5.5em;
   flex-shrink: 0;
   width: rem(72px);
   height: rem(72px);
@@ -53,6 +56,8 @@
 
   filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
   overflow: hidden;
+  z-index: 99;
+
   @media (min-width: $mantine-breakpoint-md) {
     position: static;
     margin-left: auto;
@@ -87,24 +92,25 @@
   object-fit: scale-down;
   position: absolute;
   cursor: pointer;
-
+  z-index: 100;
   @media (max-width: $mantine-breakpoint-md) {
     width: rem(15px);
     height: rem(15px);
 
     left: 56%;
     transform: translateX(-50%);
-    top: 3.5%;
+
+    top: -1.9em;
   }
   @media (min-width: $mantine-breakpoint-md) {
-    left: 53%;
-    top: 16.5%;
     width: rem(24px);
     height: rem(24px);
+    left: 57%;
+    top: 80%;
   }
   @media (min-width: $mantine-breakpoint-xl) {
-    left: 52%;
-    top: 21.5%;
+    left: 53%;
+    top: 82%;
   }
 }
 
