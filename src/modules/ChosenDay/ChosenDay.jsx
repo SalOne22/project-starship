@@ -11,10 +11,15 @@ import { useTasks } from '../Calendar/hooks/useTasks';
 import { useDispatch } from 'react-redux';
 import { fetchTasks } from '../Calendar/redux/operations';
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import 'dayjs/locale/uk';
+import 'dayjs/locale/en';
 
 function ChosenDay() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [openedCalendar, setOpenedCalendar] = useState(false);
+  const { i18n } = useTranslation();
+
   const { tasks } = useTasks();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -48,9 +53,9 @@ function ChosenDay() {
   const onChangeCalendar = (val) => {
     setCurrentDate(val);
     setOpenedCalendar(false);
+
     const nextDay = new Date(val);
     nextDay.setDate(val.getDate() + 1);
-
     const nextDayString = nextDay.toISOString().slice(0, 10);
     navigate(`/calendar/day/${nextDayString}`);
   };
@@ -70,6 +75,7 @@ function ChosenDay() {
         />
         {openedCalendar && (
           <DatePicker
+            locale={i18n.language === 'en' ? 'en' : 'uk'}
             defaultDate={currentDate}
             value={currentDate}
             onChange={onChangeCalendar}
