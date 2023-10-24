@@ -22,14 +22,17 @@ function DescriptionItem({ descr, className, order }) {
             <Text className={css.description}>{description}</Text>
           </div>
           <div>
-            <Image className={css.img} src={image} alt="Description Image" />
+            <Image
+              className={css.img}
+              src={descrsImgs[order].image}
+              alt={text}
+            />
           </div>
         </div>
       </List.Item>
     </div>
   );
 }
-
 DescriptionItem.propTypes = {
   descr: PropTypes.shape({
     id: PropTypes.number.isRequired,
