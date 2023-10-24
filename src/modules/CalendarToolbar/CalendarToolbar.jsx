@@ -4,7 +4,7 @@ import css from './CalendarToolbar.module.css';
 import PeriodTypeSelect from './components/PeriodTypeSelect';
 import { useTranslation } from 'react-i18next';
 
-function CalendarToolbar({ prevDate, nextDate, currentDate, openedCalendar }) {
+function CalendarToolbar({ prevDate, nextDate, currentDate, openCalendar }) {
   const { t } = useTranslation();
   const months = t('calendar.months', {
     returnObjects: true,
@@ -35,7 +35,7 @@ function CalendarToolbar({ prevDate, nextDate, currentDate, openedCalendar }) {
         nameOfDate={nameOfDate}
         prevDate={prevDate}
         nextDate={nextDate}
-        openedCalendar={openedCalendar}
+        openCalendar={openCalendar}
       />
       <PeriodTypeSelect currentDate={currentDate} />
     </div>
@@ -48,5 +48,5 @@ CalendarToolbar.propTypes = {
   prevDate: PropTypes.func.isRequired,
   nextDate: PropTypes.func.isRequired,
   currentDate: PropTypes.instanceOf(Date).isRequired,
-  openedCalendar: PropTypes.func,
+  openCalendar: PropTypes.func,
 };
