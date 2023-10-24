@@ -5,15 +5,20 @@ import clsx from 'clsx';
 import { DatePicker } from '@mantine/dates';
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
+import 'dayjs/locale/uk';
+import { useTranslation } from 'react-i18next';
 
 export function StatPeriodPaginator({
   currentDate,
   setCurrentDate,
   variant = 'day',
 }) {
+  const { i18n } = useTranslation();
   const [isDatePicker, setIsDatePicker] = useState(false);
   const [datePickerValue, setDatePickerValue] = useState(currentDate);
   const valueFormat = variant === 'day' ? 'D MMMM YYYY' : 'MMMM YYYY';
+  const locale = i18n.language === 'ua' ? 'uk' : 'en';
+
   const onChangeCalendar = (val) => {
     setDatePickerValue(val);
     setIsDatePicker(false);
@@ -37,13 +42,14 @@ export function StatPeriodPaginator({
   return (
     <div className={classes.periodPaginatorWrapper}>
       <button className={classes.dateBtn} onClick={() => setIsDatePicker(true)}>
-        {dayjs(currentDate).format(valueFormat)}
+        {dayjs(currentDate).locale(locale).format(valueFormat)}
       </button>
       {isDatePicker && (
         <DatePicker
           date={datePickerValue}
           value={datePickerValue}
           onChange={onChangeCalendar}
+          locale={locale}
           hideOutsideDates
           className={classes.datePicker}
           classNames={{
@@ -51,6 +57,7 @@ export function StatPeriodPaginator({
             calendarHeaderLevel: classes.calendarHeaderLevel,
             yearsListCell: classes.yearsListCell,
             monthsListCell: classes.monthsListCell,
+            month: classes.month,
             weekday: classes.weekday,
             day: classes.day,
           }}
