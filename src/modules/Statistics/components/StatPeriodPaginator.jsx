@@ -46,7 +46,7 @@ export function StatPeriodPaginator({
       </button>
       {isDatePicker && (
         <DatePicker
-          date={datePickerValue}
+          // date={datePickerValue}
           value={datePickerValue}
           onChange={onChangeCalendar}
           locale={locale}
