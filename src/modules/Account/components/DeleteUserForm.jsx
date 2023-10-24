@@ -15,6 +15,8 @@ import propTypes from 'prop-types';
 
 function DeleteUserForm({ onClose }) {
   const dispatch = useDispatch();
+  const userMail = useSelector((state) => state.auth.user?.email);
+
   const isLoading = useSelector(selectLoading);
   const { t } = useTranslation();
   const [isConfirm, setIsConfirm] = useState(false);
@@ -56,7 +58,11 @@ function DeleteUserForm({ onClose }) {
     <div className={clsx(!isConfirm ? css.confirmContainer : css.container)}>
       {isConfirm ? (
         <>
-          <h2 className={css.title}>{t('userDeleteForm.titles.main')}</h2>
+          <h2 className={css.title}>
+            {t('userDeleteForm.titles.mainStart')}{' '}
+            <span className={css.mailText}>{userMail}</span>
+          </h2>
+          <p>{t('userDeleteForm.titles.mainEnd')}</p>
           <form
             action=""
             className={css.form}

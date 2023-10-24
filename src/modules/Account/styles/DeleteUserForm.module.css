@@ -160,3 +160,7 @@
 .innerInput {
   padding-right: rem(65px);
 }
+
+.mailText {
+  color: var(--mantine-color-blue-7);
+}
