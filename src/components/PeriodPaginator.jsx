@@ -1,14 +1,91 @@
 import PropTypes from 'prop-types';
-import css from './styles/PeriodPaginator.module.css';
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 import clsx from 'clsx';
 
-function PeriodPaginator({ nameOfDate, prevDate, nextDate, openCalendar }) {
+import { Popover } from '@mantine/core';
+import { DatePicker, MonthPicker } from '@mantine/dates';
+import { useDisclosure } from '@mantine/hooks';
+import { useTranslation } from 'react-i18next';
+import 'dayjs/locale/uk';
+import 'dayjs/locale/en';
+
+import css from './styles/PeriodPaginator.module.css';
+
+function PeriodPaginator({
+  nameOfDate,
+  prevDate,
+  nextDate,
+  onChangeCalendar,
+  mode,
+}) {
+  const [opened, { close, toggle }] = useDisclosure(false);
+  const { i18n } = useTranslation();
+
+  const onDateChange = (val) => {
+    onChangeCalendar(val);
+    close();
+  };
+
   return (
     <div className={css.periodPaginatorWrapper}>
-      <button className={css.dateBtn} onClick={openCalendar}>
-        {nameOfDate}
-      </button>
+      <Popover
+        opened={opened}
+        onChange={toggle}
+        position="bottom-start"
+        offset={8}
+        trapFocus
+        clickOutsideEvents={['mouseup', 'touchend']}
+        transitionProps={{ transition: 'rotate-right', duration: 300 }}
+        classNames={{
+          dropdown: css.dropdown,
+          item: css.item,
+        }}
+      >
+        <Popover.Target>
+          <button className={css.dateBtn} onClick={toggle}>
+            {nameOfDate}
+          </button>
+        </Popover.Target>
+
+        <Popover.Dropdown>
+          {mode === 'day' && (
+            <DatePicker
+              locale={i18n.language === 'en' ? 'en' : 'uk'}
+              defaultDate={nameOfDate}
+              value={nameOfDate}
+              onChange={onDateChange}
+              hideOutsideDates
+              size="sm"
+              classNames={{
+                calendarHeaderControl: css.calendarHeaderControl,
+                calendarHeaderLevel: css.calendarHeaderLevel,
+                yearsListCell: css.yearsListCell,
+                monthsListCell: css.monthsListCell,
+                weekday: css.weekday,
+                day: css.day,
+              }}
+            />
+          )}
+          {mode === 'month' && (
+            <MonthPicker
+              locale={i18n.language === 'en' ? 'en' : 'uk'}
+              defaultDate={nameOfDate}
+              value={nameOfDate}
+              onChange={onDateChange}
+              hideOutsideDates
+              size="sm"
+              classNames={{
+                calendarHeaderControl: css.calendarHeaderControl,
+                calendarHeaderLevel: css.calendarHeaderLevel,
+                yearsListCell: css.yearsListCell,
+                monthsListCell: css.monthsListCell,
+                weekday: css.weekday,
+                day: css.day,
+              }}
+            />
+          )}
+        </Popover.Dropdown>
+      </Popover>
       <div className={css.iconWrapper}>
         <button
           className={clsx(css.iconArrow, css.iconLeft)}
@@ -33,5 +110,6 @@ PeriodPaginator.propTypes = {
   nameOfDate: PropTypes.string.isRequired,
   prevDate: PropTypes.func.isRequired,
   nextDate: PropTypes.func.isRequired,
-  openCalendar: PropTypes.func,
+  onChangeCalendar: PropTypes.func,
+  mode: PropTypes.string,
 };
