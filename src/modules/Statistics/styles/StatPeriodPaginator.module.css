@@ -94,7 +94,7 @@
   display: inline-block;
   padding: 16px;
   position: absolute;
-  left: rem(117);
+  left: rem(135);
   top: rem(42);
   transform: translate(-50%, 0%);
   border: 1px solid var(--mantine-color-blue-4);
@@ -103,24 +103,53 @@
   z-index: 10;
 }
 
+/* calendarHeader */
+.calendarHeader {
+  height: rem(20);
+  margin-bottom: rem(20);
+  align-items: center;
+}
 .calendarHeaderControl {
   color: var(--mantine-color-white);
-}
 
+  &:first-of-type {
+    justify-content: flex-start;
+  }
+  &:last-of-type {
+    justify-content: flex-end;
+  }
+}
 .calendarHeaderLevel {
+  height: inherit;
+
   color: var(--mantine-color-white);
   text-align: center;
   font-family: Inter;
-  font-size: rem(18px);
+  font-size: rem(16);
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.2;
-
-  @media (min-width: $mantine-breakpoint-md) {
-    font-size: rem(20px);
-    line-height: 1.16667;
-  }
+  letter-spacing: rem(-0.32px);
 }
+/* /calendarHeader */
+
+/* weekdaysRow */
+.weekdaysRow {
+  height: rem(24);
+  padding-bottom: rem(10);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+  color: rgba(255, 255, 255, 0.5);
+  font-family: Inter;
+  font-size: rem(14);
+  font-weight: 500;
+}
+
+.weekday {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* /weekdaysRow */
 
 .monthsListCell button {
   color: var(--mantine-color-white);
@@ -151,38 +180,19 @@
 }
 
 .month {
-  width: rem(200);
+  width: rem(235);
   height: rem(204);
 }
 
-.weekday {
-  width: rem(20);
-  color: var(--mantine-color-white);
-  text-align: center;
-  font-family: Inter;
-  font-size: rem(14px);
-  font-style: normal;
-  font-weight: 600;
-  line-height: 1.28571;
-
-  @media (min-width: $mantine-breakpoint-md) {
-    font-size: rem(18px);
-    line-height: 1.33333;
-  }
-}
-
 .day {
+  border-radius: 50%;
+
   color: var(--mantine-color-white);
   font-family: Inter;
   font-size: rem(14px);
   font-style: normal;
   font-weight: 400;
   line-height: 1.28571;
-
-  @media (min-width: $mantine-breakpoint-md) {
-    font-size: rem(18px);
-    line-height: 1.33333;
-  }
 }
 
 .day[data-weekend='true'] {
@@ -193,4 +203,5 @@
   opacity: 1;
   color: var(--mantine-color-blue-4);
   background-color: var(--mantine-color-white);
+  border-radius: 50%;
 }
