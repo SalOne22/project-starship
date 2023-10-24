@@ -104,27 +104,26 @@
   transition: border 350ms ease;
 }
 
-.input::placeholder {
+.input::placeholder,
+.input[aria-invalid='true']::placeholder,
+.inputInput::placeholder,
+.inputInput[data-invalid='true']::placeholder {
   font-size: rem(14px);
   font-weight: 400;
   line-height: 1.28;
-  color: var(--mantine-color-blue-11);
-  transition: color 350ms ease;
   @media (min-width: $mantine-breakpoint-md) {
     font-size: rem(16px);
     line-height: 1.12;
   }
 }
 
+.input::placeholder {
+  color: var(--mantine-color-blue-11);
+  transition: color 350ms ease;
+}
+
 .input[aria-invalid='true']::placeholder {
-  font-size: rem(14px);
-  font-weight: 400;
-  line-height: 1.28;
   color: var(--mantine-color-red-4);
-  @media (min-width: $mantine-breakpoint-md) {
-    font-size: rem(16px);
-    line-height: 1.12;
-  }
 }
 
 .inputCorrect {
@@ -146,28 +145,12 @@
 
 .inputInput::placeholder {
   padding: 0;
-  font-size: rem(14px);
-  font-weight: 400;
-  line-height: 1.28;
-
   color: var(--mantine-color-blue-11);
   transition: color 350ms ease;
-
-  @media (min-width: $mantine-breakpoint-md) {
-    font-size: rem(16px);
-    line-height: 1.12;
-  }
 }
 
 .inputInput[data-invalid='true']::placeholder {
-  font-size: rem(14px);
-  font-weight: 400;
-  line-height: 1.28;
   color: var(--mantine-color-red-4);
-  @media (min-width: $mantine-breakpoint-md) {
-    font-size: rem(16px);
-    line-height: 1.12;
-  }
 }
 
 .input:focus-within {
@@ -177,43 +160,31 @@
   );
 }
 
-.label {
-  font-size: rem(12px);
-  font-weight: 600;
-  line-height: normal;
-  margin-bottom: 8px;
-  color: light-dark(var(--mantine-color-black), var(--mantine-color-blue-4));
-  transition: color 350ms ease;
-
-  @media (min-width: $mantine-breakpoint-md) {
-    font-size: rem(14px);
-  }
-}
-
-.labelCorrect {
-  font-size: rem(12px);
-  font-weight: 600;
-  line-height: normal;
-  margin-bottom: 8px;
-  color: var(--mantine-color-green-6);
-  transition: color 350ms ease;
-
-  @media (min-width: $mantine-breakpoint-md) {
-    font-size: rem(14px);
-  }
-}
-
+.label,
+.labelCorrect,
 .labelError {
   font-size: rem(12px);
   font-weight: 600;
   line-height: normal;
   margin-bottom: 8px;
-  color: var(--mantine-color-red-4);
-  transition: color 350ms ease;
-
   @media (min-width: $mantine-breakpoint-md) {
     font-size: rem(14px);
   }
+}
+
+.label {
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-blue-4));
+  transition: color 350ms ease;
+}
+
+.labelCorrect {
+  color: var(--mantine-color-green-6);
+  transition: color 350ms ease;
+}
+
+.labelError {
+  color: var(--mantine-color-red-4);
+  transition: color 350ms ease;
 }
 
 .required {
@@ -232,46 +203,40 @@
 }
 
 .error {
-  color: var(--mantine-color-red-4);
   font-size: rem(12px);
   font-weight: 400;
   line-height: 1.16;
+  color: var(--mantine-color-red-4);
   transition: color 350ms ease;
   @media (min-width: $mantine-breakpoint-md) {
     font-size: rem(14px);
   }
 }
 
-.iconAlertCircle {
+.iconAlertCircle,
+.iconCircleCheck,
+.iconEye,
+.iconEyeOff {
   width: rem(20px);
-  color: var(--mantine-color-red-4);
   @media (min-width: $mantine-breakpoint-md) {
     width: rem(24px);
   }
+}
+
+.iconAlertCircle {
+  color: var(--mantine-color-red-4);
 }
 
 .iconCircleCheck {
   color: var(--mantine-color-green-6);
-  width: rem(20px);
-  @media (min-width: $mantine-breakpoint-md) {
-    width: rem(24px);
-  }
 }
 
 .iconEye {
-  width: rem(20px);
   color: var(--mantine-color-gray-4);
-  @media (min-width: $mantine-breakpoint-md) {
-    width: rem(24px);
-  }
 }
 
 .iconEyeOff {
-  width: rem(20px);
   color: var(--mantine-color-gray-4);
-  @media (min-width: $mantine-breakpoint-md) {
-    width: rem(24px);
-  }
 }
 
 .section {
