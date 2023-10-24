@@ -132,11 +132,12 @@
       },
       "taskColumns": {
         "titles": {
-          "to-do": "To-do",
+          "to-do": "To do",
           "in progress": "In progress",
           "done": "Done"
         },
-        "addBtn": "Add task"
+        "addBtn": "Add task",
+        "tooltip": "You can't add task on past date"
       },
       "card": {
         "priority": {

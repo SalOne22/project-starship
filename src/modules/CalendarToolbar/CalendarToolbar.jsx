@@ -9,25 +9,12 @@ function CalendarToolbar({ prevDate, nextDate, currentDate, openCalendar }) {
   const months = t('calendar.months', {
     returnObjects: true,
   });
-  const days = t('calendar.weekdays', {
-    returnObjects: true,
-  });
 
   const { pathname } = window.location;
 
-  const normalizedDays = () => {
-    if (!pathname.includes('day')) return '';
-
-    if (currentDate.getDay() === 0) {
-      return days[6];
-    }
-
-    return days[currentDate.getDay() - 1];
-  };
-
-  const nameOfDate = `${normalizedDays()} ${
-    months[currentDate.getMonth()]
-  } ${currentDate.getFullYear()}`;
+  const nameOfDate = `${
+    pathname.includes('day') ? currentDate.getDate() : ''
+  } ${months[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
 
   return (
     <div className={css.tools}>
