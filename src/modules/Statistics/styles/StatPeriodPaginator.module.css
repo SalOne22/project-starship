@@ -94,12 +94,13 @@
   display: inline-block;
   padding: 16px;
   position: absolute;
-  left: 50%;
-  top: 0;
+  left: rem(117);
+  top: rem(42);
   transform: translate(-50%, 0%);
   border: 1px solid var(--mantine-color-blue-4);
   background-color: var(--mantine-color-blue-4);
   border-radius: rem(16px);
+  z-index: 10;
 }
 
 .calendarHeaderControl {
@@ -149,7 +150,13 @@
   }
 }
 
+.month {
+  width: rem(200);
+  height: rem(204);
+}
+
 .weekday {
+  width: rem(20);
   color: var(--mantine-color-white);
   text-align: center;
   font-family: Inter;
