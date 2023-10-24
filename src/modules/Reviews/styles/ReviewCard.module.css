@@ -20,7 +20,7 @@
   font-size: rem(18px);
   font-style: normal;
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.2;
 }
 
 .text {
@@ -32,18 +32,18 @@
 
   @media (min-width: $mantine-breakpoint-xl) {
     height: rem(34px);
-    -webkit-box-orient: vertical;
+    /* -webkit-box-orient: vertical;
     display: -webkit-box;
     overflow: hidden;
     text-overflow: ellipsis;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 2; */
   }
 }
 
 .truncateText {
   @media (min-width: $mantine-breakpoint-xl) {
-    -webkit-line-clamp: none;
-    display: block;
+    /* -webkit-line-clamp: none;
+    display: block; */
     height: auto;
   }
 }

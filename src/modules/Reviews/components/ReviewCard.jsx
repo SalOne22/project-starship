@@ -4,7 +4,6 @@ import {
   Group,
   Avatar,
   Stack,
-  Title,
   Rating,
   UnstyledButton,
 } from '@mantine/core';
@@ -32,7 +31,7 @@ function ReviewCard({ review }) {
 
   return (
     <Box className={css.wrap}>
-      <Group gap={18} mb={24}>
+      <Group gap={18} mb={24} wrap="none">
         {avatarURL ? (
           <Avatar variant="transparent" radius="xl" size={50} src={avatarURL} />
         ) : (
@@ -41,20 +40,27 @@ function ReviewCard({ review }) {
           </Avatar>
         )}
 
-        <Stack align="flex-start" justify="flex-start" gap={13}>
-          <Title order={3} className={css.username}>
+        <Stack align="flex-start" justify="flex-start" gap={12}>
+          <Text lineClamp={1} className={css.username}>
             {username}
-          </Title>
+          </Text>
           <Rating value={rating} color="orange.4" readOnly />
         </Stack>
       </Group>
       <UnstyledButton type="button" onClick={showTruncateText}>
-        <Text
-          className={clsx(css.text, !isTruncateText && css.truncateText)}
-          pl={{ base: 0, md: 68 }}
-        >
-          {text}
-        </Text>
+        {isTruncateText && (
+          <Text className={css.text} pl={{ base: 0, md: 68 }} lineClamp={2}>
+            {text}
+          </Text>
+        )}
+        {!isTruncateText && (
+          <Text
+            className={clsx(css.text, css.truncateText)}
+            pl={{ base: 0, md: 68 }}
+          >
+            {text}
+          </Text>
+        )}
       </UnstyledButton>
     </Box>
   );

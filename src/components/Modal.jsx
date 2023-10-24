@@ -48,7 +48,7 @@ function Modal({ onClose, children }) {
       blur={3}
       center
       fixed
-      onClick={handleOverlayClick}
+      onMouseDown={handleOverlayClick}
     >
       <Box
         className={clsx(css.modal, closing ? css.closing : '')}
