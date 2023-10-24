@@ -200,7 +200,6 @@ export function UserInputForm() {
                 onLoad={() => URL.revokeObjectURL(imageUrl)}
               />
             ) : (
-              // </div>
               <SimpleGrid className={css.avatarURL}>
                 <Image
                   src={imageUrl}
@@ -256,13 +255,13 @@ export function UserInputForm() {
               label={t('userform.email')}
               placeholder={t('userform.placeholder.email')}
               required
+              disabled={userAuth.isGoogleAuth}
               defaultValue={userAuth?.email}
               classNames={{ wrapper: css.label, input: css.input }}
               onChange={handleInputChange}
             />
             <TextInput
               name="phone"
-              // colSpan={2}
               label={t('userform.phone')}
               placeholder={t('userform.placeholder.phone')}
               defaultValue={userAuth?.phone}
@@ -294,12 +293,16 @@ export function UserInputForm() {
         </Group>
       </form>
 
-      <div className={css.divider}></div>
+      {!userAuth.isGoogleAuth && (
+        <>
+          <div className={css.divider}></div>
 
-      <div className={css.dangerZone}>
-        <ChangePassButton />
-        <DeleteUserBtn />
-      </div>
+          <div className={css.dangerZone}>
+            <ChangePassButton />
+            <DeleteUserBtn />
+          </div>
+        </>
+      )}
     </Paper>
   );
 }
