@@ -20,6 +20,7 @@ import {
 const initialState = {
   user: null,
   token: null,
+  isGoogleAuth: false,
   error: null,
   isAuthenticated: false,
   isLoading: false,
@@ -130,6 +131,7 @@ const slice = createSlice({
         state.isAuthenticated = true;
         state.user = action.payload.user;
         state.token = action.payload.token;
+        state.isGoogleAuth = action.payload.user.isGoogleAuth;
       })
       .addCase(refreshUserThunk.rejected, (state, action) => {
         state.isLoading = false;

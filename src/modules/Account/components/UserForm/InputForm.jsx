@@ -30,6 +30,8 @@ export function UserInputForm() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const userAuth = useSelector((state) => state.auth.user) ?? {};
+  const isGoogleAuth = useSelector((state) => state.auth.isGoogleAuth);
+
   const [userData, setUserData] = useState({
     username: '',
     birthday: '',
@@ -255,7 +257,7 @@ export function UserInputForm() {
               label={t('userform.email')}
               placeholder={t('userform.placeholder.email')}
               required
-              disabled={userAuth.isGoogleAuth}
+              disabled={isGoogleAuth}
               defaultValue={userAuth?.email}
               classNames={{ wrapper: css.label, input: css.input }}
               onChange={handleInputChange}
@@ -293,7 +295,7 @@ export function UserInputForm() {
         </Group>
       </form>
 
-      {!userAuth.isGoogleAuth && (
+      {!isGoogleAuth && (
         <>
           <div className={css.divider}></div>
 
