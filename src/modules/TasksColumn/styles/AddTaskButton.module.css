@@ -29,6 +29,11 @@
 .addButton:disabled {
   cursor: not-allowed;
 }
+.addButton:disabled:hover {
+  @mixin dark {
+    background-color: var(--mantine-color-blue-4);
+  }
+}
 
 .tooltip {
   position: absolute;

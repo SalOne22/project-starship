@@ -202,7 +202,8 @@
       "required": "Secret key is a required field"
     },
     "titles": {
-      "main": "Enter secret key to delete GooseTrack account",
+      "mainStart": "To delete GooseTrack account check your mail: ",
+      "mainEnd": "Enter secret key below:",
       "sub": "Confirm to delete my account",
       "textStart": "This action is irreversible, you will delete your account",
       "textEnd": "forever!"
