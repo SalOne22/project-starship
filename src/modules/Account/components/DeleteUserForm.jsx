@@ -1,9 +1,9 @@
-import { Button, PasswordInput } from '@mantine/core';
+import { PasswordInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import css from '../styles/DeleteUserForm.module.css';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteUserThunk } from '@/redux/operations';
+import { deleteUserThunk, getRemoveKey } from '@/redux/operations';
 import { IconAlertCircle, IconCircleCheck } from '@tabler/icons-react';
 import clsx from 'clsx';
 import { notifications } from '@mantine/notifications';
@@ -18,97 +18,91 @@ function DeleteUserForm({ onClose }) {
   const isLoading = useSelector(selectLoading);
   const { t } = useTranslation();
   const [isConfirm, setIsConfirm] = useState(false);
-  const [password, setPassword] = useState({});
   const [visible, { toggle }] = useDisclosure(false);
 
   const form = useForm({
     initialValues: {
-      password: '',
+      secretKey: '',
     },
     validate: {
-      password: (value) => {
+      secretKey: (value) => {
         if (value === '') return t('userDeleteForm.errors.required');
-        if (value.length < 6) return t('userDeleteForm.errors.length');
       },
     },
   });
 
-  const handleSubmit = (values) => {
-    if (form.validate().hasErrors) return;
-    setPassword(values);
-    setIsConfirm(true);
-  };
-  const deleteUserOnClick = async () => {
+  const onConfirm = async () => {
     try {
-      await dispatch(deleteUserThunk(password)).unwrap();
+      await dispatch(getRemoveKey()).unwrap();
+      setIsConfirm(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const deleteUserOnClick = async (values) => {
+    console.log('values: ', values);
+    try {
+      await dispatch(deleteUserThunk(values)).unwrap();
       notifications.show({
         message: t('userDeleteForm.message'),
         autoClose: 3000,
         color: 'var(--mantine-color-green-5)',
       });
     } catch (error) {
-      form.setErrors({ password: error });
-      setIsConfirm(false);
+      form.setErrors({ secretKey: error });
     }
   };
   return (
-    <div className={clsx(css.container, isConfirm && css.confirmContainer)}>
-      {!isConfirm ? (
+    <div className={clsx(!isConfirm ? css.confirmContainer : css.container)}>
+      {isConfirm ? (
         <>
           <h2 className={css.title}>{t('userDeleteForm.titles.main')}</h2>
           <form
             action=""
             className={css.form}
-            onSubmit={form.onSubmit(handleSubmit)}
+            onSubmit={form.onSubmit(deleteUserOnClick)}
           >
             <PasswordInput
               withAsterisk
               label={t('userDeleteForm.label')}
-              disabled={isConfirm}
               visible={visible}
               onVisibilityChange={toggle}
               classNames={{
                 input: clsx(
                   css.input,
-                  !form.errors.password &&
-                    form.isValid('password') &&
+                  !form.errors.secretKey &&
+                    form.isValid('secretKey') &&
                     css.inputSuccess,
-                  form.errors.password && css.inputError,
+                  form.errors.secretKey && css.inputError,
                 ),
                 section: clsx(
                   css.eyeBtnSection,
-                  !form.errors.password &&
-                    form.isValid('password') &&
+                  !form.errors.secretKey &&
+                    form.isValid('secretKey') &&
                     css.eyeBtnSectionActive,
-                  form.errors.password && css.eyeBtnSectionActive,
+                  form.errors.secretKey && css.eyeBtnSectionActive,
                 ),
+                innerInput: css.innerInput,
               }}
-              {...form.getInputProps('password')}
+              {...form.getInputProps('secretKey')}
               rightSection={
                 <>
-                  <Button
+                  <button
                     type="button"
                     tabIndex={-1}
                     className={css.eyeBtn}
-                    variant="transparent"
                     size={'compact-xs'}
                     onClick={toggle}
                   >
                     {visible ? (
-                      <IconEyeOff
-                        color="var(--mantine-color-gray-5)"
-                        className={css.iconEye}
-                      />
+                      <IconEyeOff color="var(--mantine-color-gray-5)" />
                     ) : (
-                      <IconEye
-                        color="var(--mantine-color-gray-5)"
-                        className={css.iconEyeOff}
-                      />
+                      <IconEye color="var(--mantine-color-gray-5)" />
                     )}
-                  </Button>
-                  {form.errors?.password ? (
+                  </button>
+                  {form.errors?.secretKey ? (
                     <IconAlertCircle color="var(--mantine-color-red-4)" />
-                  ) : form.isValid('password') ? (
+                  ) : form.isValid('secretKey') ? (
                     <IconCircleCheck color="var(--mantine-color-green-4)" />
                   ) : null}
                 </>
@@ -116,6 +110,7 @@ function DeleteUserForm({ onClose }) {
             />
             <button
               type="submit"
+              disabled={isLoading}
               className={clsx(clsx(css.button, css.deleteBtn))}
             >
               {t('userDeleteForm.buttons.delete')}
@@ -126,7 +121,11 @@ function DeleteUserForm({ onClose }) {
         <>
           <h2 className={css.title}>{t('userDeleteForm.titles.sub')}</h2>
           <p className={css.deleteUserText}>
-            {t('userDeleteForm.titles.text')}
+            {t('userDeleteForm.titles.textStart')}
+            <span style={{ textTransform: 'uppercase', color: 'crimson' }}>
+              {' '}
+              {t('userDeleteForm.titles.textEnd')}
+            </span>
           </p>
           <div
             style={{
@@ -141,7 +140,7 @@ function DeleteUserForm({ onClose }) {
               disabled={isLoading}
               className={clsx(css.button, css.deleteBtn)}
               style={{ margin: 0 }}
-              onClick={deleteUserOnClick}
+              onClick={onConfirm}
             >
               {t('userDeleteForm.buttons.confirm')}
             </button>

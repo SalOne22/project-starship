@@ -9,6 +9,7 @@ import {
   resetUserThunk,
   updatePassword,
   deleteUserThunk,
+  getRemoveKey,
 } from '../operations';
 // const isRejectedAction = (action) =>
 //   action.type.endsWith('rejected') && action.type.includes('user');
@@ -193,6 +194,16 @@ const slice = createSlice({
         localStorage.removeItem('token');
       })
       .addCase(deleteUserThunk.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(getRemoveKey.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getRemoveKey.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(getRemoveKey.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       }),

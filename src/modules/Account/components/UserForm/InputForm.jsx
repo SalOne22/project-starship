@@ -294,17 +294,13 @@ export function UserInputForm() {
           </Button>
         </Group>
       </form>
-
-      {!isGoogleAuth && (
-        <>
-          <div className={css.divider}></div>
-
-          <div className={css.dangerZone}>
-            <ChangePassButton />
-            <DeleteUserBtn />
-          </div>
-        </>
-      )}
+      <>
+        <div className={css.divider}></div>
+        <div className={css.dangerZone}>
+          {!isGoogleAuth && <ChangePassButton />}
+          <DeleteUserBtn />
+        </div>
+      </>
     </Paper>
   );
 }
