@@ -183,7 +183,11 @@
       },
       "notificationEmail": "Email is not valid",
       "notificationPhone": "Phone must be in format +380971234567",
-      "notificationSuccess": "Changes successfully added"
+      "notificationSuccess": "Changes successfully added",
+      "notificationErrorEmail": "Email already is use",
+      "notificationErrorUser": "Not found user's id",
+      "notificationErrorUnauthorized": "User Unauthorized",
+      "notificationErrorAnother": "Another error"
     },
     "placeholder": {
       "userName": "Enter your name",

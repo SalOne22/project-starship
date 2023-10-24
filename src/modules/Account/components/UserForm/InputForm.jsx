@@ -12,11 +12,11 @@ import { DateInput } from '@mantine/dates';
 import css from './InputForm.module.css';
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { IconChevronDown } from '@tabler/icons-react';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserThunk } from '@/redux/operations';
 import { notifications } from '@mantine/notifications';
 import { useTranslation } from 'react-i18next';
+import { handlerError } from './helpers/handlerError';
 
 import userSVG from '@/assets/images/userForm/user.svg';
 import plusSVG from '@/assets/images/userForm/plus.svg';
@@ -30,6 +30,8 @@ export function UserInputForm() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const userAuth = useSelector((state) => state.auth.user) ?? {};
+  const isGoogleAuth = useSelector((state) => state.auth.isGoogleAuth);
+
   const [userData, setUserData] = useState({
     username: '',
     birthday: '',
@@ -148,6 +150,7 @@ export function UserInputForm() {
     }
 
     dispatch(updateUserThunk(formData))
+      .unwrap()
       .then(() => {
         notifications.show({
           title: t('userform.notification.title.success'),
@@ -156,12 +159,7 @@ export function UserInputForm() {
         });
       })
       .catch((error) => {
-        notifications.show({
-          title: t('userform.notification.title.error'),
-          message: error.message,
-          autoClose: 5000,
-          color: 'red',
-        });
+        handlerError(error);
       });
 
     setFormChange(false);
@@ -175,51 +173,52 @@ export function UserInputForm() {
   return (
     <Paper shadow="md" radius="lg" className={css.wrapper}>
       <form onSubmit={handleFormSubmit} onChange={handleInputChange}>
-        <Dropzone
-          accept={IMAGE_MIME_TYPE}
-          onDrop={handleDropavatarURL}
-          openRef={openRef}
-          className={css.dropzone}
-          radius="md"
-        >
-          {userAuth?.avatarURL !== ' ' && imageUrl === '' ? (
-            userAuth?.avatarURL ? (
-              <Image
-                src={userAuth?.avatarURL}
-                className={css.avatarURL}
-                onLoad={() => URL.revokeObjectURL(imageUrl)}
-              />
-            ) : (
+        <div className={css.wrapDropzone}>
+          <Dropzone
+            accept={IMAGE_MIME_TYPE}
+            onDrop={handleDropavatarURL}
+            openRef={openRef}
+            className={css.dropzone}
+            radius="md"
+          >
+            {userAuth?.avatarURL !== ' ' && imageUrl === '' ? (
+              userAuth?.avatarURL ? (
+                <Image
+                  src={userAuth?.avatarURL}
+                  className={css.avatarURL}
+                  onLoad={() => URL.revokeObjectURL(imageUrl)}
+                />
+              ) : (
+                <Image
+                  src={userSVG}
+                  className={css.userIcon}
+                  onLoad={() => URL.revokeObjectURL(imageUrl)}
+                />
+              )
+            ) : file.length === 0 ? (
               <Image
                 src={userSVG}
                 className={css.userIcon}
                 onLoad={() => URL.revokeObjectURL(imageUrl)}
               />
-            )
-          ) : file.length === 0 ? (
-            <Image
-              src={userSVG}
-              className={css.userIcon}
-              onLoad={() => URL.revokeObjectURL(imageUrl)}
-            />
-          ) : (
-            // </div>
-            <SimpleGrid className={css.avatarURL}>
-              <Image
-                src={imageUrl}
-                className={css.previeAvatar}
-                onLoad={() => URL.revokeObjectURL(imageUrl)}
-              />
-            </SimpleGrid>
-          )}
-        </Dropzone>
-        <Image
-          src={plusSVG}
-          className={css.plusIcon}
-          role="button"
-          onLoad={() => URL.revokeObjectURL(imageUrl)}
-          onClick={() => openRef.current && openRef.current()}
-        />
+            ) : (
+              <SimpleGrid className={css.avatarURL}>
+                <Image
+                  src={imageUrl}
+                  className={css.previeAvatar}
+                  onLoad={() => URL.revokeObjectURL(imageUrl)}
+                />
+              </SimpleGrid>
+            )}
+          </Dropzone>
+          <Image
+            src={plusSVG}
+            className={css.plusIcon}
+            role="button"
+            onLoad={() => URL.revokeObjectURL(imageUrl)}
+            onClick={() => openRef.current && openRef.current()}
+          />
+        </div>
 
         <Text ta="center" className={css.textusername}>
           {userAuth?.username}
@@ -258,13 +257,13 @@ export function UserInputForm() {
               label={t('userform.email')}
               placeholder={t('userform.placeholder.email')}
               required
+              disabled={isGoogleAuth}
               defaultValue={userAuth?.email}
               classNames={{ wrapper: css.label, input: css.input }}
               onChange={handleInputChange}
             />
             <TextInput
               name="phone"
-              // colSpan={2}
               label={t('userform.phone')}
               placeholder={t('userform.placeholder.phone')}
               defaultValue={userAuth?.phone}
@@ -296,12 +295,16 @@ export function UserInputForm() {
         </Group>
       </form>
 
-      <div className={css.divider}></div>
+      {!isGoogleAuth && (
+        <>
+          <div className={css.divider}></div>
 
-      <div className={css.dangerZone}>
-        <ChangePassButton />
-        <DeleteUserBtn />
-      </div>
+          <div className={css.dangerZone}>
+            <ChangePassButton />
+            <DeleteUserBtn />
+          </div>
+        </>
+      )}
     </Paper>
   );
 }

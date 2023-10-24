@@ -16,18 +16,8 @@
   }
 }
 
-.thumb {
-  position: relative;
-}
-
 /* DATE PICKER */
-.datePicker {
-  display: inline-block;
-  padding: 16px;
-  position: absolute;
-  left: 50%;
-  top: 0;
-  transform: translate(-50%, 0%);
+.modalContent {
   border: 1px solid var(--mantine-color-blue-4);
   background-color: var(--mantine-color-blue-4);
   border-radius: rem(16px);
@@ -118,3 +108,7 @@
   color: var(--mantine-color-blue-4);
   background-color: var(--mantine-color-white);
 }
+
+/* .body {
+  position: absolute;
+} */

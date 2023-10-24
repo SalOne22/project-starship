@@ -22,6 +22,8 @@ const CalendarDay = ({ day, changeCurrentDate }) => {
 
   startDate.setDate(startDate.getDate() - daysToSkip);
 
+  const today = new Date().getMonth();
+
   for (let d = 0; d < 42; d++) {
     const calendarDay = {
       currentMonth: startDate.getMonth() === day.getMonth(),
@@ -64,9 +66,9 @@ const CalendarDay = ({ day, changeCurrentDate }) => {
             key={day.date}
           >
             <span
-              className={`${day.selected && css.selectedDay} ${
-                !day.currentMonth && css.otherDays
-              }`}
+              className={`${
+                day.selected && day.month === today && css.selectedDay
+              } ${!day.currentMonth && css.otherDays}`}
             >
               {day.number}
             </span>

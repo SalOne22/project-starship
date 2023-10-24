@@ -183,7 +183,11 @@
       },
       "notificationEmail": "Невалідна електронна пошта",
       "notificationPhone": "Телефон має бути в форматі +38(097)1234567",
-      "notificationSuccess": "Зміни успішно додані"
+      "notificationSuccess": "Зміни успішно додані",
+      "notificationErrorEmail": "Електронна адреса вже використовується іншим користувачем",
+      "notificationErrorUser": "Користувач з таким id не знайдений",
+      "notificationErrorUnauthorized": "Користувач неавторизований",
+      "notificationErrorAnother": "Інша помилка"
     },
     "placeholder": {
       "userName": "Введіть Ваше ім'я",

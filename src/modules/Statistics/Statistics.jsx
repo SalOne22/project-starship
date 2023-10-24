@@ -1,4 +1,3 @@
-import PeriodPaginator from '@/components/PeriodPaginator';
 import ScreenLoader from '@/components/ScreenLoader';
 import {
   Chart,
@@ -7,6 +6,7 @@ import {
   Legend,
   ResponsiveChartWrapper,
   Wrapper,
+  StatPeriodPaginator,
 } from './components';
 import { Box, Container } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
@@ -17,9 +17,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getChartData, translateDataItemsNames } from './helpers';
 import { useTranslation } from 'react-i18next';
-import classes from './Statistics.module.css';
-
-// import mockTasks from './mockData/tasks.json';
+import classes from './styles/Statistics.module.css';
 
 function Statistics() {
   const dispatch = useDispatch();
@@ -33,15 +31,15 @@ function Statistics() {
   const [currentDate, setCurrentDate] = useState(dayjs());
   const currentMonth = dayjs(currentDate).format('YYYY-MM');
   const currentDay = dayjs(currentDate).format('YYYY-MM-DD');
-  const nameOfDate = dayjs(currentDate).format('DD MMMM YYYY');
+  // const nameOfDate = dayjs(currentDate).format('DD MMMM YYYY');
 
-  const prevDay = () => {
-    setCurrentDate(currentDate.subtract(1, 'day'));
-  };
+  // const prevDay = () => {
+  //   setCurrentDate(currentDate.subtract(1, 'day'));
+  // };
 
-  const nextDay = () => {
-    setCurrentDate(currentDate.add(1, 'day'));
-  };
+  // const nextDay = () => {
+  //   setCurrentDate(currentDate.add(1, 'day'));
+  // };
 
   const dataForChart = translateDataItemsNames(
     getChartData(tasks, currentDay),
@@ -62,18 +60,6 @@ function Statistics() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentMonth, dispatch]);
 
-  // useEffect(() => {
-  //   if (tasks.length === 0 && !isLoading) {
-  //     setIsTasks(false);
-  //     console.log("Statistics useEffect to check if tasks aren't empty");
-  //   } else {
-  //     setIsTasks(true);
-  //   }
-  // }, [tasks.length, isLoading]);
-
-  // console.log('render', 'Statistics');
-  // console.log('tasks', tasks);
-
   return (
     <>
       {isLoading && <ScreenLoader />}
@@ -89,10 +75,9 @@ function Statistics() {
       <Container className={classes.stat__container}>
         <Wrapper>
           <Box className={classes.stat__header}>
-            <PeriodPaginator
-              nameOfDate={nameOfDate}
-              prevDate={prevDay}
-              nextDate={nextDay}
+            <StatPeriodPaginator
+              currentDate={currentDate}
+              setCurrentDate={setCurrentDate}
             />
             <Legend />
           </Box>
