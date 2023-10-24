@@ -3,6 +3,7 @@ import classes from '../styles/StatPeriodPaginator.module.css';
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 import clsx from 'clsx';
 import { DatePicker } from '@mantine/dates';
+import { useClickOutside } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import 'dayjs/locale/uk';
@@ -21,7 +22,14 @@ export function StatPeriodPaginator({
   const weekdayFormat = (date) => {
     return dayjs(date).locale(locale).format('dd').slice(0, 1);
   };
-
+  const dateBtnRef = window.document.querySelector(`.${classes.dateBtn}`);
+  const iconWrapperRef = window.document.querySelector(
+    `.${classes.iconWrapper}`,
+  );
+  const ref = useClickOutside(() => setIsDatePicker(false), null, [
+    dateBtnRef,
+    iconWrapperRef,
+  ]);
   const onChangeCalendar = (val) => {
     setDatePickerValue(val);
     setIsDatePicker(false);
@@ -49,6 +57,7 @@ export function StatPeriodPaginator({
       </button>
       {isDatePicker && (
         <DatePicker
+          ref={ref}
           defaultDate={currentDate}
           value={datePickerValue}
           onChange={onChangeCalendar}
