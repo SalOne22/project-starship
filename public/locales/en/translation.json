@@ -199,20 +199,20 @@
   },
   "userDeleteForm": {
     "errors": {
-      "required": "Password is a required field",
-      "length": "Password should include at least 6 characters"
+      "required": "Secret key is a required field"
     },
     "titles": {
-      "main": "Enter password to delete GooseTrack account",
+      "main": "Enter secret key to delete GooseTrack account",
       "sub": "Confirm to delete my account",
-      "text": "This action is irreversible, you will delete your account forever!"
+      "textStart": "This action is irreversible, you will delete your account",
+      "textEnd": "forever!"
     },
     "buttons": {
       "delete": "Delete account",
       "confirm": "Confirm"
     },
     "message": "Account was deleted succesfully",
-    "label": "Password"
+    "label": "Secret key"
   },
   "changePasswordForm": {
     "oldPassword": "Old Password",

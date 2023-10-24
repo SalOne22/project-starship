@@ -20,6 +20,7 @@ $instance.interceptors.response.use(
       error.response.status === 401 &&
       error.response.data.message !== 'Password invalid' &&
       error.response.data.message !== 'Email or password invalid' &&
+      error.response.data.message !== 'Secret key is invalid' &&
       !error.config._retry
     ) {
       error.config._retry = true;
@@ -151,10 +152,10 @@ export const updatePassword = createAsyncThunk(
 
 export const deleteUserThunk = createAsyncThunk(
   'auth/delete',
-  async (password, thunkApi) => {
+  async (secretKey, thunkApi) => {
     try {
       const { data } = await $instance.delete('/users/delete', {
-        data: password,
+        data: secretKey,
       });
 
       return data;
@@ -162,6 +163,19 @@ export const deleteUserThunk = createAsyncThunk(
       const errorMessage = error.response.data.message;
       handleError(errorMessage);
       return thunkApi.rejectWithValue(errorMessage);
+    }
+  },
+);
+
+export const getRemoveKey = createAsyncThunk(
+  'auth/getRemoveKey',
+  async (_, thunkApi) => {
+    try {
+      const { data } = await $instance.get('/auth/removekey');
+      console.log('data: ', data);
+      // return data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.response.data.message);
     }
   },
 );
