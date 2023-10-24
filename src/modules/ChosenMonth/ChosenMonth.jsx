@@ -36,13 +36,15 @@ const ChosenMonth = () => {
     const nextMonthDate = new Date(currentDate);
     nextMonthDate.setMonth(nextMonthDate.getMonth() + 1);
     setCurrentDate(nextMonthDate);
+    navigate(
+      `/calendar/month/${new Date(nextMonthDate).toISOString().slice(0, 7)}`,
+    );
   };
 
   const prevMonth = () => {
     const currentDateCopy = new Date(currentDate);
     currentDateCopy.setMonth(currentDateCopy.getMonth() - 1);
     setCurrentDate(currentDateCopy);
-
     navigate(
       `/calendar/month/${new Date(currentDateCopy).toISOString().slice(0, 7)}`,
     );
