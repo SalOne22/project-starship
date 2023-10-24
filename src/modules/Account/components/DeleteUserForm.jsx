@@ -19,7 +19,7 @@ function DeleteUserForm({ onClose }) {
 
   const isLoading = useSelector(selectLoading);
   const { t } = useTranslation();
-  const [isConfirm, setIsConfirm] = useState(true);
+  const [isConfirm, setIsConfirm] = useState(false);
   const [visible, { toggle }] = useDisclosure(false);
 
   const form = useForm({
