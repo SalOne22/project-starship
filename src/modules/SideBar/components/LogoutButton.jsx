@@ -8,6 +8,8 @@ import { useTranslation } from 'react-i18next';
 import { logoutUserThunk } from '@/redux/operations';
 
 import css from '../styles/LogoutButton.module.css';
+import { reset as tasksReset } from '@/modules/Calendar/redux/tasksSlice.js';
+import { reset as reviewsReset } from '@/modules/Reviews/redux/reviewsSlice.js';
 
 function LogoutButton({ className }) {
   const dispatch = useDispatch();
@@ -15,6 +17,8 @@ function LogoutButton({ className }) {
 
   const onLogout = () => {
     dispatch(logoutUserThunk());
+    dispatch(tasksReset());
+    dispatch(reviewsReset());
   };
 
   return (
