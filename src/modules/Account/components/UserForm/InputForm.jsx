@@ -137,7 +137,6 @@ export function UserInputForm() {
         return;
       }
     }
-
     const formData = new FormData();
     formData.append('username', userData.username);
     formData.append('birthday', formattedDate);
@@ -232,56 +231,64 @@ export function UserInputForm() {
             cols={{ base: 1, xl: 2 }}
             classNames={{ root: css.simplGride }}
           >
-            <TextInput
-              name="username"
-              label={t('userform.userName')}
-              placeholder={t('userform.placeholder.userName')}
-              required
-              maxLength={16}
-              classNames={{ wrapper: css.label, input: css.input }}
-              defaultValue={userAuth?.username}
-              onChange={handleInputChange}
-            />
-            <DateInput
-              name="birthday"
-              valueFormat="YYYY/MM/DD"
-              label={t('userform.birthday')}
-              placeholder={formattedToday}
-              value={value}
-              onChange={handleDateChange}
-              classNames={{ wrapper: css.label, input: css.input }}
-              rightSection={<IconChevronDown size={18} color={'#111111'} />}
-            />
-            <TextInput
-              name="email"
-              label={t('userform.email')}
-              placeholder={t('userform.placeholder.email')}
-              required
-              disabled={isGoogleAuth}
-              defaultValue={userAuth?.email}
-              classNames={{ wrapper: css.label, input: css.input }}
-              onChange={handleInputChange}
-            />
-            <TextInput
-              name="phone"
-              label={t('userform.phone')}
-              placeholder={t('userform.placeholder.phone')}
-              defaultValue={userAuth?.phone}
-              classNames={{ wrapper: css.label, input: css.input }}
-              onChange={handleInputChange}
-              component={InputMask}
-              mask="+38 (099) 999-99-99"
-            />
-
-            <TextInput
-              name="skype"
-              label={t('userform.skype')}
-              placeholder={t('userform.placeholder.skype')}
-              maxLength={16}
-              defaultValue={userAuth?.skype}
-              classNames={{ wrapper: css.label, input: css.input }}
-              onChange={handleInputChange}
-            />
+            <div>
+              <TextInput
+                name="username"
+                label={t('userform.userName')}
+                placeholder={t('userform.placeholder.userName')}
+                required
+                maxLength={16}
+                classNames={{ wrapper: css.label, input: css.input }}
+                defaultValue={userAuth?.username}
+                onChange={handleInputChange}
+                mb={{ base: 18, md: 24 }}
+              />
+              <DateInput
+                name="birthday"
+                valueFormat="YYYY/MM/DD"
+                label={t('userform.birthday')}
+                placeholder={formattedToday}
+                value={value}
+                onChange={handleDateChange}
+                classNames={{ wrapper: css.label, input: css.input }}
+                rightSection={<IconChevronDown size={18} color={'#111111'} />}
+                mb={{ base: 18, md: 24 }}
+              />
+              <TextInput
+                name="email"
+                label={t('userform.email')}
+                placeholder={t('userform.placeholder.email')}
+                required
+                disabled={isGoogleAuth}
+                defaultValue={userAuth?.email}
+                classNames={{ wrapper: css.label, input: css.input }}
+                onChange={handleInputChange}
+                mb={{ base: 18, md: 24, xl: 0 }}
+              />
+            </div>
+            <div>
+              <TextInput
+                name="phone"
+                label={t('userform.phone')}
+                placeholder={t('userform.placeholder.phone')}
+                defaultValue={userAuth?.phone}
+                classNames={{ wrapper: css.label, input: css.input }}
+                onChange={handleInputChange}
+                component={InputMask}
+                mask="+38 (099) 999-99-99"
+                mb={{ base: 18, md: 24 }}
+              />
+              <TextInput
+                name="skype"
+                label={t('userform.skype')}
+                placeholder={t('userform.placeholder.skype')}
+                maxLength={16}
+                defaultValue={userAuth?.skype}
+                classNames={{ wrapper: css.label, input: css.input }}
+                onChange={handleInputChange}
+                mb={{ base: 0, md: 0, xl: 24 }}
+              />
+            </div>
           </SimpleGrid>
         </div>
         <Group justify="center" classNames={{ group: css.button }}>
