@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { ActionIcon, Container, Flex, Stack, Text, Title } from '@mantine/core';
+import { ActionIcon, Box, Flex, Stack, Text, Title } from '@mantine/core';
 import { useParams, useLocation } from 'react-router-dom';
 import { IconMenu2 } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +8,7 @@ import FeedbackBtn from '@/modules/FeedbackBtn';
 import { useTasks } from '@/modules/Calendar/hooks/useTasks';
 
 import gooseImg from '@/assets/images/header/goose.png';
+import gooseImg2x from '@/assets/images/header/goose@2x.png';
 
 import UserInfo from './components/UserInfo';
 
@@ -39,7 +40,7 @@ function Header({ onOpen }) {
   const title = paths[locationArray[1]];
 
   return (
-    <Container className={css.container}>
+    <Box className={css.container}>
       <ActionIcon
         className={css.burger}
         color="gray.6"
@@ -53,7 +54,12 @@ function Header({ onOpen }) {
 
       {locationArray[2] === 'day' && tasksCountToDo > 0 ? (
         <Flex gap={8} className={css.titleWrapper}>
-          <img src={gooseImg} width={64} height={60} />
+          <img
+            src={gooseImg}
+            srcSet={`${gooseImg} 1x, ${gooseImg2x} 2x`}
+            width={64}
+            height={60}
+          />
           <Stack gap={8}>
             <Title className={css.title} order={2}>
               {title}
@@ -73,7 +79,7 @@ function Header({ onOpen }) {
         <FeedbackBtn />
         <UserInfo />
       </Flex>
-    </Container>
+    </Box>
   );
 }
 
