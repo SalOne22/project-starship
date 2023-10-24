@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import classes from '../Statistics.module.css';
+import classes from '../styles/Statistics.module.css';
 import { Box } from '@mantine/core';
 
 ChartWrapper.propTypes = {

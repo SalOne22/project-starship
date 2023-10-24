@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Paper } from '@mantine/core';
-import classes from '../Statistics.module.css';
+import classes from '../styles/Statistics.module.css';
 
 Wrapper.propTypes = {
   children: PropTypes.node.isRequired,
