@@ -9,7 +9,7 @@ import { selectUserData } from '@/redux/slices/authSlice';
 import theme from '@/theme';
 import { useTranslation } from 'react-i18next';
 
-function TaskColumnCard({ task, isValidDate }) {
+function TaskColumnCard({ task }) {
   const priorityColor = getPriorityColor(task.priority);
   const { t } = useTranslation();
 
@@ -72,7 +72,7 @@ function TaskColumnCard({ task, isValidDate }) {
               </p>
             </Box>
           </Box>
-          {isValidDate && <TaskToolbar task={task} />}
+          <TaskToolbar task={task} />
         </Box>
       </Box>
     </li>
