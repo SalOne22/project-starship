@@ -17,6 +17,7 @@ function PeriodPaginator({
   nextDate,
   onChangeCalendar,
   mode,
+  currentDate,
 }) {
   const [opened, { close, toggle }] = useDisclosure(false);
   const { i18n } = useTranslation();
@@ -69,8 +70,8 @@ function PeriodPaginator({
           {mode === 'month' && (
             <MonthPicker
               locale={i18n.language === 'en' ? 'en' : 'uk'}
-              defaultDate={nameOfDate}
-              value={nameOfDate}
+              defaultDate={currentDate}
+              value={currentDate}
               onChange={onDateChange}
               hideOutsideDates
               size="sm"
@@ -112,4 +113,5 @@ PeriodPaginator.propTypes = {
   nextDate: PropTypes.func.isRequired,
   onChangeCalendar: PropTypes.func,
   mode: PropTypes.string,
+  currentDate: PropTypes.object,
 };

@@ -30,6 +30,7 @@ function CalendarToolbar({
         nextDate={nextDate}
         onChangeCalendar={onChangeCalendar}
         mode={mode}
+        currentDate={currentDate}
       />
       <PeriodTypeSelect currentDate={currentDate} />
     </div>
