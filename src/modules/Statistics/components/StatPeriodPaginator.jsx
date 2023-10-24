@@ -18,6 +18,9 @@ export function StatPeriodPaginator({
   const [datePickerValue, setDatePickerValue] = useState(currentDate);
   const valueFormat = variant === 'day' ? 'D MMMM YYYY' : 'MMMM YYYY';
   const locale = i18n.language === 'ua' ? 'uk' : 'en';
+  const weekdayFormat = (date) => {
+    return dayjs(date).locale(locale).format('dd').slice(0, 1);
+  };
 
   const onChangeCalendar = (val) => {
     setDatePickerValue(val);
@@ -46,17 +49,22 @@ export function StatPeriodPaginator({
       </button>
       {isDatePicker && (
         <DatePicker
+          defaultDate={currentDate}
           value={datePickerValue}
           onChange={onChangeCalendar}
           locale={locale}
           hideOutsideDates
+          weekdayFormat={weekdayFormat}
           className={classes.datePicker}
           classNames={{
+            calendarHeader: classes.calendarHeader,
             calendarHeaderControl: classes.calendarHeaderControl,
             calendarHeaderLevel: classes.calendarHeaderLevel,
+            weekdaysRow: classes.weekdaysRow,
             yearsListCell: classes.yearsListCell,
             monthsListCell: classes.monthsListCell,
             month: classes.month,
+            monthCell: classes.monthCell,
             weekday: classes.weekday,
             day: classes.day,
           }}
