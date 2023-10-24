@@ -115,6 +115,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Roboto';
+  src: url('assets/fonts/Roboto-Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
   @mixin light {
     background-color: var(--mantine-color-dark-1);
@@ -136,6 +144,8 @@ body {
   }
 }
 
-.mantine-ScrollArea-scrollbar-thumb {
-  background-color: transparent !important;
-}
+/* .mantine-Popover-dropdown:has(> div[data-calendar='true']) {
+  border: 1px solid var(--mantine-color-blue-4);
+  background-color: var(--mantine-color-blue-4);
+  border-radius: rem(16px);
+} */

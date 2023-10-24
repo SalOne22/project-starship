@@ -1,6 +1,7 @@
-import { Box, Button, Menu } from '@mantine/core';
+import { Box, Button, Loader, Menu } from '@mantine/core';
 import {
   IconCircleArrowRight,
+  IconCircleArrowLeft,
   IconPencil,
   IconTrash,
 } from '@tabler/icons-react';
@@ -12,38 +13,61 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { notifications } from '@mantine/notifications';
 import theme from '@/theme';
+import { useTranslation } from 'react-i18next';
 
 function TaskToolbar({ task }) {
   const [isOpen, setModal] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
 
-  const categories = ['to-do', 'in progress', 'done']
-    .filter((category) => category !== task.category)
-    .map((category) => {
-      return category.charAt(0).toUpperCase() + category.slice(1);
-    });
+  const categories = ['to-do', 'in progress', 'done'];
 
-  const handleDelete = () => {
+  const getIconForCategory = (category) => {
+    switch (category) {
+      case 'to-do':
+        return <IconCircleArrowLeft size={20} className={css.icon} />;
+      case 'in progress':
+        return task.category === 'done' ? (
+          <IconCircleArrowLeft size={20} className={css.icon} />
+        ) : (
+          <IconCircleArrowRight size={20} className={css.icon} />
+        );
+      case 'done':
+        return <IconCircleArrowRight size={20} className={css.icon} />;
+      default:
+        return null;
+    }
+  };
+
+  const handleDelete = async () => {
+    setIsDeleting(true);
     try {
-      dispatch(deleteTask(task._id));
-      handleMessage('Task is successfully delated', theme.colors.green[6]);
+      await dispatch(deleteTask(task._id)).unwrap();
+      setIsDeleting(false);
+      handleMessage(
+        t('calendar.chosenday.notification.removeSuccess'),
+        theme.colors.green[6],
+      );
     } catch {
       handleMessage(
-        'Something went wrong, please try again later',
+        t('calendar.chosenday.notification.error'),
         theme.colors.red[6],
       );
     }
   };
 
-  const handleChangePriority = (newCategory) => {
+  const handleChangePriority = async (newCategory) => {
     try {
       const newCategoryEdited =
         newCategory.charAt(0).toLowerCase() + newCategory.slice(1);
-      dispatch(editTask({ ...task, category: newCategoryEdited }));
+      await dispatch(
+        editTask({ ...task, category: newCategoryEdited }),
+      ).unwrap();
     } catch {
       handleMessage(
-        'Something went wrong, please try again later',
+        t('calendar.chosenday.notification.error'),
         theme.colors.red[6],
       );
     }
@@ -82,20 +106,18 @@ function TaskToolbar({ task }) {
 
         <Menu.Dropdown className={css.dropdown}>
           <ul className={css.categoryList}>
-            <li
-              className={css.categoryItem}
-              onClick={() => handleChangePriority(categories[0])}
-            >
-              {categories[0]}
-              <IconCircleArrowRight size={20} className={css.icon} />
-            </li>
-            <li
-              className={css.categoryItem}
-              onClick={() => handleChangePriority(categories[1])}
-            >
-              {categories[1]}
-              <IconCircleArrowRight size={20} className={css.icon} />
-            </li>
+            {categories
+              .filter((category) => category !== task.category)
+              .map((category) => (
+                <li
+                  key={category}
+                  className={css.categoryItem}
+                  onClick={() => handleChangePriority(category)}
+                >
+                  {t(`calendar.chosenday.card.category.${category}`)}
+                  {getIconForCategory(category)}
+                </li>
+              ))}
           </ul>
         </Menu.Dropdown>
       </Menu>
@@ -117,8 +139,13 @@ function TaskToolbar({ task }) {
           label: { alignItems: 'end' },
         }}
         onClick={handleDelete}
+        disabled={isDeleting}
       >
-        <IconTrash size={20} className={css.icon} />
+        {isDeleting ? (
+          <Loader size={20} />
+        ) : (
+          <IconTrash size={20} className={css.icon} />
+        )}
       </Button>
       {isOpen && (
         <TaskModal onClose={onClose} task={task} category={task.category} />

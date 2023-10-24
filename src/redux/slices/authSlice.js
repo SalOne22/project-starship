@@ -5,7 +5,11 @@ import {
   refreshUserThunk,
   setToken,
   logoutUserThunk,
-  updateUserData,
+  updateUserThunk,
+  resetUserThunk,
+  updatePassword,
+  deleteUserThunk,
+  getRemoveKey,
 } from '../operations';
 // const isRejectedAction = (action) =>
 //   action.type.endsWith('rejected') && action.type.includes('user');
@@ -17,6 +21,7 @@ import {
 const initialState = {
   user: null,
   token: null,
+  isGoogleAuth: false,
   error: null,
   isAuthenticated: false,
   isLoading: false,
@@ -55,6 +60,9 @@ const slice = createSlice({
       state.token = payload;
       setToken(payload);
     },
+    clearError(state) {
+      state.error = null;
+    },
   },
 
   extraReducers: (builder) =>
@@ -84,7 +92,6 @@ const slice = createSlice({
         state.isLoading = false;
         state.isAuthenticated = true;
         state.user = action.payload.user;
-        // console.log(action.payload)
         state.token = action.payload.token;
       })
       .addCase(loginUserThunk.rejected, (state, action) => {
@@ -102,12 +109,16 @@ const slice = createSlice({
         state.isAuthenticated = false;
         state.user = null;
         state.token = null;
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('token');
       })
       .addCase(logoutUserThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.isAuthenticated = false;
         state.user = null;
         state.token = null;
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('token');
         state.error = action.payload;
       })
 
@@ -119,7 +130,9 @@ const slice = createSlice({
       .addCase(refreshUserThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isAuthenticated = true;
-        state.user = action.payload;
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        state.isGoogleAuth = action.payload.user.isGoogleAuth;
       })
       .addCase(refreshUserThunk.rejected, (state, action) => {
         state.isLoading = false;
@@ -127,19 +140,75 @@ const slice = createSlice({
       })
 
       //---------------update user data-----------
-      .addCase(updateUserData.pending, (state) => {
+      .addCase(updateUserThunk.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(updateUserData.fulfilled, (state, action) => {
+      .addCase(updateUserThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload;
       })
-      .addCase(updateUserData.rejected, (state, action) => {
+      .addCase(updateUserThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
+      })
+
+      //---------------reset user password-----------
+      .addCase(resetUserThunk.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(resetUserThunk.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isAuthenticated = true;
+      })
+      .addCase(resetUserThunk.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
+      // -------------------Change password-----------
+      .addCase(updatePassword.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updatePassword.fulfilled, (state) => {
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(updatePassword.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      //---------------delete user-----------
+      .addCase(deleteUserThunk.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(deleteUserThunk.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isAuthenticated = false;
+        state.user = null;
+        state.token = null;
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('token');
+      })
+      .addCase(deleteUserThunk.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(getRemoveKey.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getRemoveKey.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(getRemoveKey.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       }),
 });
+
 export const selectLoading = (state) => state.auth.isLoading;
 export const selectError = (state) => state.auth.error;
 export const selectToken = (state) => state.auth.token;

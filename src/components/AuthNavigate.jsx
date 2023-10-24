@@ -1,21 +1,15 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Center } from '@mantine/core';
+import css from './styles/AuthNavigate.module.css';
+
 function AuthNavigate({ route, text }) {
-  const linkStyle = {
-    textAlign: 'center',
-    marginTop: '40px',
-    marginBottom: '40px',
-    color: '#0077cc',
-  };
   return (
-    <>
-      <Link to={route} style={linkStyle}>
+    <Center>
+      <Link to={route} className={css.link}>
         {text}
       </Link>
-      {/* <a href="https://gt-project.onrender.com/api/auth/google" type="button">
-        google
-      </a> */}
-    </>
+    </Center>
   );
 }
 

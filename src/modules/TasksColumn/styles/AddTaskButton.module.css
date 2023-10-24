@@ -1,14 +1,82 @@
 .addButton {
+  position: relative;
   width: 100%;
-  padding: 16px 0;
+  padding: rem(16px) 0;
   display: flex;
   cursor: pointer;
   align-items: center;
   margin-top: 32px;
   justify-content: center;
-  border: 1px dashed #3e85f3;
-  border-radius: 8px;
-  background-color: #e3f3ff;
+  border: 1px dashed var(--mantine-color-blue-4);
+  border-radius: rem(8px);
+  background-color: var(--mantine-color-blue-0);
   font-weight: 600;
-  line-height: 18px;
+  line-height: rem(18px);
+  transition: background-color 350ms ease;
+  @mixin dark {
+    background-color: var(--mantine-color-blue-4);
+    border: 1px transparent;
+  }
+}
+
+.addButton:hover {
+  @mixin dark {
+    background-color: var(--mantine-color-blue-5);
+  }
+  background-color: var(--mantine-color-blue-1);
+}
+
+.addButton:disabled {
+  cursor: not-allowed;
+}
+.addButton:disabled:hover {
+  @mixin dark {
+    background-color: var(--mantine-color-blue-4);
+  }
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 999;
+  opacity: 0;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: rem(10px);
+  width: max-content;
+  padding: rem(10px) rem(16px);
+  border-radius: rem(8px);
+  font-size: 12px;
+  background-color: var(--mantine-color-blue-4);
+  color: var(--mantine-color-white);
+  transition: all 350ms ease;
+}
+
+.tooltip::before {
+  content: '';
+  background-color: var(--mantine-color-blue-4);
+  width: 10px;
+  height: 10px;
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  rotate: 45deg;
+}
+
+.tooltipText {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.addButton:hover:disabled {
+  background-color: var(--mantine-color-blue-0);
+}
+
+.addButton:hover:disabled .tooltip {
+  opacity: 1;
 }

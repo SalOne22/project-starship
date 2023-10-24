@@ -1,10 +1,14 @@
 import { Container, List } from '@mantine/core';
 import DescriptionItem from './DescriptionItem';
 import css from '../styles/Description.module.css';
-import descrs from '../data/descriptionData';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 function Description() {
+  const { t } = useTranslation();
+  const descrs = t('main.descrs', {
+    returnObjects: true,
+  });
   return (
     <div>
       <section>
@@ -14,6 +18,7 @@ function Description() {
               <DescriptionItem
                 key={descr.id}
                 descr={descr}
+                order={index}
                 className={index === descrs.length - 1 ? css.lastitem : ''}
               />
             ))}

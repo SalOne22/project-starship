@@ -19,7 +19,7 @@
   "feedback": {
     "form": {
       "requiredField": "Required field",
-      "lengthTextField": "Message must be less than 300 symbols"
+      "lengthTextField": "Text must be 2-300 characters long"
     },
     "notification": {
       "createSuccess": "Your review has been successfully added!",
@@ -49,13 +49,232 @@
       "calendar": "Calendar",
       "statistics": "Statistics",
       "account": "User Profile"
+    },
+    "subtitle": {
+      "first": "Let go",
+      "second": " of the past and focus on the present!"
     }
   },
-  "main": {},
+  "notFound": {
+    "message": "We’re sorry, the page you requested could not be found. Please go back to the homepage.",
+    "back": "Back to home"
+  },
+  "main": {
+    "auth": { "login": "Log in", "signup": "Sign up" },
+
+    "descrs": [
+      {
+        "id": 1,
+        "number": "1.",
+        "title": "calendar",
+        "text": "VIEW",
+        "description": "GooseTrack's Calendar view provides a comprehensive overview of your schedule, displaying all your tasks, events, and appointments in a visually appealing and intuitive layout."
+      },
+      {
+        "id": 2,
+        "number": "2.",
+        "text": "SIDEBAR",
+        "description": "GooseTrack offers easy access to your account settings, calendar, and filters. The 'My Account' section allows you to manage your profile information and preferences, while the calendar provides a quick and convenient way to view your upcoming events and tasks."
+      },
+      {
+        "id": 3,
+        "number": "3.",
+        "title": "all in",
+        "text": "one",
+        "description": "GooseTrack is an all-in-one productivity tool that helps you stay on top of your tasks, events, and deadlines. Say goodbye to scattered to-do lists and hello to streamlined productivity with GooseTrack."
+      }
+    ]
+  },
   "errors": {
     "cantFetchCurrentUser": {
       "title": "Can't fetch user",
       "message": "Unable to retrieve current user information, try logging in again"
     }
+  },
+  "calendar": {
+    "months": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "weekdays": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    "periodSelect": { "month": "Month", "day": "Day" },
+    "chosenday": {
+      "notification": {
+        "createSuccess": "Task successfully added!",
+        "editSuccess": "Task successfully edited!",
+        "removeSuccess": "Task successfully deleted!",
+        "error": "Something went wrong, please try again later"
+      },
+      "handleError": {
+        "title": {
+          "required": "Title is required",
+          "matches": "Maximum length is 250 characters"
+        },
+        "start": {
+          "required": "Start is required",
+          "matches": "Format: 09:00"
+        },
+        "end": {
+          "required": "End is required",
+          "matches": "Format: 14:00",
+          "test": "End time should be greater than start time"
+        }
+      },
+      "taskColumns": {
+        "titles": {
+          "to-do": "To do",
+          "in progress": "In progress",
+          "done": "Done"
+        },
+        "addBtn": "Add task",
+        "tooltip": "You can't add task on past date"
+      },
+      "card": {
+        "priority": {
+          "low": "Low",
+          "medium": "Medium",
+          "high": "High"
+        },
+        "category": {
+          "to-do": "To-do",
+          "in progress": "In progress",
+          "done": "Done"
+        }
+      },
+      "taskform": {
+        "title": "Title",
+        "placeholder": "Enter text",
+        "start": "Start",
+        "end": "End",
+        "priority": {
+          "low": "Low",
+          "medium": "Medium",
+          "high": "High"
+        },
+        "button": {
+          "add": "Add",
+          "edit": "Edit",
+          "cancel": "Cancel"
+        }
+      }
+    }
+  },
+  "userform": {
+    "user": "User",
+    "userName": "User Name",
+    "birthday": "Birthday",
+    "email": "Email",
+    "phone": "Phone",
+    "skype": "Skype",
+    "button": "Save changes",
+    "notification": {
+      "title": {
+        "success": "Success",
+        "error": "Error"
+      },
+      "notificationEmail": "Email is not valid",
+      "notificationPhone": "Phone must be in format +380971234567",
+      "notificationSuccess": "Changes successfully added",
+      "notificationErrorEmail": "Email already is use",
+      "notificationErrorUser": "Not found user's id",
+      "notificationErrorUnauthorized": "User Unauthorized",
+      "notificationErrorAnother": "Another error"
+    },
+    "placeholder": {
+      "userName": "Enter your name",
+      "email": "Enter your email",
+      "phone": "Phone in format +38(099)1234567",
+      "skype": "Add a skype number"
+    }
+  },
+  "userDeleteForm": {
+    "errors": {
+      "required": "Secret key is a required field"
+    },
+    "titles": {
+      "mainStart": "To delete GooseTrack account check your mail: ",
+      "mainEnd": "Enter secret key below:",
+      "sub": "Confirm to delete my account",
+      "textStart": "This action is irreversible, you will delete your account",
+      "textEnd": "forever!"
+    },
+    "buttons": {
+      "delete": "Delete account",
+      "confirm": "Confirm"
+    },
+    "message": "Account was deleted succesfully",
+    "label": "Secret key"
+  },
+  "changePasswordForm": {
+    "oldPassword": "Old Password",
+    "newPassword": "New Password",
+    "confirmedPassword": "Confirm Password",
+    "changePassBtn": "Change Password",
+    "errors": {
+      "length": "Password must be at least 6 characters long",
+      "matches": "Passwords do not match"
+    },
+    "notifications": {
+      "error": "Old and new passwords cannot be the same",
+      "success": "Password change success"
+    }
+  },
+  "statistics": {
+    "byDay": "by day",
+    "byMonth": "by month",
+    "tasks": "tasks",
+    "types": {
+      "to-do": "to do",
+      "in progress": "in progress",
+      "done": "done"
+    }
+  },
+  "register": {
+    "link": "Sing Up",
+    "title": "Sing Up",
+    "divider": "Or continue with email",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "namePlcholder": "Your name",
+    "emailPlcholder": "Your email",
+    "passwordPlcholder": "Your password",
+
+    "errorName": "Enter a name with a minimum of 2 characters",
+    "errorEmail": "Word before @ and domain after the dot",
+    "errorPassword": "Password should include at least 6 characters"
+  },
+  "login": {
+    "link": "Log In",
+    "title": "Log In",
+    "forgotPassword": "Forgot password?"
+  },
+  "forrgotPassword": {
+    "successTitle": "Password reset success!",
+    "successMessageStart": "The password has been sent! Please check your email ",
+    "successMessageEnd": "for further instructions.",
+    "question": " Forgot your password?",
+    "cta": "Enter email to  reset password",
+    "back": "Back to login",
+    "resetPassword": "Reset password",
+    "validateError": "Enter email should match abc@mail.com"
+  },
+  "handleError": {
+    "errorRegister": "Email already exist",
+    "errorLogin": "Email or password invalid",
+    "errorServer": "Server error. Please try again later",
+    "errorValid": "Email or password invalid",
+    "errorAuthorized": "Please log in",
+    "title": "Error"
   }
 }

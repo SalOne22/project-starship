@@ -3,6 +3,20 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+
+  padding: 0 rem(20px);
+
+  @media (min-width: em(768px)) {
+    padding: 0 rem(32px);
+  }
+}
+
+.titleWrapper {
+  display: none;
+
+  @media (min-width: $mantine-breakpoint-xl) {
+    display: flex;
+  }
 }
 
 .title {
@@ -16,6 +30,16 @@
     font-size: rem(32px);
     line-height: 1;
   }
+}
+
+.subtitle {
+  font-size: rem(14px);
+  font-weight: 600;
+  line-height: 1.28571;
+}
+
+.subtitle > span {
+  color: var(--mantine-color-blue-4);
 }
 
 .burger {

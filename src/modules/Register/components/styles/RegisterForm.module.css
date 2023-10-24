@@ -1,0 +1,330 @@
+.wrappForm {
+  padding: rem(40px) rem(24px);
+  width: rem(335px);
+  border: none;
+  border-radius: 8px;
+  background: light-dark(
+    var(--mantine-color-white),
+    var(--mantine-color-dark-5)
+  );
+  @media (min-width: $mantine-breakpoint-md) {
+    width: rem(480px);
+    padding: rem(40px);
+
+    height: auto;
+  }
+}
+
+.titleForm {
+  font-size: rem(18px);
+  font-weight: 600;
+  line-height: 1.33;
+  margin-bottom: rem(32px);
+  text-shadow:
+    0px 9.399999618530273px 57.6875px rgba(0, 0, 0, 0.04),
+    0px 47px 355px rgba(0, 0, 0, 0.07);
+
+  @media (min-width: $mantine-breakpoint-md) {
+    font-size: rem(24px);
+    line-height: 1;
+    margin-bottom: rem(40px);
+  }
+}
+
+.wrappGoogleButton {
+  margin: 0 0 rem(24px) 0;
+  @media (min-width: $mantine-breakpoint-md) {
+    margin: 0 0 rem(32px) 0;
+  }
+}
+
+.googleButton {
+  height: rem(48px);
+  border-radius: rem(16px);
+  border-color: light-dark(_, var(--mantine-color-blue-4));
+  @media (min-width: $mantine-breakpoint-md) {
+    height: rem(56px);
+    font-size: rem(18px);
+  }
+}
+
+.divider {
+  margin: 0 0 rem(24px) 0;
+}
+
+.divider span {
+  @media (min-width: $mantine-breakpoint-md) {
+    font-size: rem(14px);
+  }
+}
+
+/* ---form---- */
+
+.form {
+  width: 100%;
+}
+
+.stack {
+  gap: rem(24px);
+  margin-bottom: rem(32px);
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  @media (min-width: $mantine-breakpoint-md) {
+    margin-bottom: rem(48px);
+    gap: rem(18px);
+  }
+}
+
+.wrapper {
+  margin-bottom: 8px;
+}
+
+.input {
+  padding: rem(14px);
+  height: rem(46px);
+  font-size: rem(14px);
+  font-weight: 400;
+  line-height: 1.28;
+  border-radius: 8px;
+  border: 1px solid var(--mantine-color-blue-11);
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  background: light-dark(
+    var(--mantine-color-white),
+    var(--mantine-color-dark-5)
+  );
+  transition: border-color 350ms ease;
+  @media (min-width: $mantine-breakpoint-md) {
+    padding: rem(18px);
+    height: rem(54px);
+    font-size: rem(16px);
+  }
+}
+
+.input[aria-invalid='true'] {
+  border: 1px solid var(--mantine-color-red-4);
+  transition: border 350ms ease;
+}
+
+.input::placeholder,
+.input[aria-invalid='true']::placeholder,
+.inputInput::placeholder,
+.inputInput[data-invalid='true']::placeholder {
+  font-size: rem(14px);
+  font-weight: 400;
+  line-height: 1.28;
+  @media (min-width: $mantine-breakpoint-md) {
+    font-size: rem(16px);
+    line-height: 1.12;
+  }
+}
+
+.input::placeholder {
+  color: var(--mantine-color-blue-11);
+  transition: color 350ms ease;
+}
+
+.input[aria-invalid='true']::placeholder {
+  color: var(--mantine-color-red-4);
+}
+
+.inputCorrect {
+  border-color: var(--mantine-color-green-6) !important;
+}
+
+.input[data-error='true'] {
+  border-color: var(--mantine-color-red-4);
+}
+
+.inputInput {
+  padding: rem(14px);
+  height: rem(46px);
+  @media (min-width: $mantine-breakpoint-md) {
+    padding: rem(18px);
+    height: rem(54px);
+  }
+}
+
+.inputInput::placeholder {
+  padding: 0;
+  color: var(--mantine-color-blue-11);
+  transition: color 350ms ease;
+}
+
+.inputInput[data-invalid='true']::placeholder {
+  color: var(--mantine-color-red-4);
+}
+
+.input:focus-within {
+  border-color: light-dark(
+    var(--mantine-color-black),
+    var(--mantine-color-blue-4)
+  );
+}
+
+.label,
+.labelCorrect,
+.labelError {
+  font-size: rem(12px);
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: 8px;
+  @media (min-width: $mantine-breakpoint-md) {
+    font-size: rem(14px);
+  }
+}
+
+.label {
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-blue-4));
+  transition: color 350ms ease;
+}
+
+.labelCorrect {
+  color: var(--mantine-color-green-6);
+  transition: color 350ms ease;
+}
+
+.labelError {
+  color: var(--mantine-color-red-4);
+  transition: color 350ms ease;
+}
+
+.required {
+  color: var(--mantine-color-red-4);
+  transition: color 350ms ease;
+}
+
+.requiredCorrect {
+  color: var(--mantine-color-green-6);
+  transition: color 350ms ease;
+}
+
+.requiredError {
+  color: var(--mantine-color-red-4);
+  transition: color 350ms ease;
+}
+
+.error {
+  font-size: rem(12px);
+  font-weight: 400;
+  line-height: 1.16;
+  color: var(--mantine-color-red-4);
+  transition: color 350ms ease;
+  @media (min-width: $mantine-breakpoint-md) {
+    font-size: rem(14px);
+  }
+}
+.iconAlertCircle,
+.iconCircleCheck,
+.iconEye,
+.iconEyeOff {
+  width: rem(20px);
+  @media (min-width: $mantine-breakpoint-md) {
+    width: rem(24px);
+  }
+}
+
+.iconAlertCircle {
+  color: var(--mantine-color-red-4);
+}
+
+.iconCircleCheck {
+  color: var(--mantine-color-green-6);
+}
+
+.iconEye {
+  color: var(--mantine-color-gray-4);
+}
+
+.iconEyeOff {
+  color: var(--mantine-color-gray-4);
+}
+
+.section {
+  width: rem(20px);
+  right: rem(14px);
+  @media (min-width: $mantine-breakpoint-md) {
+    right: rem(18px);
+    width: rem(24px);
+  }
+}
+
+.sectionPassword {
+  width: rem(45px);
+  right: rem(14px);
+  @media (min-width: $mantine-breakpoint-md) {
+    right: rem(18px);
+    width: rem(58px);
+  }
+}
+
+.passwordRightSection {
+  display: flex;
+  align-items: center;
+}
+
+.wrapperIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  gap: 5px;
+  @media (min-width: $mantine-breakpoint-md) {
+    gap: 10px;
+  }
+}
+
+.buttonIcon {
+  margin: 0;
+  padding: 0;
+  background: light-dark(
+    var(--mantine-color-white),
+    var(--mantine-color-dark-5)
+  );
+}
+
+/* ----button sign up-------- */
+.wrappButton {
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  width: rem(287px);
+  height: rem(46px);
+  border-radius: rem(16px);
+  background: var(--mantine-color-blue-4);
+  box-shadow: light-dark(
+    4px 2px 16px 0px rgba(136, 165, 191, 0.48),
+    4px 2px 16px 0px rgba(18, 19, 20, 0.48)
+  );
+  @media (min-width: $mantine-breakpoint-md) {
+    height: rem(56px);
+    width: rem(400px);
+  }
+}
+
+.button:hover {
+  background-color: var(--mantine-color-blue-5);
+  transition: background-color 350ms ease;
+}
+
+.textButtonForm {
+  color: white;
+  font-size: rem(14px);
+  font-weight: 600;
+  line-height: 1.28;
+  letter-spacing: -0.28px;
+  @media (min-width: $mantine-breakpoint-md) {
+    font-size: rem(18px);
+    line-height: 1.33;
+    letter-spacing: -0.36px;
+  }
+}
+
+.iconButton {
+  width: rem(18px);
+  @media (min-width: $mantine-breakpoint-md) {
+    width: rem(30px);
+  }
+}

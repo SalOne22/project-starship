@@ -5,8 +5,10 @@
   box-shadow: 0px 4px rem(57px) 0px rgba(17, 17, 17, 0.05);
   background-color: light-dark(
     var(--mantine-color-white),
-    var(--mantine-dark-7)
+    var(--mantine-color-dark-7)
   );
+
+  animation: fadeAnimOpen 0.3s linear;
 }
 
 .closeBtn {
@@ -17,5 +19,27 @@
   @media (min-width: $mantine-breakpoint-md) {
     top: rem(18px);
     right: rem(18px);
+  }
+}
+
+.modal.closing {
+  animation: fadeAnimClose 0.3s linear;
+}
+
+@keyframes fadeAnimOpen {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeAnimClose {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }

@@ -11,10 +11,10 @@ import {
 } from '@mantine/core';
 import { useForm, isInRange, hasLength } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
-import { useDisclosure, useToggle } from '@mantine/hooks';
+import { useDisclosure } from '@mantine/hooks';
 
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
@@ -35,7 +35,7 @@ import {
 
 function FeedbackForm({ onClose }) {
   const [opened, modal] = useDisclosure(false);
-  const [mode, toggleMode] = useToggle(['view', 'edit']);
+  const [isEditing, setIsEditing] = useState(false);
 
   const feedback = useSelector(selectUserReview);
   const isLoading = useSelector(selectReviewsIsLoading);
@@ -48,25 +48,24 @@ function FeedbackForm({ onClose }) {
       text: '',
     },
     validate: {
-      rating: isInRange({ min: 1, max: 5 }, 'Required field'),
-      text: hasLength(
-        { min: 2, max: 300 },
-        'Text must be 2-300 characters long',
-      ),
+      rating: isInRange({ min: 1, max: 5 }, t('feedback.form.requiredField')),
+      text: hasLength({ min: 2, max: 300 }, t('feedback.form.lengthTextField')),
     },
   });
 
   useEffect(() => {
-    if (!feedback) toggleMode();
-    form.setInitialValues(feedback);
+    if (!feedback) {
+      setIsEditing(true);
+      return;
+    }
     form.setValues(feedback);
-  }, []);
+  }, [feedback]);
 
   const onSubmit = async ({ rating, text }) => {
-    if (mode === 'edit') {
+    if (isEditing && feedback) {
       try {
         await dispatch(edit({ rating, text }));
-        toggleMode();
+        setIsEditing(false);
         onClose();
         notifications.show({
           color: 'teal',
@@ -126,8 +125,10 @@ function FeedbackForm({ onClose }) {
   };
 
   const onCancel = () => {
-    if (mode === 'edit') {
-      toggleMode();
+    if (isEditing && !feedback) onClose();
+    if (isEditing) {
+      setIsEditing(false);
+      form.setValues(feedback);
       return;
     }
     onClose();
@@ -141,7 +142,7 @@ function FeedbackForm({ onClose }) {
           <Rating
             value={form.values.rating}
             onChange={(val) => form.setFieldValue('rating', val)}
-            readOnly={mode === 'view'}
+            readOnly={!isEditing}
           />
           {form.errors?.rating && (
             <Text className={css.error}>{form.errors.rating}</Text>
@@ -152,7 +153,7 @@ function FeedbackForm({ onClose }) {
           <Text className={css.label}>{t('common.review')}</Text>
           {feedback && (
             <Group justify="center" gap={8}>
-              <EditButton handleEdit={toggleMode} />
+              <EditButton handleEdit={() => setIsEditing(true)} />
               <DeleteButton handleDelete={modal.open} />
             </Group>
           )}
@@ -164,11 +165,11 @@ function FeedbackForm({ onClose }) {
           classNames={{ input: css.input }}
           placeholder={t('common.enterText')}
           withAsterisk
-          readOnly={mode === 'view'}
+          readOnly={!isEditing}
           {...form.getInputProps('text')}
         />
 
-        {mode === 'edit' && (
+        {isEditing && (
           <Group gap={8} grow>
             <Button
               type="submit"
@@ -203,6 +204,7 @@ function FeedbackForm({ onClose }) {
             content: css.contentModal,
             title: css.removeModalTitle,
           }}
+          centered
         >
           <Text size="sm" mb={20}>
             {t('feedback.modal.text')}

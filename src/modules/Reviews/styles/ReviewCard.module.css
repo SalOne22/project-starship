@@ -1,5 +1,6 @@
 .wrap {
-  border: 1px solid rgba(17, 17, 17, 0.1);
+  border: 1px solid
+    light-dark(rgba(17, 17, 17, 0.1), var(--mantine-color-white));
   border-radius: rem(8px);
   padding-top: rem(24px);
   padding-bottom: rem(24px);
@@ -15,16 +16,34 @@
 }
 
 .username {
+  color: light-dark(var(--mantine-color-dark-6), var(--mantine-color-gray-5));
   font-size: rem(18px);
   font-style: normal;
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.2;
 }
 
 .text {
-  color: rgba(17, 17, 17, 0.7);
+  color: light-dark(rgba(17, 17, 17, 0.7), var(--mantine-color-white));
   font-size: rem(14px);
   font-style: normal;
   font-weight: 500;
   line-height: 1.28571;
+
+  @media (min-width: $mantine-breakpoint-xl) {
+    height: rem(34px);
+    /* -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2; */
+  }
+}
+
+.truncateText {
+  @media (min-width: $mantine-breakpoint-xl) {
+    /* -webkit-line-clamp: none;
+    display: block; */
+    height: auto;
+  }
 }

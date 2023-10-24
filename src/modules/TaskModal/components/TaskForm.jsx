@@ -1,9 +1,9 @@
-import { Box, Button } from '@mantine/core';
+import { ActionIcon, Box, Button, rem } from '@mantine/core';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { IconPlus, IconPencil } from '@tabler/icons-react';
+import { IconPlus, IconPencil, IconClock } from '@tabler/icons-react';
 import clsx from 'clsx';
 import * as Yup from 'yup';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import css from '../styles/TaskForm.module.css';
 import { TimeInput } from '@mantine/dates';
 import { useDispatch } from 'react-redux';
@@ -12,64 +12,77 @@ import { useParams } from 'react-router';
 import PropTypes from 'prop-types';
 import { addTask, editTask } from '@/modules/Calendar/redux/operations';
 import theme from '@/theme';
-
-const validationSchema = Yup.object({
-  title: Yup.string()
-    .required('Required')
-    .max(250, 'Maximum length is 250 characters'),
-  start: Yup.string()
-    .required('Required')
-    .matches(/^([01]\d|2[0-3]):([0-5]\d)$/, 'Format: 09:00'),
-  end: Yup.string()
-    .required('Required')
-    .matches(/^([01]\d|2[0-3]):([0-5]\d)$/, 'Format: 09:30')
-    .test(
-      'is-greater',
-      'End time should be greater than start time',
-      function (end) {
-        const start = this.parent.start;
-        if (!start || !end) return true;
-        const [startHour, startMinute] = start.split(':');
-        const [endHour, endMinute] = end.split(':');
-        return (
-          endHour > startHour ||
-          (endHour === startHour && endMinute > startMinute)
-        );
-      },
-    ),
-  priority: Yup.string(),
-});
+import { useTranslation } from 'react-i18next';
 
 const TaskForm = ({ category, onClose, task }) => {
   const [selectedPriority, setSelectedPriority] = useState(
     task ? task.priority : 'low',
   );
-
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const { currentDay } = useParams();
+
+  const validationSchema = Yup.object({
+    title: Yup.string()
+      .required(t('calendar.chosenday.handleError.title.required'))
+      .max(250, t('calendar.chosenday.handleError.title.matches')),
+    start: Yup.string()
+      .required(t('calendar.chosenday.handleError.start.required'))
+      .matches(
+        /^([01]\d|2[0-3]):([0-5]\d)$/,
+        t('calendar.chosenday.handleError.start.matches'),
+      ),
+    end: Yup.string()
+      .required(t('calendar.chosenday.handleError.end.required'))
+      .matches(
+        /^([01]\d|2[0-3]):([0-5]\d)$/,
+        t('calendar.chosenday.handleError.end.matches'),
+      )
+      .test(
+        'is-greater',
+        t('calendar.chosenday.handleError.end.test'),
+        function (end) {
+          const start = this.parent.start;
+          if (!start || !end) return true;
+          const [startHour, startMinute] = start.split(':');
+          const [endHour, endMinute] = end.split(':');
+          return (
+            endHour > startHour ||
+            (endHour === startHour && endMinute > startMinute)
+          );
+        },
+      ),
+    priority: Yup.string(),
+  });
 
   const handlePriorityChange = (event) => {
     setSelectedPriority(event.target.value);
   };
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     values.priority = selectedPriority;
     values.date = currentDay;
     values.category = category;
 
     try {
       if (task) {
-        dispatch(editTask({ ...values, _id: task._id }));
-        handleMessage('Task successfully edited!', theme.colors.green[6]);
+        await dispatch(editTask({ ...values, _id: task._id })).unwrap();
+        handleMessage(
+          t('calendar.chosenday.notification.editSuccess'),
+          theme.colors.green[6],
+        );
       } else {
-        dispatch(addTask({ ...values }));
-        handleMessage('Task successfully created!', theme.colors.green[6]);
+        await dispatch(addTask({ ...values })).unwrap();
+        handleMessage(
+          t('calendar.chosenday.notification.createSuccess'),
+          theme.colors.green[6],
+        );
       }
       onClose();
     } catch {
       handleMessage(
-        'Something went wrong, please try again later',
+        t('calendar.chosenday.notification.error'),
         theme.colors.red[6],
       );
     }
@@ -82,6 +95,19 @@ const TaskForm = ({ category, onClose, task }) => {
       color: color,
     });
   };
+
+  const startRef = useRef(null);
+  const endRef = useRef(null);
+
+  const createPickerControl = (ref) => (
+    <ActionIcon
+      variant="subtle"
+      color="gray"
+      onClick={() => ref.current?.showPicker()}
+    >
+      <IconClock style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
+    </ActionIcon>
+  );
 
   return (
     <Box className={css.formWrapper}>
@@ -97,28 +123,41 @@ const TaskForm = ({ category, onClose, task }) => {
         <Form>
           <Box style={{ display: 'flex', flexDirection: 'column' }}>
             <label className={css.label} htmlFor="title">
-              Title
+              {t('calendar.chosenday.taskform.title')}
             </label>
             <Field
+              aria-label="Enter text"
               className={css.input}
               type="text"
               name="title"
-              placeholder="Enter text"
+              placeholder={t('calendar.chosenday.taskform.placeholder')}
             />
             <ErrorMessage name="title" component="div" className={css.error} />
           </Box>
           <Box className={css.wrapTimes}>
             <Box className={css.wrapTime}>
               <label className={css.label} htmlFor="start">
-                Start
+                {t('calendar.chosenday.taskform.start')}
               </label>
-              <Field
-                as={TimeInput}
-                variant="unstyled"
-                className={`${css.input} custom-time-input`}
-                type="text"
-                name="start"
-              />
+              <Field name="start">
+                {({ field }) => (
+                  <TimeInput
+                    ref={startRef}
+                    leftSection={createPickerControl(startRef)}
+                    aria-label="Start"
+                    styles={{
+                      input: {
+                        width: '80px',
+                      },
+                    }}
+                    variant="unstyled"
+                    className={`${css.input} custom-time-input`}
+                    type="time"
+                    inputMode="numeric"
+                    {...field}
+                  />
+                )}
+              </Field>
               <ErrorMessage
                 name="start"
                 component="div"
@@ -127,15 +166,27 @@ const TaskForm = ({ category, onClose, task }) => {
             </Box>
             <Box className={css.wrapTime}>
               <label className={css.label} htmlFor="end">
-                End
+                {t('calendar.chosenday.taskform.end')}
               </label>
-              <Field
-                as={TimeInput}
-                variant="unstyled"
-                className={`${css.input} custom-time-input`}
-                type="text"
-                name="end"
-              />
+              <Field name="end">
+                {({ field }) => (
+                  <TimeInput
+                    ref={endRef}
+                    leftSection={createPickerControl(endRef)}
+                    aria-label="End"
+                    variant="unstyled"
+                    styles={{
+                      input: {
+                        width: '80px',
+                      },
+                    }}
+                    className={`${css.input} custom-time-input`}
+                    type="time"
+                    inputMode="numeric"
+                    {...field}
+                  />
+                )}
+              </Field>
               <ErrorMessage name="end" component="div" className={css.error} />
             </Box>
           </Box>
@@ -143,49 +194,58 @@ const TaskForm = ({ category, onClose, task }) => {
             <label className={css.labelPriority}>
               <Field
                 className={clsx(css.radioInput, css.radioInputBlue)}
+                aria-label="Low priority"
                 type="radio"
                 name="priority"
                 value="low"
                 checked={selectedPriority === 'low'}
                 onChange={handlePriorityChange}
               />
-              <span className={css.radioLabel}> Low</span>
+              <span className={css.radioLabel}>
+                {t('calendar.chosenday.taskform.priority.low')}
+              </span>
             </label>
 
             <label className={css.labelPriority}>
               <Field
                 className={clsx(css.radioInput, css.radioInputYellow)}
+                aria-label="Medium priority"
                 type="radio"
                 name="priority"
                 value="medium"
                 checked={selectedPriority === 'medium'}
                 onChange={handlePriorityChange}
               />
-              <span className={css.radioLabel}> Medium</span>
+              <span className={css.radioLabel}>
+                {t('calendar.chosenday.taskform.priority.medium')}
+              </span>
             </label>
 
             <label className={css.labelPriority}>
               <Field
                 className={clsx(css.radioInput, css.radioInputRed)}
+                aria-label="High priority"
                 type="radio"
                 name="priority"
                 value="high"
                 checked={selectedPriority === 'high'}
                 onChange={handlePriorityChange}
               />
-              <span className={css.radioLabel}> High</span>
+              <span className={css.radioLabel}>
+                {t('calendar.chosenday.taskform.priority.high')}
+              </span>
             </label>
           </Box>
           <Box className={css.buttonWrap}>
             {task ? (
               <Button className={clsx(css.button, css.addButton)} type="submit">
                 <IconPencil size={18} />
-                Edit
+                {t('calendar.chosenday.taskform.button.edit')}
               </Button>
             ) : (
               <Button className={clsx(css.button, css.addButton)} type="submit">
                 <IconPlus size={18} />
-                Add
+                {t('calendar.chosenday.taskform.button.add')}
               </Button>
             )}
 
@@ -194,7 +254,7 @@ const TaskForm = ({ category, onClose, task }) => {
               type="button"
               onClick={onClose}
             >
-              Cancel
+              {t('calendar.chosenday.taskform.button.cancel')}
             </Button>
           </Box>
         </Form>

@@ -2,19 +2,28 @@ import { useEffect, useState } from 'react';
 import AddTaskButton from './components/AddTaskButton';
 import ColumnHeadBar from './components/ColumnHeadBar';
 import css from './styles/TaskColumn.module.css';
-import { ScrollArea } from '@mantine/core';
-import TaskColumnCard from './components/TaskColumnCard';
 import PropTypes from 'prop-types';
 import TaskModal from '../TaskModal';
 import { useDrop } from 'react-dnd';
 import { editTask } from '../Calendar/redux/operations';
 import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
+import ColumnsTasksList from './components/ColumnsTasksList';
+import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-function TasksColumn({ category, tasks }) {
+function TasksColumn({ category, tasks, title }) {
   const [tasksToMap, setTasksToMap] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [isValidDate, setIsValidDate] = useState(false);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+
+  const { currentDay } = useParams();
+
+  useEffect(() => {
+    setIsValidDate(new Date(currentDay) >= new Date().setHours(0, 0, 0, 0));
+  }, [currentDay]);
 
   const onOpen = () => {
     setIsOpen(true);
@@ -47,38 +56,36 @@ function TasksColumn({ category, tasks }) {
   }));
 
   useEffect(() => {
-    if (category === 'to-do') {
-      const tasksToDone = tasks.filter((task) => task.category === 'to-do');
-      setTasksToMap(tasksToDone);
-      return;
-    } else if (category === 'in progress') {
-      const tasksInProgress = tasks.filter(
-        (task) => task.category === 'in progress',
-      );
-      setTasksToMap(tasksInProgress);
-      return;
-    } else if (category === 'done') {
-      const tasksDone = tasks.filter((task) => task.category === 'done');
-      setTasksToMap(tasksDone);
-      return;
+    switch (category) {
+      case 'to-do':
+        return setTasksToMap(tasks.filter((task) => task.category === 'to-do'));
+
+      case 'in progress':
+        return setTasksToMap(
+          tasks.filter((task) => task.category === 'in progress'),
+        );
+
+      case 'done':
+        return setTasksToMap(tasks.filter((task) => task.category === 'done'));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tasks]);
+  }, [category, tasks]);
 
   return (
     <div
-      ref={drop}
-      className={clsx(css.tasksColumn, isOver ? css.boxDrop : null)}
+      ref={isValidDate ? drop : null}
+      className={clsx(
+        css.tasksColumn,
+        isOver ? css.boxDrop : null,
+        tasksToMap.length > 3 ? css.tasksColumnScroll : null,
+      )}
     >
-      <ColumnHeadBar title={category} onClick={onOpen} />
-      <ScrollArea.Autosize mah={368} offsetScrollbars scrollHideDelay={250}>
-        {tasksToMap.length > 0 &&
-          tasksToMap.map((task) => (
-            <TaskColumnCard key={task._id} task={task} />
-          ))}
-      </ScrollArea.Autosize>
+      <ColumnHeadBar title={title} onClick={onOpen} isValidDate={isValidDate} />
+      <ColumnsTasksList tasksToMap={tasksToMap} isValidDate={isValidDate} />
 
-      <AddTaskButton onClick={onOpen}>Add task</AddTaskButton>
+      <AddTaskButton isValidDate={isValidDate} onClick={onOpen}>
+        {t('calendar.chosenday.taskColumns.addBtn')}
+      </AddTaskButton>
+
       {isOpen && <TaskModal category={category} onClose={onClose} />}
     </div>
   );
@@ -87,6 +94,7 @@ function TasksColumn({ category, tasks }) {
 TasksColumn.propTypes = {
   category: PropTypes.string,
   tasks: PropTypes.arrayOf(PropTypes.object),
+  title: PropTypes.string,
 };
 
 export default TasksColumn;

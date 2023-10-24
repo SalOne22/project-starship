@@ -1,234 +1,304 @@
-/* import { em } from '@mantine/core'; */
-.userWrapper {
-  position: relative;
-}
-
 .wrapper {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: em(95px);
-  padding-top: rem(135px);
+  margin-top: rem(95px);
+  padding-top: rem(59px);
+  padding-bottom: rem(40px);
 
-  background-color: light-dark(
+  border-radius: rem(16px);
+  background: var(--mantine-color-white);
+  background: light-dark(
     var(--mantine-color-white),
-    var(--mantine-color-dark-8)
+    var(--mantine-color-gray-7)
   );
-  border-radius: var(--mantine-radius-lg);
 
-  border: rem(1px) solid
-    light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-8));
-
-  @media (min-width: em(375px)) {
-    max-width: em(335px);
-    flex-direction: column;
-    margin-right: auto;
+  @media (min-width: $mantine-breakpoint-xs) {
+    max-width: rem(335px);
     margin-left: auto;
+    margin-right: auto;
+    flex-direction: column;
     flex-wrap: nowrap;
   }
 
-  @media (min-width: em(768px)) {
-    margin-top: em(64px);
+  @media (min-width: $mantine-breakpoint-md) {
+    max-width: rem(704px);
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin-top: rem(64px);
     padding-top: rem(40px);
-
-    max-width: em(704px);
-    flex-direction: column;
-    flex-wrap: nowrap;
-    padding-left: em(175px);
-    padding-right: em(175px);
+    padding-left: rem(175px);
+    padding-right: rem(175px);
+  }
+  @media (min-width: $mantine-breakpoint-xl) {
+    max-width: rem(1087px);
+    padding-top: rem(60px);
+    padding-bottom: rem(60px);
   }
 }
-
-.form {
-  /* flex: 1; */
-  /* padding: var(--mantine-spacing-xl); */
-  /* padding-left: calc(var(--mantine-spacing-xl) * 2); */
-  /* border-left: 0; */
-  /* justify-items: center; */
+.wrapDropzone {
+  position: relative;
 }
+.dropzone {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 
-.mantine-Input-input {
-  display: flex;
-  width: em(299px);
+  top: -5.5em;
+  flex-shrink: 0;
+  width: rem(72px);
+  height: rem(72px);
 
-  @media (min-width: em(375px)) {
-    width: em(299px);
-    flex-direction: column;
-    flex-wrap: nowrap;
-  }
+  border-radius: rem(72px);
+  border: rem(2px) solid var(--mantine-color-blue-4);
+  cursor: pointer;
 
-  @media (min-width: em(768px)) {
-    width: em(354px);
-    flex-direction: column;
-    flex-wrap: nowrap;
-  }
-}
+  overflow: hidden;
+  z-index: 99;
 
-input {
-  @media (min-width: em(375px)) {
-    width: em(299px);
-    flex-direction: column;
-    flex-wrap: nowrap;
-  }
-
-  @media (min-width: em(768px)) {
-    width: em(354px);
-    flex-direction: column;
-    flex-wrap: nowrap;
-  }
-}
-
-.m-8fb7ebe7 {
-  @media (min-width: em(375px)) {
-    width: em(299px);
-    flex-direction: column;
-    flex-wrap: nowrap;
-  }
-
-  @media (min-width: em(768px)) {
-    width: em(354px);
-    flex-direction: column;
-    flex-wrap: nowrap;
-  }
-}
-
-.fields {
-  /* @media (min-width: em(375px)) {
-   
-    max-width: em(299px);
-    height: em(42px); 
-  } */
-  margin-top: rem(-12px);
-}
-
-/* .fieldInput {
-  flex: 1;
-
-  &+& {
-    margin-left: var(--mantine-spacing-md);
-
-    @media (max-width: mantine-breakpoints-xs) {
-      margin-left: 0;
-      margin-top: var(--mantine-spacing-md);
-    }
-  }
-} */
-
-.fieldsGroup {
-  display: flex;
-
-  @media (max-width: mantine-breakpoints-xs) {
-    flex-direction: column;
-  }
-}
-
-.control {
-  @media (min-width: em(375px)) {
-    /* flex: 1; */
-    margin-bottom: em(40px);
-    margin-top: em(40px);
-    max-width: em(195px);
-    height: em(46px);
-    background-color: var(--mantine-color-blue-4);
-  }
-
-  @media (min-width: em(768px)) {
-    /* flex: 1; */
-    max-width: em(262px);
-    height: em(48px);
-    /* background-color: rgb(39, 99, 158); */
-    background-color: var(--mantine-color-blue-4);
-  }
-}
-
-------------------------------Dropzone------------ .textUsername {
-  font-size: 12px;
-  align-items: center;
-
-  @media (min-width: em(768px)) {
-    margin-bottom: em(8px);
-  }
-}
-
-.textUser {
-  margin-bottom: em(40px);
-  font-size: 12px;
-}
-
-.wrapperDropzone {
-  border: em(1px) solid grey;
-  border-radius: 50%;
-  width: em(72px);
-  height: em(72px);
-
-  @media (max-width: em(767px)) {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: -2em;
-  }
-
-  @media (min-width: em(768px)) {
-    /* margin-bottom: em(40px); */
+  @media (min-width: $mantine-breakpoint-md) {
+    position: static;
     margin-left: auto;
     margin-right: auto;
-    width: em(124px);
-    height: em(130px);
+    margin-bottom: 20px;
+    transform: none;
+
+    width: rem(124px);
+    height: rem(124px);
   }
 }
 
-.dropzone {
-  /* border-width: rem(1px);  */
-  /* padding-bottom: rem(14px);  */
-  margin-bottom: rem(20px);
-  width: em(72px);
-  height: em(72px);
-  /* border: em(1px) solid red; */
-  border-radius: 50%;
+.dropzone img {
+  transition:
+    all 0.5s,
+    filter 0.5s ease-in-out;
+  filter: grayscale(30%);
+}
 
-  @media (min-width: em(768px)) {
-    /* margin-bottom: em(40px); */
-    width: em(124px);
-    height: em(130px);
+.dropzone:hover img {
+  filter: grayscale(0);
+  scale: 1.1;
+}
+
+.userIcon {
+  object-fit: none;
+}
+
+.plusIcon {
+  object-fit: scale-down;
+  position: absolute;
+  cursor: pointer;
+  z-index: 100;
+  @media (max-width: $mantine-breakpoint-md) {
+    width: rem(15px);
+    height: rem(15px);
+
+    left: 56%;
+    transform: translateX(-50%);
+
+    top: -1.9em;
+  }
+  @media (min-width: $mantine-breakpoint-md) {
+    width: rem(24px);
+    height: rem(24px);
+    left: 57%;
+    top: 80%;
+  }
+  @media (min-width: $mantine-breakpoint-xl) {
+    left: 53%;
+    top: 82%;
   }
 }
 
-.icon {
-  border-radius: 50%;
-  color: light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-3));
-
-  @media (max-width: em(767px)) {
-    width: em(60px);
-    height: em(60px);
+.previeAvatar {
+  object-fit: cover;
+  overflow: hidden;
+  @media (max-width: rem(767px)) {
+    width: rem(68px);
+    height: rem(68px);
   }
-
-  /* border: em(1px) solid green; */
-
-  @media (min-width: em(768px)) {
-    /* margin-bottom: em(40px); */
-    width: em(124px);
-    height: em(130px);
+  @media (min-width: $mantine-breakpoint-md) {
+    width: rem(122px);
+    height: rem(119px);
+  }
+  @media (min-width: $mantine-breakpoint-xl) {
+    width: 121px;
+    height: 120px;
   }
 }
 
 .avatarURL {
   border-radius: 50%;
   overflow: hidden;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
 
-  @media (max-width: em(767px)) {
-    width: em(72px);
-    height: em(72px);
-  }
+.textusername {
+  margin-bottom: rem(4px);
+  color: light-dark(var(--mantine-color-dark-6), var(--mantine-color-white));
 
-  @media (min-width: em(768px)) {
-    width: em(124px);
-    height: em(130px);
+  font-family: Inter;
+  font-size: rem(14px);
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.29;
+  align-items: center;
+
+  @media (min-width: $mantine-breakpoint-md) {
+    margin-bottom: rem(8px);
+    font-size: rem(18px);
   }
 }
 
-.avatarURL img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* Підгонює розмір зображення під відповідний контейнер */
+.textUser {
+  margin-bottom: rem(40px);
+  font-size: rem(12px);
+
+  color: light-dark(var(--mantine-color-gray-6), rgba(250, 250, 250, 0.3));
+  font-family: Inter;
+  font-size: rem(12px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.17;
+
+  @media (min-width: $mantine-breakpoint-md) {
+    font-size: 14px;
+    line-height: 1.29;
+  }
+  @media (min-width: $mantine-breakpoint-md) {
+    margin-bottom: rem(44px);
+  }
+}
+
+.simplGride {
+  gap: rem(18px);
+
+  @media (min-width: $mantine-breakpoint-md) {
+    gap: rem(24px);
+  }
+  @media (min-width: rem(1440px)) {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 24px 50px;
+  }
+}
+
+.wrapper label {
+  color: light-dark(var(--mantine-color-black), rgba(250, 250, 250, 0.3));
+  font-family: Inter;
+  font-size: rem(12px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.17;
+  border-radius: rem(8px);
+
+  @media (min-width: $mantine-breakpoint-md) {
+    font-size: rem(14px);
+    line-height: 1.29;
+  }
+}
+.input::placeholder {
+  color: light-dark(rgba(17, 17, 17, 0.15), rgba(250, 250, 250, 0.3));
+  font-family: Inter;
+  font-size: rem(16px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.12;
+}
+
+.input {
+  width: rem(299px);
+  height: rem(42px);
+
+  padding-top: rem(12px);
+  padding-bottom: rem(12px);
+  padding-left: rem(14px);
+  border-radius: rem(8px);
+  border: light-dark(
+    1px solid rgba(17, 17, 17, 0.15),
+    1px solid rgba(255, 255, 255, 0.15)
+  );
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  font-family: Inter;
+  font-size: rem(14px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.29;
+  background-color: light-dark(
+    var(--mantine-color-white),
+    var(--mantine-color-gray-7)
+  );
+  transition: all 350ms ease;
+
+  @media (min-width: $mantine-breakpoint-md) {
+    width: rem(354px);
+    height: rem(46px);
+    font-size: rem(16px);
+    line-height: 1.13;
+  }
+  @media (min-width: rem(1440px)) {
+  }
+}
+.input:hover {
+  border-radius: 8px;
+  border: 1px solid var(--mantine-color-black);
+}
+.button {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: rem(40px);
+  padding: rem(14px) rem(50px);
+  width: rem(195px);
+  height: rem(46px);
+
+  border-radius: rem(16px);
+  background-color: var(--mantine-color-blue-4);
+
+  overflow: hidden;
+  color: var(--mantine-color-white);
+  text-align: center;
+  font-family: Inter;
+  font-size: rem(14px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.29;
+  transition: all 350ms ease;
+
+  @media (min-width: $mantine-breakpoint-md) {
+    width: rem(262px);
+    height: rem(48px);
+
+    background-color: var(--mantine-color-blue-4);
+  }
+  @media (min-width: rem(1440px)) {
+    margin-top: rem(88px);
+  }
+}
+
+.button:hover {
+  background-color: var(--mantine-color-blue-5);
+}
+.buttonLabel {
+  overflow: visible;
+}
+.button:disabled {
+  background-color: grey;
+}
+
+.dangerZone {
+  margin-top: rem(25px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: rem(16px);
+}
+
+.divider {
+  margin-top: rem(25px);
+  display: block;
+  height: 1px;
+  width: 90%;
+  background-color: rgba(255, 255, 255, 0.15);
 }

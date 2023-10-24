@@ -1,41 +1,55 @@
-import { useForm } from '@mantine/form';
+import { hasLength, isEmail, useForm } from '@mantine/form';
 import {
   TextInput,
-  PasswordInput,
   Text,
   Anchor,
   Paper,
   Group,
   Button,
   Stack,
+  Divider,
+  Loader,
+  PasswordInput,
 } from '@mantine/core';
 import { GoogleButton } from '@/modules/Register/components/GoogleButton';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUserThunk } from '@/redux/operations';
+import css from './styles/LoginForm.module.css';
+import { selectLoading } from '@/redux/slices/authSlice.js';
+import {
+  IconAlertCircle,
+  IconCircleCheck,
+  IconEye,
+  IconEyeOff,
+  IconLogin2,
+} from '@tabler/icons-react';
+import clsx from 'clsx';
+import Modal from '@/components/Modal';
+import { ForgotPassword } from './ForgotPassword';
+import { useState } from 'react';
+import theme from '@/theme';
+import { useDisclosure } from '@mantine/hooks';
+import { useTranslation } from 'react-i18next';
 
-function LoginForm(props) {
+function LoginForm() {
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectLoading);
+  const [isOpen, setIsOpen] = useState(false);
+  const [visible, { toggle }] = useDisclosure(false);
+  const { t } = useTranslation();
+
+  const handleCloseModal = () => {
+    setIsOpen((prev) => !prev);
+  };
 
   const form = useForm({
     initialValues: {
       email: '',
       password: '',
     },
-
-    // onSubmit: (values) => {
-    //   console.log(222)
-    //   dispatch(loginUserThunk(values));
-    // },
-
     validate: {
-      email: (val) =>
-        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(val)
-          ? null
-          : 'Invalid email',
-      password: (val) =>
-        val.length <= 6
-          ? 'Password should include at least 6 characters'
-          : null,
+      email: isEmail(t('register.errorEmail')),
+      password: hasLength({ min: 6 }, t('register.errorPassword')),
     },
   });
 
@@ -44,127 +58,148 @@ function LoginForm(props) {
   }
 
   return (
-    <Paper radius="md" p="xl" withBorder {...props}>
-      <Text size="lg" fw={500}>
-        Log In
+    <Paper className={css.wrappForm}>
+      <Text className={css.titleForm} c="blue.4">
+        {t('login.title')}
       </Text>
 
-      <Group grow mb="md" mt="md">
-        <GoogleButton onClick={handleGoogleButtonClick} radius="xl">
+      <Group className={css.wrappGoogleButton} grow>
+        <GoogleButton
+          className={css.googleButton}
+          onClick={handleGoogleButtonClick}
+          tabIndex={1}
+        >
           Google
         </GoogleButton>
       </Group>
-
-      {/* <form onSubmit={form.onSubmit}> */}
+      <Divider
+        className={css.divider}
+        label={t('register.divider')}
+        labelPosition="center"
+      />
       <form
+        className={css.form}
         onSubmit={form.onSubmit((values) => {
           dispatch(loginUserThunk(values));
         })}
       >
-        <Stack>
+        <Stack className={css.stack}>
           <TextInput
-            required
-            label="Email"
-            placeholder="hello@mantine.dev"
-            value={form.values.email}
-            onChange={(event) =>
-              form.setFieldValue('email', event.currentTarget.value)
+            withAsterisk
+            label={t('register.email')}
+            placeholder={t('register.emailPlcholder')}
+            rightSection={
+              form.errors?.email ? (
+                <IconAlertCircle className={css.iconAlertCircle} />
+              ) : form.isValid('email') ? (
+                <IconCircleCheck className={css.iconCircleCheck} />
+              ) : null
             }
-            error={form.errors.email && 'Invalid email'}
-            radius="md"
+            {...form.getInputProps('email')}
+            classNames={{
+              wrapper: css.wrapper,
+              label: form.isValid('email')
+                ? css.labelCorrect
+                : form.errors.email
+                ? css.labelError
+                : css.label,
+              error: css.error,
+              required: form.isValid('email')
+                ? css.requiredCorrect
+                : form.errors.username
+                ? css.requiredError
+                : css.required,
+              section: css.section,
+              input: clsx(
+                css.input,
+                form.isValid('email') ? css.inputCorrect : null,
+              ),
+            }}
+            tabIndex={2}
           />
 
           <PasswordInput
-            required
-            label="Password"
-            placeholder="Your password"
-            value={form.values.password}
-            onChange={(event) =>
-              form.setFieldValue('password', event.currentTarget.value)
+            withAsterisk
+            label={t('register.password')}
+            placeholder={t('register.passwordPlcholder')}
+            visible={visible}
+            onVisibilityChange={toggle}
+            rightSection={
+              <div className={css.wrapperIcon}>
+                <Button
+                  className={css.buttonIcon}
+                  variant="link"
+                  onClick={toggle}
+                >
+                  {visible ? (
+                    <IconEye className={css.iconEye} />
+                  ) : (
+                    <IconEyeOff className={css.iconEyeOff} />
+                  )}
+                </Button>
+
+                {form.errors?.password ? (
+                  <IconAlertCircle className={css.iconAlertCircle} />
+                ) : form.values.password.length > 5 ? (
+                  <IconCircleCheck className={css.iconCircleCheck} />
+                ) : null}
+              </div>
             }
-            error={
-              form.errors.password &&
-              'Password should include at least 6 characters'
-            }
-            radius="md"
+            {...form.getInputProps('password')}
+            classNames={{
+              wrapper: css.wrapper,
+              label: form.isValid('password')
+                ? css.labelCorrect
+                : form.errors.password
+                ? css.labelError
+                : css.label,
+              error: css.error,
+              required: form.isValid('password')
+                ? css.requiredCorrect
+                : form.errors.username
+                ? css.requiredError
+                : css.required,
+              section: css.sectionPassword,
+              input: clsx(
+                css.input,
+                form.isValid('password') ? css.inputCorrect : null,
+              ),
+              innerInput: css.inputInput,
+            }}
+            tabIndex={3}
           />
         </Stack>
 
-        <Group justify="space-between" mt="xl">
-          <Anchor component="button" size="sm">
-            Forgot password?
+        <Group className={css.wrappButton}>
+          <Anchor
+            component="button"
+            type="button"
+            size="sm"
+            onClick={handleCloseModal}
+            tabIndex={5}
+          >
+            {t('login.forgotPassword')}
           </Anchor>
-          <Button type="submit" radius="xl">
-            Log in
-          </Button>
+          {isLoading ? (
+            <Loader c={theme.colors.blue[4]} />
+          ) : (
+            <Button
+              className={css.button}
+              rightSection={<IconLogin2 className={css.iconButton} />}
+              type="submit"
+              tabIndex={4}
+            >
+              <Text className={css.textButtonForm}>{t('login.link')}</Text>
+            </Button>
+          )}
         </Group>
       </form>
+      {isOpen && (
+        <Modal onClose={handleCloseModal}>
+          <ForgotPassword onClose={handleCloseModal} />
+        </Modal>
+      )}
     </Paper>
   );
 }
 export default LoginForm;
-
-// -----форма на formik
-// // import React from 'react';
-// import { Navigate } from 'react-router-dom';
-
-// import { useFormik } from 'formik';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { loginUserThunk } from '@/redux/operations';
-// import { selectIsAuthenticated } from '@/redux/slices/authSlice';
-// import css from './LoginForm.module.css';
-
-// function LoginForm() {
-//   const isAuthenticated = useSelector(selectIsAuthenticated);
-//   // console.log('isAuthenticated in login', isAuthenticated)
-//   const dispatch = useDispatch();
-//   const formik = useFormik({
-//     initialValues: {
-//       email: '',
-//       password: '',
-//     },
-//     onSubmit: (values) => {
-//       dispatch(loginUserThunk(values));
-//     },
-//   });
-
-//   if (isAuthenticated) return <Navigate to="/calendar" />;
-//   return (
-//     <div className={css.boxLogin}>
-//       <h2 className={css.headerLogin}>Log In</h2>
-//       <form className={css.formLogin} onSubmit={formik.handleSubmit}>
-//         <label className={css.labelLogin} htmlFor="email">
-//           Email
-//         </label>
-//         <input
-//           className={css.inputLogin}
-//           id="email"
-//           name="email"
-//           type="email"
-//           onChange={formik.handleChange}
-//           value={formik.values.email}
-//           required
-//           maxLength={30}
-//         />
-//         <label className={css.labelLogin} htmlFor="password">
-//           Password
-//         </label>
-//         <input
-//           className={css.inputLogin}
-//           id="password"
-//           name="password"
-//           type="password"
-//           onChange={formik.handleChange}
-//           value={formik.values.password}
-//           minLength={7}
-//           required
-//         />
-//         <button className={css.buttonLogin} type="submit">
-//           Log In
-//         </button>
-//       </form>
-//     </div>
-//   );
-// }
-
-// export default LoginForm;

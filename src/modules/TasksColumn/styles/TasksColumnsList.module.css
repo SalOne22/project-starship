@@ -1,0 +1,39 @@
+.tasksList {
+  width: 100%;
+  /* max-width: rem(375px); */
+  height: 100%;
+  margin: 0 auto;
+  display: grid;
+  justify-content: start;
+  align-items: flex-start;
+  column-gap: rem(27px);
+  padding-top: rem(16px);
+  padding-bottom: rem(32px);
+  overflow-y: hidden;
+  overflow-x: scroll;
+  grid-template-columns: repeat(3, 1fr);
+
+  @media (min-width: $mantine-breakpoint-md) {
+    /* max-width: rem(768px); */
+  }
+  @media (min-width: $mantine-breakpoint-xl) {
+    /* max-width: 100%; */
+    overflow-x: hidden;
+  }
+}
+
+.tasksList::-webkit-scrollbar {
+  height: 8px;
+}
+
+.tasksList::-webkit-scrollbar-thumb {
+  background-color: var(--mantine-color-gray-5);
+  border-radius: rem(8px);
+  @mixin dark {
+    background-color: var(--mantine-color-gray-5);
+  }
+}
+
+.tasksList::-webkit-scrollbar-thumb:hover {
+  background-color: var(--mantine-color-gray-4);
+}

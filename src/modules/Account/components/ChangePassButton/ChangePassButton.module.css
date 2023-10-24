@@ -1,0 +1,18 @@
+.button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--mantine-color-blue-6);
+  padding: rem(10) rem(20);
+
+  border-radius: rem(8px);
+  font-size: rem(14);
+  font-weight: 600;
+  line-height: rem(18);
+  transition: all 350ms ease;
+}
+
+.button:hover {
+  background-color: var(--mantine-color-blue-5);
+  color: var(--mantine-color-white);
+}

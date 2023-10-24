@@ -1,0 +1,36 @@
+.pageStyle {
+  padding: rem(40px) 0;
+  background: light-dark(
+    var(--mantine-color-blue-2),
+    var(--mantine-color-dark-7)
+  );
+  min-height: 100dvh;
+  height: 100%;
+}
+
+.containerStyle {
+  padding: 0 rem(20px);
+}
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: rem(18px);
+  @media (min-width: $mantine-breakpoint-xl) {
+    gap: rem(24px);
+  }
+}
+
+.images {
+  position: fixed;
+  bottom: -5px;
+  left: rem(29px);
+  display: none;
+  @media (min-width: $mantine-breakpoint-xl) {
+    display: block;
+  }
+}
+.box {
+  height: rem(40px);
+}
