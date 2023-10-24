@@ -128,6 +128,7 @@ function FeedbackForm({ onClose }) {
     if (isEditing && !feedback) onClose();
     if (isEditing) {
       setIsEditing(false);
+      form.setValues(feedback);
       return;
     }
     onClose();
@@ -203,6 +204,7 @@ function FeedbackForm({ onClose }) {
             content: css.contentModal,
             title: css.removeModalTitle,
           }}
+          centered
         >
           <Text size="sm" mb={20}>
             {t('feedback.modal.text')}
