@@ -1,4 +1,6 @@
 import CalendarToolbar from '../CalendarToolbar';
+import { useDisclosure } from '@mantine/hooks';
+
 import { DatePicker } from '@mantine/dates';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -18,7 +20,7 @@ import { Modal } from '@mantine/core';
 
 function ChosenDay() {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [openedCalendar, setOpenedCalendar] = useState(false);
+  const [opened, { open, close }] = useDisclosure(false);
   const { i18n } = useTranslation();
 
   const { tasks } = useTasks();
@@ -53,7 +55,7 @@ function ChosenDay() {
 
   const onChangeCalendar = (val) => {
     setCurrentDate(val);
-    setOpenedCalendar(false);
+    close();
 
     const nextDay = new Date(val);
     nextDay.setDate(val.getDate() + 1);
@@ -67,48 +69,44 @@ function ChosenDay() {
 
   return (
     <div className={css.wrapper}>
-      <div className={css.thumb}>
-        <CalendarToolbar
-          prevDate={prevDay}
-          nextDate={nextDay}
-          currentDate={currentDate}
-          openedCalendar={setOpenedCalendar}
-        />
-        {openedCalendar && (
-          <Modal
-            opened={openedCalendar}
-            onClose={() => setOpenedCalendar((prev) => !prev)}
-            withCloseButton={false}
-            size="auto"
-            classNames={{
-              body: css.body,
-            }}
-            transitionProps={{ duration: 300, transition: 'fade' }}
-          >
-            <DatePicker
-              locale={i18n.language === 'en' ? 'en' : 'uk'}
-              defaultDate={currentDate}
-              value={currentDate}
-              onChange={onChangeCalendar}
-              hideOutsideDates
-              className={css.datePicker}
-              classNames={{
-                calendarHeaderControl: css.calendarHeaderControl,
-                calendarHeaderLevel: css.calendarHeaderLevel,
-                yearsListCell: css.yearsListCell,
-                monthsListCell: css.monthsListCell,
-                weekday: css.weekday,
-                day: css.day,
-              }}
-            />
-          </Modal>
-        )}
-      </div>
-
+      <CalendarToolbar
+        prevDate={prevDay}
+        nextDate={nextDay}
+        currentDate={currentDate}
+        openCalendar={open}
+      />
       <DatePaginator currentDate={currentDate} isDateShown={true} />
       <DndProvider backend={HTML5Backend}>
         <TasksColumnsList tasks={tasks} />
       </DndProvider>
+
+      <Modal
+        opened={opened}
+        onClose={close}
+        withCloseButton={false}
+        size="auto"
+        classNames={{
+          content: css.modalContent,
+        }}
+        transitionProps={{ duration: 300, transition: 'fade' }}
+      >
+        <DatePicker
+          locale={i18n.language === 'en' ? 'en' : 'uk'}
+          defaultDate={currentDate}
+          value={currentDate}
+          onChange={onChangeCalendar}
+          hideOutsideDates
+          className={css.datePicker}
+          classNames={{
+            calendarHeaderControl: css.calendarHeaderControl,
+            calendarHeaderLevel: css.calendarHeaderLevel,
+            yearsListCell: css.yearsListCell,
+            monthsListCell: css.monthsListCell,
+            weekday: css.weekday,
+            day: css.day,
+          }}
+        />
+      </Modal>
     </div>
   );
 }

@@ -1,3 +1,5 @@
+import { useDisclosure } from '@mantine/hooks';
+
 import { MonthPicker } from '@mantine/dates';
 import { useEffect, useState } from 'react';
 import css from './ChosenMonth.module.css';
@@ -14,7 +16,7 @@ import { Modal } from '@mantine/core';
 
 const ChosenMonth = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [openedCalendar, setOpenedCalendar] = useState(false);
+  const [opened, { open, close }] = useDisclosure(false);
   const { i18n } = useTranslation();
 
   const navigate = useNavigate();
@@ -56,7 +58,7 @@ const ChosenMonth = () => {
     };
 
     changeCurrentDate(newDateObj);
-    setOpenedCalendar(false);
+    close();
 
     const nextMonth = new Date(val);
     nextMonth.setMonth(val.getMonth() + 1);
@@ -65,50 +67,46 @@ const ChosenMonth = () => {
   };
 
   return (
-    <div className={css.wrapper}>
-      <div className={css.thumb}>
+    <>
+      <div className={css.wrapper}>
         <CalendarToolbar
           nextDate={nextMonth}
           prevDate={prevMonth}
           currentDate={currentDate}
-          openedCalendar={setOpenedCalendar}
+          openCalendar={open}
         />
-        {openedCalendar && (
-          <Modal
-            opened={openedCalendar}
-            onClose={() => setOpenedCalendar((prev) => !prev)}
-            withCloseButton={false}
-            size="auto"
-            classNames={{
-              body: css.body,
-            }}
-            transitionProps={{ duration: 300, transition: 'fade' }}
-          >
-            <MonthPicker
-              locale={i18n.language === 'en' ? 'en' : 'uk'}
-              defaultDate={currentDate}
-              value={currentDate}
-              onChange={onChangeCalendar}
-              hideOutsideDates
-              className={css.datePicker}
-              classNames={{
-                calendarHeaderControl: css.calendarHeaderControl,
-                calendarHeaderLevel: css.calendarHeaderLevel,
-                yearsListCell: css.yearsListCell,
-                monthsListCell: css.monthsListCell,
-                weekday: css.weekday,
-                day: css.day,
-              }}
-            />
-          </Modal>
-        )}
-      </div>
 
-      <div className={css.calendarBody}>
         <DatePaginator currentDate={currentDate} isDateShown={false} />
         <CalendarDay day={currentDate} changeCurrentDate={changeCurrentDate} />
       </div>
-    </div>
+
+      <Modal
+        opened={opened}
+        onClose={close}
+        withCloseButton={false}
+        size="auto"
+        classNames={{
+          content: css.modalContent,
+        }}
+        transitionProps={{ duration: 300, transition: 'fade' }}
+      >
+        <MonthPicker
+          locale={i18n.language === 'en' ? 'en' : 'uk'}
+          defaultDate={currentDate}
+          value={currentDate}
+          onChange={onChangeCalendar}
+          hideOutsideDates
+          classNames={{
+            calendarHeaderControl: css.calendarHeaderControl,
+            calendarHeaderLevel: css.calendarHeaderLevel,
+            yearsListCell: css.yearsListCell,
+            monthsListCell: css.monthsListCell,
+            weekday: css.weekday,
+            day: css.day,
+          }}
+        />
+      </Modal>
+    </>
   );
 };
 
