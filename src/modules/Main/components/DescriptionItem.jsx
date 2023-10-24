@@ -22,16 +22,7 @@ function DescriptionItem({ descr, className, order }) {
             <Text className={css.description}>{description}</Text>
           </div>
           <div>
-            <Image
-              className={css.img}
-              src={descrsImgs[order].image}
-              alt="Description Image"
-              sizes={[
-                { maxWidth: 375, size: '100vw' },
-                { maxWidth: 768, size: '50vw' },
-                { size: '30vw' },
-              ]}
-            />
+            <Image className={css.img} src={image} alt={text} />
           </div>
         </div>
       </List.Item>
