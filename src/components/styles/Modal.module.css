@@ -28,6 +28,8 @@
   top: rem(14px);
   right: rem(14px);
 
+  animation: fadeAnimOpen 0.3s linear;
+
   @media (min-width: $mantine-breakpoint-md) {
     top: rem(18px);
     right: rem(18px);
