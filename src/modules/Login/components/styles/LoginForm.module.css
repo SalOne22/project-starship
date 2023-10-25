@@ -58,8 +58,6 @@
   }
 }
 
-/* ---form---- */
-
 .form {
   width: 100%;
 }
@@ -280,7 +278,6 @@
   );
 }
 
-/* -------button log in ------*/
 .wrappButton {
   margin-top: 0;
   display: flex;
@@ -328,6 +325,7 @@
 }
 
 .iconButton {
+  display: block;
   width: rem(18px);
   @media (min-width: $mantine-breakpoint-md) {
     width: rem(30px);

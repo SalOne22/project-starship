@@ -6,7 +6,6 @@ import {
   Group,
   Button,
   Stack,
-  Loader,
   Divider,
   PasswordInput,
 } from '@mantine/core';
@@ -23,7 +22,6 @@ import {
   IconLogin2,
 } from '@tabler/icons-react';
 import clsx from 'clsx';
-import theme from '@/theme.js';
 import { useDisclosure } from '@mantine/hooks';
 import { useTranslation } from 'react-i18next';
 
@@ -200,7 +198,9 @@ function RegisterForm(props) {
 
         <Group className={css.wrappButton}>
           {isLoading ? (
-            <Loader c={theme.colors.blue[4]} />
+            <Button loading className={css.button}>
+              <Text className={css.textButtonForm}>{t('register.link')}</Text>
+            </Button>
           ) : (
             <Button
               className={css.button}
