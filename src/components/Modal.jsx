@@ -10,14 +10,21 @@ const modalRoot = document.querySelector('#modal-root');
 
 function Modal({ onClose, children }) {
   const { t } = useTranslation();
-  const [closing, setClosing] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+
+  const closeModal = () => {
+    setIsVisible(false);
+    setTimeout(() => {
+      onClose();
+    }, 300);
+  };
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
 
     const closeModalByEsc = (e) => {
       if (e.code === 'Escape') {
-        setClosing(true);
+        closeModal();
       }
     };
 
@@ -31,13 +38,7 @@ function Modal({ onClose, children }) {
 
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
-      setClosing(true);
-    }
-  };
-
-  const handleAnimationEnd = () => {
-    if (closing) {
-      onClose();
+      closeModal();
     }
   };
 
@@ -48,16 +49,14 @@ function Modal({ onClose, children }) {
       blur={3}
       center
       fixed
-      onClick={handleOverlayClick}
+      onMouseDown={handleOverlayClick}
+      className={clsx(css.overlay, isVisible && css.active)}
     >
-      <Box
-        className={clsx(css.modal, closing ? css.closing : '')}
-        onAnimationEnd={handleAnimationEnd}
-      >
+      <Box className={clsx(css.modal, !isVisible && css.closing)}>
         <CloseButton
           aria-label={t('common.closeModal')}
           classNames={{ root: css.closeBtn }}
-          onClick={() => setClosing(true)}
+          onClick={closeModal}
         />
         {children}
       </Box>

@@ -1,18 +1,21 @@
 .container {
   max-width: rem(335px);
   padding: rem(44px) rem(20px);
-  padding-bottom: rem(24px);
+  padding-bottom: rem(34px);
   @media (min-width: $mantine-breakpoint-md) {
-    max-width: 100%;
-    padding: rem(64px) rem(74px);
+    max-width: rem(540px);
+    padding: rem(54px) rem(40px);
+    padding-bottom: rem(34px);
   }
 }
 
 .confirmContainer {
-  padding: rem(44px) rem(44px);
+  max-width: rem(345px);
+  padding: rem(44px) rem(35px);
+  padding-bottom: rem(34px);
   @media (min-width: $mantine-breakpoint-md) {
-    max-width: 100%;
-    padding: rem(64px) rem(74px);
+    max-width: rem(550px);
+    padding: rem(64px) rem(40px);
   }
 }
 
@@ -64,7 +67,8 @@
 .input {
   border-radius: rem(8px);
   width: 100%;
-  padding: rem(14px) rem(18px);
+  padding: 0;
+  padding-right: rem(100px) !important;
   font-size: rem(14px);
   font-style: normal;
   font-weight: 600;
@@ -83,7 +87,7 @@
   display: flex;
   margin: 0 auto;
   margin-top: rem(24px);
-  padding: rem(12px) rem(24px);
+  padding: rem(12px) rem(16px);
   border: none;
   cursor: pointer;
   justify-content: center;
@@ -95,6 +99,9 @@
   text-transform: uppercase;
   color: var(--mantine-color-white);
   transition: background-color 350ms ease;
+  @media (min-width: $mantine-breakpoint-md) {
+    padding: rem(12px) rem(24px);
+  }
 }
 .cancelBtn {
   background-color: #efefef;
@@ -132,9 +139,28 @@
 }
 
 .eyeBtnSectionActive {
-  width: 80px;
+  width: 65px;
+}
+
+.eyeBtn {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .eyeBtnSection {
   transition: all 350ms ease;
+  gap: 8px;
+}
+
+.innerInput {
+  padding-right: rem(65px);
+}
+
+.mailText {
+  color: var(--mantine-color-blue-7);
 }

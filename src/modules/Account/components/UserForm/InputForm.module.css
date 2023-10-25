@@ -174,18 +174,18 @@
 }
 
 .simplGride {
-  gap: rem(18px);
-
+  gap: 0;
   @media (min-width: $mantine-breakpoint-md) {
-    gap: rem(24px);
+    gap: 0;
   }
   @media (min-width: rem(1440px)) {
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 24px 50px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px;
   }
 }
 
 .wrapper label {
+  margin-bottom: 8px;
   color: light-dark(var(--mantine-color-black), rgba(250, 250, 250, 0.3));
   font-family: Inter;
   font-size: rem(12px);
@@ -235,16 +235,21 @@
   @media (min-width: $mantine-breakpoint-md) {
     width: rem(354px);
     height: rem(46px);
+
+    padding-top: rem(14px);
+    padding-bottom: rem(14px);
+    padding-left: rem(18px);
+
     font-size: rem(16px);
     line-height: 1.13;
   }
-  @media (min-width: rem(1440px)) {
-  }
 }
+
 .input:hover {
   border-radius: 8px;
   border: 1px solid var(--mantine-color-black);
 }
+
 .button {
   margin-left: auto;
   margin-right: auto;

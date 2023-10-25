@@ -3,6 +3,12 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+
+  padding: 0 rem(20px);
+
+  @media (min-width: em(768px)) {
+    padding: 0 rem(32px);
+  }
 }
 
 .titleWrapper {

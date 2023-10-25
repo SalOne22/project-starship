@@ -81,11 +81,10 @@ function TasksColumn({ category, tasks, title }) {
     >
       <ColumnHeadBar title={title} onClick={onOpen} isValidDate={isValidDate} />
       <ColumnsTasksList tasksToMap={tasksToMap} isValidDate={isValidDate} />
-      {isValidDate && (
-        <AddTaskButton onClick={onOpen}>
-          {t('calendar.chosenday.taskColumns.addBtn')}
-        </AddTaskButton>
-      )}
+
+      <AddTaskButton isValidDate={isValidDate} onClick={onOpen}>
+        {t('calendar.chosenday.taskColumns.addBtn')}
+      </AddTaskButton>
 
       {isOpen && <TaskModal category={category} onClose={onClose} />}
     </div>

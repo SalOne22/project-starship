@@ -1,7 +1,7 @@
 .tasksColumn {
   background-color: var(--mantine-color-white);
   width: 100%;
-  min-width: rem(335px);
+  min-width: rem(278px);
   border-radius: rem(8px);
   border: 1px solid rgba(220, 227, 229, 0.8);
   padding: rem(20px);
@@ -10,8 +10,11 @@
     background-color: var(--mantine-color-gray-7);
     border: 1px solid rgba(255, 255, 255, 0.15);
   }
+  @media (min-width: $mantine-breakpoint-xs) {
+    min-width: rem(334px);
+  }
   @media (min-width: $mantine-breakpoint-md) {
-    min-width: rem(344px);
+    min-width: rem(337px);
   }
 }
 

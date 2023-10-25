@@ -1,7 +1,4 @@
 import CalendarToolbar from '../CalendarToolbar';
-import { useDisclosure } from '@mantine/hooks';
-
-import { DatePicker } from '@mantine/dates';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import DatePaginator from '../CalendarToolbar/components/DatePaginator';
@@ -13,15 +10,9 @@ import { useTasks } from '../Calendar/hooks/useTasks';
 import { useDispatch } from 'react-redux';
 import { fetchTasks } from '../Calendar/redux/operations';
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import 'dayjs/locale/uk';
-import 'dayjs/locale/en';
-import { Modal } from '@mantine/core';
 
 function ChosenDay() {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [opened, { open, close }] = useDisclosure(false);
-  const { i18n } = useTranslation();
 
   const { tasks } = useTasks();
   const dispatch = useDispatch();
@@ -55,7 +46,6 @@ function ChosenDay() {
 
   const onChangeCalendar = (val) => {
     setCurrentDate(val);
-    close();
 
     const nextDay = new Date(val);
     nextDay.setDate(val.getDate() + 1);
@@ -73,40 +63,13 @@ function ChosenDay() {
         prevDate={prevDay}
         nextDate={nextDay}
         currentDate={currentDate}
-        openCalendar={open}
+        onChangeCalendar={onChangeCalendar}
+        mode="day"
       />
       <DatePaginator currentDate={currentDate} isDateShown={true} />
       <DndProvider backend={HTML5Backend}>
         <TasksColumnsList tasks={tasks} />
       </DndProvider>
-
-      <Modal
-        opened={opened}
-        onClose={close}
-        withCloseButton={false}
-        size="auto"
-        classNames={{
-          content: css.modalContent,
-        }}
-        transitionProps={{ duration: 300, transition: 'fade' }}
-      >
-        <DatePicker
-          locale={i18n.language === 'en' ? 'en' : 'uk'}
-          defaultDate={currentDate}
-          value={currentDate}
-          onChange={onChangeCalendar}
-          hideOutsideDates
-          className={css.datePicker}
-          classNames={{
-            calendarHeaderControl: css.calendarHeaderControl,
-            calendarHeaderLevel: css.calendarHeaderLevel,
-            yearsListCell: css.yearsListCell,
-            monthsListCell: css.monthsListCell,
-            weekday: css.weekday,
-            day: css.day,
-          }}
-        />
-      </Modal>
     </div>
   );
 }

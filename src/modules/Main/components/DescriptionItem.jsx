@@ -25,12 +25,7 @@ function DescriptionItem({ descr, className, order }) {
             <Image
               className={css.img}
               src={descrsImgs[order].image}
-              alt="Description Image"
-              sizes={[
-                { maxWidth: 375, size: '100vw' },
-                { maxWidth: 768, size: '50vw' },
-                { size: '30vw' },
-              ]}
+              alt={text}
             />
           </div>
         </div>
@@ -38,7 +33,6 @@ function DescriptionItem({ descr, className, order }) {
     </div>
   );
 }
-
 DescriptionItem.propTypes = {
   descr: PropTypes.shape({
     id: PropTypes.number.isRequired,
