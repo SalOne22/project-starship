@@ -8,7 +8,6 @@ import {
   Button,
   Stack,
   Divider,
-  Loader,
   PasswordInput,
 } from '@mantine/core';
 import { GoogleButton } from '@/modules/Register/components/GoogleButton';
@@ -27,7 +26,6 @@ import clsx from 'clsx';
 import Modal from '@/components/Modal';
 import { ForgotPassword } from './ForgotPassword';
 import { useState } from 'react';
-import theme from '@/theme';
 import { useDisclosure } from '@mantine/hooks';
 import { useTranslation } from 'react-i18next';
 
@@ -180,18 +178,16 @@ function LoginForm() {
           >
             {t('login.forgotPassword')}
           </Anchor>
-          {isLoading ? (
-            <Loader c={theme.colors.blue[4]} />
-          ) : (
-            <Button
-              className={css.button}
-              rightSection={<IconLogin2 className={css.iconButton} />}
-              type="submit"
-              tabIndex={4}
-            >
-              <Text className={css.textButtonForm}>{t('login.link')}</Text>
-            </Button>
-          )}
+
+          <Button
+            loading={isLoading}
+            className={css.button}
+            rightSection={<IconLogin2 className={css.iconButton} />}
+            type="submit"
+            tabIndex={4}
+          >
+            <Text className={css.textButtonForm}>{t('login.link')}</Text>
+          </Button>
         </Group>
       </form>
       {isOpen && (
