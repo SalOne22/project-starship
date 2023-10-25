@@ -53,11 +53,9 @@ function Statistics() {
       currentMonth === dayjs(tasks[0].date).format('YYYY-MM') &&
       !isLoading
     ) {
-      // console.log('Statements in Statistics useEffect');
       return;
     }
     dispatch(fetchTasks(currentMonth));
-    // console.log('Statistics useEffect to get tasks');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentMonth, dispatch]);
 

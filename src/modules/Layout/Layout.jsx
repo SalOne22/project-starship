@@ -35,9 +35,7 @@ function Layout() {
 
   useEffect(() => {
     const refreshToken = searchParams.get('token');
-    if (!refreshToken) {
-      return;
-    } else {
+    if (refreshToken) {
       localStorage.setItem('refreshToken', refreshToken);
       dispatch(refreshUserThunk());
     }

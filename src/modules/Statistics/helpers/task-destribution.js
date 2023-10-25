@@ -7,11 +7,6 @@ export const getTasksTypeDistribution = (tasks, filterFn) => {
   return filteredTasks.reduce(cbReduceTypeDistribution, {});
 };
 
-// byDayPercentage
-// {to-do: 33, in progress: 33, done: 33}
-// byMonthPercentage
-// {to-do: 33, in progress: 40, done: 27}
-
 export const calculateTasksTypePercentage = (tasksTypeDistribution) => {
   const tasksTypePercentage = {};
   const allTasks = Object.values(tasksTypeDistribution).reduce(
