@@ -197,20 +197,15 @@ function RegisterForm(props) {
         </Stack>
 
         <Group className={css.wrappButton}>
-          {isLoading ? (
-            <Button loading className={css.button}>
-              <Text className={css.textButtonForm}>{t('register.link')}</Text>
-            </Button>
-          ) : (
-            <Button
-              className={css.button}
-              rightSection={<IconLogin2 className={css.iconButton} />}
-              type="submit"
-              tabIndex={5}
-            >
-              <Text className={css.textButtonForm}>{t('register.link')}</Text>
-            </Button>
-          )}
+          <Button
+            loading={isLoading}
+            className={css.button}
+            rightSection={<IconLogin2 className={css.iconButton} />}
+            type="submit"
+            tabIndex={5}
+          >
+            <Text className={css.textButtonForm}>{t('register.link')}</Text>
+          </Button>
         </Group>
       </form>
     </Paper>

@@ -178,20 +178,16 @@ function LoginForm() {
           >
             {t('login.forgotPassword')}
           </Anchor>
-          {isLoading ? (
-            <Button loading className={css.button}>
-              <Text className={css.textButtonForm}>{t('login.link')}</Text>
-            </Button>
-          ) : (
-            <Button
-              className={css.button}
-              rightSection={<IconLogin2 className={css.iconButton} />}
-              type="submit"
-              tabIndex={4}
-            >
-              <Text className={css.textButtonForm}>{t('login.link')}</Text>
-            </Button>
-          )}
+
+          <Button
+            loading={isLoading}
+            className={css.button}
+            rightSection={<IconLogin2 className={css.iconButton} />}
+            type="submit"
+            tabIndex={4}
+          >
+            <Text className={css.textButtonForm}>{t('login.link')}</Text>
+          </Button>
         </Group>
       </form>
       {isOpen && (
