@@ -20,6 +20,7 @@
   font-size: rem(14px);
   font-style: normal;
   font-weight: 700;
+  text-transform: capitalize;
 
   height: rem(34px);
 
