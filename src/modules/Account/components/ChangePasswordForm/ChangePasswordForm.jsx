@@ -18,6 +18,7 @@ function ChangePasswordForm({ onClose }) {
   const [revealOldPassword, setRevealOldPassword] = useState(false);
   const [revealPassword, setRevealPassword] = useState(false);
   const [revealConfirmPassword, setRevealConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { t } = useTranslation();
 
@@ -58,6 +59,8 @@ function ChangePasswordForm({ onClose }) {
       return;
     }
 
+    setIsLoading(true);
+
     try {
       await dispatch(
         updatePassword({
@@ -65,6 +68,7 @@ function ChangePasswordForm({ onClose }) {
           newPassword: values.confirmPassword,
         }),
       ).unwrap();
+      setIsLoading(false);
 
       handleMessage(
         t('changePasswordForm.notifications.success'),
@@ -82,6 +86,7 @@ function ChangePasswordForm({ onClose }) {
       autoClose: 3000,
       color: color,
     });
+    setIsLoading(false);
   };
 
   return (
@@ -250,7 +255,7 @@ function ChangePasswordForm({ onClose }) {
         />
 
         <Group justify="center" mt="md">
-          <Button className={css.button} type="submit">
+          <Button className={css.button} loading={isLoading} type="submit">
             {t('changePasswordForm.changePassBtn')}
           </Button>
         </Group>
