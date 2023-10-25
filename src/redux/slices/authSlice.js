@@ -107,6 +107,7 @@ const slice = createSlice({
       .addCase(logoutUserThunk.fulfilled, (state) => {
         state.isLoading = false;
         state.isAuthenticated = false;
+        state.isGoogleAuth = false;
         state.user = null;
         state.token = null;
         localStorage.removeItem('refreshToken');
@@ -115,6 +116,7 @@ const slice = createSlice({
       .addCase(logoutUserThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.isAuthenticated = false;
+        state.isGoogleAuth = false;
         state.user = null;
         state.token = null;
         localStorage.removeItem('refreshToken');
