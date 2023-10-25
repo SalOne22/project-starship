@@ -26,7 +26,7 @@ import DeleteUserBtn from '../DeleteUserBtn';
 
 export function UserInputForm() {
   const dispatch = useDispatch();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const userAuth = useSelector((state) => state.auth.user) ?? {};
@@ -244,15 +244,27 @@ export function UserInputForm() {
                 mb={{ base: 18, md: 24 }}
               />
               <DateInput
+                locale={i18n.language === 'en' ? 'en' : 'uk'}
                 name="birthday"
                 valueFormat="YYYY/MM/DD"
                 label={t('userform.birthday')}
                 placeholder={formattedToday}
                 value={value}
                 onChange={handleDateChange}
-                classNames={{ wrapper: css.label, input: css.input }}
+                classNames={{
+                  wrapper: css.label,
+                  input: css.input,
+
+                  calendarHeaderControl: css.calendarHeaderControl,
+                  calendarHeaderLevel: css.calendarHeaderLevel,
+                  yearsListCell: css.yearsListCell,
+                  monthsListCell: css.monthsListCell,
+                  weekday: css.weekday,
+                  day: css.day,
+                }}
                 rightSection={<IconChevronDown size={18} color={'#111111'} />}
                 mb={{ base: 18, md: 24 }}
+                hideOutsideDates
               />
               <TextInput
                 name="email"

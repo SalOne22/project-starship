@@ -307,3 +307,53 @@
   width: 90%;
   background-color: rgba(255, 255, 255, 0.15);
 }
+
+/* CALENDAR */
+.levelsGroup {
+  border: 1px solid var(--mantine-color-blue-4);
+  background-color: var(--mantine-color-blue-4);
+  border-radius: rem(16px);
+}
+
+.calendarHeaderControl {
+  color: var(--mantine-color-white);
+}
+
+.calendarHeaderLevel {
+  color: var(--mantine-color-white);
+  font-family: Inter;
+  font-weight: 600;
+}
+
+.monthsListCell button {
+  color: var(--mantine-color-white);
+  font-family: Inter;
+  font-weight: 500;
+}
+
+.yearsListCell button {
+  color: var(--mantine-color-white);
+  font-family: Inter;
+  font-weight: 500;
+}
+
+.weekday {
+  color: var(--mantine-color-white);
+  font-family: Inter;
+  font-weight: 600;
+}
+
+.day {
+  color: var(--mantine-color-white);
+  font-family: Inter;
+}
+
+.day[data-weekend='true'] {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.day[data-selected='true'] {
+  opacity: 1;
+  color: var(--mantine-color-blue-4);
+  background-color: var(--mantine-color-white);
+}

@@ -177,7 +177,7 @@ function FeedbackForm({ onClose }) {
               classNames={{
                 root: clsx(css.btn, css.btnPrimary),
               }}
-              loading={isLoading ? true : false}
+              loading={isLoading}
             >
               {t('common.save')}
             </Button>
