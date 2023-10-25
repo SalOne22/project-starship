@@ -52,8 +52,8 @@ function PeriodPaginator({
           {mode === 'day' && (
             <DatePicker
               locale={i18n.language === 'en' ? 'en' : 'uk'}
-              defaultDate={nameOfDate}
-              value={nameOfDate}
+              defaultDate={currentDate}
+              value={currentDate}
               onChange={onDateChange}
               hideOutsideDates
               size="sm"
