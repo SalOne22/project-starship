@@ -29,7 +29,6 @@ function Layout() {
       try {
         !isLoading && token && (await dispatch(refreshUserThunk()).unwrap());
       } catch (err) {
-        console.log(err);
         if (err === 'Token invalid') {
           dispatch(logoutUserThunk());
           setToken(null);

@@ -2,10 +2,7 @@
   border: 1px solid
     light-dark(rgba(17, 17, 17, 0.1), var(--mantine-color-white));
   border-radius: rem(8px);
-  padding-top: rem(24px);
-  padding-bottom: rem(24px);
-  padding-left: rem(24px);
-  padding-right: rem(20px);
+  padding: rem(24px) rem(20px) rem(24px) rem(24px);
 
   margin: auto;
 

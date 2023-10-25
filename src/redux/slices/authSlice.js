@@ -187,5 +187,5 @@ export const selectToken = (state) => state.auth.token;
 export const selectUserData = (state) => state.auth.user;
 export const selectIsAuthenticated = (state) => state.auth.isAuthenticated;
 
-export const { clearError, updateToken } = slice.actions;
+export const { clearError } = slice.actions;
 export const authReducer = slice.reducer;

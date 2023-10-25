@@ -34,13 +34,11 @@ export const getChartData = (tasks, day) => {
     getTasksTypeDistribution(tasks),
   );
 
-  const data = Object.keys(tasksTypePercentageByMonth).map((taskType) => ({
+  return Object.keys(tasksTypePercentageByMonth).map((taskType) => ({
     name: taskType,
     byDay: tasksTypePercentageByDay[taskType] || 0,
     byMonth: tasksTypePercentageByMonth[taskType] || 0,
   }));
-
-  return data;
 };
 
 export const translateDataItemsNames = (data, i18n) => {

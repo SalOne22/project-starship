@@ -2,7 +2,6 @@
   display: flex;
   justify-content: space-between;
   list-style: none;
-  padding-left: 0;
   text-align: center;
   background-color: var(--mantine-color-white);
   border: 1px solid #dce3e5cc;
@@ -80,13 +79,13 @@
 .periodLeft {
   border-top-left-radius: rem(8px);
   border-bottom-left-radius: rem(8px);
-  border-right: 0.7px solid rgba(220, 227, 229, 0.5);
+  border-right: 1px solid rgba(220, 227, 229, 0.5);
 }
 
 .periodRight {
   border-top-right-radius: rem(8px);
   border-bottom-right-radius: rem(8px);
-  border-left: 0.7px solid rgba(220, 227, 229, 0.5);
+  border-left: 1px solid rgba(220, 227, 229, 0.5);
 }
 
 .periodType.activePeriod {
