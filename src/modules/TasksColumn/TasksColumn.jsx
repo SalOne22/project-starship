@@ -72,7 +72,7 @@ function TasksColumn({ category, tasks, title }) {
 
   return (
     <div
-      ref={isValidDate ? drop : null}
+      ref={drop}
       className={clsx(
         css.tasksColumn,
         isOver ? css.boxDrop : null,
