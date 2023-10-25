@@ -21,8 +21,8 @@
   line-height: 1.33;
   margin-bottom: rem(32px);
   text-shadow:
-    0px 9.399999618530273px 57.6875px rgba(0, 0, 0, 0.04),
-    0px 47px 355px rgba(0, 0, 0, 0.07);
+    0 9px 58px rgba(0, 0, 0, 0.04),
+    0 47px 355px rgba(0, 0, 0, 0.07);
 
   @media (min-width: $mantine-breakpoint-md) {
     font-size: rem(24px);

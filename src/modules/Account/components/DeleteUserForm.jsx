@@ -97,7 +97,6 @@ function DeleteUserForm({ onClose }) {
                     type="button"
                     tabIndex={-1}
                     className={css.eyeBtn}
-                    size={'compact-xs'}
                     onClick={toggle}
                   >
                     {visible ? (

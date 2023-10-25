@@ -11,10 +11,7 @@
   height: rem(684);
   border-radius: rem(16);
 
-  padding-top: rem(28);
-  padding-bottom: rem(135);
-  padding-left: rem(14);
-  padding-right: rem(14);
+  padding: rem(28) rem(14) rem(135);
 
   background-color: light-dark(
     var(--mantine-color-dark-0),
@@ -24,19 +21,13 @@
   @media (min-width: $mantine-breakpoint-md) {
     height: rem(854);
 
-    padding-top: rem(132);
-    padding-bottom: rem(224);
-    padding-left: rem(32);
-    padding-right: rem(32);
+    padding: rem(132) rem(32) rem(224);
   }
 
   @media (min-width: $mantine-breakpoint-xl) {
     height: rem(752);
 
-    padding-top: rem(134);
-    padding-bottom: rem(104);
-    padding-left: rem(114);
-    padding-right: rem(114);
+    padding: rem(134) rem(114) rem(104);
   }
 }
 
@@ -66,10 +57,7 @@
 .stat__chartWrapper {
   /* height: rem(414); */
 
-  padding-top: rem(40);
-  padding-bottom: rem(40);
-  padding-left: rem(14);
-  padding-right: rem(14);
+  padding: rem(40) rem(14);
 
   border: rem(1) solid
     light-dark(var(--mantine-color-blue-1), rgba(227, 243, 255, 0.15));
@@ -77,20 +65,12 @@
 
   @media (min-width: $mantine-breakpoint-md) {
     /* height: rem(424); */
-
-    padding-top: rem(32);
-    padding-bottom: rem(32);
-    padding-left: rem(32);
-    padding-right: rem(32);
+    padding: rem(32);
   }
 
   @media (min-width: $mantine-breakpoint-xl) {
     /* height: rem(440); */
-
-    padding-top: rem(40);
-    padding-bottom: rem(40);
-    padding-left: rem(40);
-    padding-right: rem(40);
+    padding: rem(40);
   }
 }
 
@@ -130,11 +110,10 @@
 }
 
 .stat__chartTitle {
-  margin: 0;
-  margin-bottom: rem(12);
+  margin: 0 0 rem(12);
 
   color: light-dark(var(--mantine-color-dark-6), var(--mantine-color-dark-0));
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-size: rem(14);
   font-style: normal;
   font-weight: 600;

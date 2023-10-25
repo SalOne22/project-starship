@@ -59,7 +59,7 @@ function FeedbackForm({ onClose }) {
       return;
     }
     form.setValues(feedback);
-  }, [feedback]);
+  }, [feedback, form]);
 
   const onSubmit = async ({ rating, text }) => {
     if (isEditing && feedback) {
@@ -216,7 +216,7 @@ function FeedbackForm({ onClose }) {
               variant="filled"
               color="red"
               radius="md"
-              loading={isLoading ? true : false}
+              loading={isLoading}
             >
               {t('common.delete')}
             </Button>

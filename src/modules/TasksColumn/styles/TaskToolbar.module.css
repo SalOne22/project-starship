@@ -19,7 +19,7 @@
 .dropdown {
   padding: rem(20) rem(24);
   border-radius: 8px;
-  box-shadow: rgba(17, 17, 17, 0.1) 0px 4px 16px 0px;
+  box-shadow: rgba(17, 17, 17, 0.1) 0 4px 16px 0;
 
   @mixin dark {
     background-color: var(--mantine-color-dark-7);

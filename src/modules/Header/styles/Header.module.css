@@ -25,8 +25,8 @@
   @media (min-width: $mantine-breakpoint-xl) {
     display: inline;
     text-shadow:
-      0px 9.399999618530273px 57.6875px rgba(0, 0, 0, 0.04),
-      0px 47px 355px rgba(0, 0, 0, 0.07);
+      0 9px 58px rgba(0, 0, 0, 0.04),
+      0 47px 355px rgba(0, 0, 0, 0.07);
     font-size: rem(32px);
     line-height: 1;
   }

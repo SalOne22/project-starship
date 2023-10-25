@@ -23,28 +23,9 @@
   border-radius: rem(16px);
 }
 
-.calendarHeaderControl {
-  color: var(--mantine-color-white);
-}
-
-.calendarHeaderLevel {
-  color: var(--mantine-color-white);
-  text-align: center;
-  font-family: Inter;
-  font-size: rem(18px);
-  font-style: normal;
-  font-weight: 500;
-  line-height: 1.2;
-
-  @media (min-width: $mantine-breakpoint-md) {
-    font-size: rem(20px);
-    line-height: 1.16667;
-  }
-}
-
 .monthsListCell button {
   color: var(--mantine-color-white);
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-size: rem(16px);
   font-style: normal;
   font-weight: 500;
@@ -58,7 +39,7 @@
 
 .yearsListCell button {
   color: var(--mantine-color-white);
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-size: rem(16px);
   font-style: normal;
   font-weight: 500;
@@ -70,24 +51,9 @@
   }
 }
 
-.weekday {
-  color: var(--mantine-color-white);
-  text-align: center;
-  font-family: Inter;
-  font-size: rem(14px);
-  font-style: normal;
-  font-weight: 600;
-  line-height: 1.28571;
-
-  @media (min-width: $mantine-breakpoint-md) {
-    font-size: rem(18px);
-    line-height: 1.33333;
-  }
-}
-
 .day {
   color: var(--mantine-color-white);
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-size: rem(14px);
   font-style: normal;
   font-weight: 400;

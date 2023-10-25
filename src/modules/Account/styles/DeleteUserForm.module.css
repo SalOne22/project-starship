@@ -1,18 +1,15 @@
 .container {
   max-width: rem(335px);
-  padding: rem(44px) rem(20px);
-  padding-bottom: rem(34px);
+  padding: rem(44px) rem(20px) rem(34px);
   @media (min-width: $mantine-breakpoint-md) {
     max-width: rem(540px);
-    padding: rem(54px) rem(40px);
-    padding-bottom: rem(34px);
+    padding: rem(54px) rem(40px) rem(34px);
   }
 }
 
 .confirmContainer {
   max-width: rem(345px);
-  padding: rem(44px) rem(35px);
-  padding-bottom: rem(34px);
+  padding: rem(44px) rem(35px) rem(34px);
   @media (min-width: $mantine-breakpoint-md) {
     max-width: rem(550px);
     padding: rem(64px) rem(40px);
@@ -20,8 +17,7 @@
 }
 
 .title {
-  margin: 0;
-  margin-bottom: rem(12px);
+  margin: 0 0 rem(12px);
   font-size: rem(16px);
   text-align: center;
   @media (min-width: $mantine-breakpoint-md) {
@@ -30,14 +26,8 @@
 }
 
 .deleteUserText {
-  margin: 0;
   text-align: center;
-  margin-bottom: rem(24px);
-}
-
-.deleteUserSpan {
-  text-transform: uppercase;
-  color: var(--mantine-color-red-4);
+  margin: 0 0 rem(24px);
 }
 
 .inputSuccess {
@@ -85,8 +75,7 @@
 }
 .button {
   display: flex;
-  margin: 0 auto;
-  margin-top: rem(24px);
+  margin: rem(24px) auto 0;
   padding: rem(12px) rem(16px);
   border: none;
   cursor: pointer;
