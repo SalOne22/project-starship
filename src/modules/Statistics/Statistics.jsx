@@ -6,40 +6,41 @@ import {
   Legend,
   ResponsiveChartWrapper,
   Wrapper,
-  StatPeriodPaginator,
 } from './components';
 import { Box, Container } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useTasks } from '@/modules/Calendar/hooks/useTasks';
 import { fetchTasks } from '@/modules/Calendar/redux/operations';
 import dayjs from 'dayjs';
+import 'dayjs/locale/uk';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getChartData, translateDataItemsNames } from './helpers';
 import { useTranslation } from 'react-i18next';
 import classes from './styles/Statistics.module.css';
+import PeriodPaginator from '@/components/PeriodPaginator';
 
 function Statistics() {
   const dispatch = useDispatch();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const types = t('statistics.types', {
     returnObjects: true,
   });
   const { tasks, isLoading, error } = useTasks();
-  // const [isTasks, setIsTasks] = useState(true);
-  // useSelector((state) => state?.calendar?.currentDate) ?? dayjs();
   const [currentDate, setCurrentDate] = useState(dayjs());
+
   const currentMonth = dayjs(currentDate).format('YYYY-MM');
   const currentDay = dayjs(currentDate).format('YYYY-MM-DD');
-  // const nameOfDate = dayjs(currentDate).format('DD MMMM YYYY');
+  const locale = i18n.language === 'en' ? 'en' : 'uk';
+  const nameOfDate = dayjs(currentDate).locale(locale).format('DD MMMM YYYY');
 
-  // const prevDay = () => {
-  //   setCurrentDate(currentDate.subtract(1, 'day'));
-  // };
+  const prevDay = () => {
+    setCurrentDate(dayjs(currentDate).subtract(1, 'day'));
+  };
 
-  // const nextDay = () => {
-  //   setCurrentDate(currentDate.add(1, 'day'));
-  // };
+  const nextDay = () => {
+    setCurrentDate(dayjs(currentDate).add(1, 'day'));
+  };
 
   const dataForChart = translateDataItemsNames(
     getChartData(tasks, currentDay),
@@ -75,28 +76,21 @@ function Statistics() {
       <Container className={classes.stat__container}>
         <Wrapper>
           <Box className={classes.stat__header}>
-            <StatPeriodPaginator
+            <PeriodPaginator
+              nameOfDate={nameOfDate}
+              prevDate={prevDay}
+              nextDate={nextDay}
+              onChangeCalendar={setCurrentDate}
               currentDate={currentDate}
-              setCurrentDate={setCurrentDate}
+              mode="day"
             />
             <Legend />
           </Box>
           <ChartWrapper>
             <ChartTitle>{t('statistics.tasks')}</ChartTitle>
-            {/* {!isTasks &&
-              notifications.show({
-                title: "You don't have any tasks for this month",
-                color: 'orange',
-                withCloseButton: true,
-                autoClose: 5000,
-              })}
-            {isTasks && (
-              <> */}
             <ResponsiveChartWrapper>
               <Chart data={dataForChart} />
             </ResponsiveChartWrapper>
-            {/* </>
-            )} */}
           </ChartWrapper>
         </Wrapper>
       </Container>
