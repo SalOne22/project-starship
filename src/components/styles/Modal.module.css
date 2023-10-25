@@ -1,3 +1,14 @@
+.overlay {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s linear;
+}
+
+.active {
+  opacity: 1;
+  visibility: visible;
+}
+
 .modal {
   position: relative;
   border-radius: rem(8px);
@@ -9,6 +20,7 @@
   );
 
   animation: fadeAnimOpen 0.3s linear;
+  transition: all 0.3s linear;
 }
 
 .closeBtn {
@@ -36,10 +48,10 @@
 }
 
 @keyframes fadeAnimClose {
-  0% {
+  from {
     opacity: 1;
   }
-  100% {
-    opacity: 0.1;
+  to {
+    opacity: 0;
   }
 }
