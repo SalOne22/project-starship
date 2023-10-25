@@ -14,7 +14,10 @@ const DatePaginator = ({ currentDate, isDateShown }) => {
 
   const navigate = useNavigate();
 
-  const { t } = useTranslation();
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation();
   const weekdays = t('calendar.weekdays', {
     returnObjects: true,
   });
@@ -23,8 +26,10 @@ const DatePaginator = ({ currentDate, isDateShown }) => {
     function generateWeekDates(startDate) {
       const weekDates = [];
 
+      const locale = language === 'en' ? 'en-US' : 'uk-UA';
+
       const startDayIndex = weekdays.indexOf(
-        startDate.toLocaleString('en-us', { weekday: 'short' }),
+        startDate.toLocaleString(locale, { weekday: 'short' }),
       );
 
       for (let i = 0; i < 7; i++) {
