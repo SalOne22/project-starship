@@ -123,6 +123,10 @@ body {
   text-transform: uppercase;
   color: var(--mantine-color-dark-7);
 
+  @mixin dark {
+    color: var(--mantine-color-gray-3);
+  }
+
   @media (min-width: $mantine-breakpoint-md) {
     font-size: rem(40px);
     line-height: 1.1;
