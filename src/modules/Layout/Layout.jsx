@@ -45,9 +45,7 @@ function Layout() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!token) return <Outlet />;
-
-  if (isAuthenticated)
+  if (isAuthenticated && token)
     return (
       <AppShell
         layout="alt"
@@ -74,6 +72,8 @@ function Layout() {
         </AppShell.Main>
       </AppShell>
     );
+
+  return <Outlet />;
 }
 
 export default Layout;
