@@ -13,9 +13,11 @@
   font-weight: 600;
   line-height: rem(18px);
   transition: background-color 350ms ease;
+  color: var(--mantine-color-black);
   @mixin dark {
     background-color: var(--mantine-color-blue-4);
     border: 1px transparent;
+    color: var(--mantine-color-white);
   }
 }
 
@@ -28,6 +30,10 @@
 
 .addButton:disabled {
   cursor: not-allowed;
+  @mixin dark {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  color: rgba(0, 0, 0, 0.5);
 }
 .addButton:disabled:hover {
   @mixin dark {
@@ -75,6 +81,10 @@
 
 .addButton:hover:disabled {
   background-color: var(--mantine-color-blue-0);
+  color: rgba(0, 0, 0, 0.5);
+  @mixin dark {
+    color: rgba(255, 255, 255, 0.5);
+  }
 }
 
 .addButton:hover:disabled .tooltip {
