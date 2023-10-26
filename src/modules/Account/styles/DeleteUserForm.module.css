@@ -57,10 +57,12 @@
 
 .deleteBtn:disabled {
   cursor: not-allowed;
+  color: var(--mantine-color-white);
   background-color: var(--mantine-color-red-2);
 }
 
 .deleteBtn:disabled:hover {
+  color: var(--mantine-color-white);
   background-color: var(--mantine-color-red-2);
 }
 
@@ -78,9 +80,10 @@
   align-items: center;
   margin-top: rem(8px);
   transition: all 350ms ease;
-
+  color: var(--mantine-color-black);
   @mixin dark {
     background-color: transparent;
+    color: var(--mantine-color-white);
   }
 }
 .button {
@@ -90,6 +93,8 @@
   padding: rem(12px) rem(16px);
   border: none;
   cursor: pointer;
+  color: var(--mantine-color-black);
+
   justify-content: center;
   align-items: center;
   border-radius: rem(8px);
@@ -112,6 +117,7 @@
 }
 .cancelBtn:hover {
   background-color: var(--mantine-color-gray-3);
+  color: var(--mantine-color-black);
   @mixin dark {
     background-color: var(--mantine-color-gray-4);
   }
