@@ -30,6 +30,7 @@
   @mixin dark {
     border: 1px solid rgba(255, 255, 255, 0.15);
     background-color: transparent;
+    color: var(--mantine-color-white);
   }
 }
 
