@@ -237,6 +237,10 @@
       "to-do": "to do",
       "in progress": "in progress",
       "done": "done"
+    },
+    "errors": {
+      "wrong": "Somthing went wrong. Try later!",
+      "nullTasks": "You don't have tasks for this month"
     }
   },
   "register": {
