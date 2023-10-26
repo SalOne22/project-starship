@@ -59,7 +59,6 @@ function Header({ onOpen }) {
             srcSet={`${gooseImg} 1x, ${gooseImg2x} 2x`}
             width={64}
             height={60}
-            alt={'Goose Icon'}
           />
           <Stack gap={8}>
             <Title className={css.title} order={2}>

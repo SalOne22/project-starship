@@ -171,7 +171,9 @@ export const getRemoveKey = createAsyncThunk(
   'auth/getRemoveKey',
   async (_, thunkApi) => {
     try {
-      await $instance.get('/auth/removekey');
+      const { data } = await $instance.get('/auth/removekey');
+      console.log('data: ', data);
+      // return data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.response.data.message);
     }
