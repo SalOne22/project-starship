@@ -140,7 +140,7 @@
   margin-bottom: rem(4px);
   color: light-dark(var(--mantine-color-dark-6), var(--mantine-color-white));
 
-  font-family: Inter, sans-serif;
+  font-family: Inter;
   font-size: rem(14px);
   font-style: normal;
   font-weight: 700;
@@ -155,9 +155,10 @@
 
 .textUser {
   margin-bottom: rem(40px);
+  font-size: rem(12px);
 
   color: light-dark(var(--mantine-color-gray-6), rgba(250, 250, 250, 0.3));
-  font-family: Inter, sans-serif;
+  font-family: Inter;
   font-size: rem(12px);
   font-style: normal;
   font-weight: 600;
@@ -186,7 +187,7 @@
 .wrapper label {
   margin-bottom: 8px;
   color: light-dark(var(--mantine-color-black), rgba(250, 250, 250, 0.3));
-  font-family: Inter, sans-serif;
+  font-family: Inter;
   font-size: rem(12px);
   font-style: normal;
   font-weight: 400;
@@ -200,7 +201,7 @@
 }
 .input::placeholder {
   color: light-dark(rgba(17, 17, 17, 0.15), rgba(250, 250, 250, 0.3));
-  font-family: Inter, sans-serif;
+  font-family: Inter;
   font-size: rem(16px);
   font-style: normal;
   font-weight: 600;
@@ -220,7 +221,7 @@
     1px solid rgba(255, 255, 255, 0.15)
   );
   color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
-  font-family: Inter, sans-serif;
+  font-family: Inter;
   font-size: rem(14px);
   font-style: normal;
   font-weight: 600;
@@ -263,7 +264,7 @@
   overflow: hidden;
   color: var(--mantine-color-white);
   text-align: center;
-  font-family: Inter, sans-serif;
+  font-family: Inter;
   font-size: rem(14px);
   font-style: normal;
   font-weight: 600;
@@ -308,6 +309,11 @@
 }
 
 /* CALENDAR */
+.levelsGroup {
+  border: 1px solid var(--mantine-color-blue-4);
+  background-color: var(--mantine-color-blue-4);
+  border-radius: rem(16px);
+}
 
 .calendarHeaderControl {
   color: var(--mantine-color-white);
@@ -315,31 +321,31 @@
 
 .calendarHeaderLevel {
   color: var(--mantine-color-white);
-  font-family: Inter, sans-serif;
+  font-family: Inter;
   font-weight: 600;
 }
 
 .monthsListCell button {
   color: var(--mantine-color-white);
-  font-family: Inter, sans-serif;
+  font-family: Inter;
   font-weight: 500;
 }
 
 .yearsListCell button {
   color: var(--mantine-color-white);
-  font-family: Inter, sans-serif;
+  font-family: Inter;
   font-weight: 500;
 }
 
 .weekday {
   color: var(--mantine-color-white);
-  font-family: Inter, sans-serif;
+  font-family: Inter;
   font-weight: 600;
 }
 
 .day {
   color: var(--mantine-color-white);
-  font-family: Inter, sans-serif;
+  font-family: Inter;
 }
 
 .day[data-weekend='true'] {

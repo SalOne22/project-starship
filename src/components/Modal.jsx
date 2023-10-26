@@ -1,5 +1,5 @@
 import { Box, Overlay, CloseButton } from '@mantine/core';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -12,12 +12,12 @@ function Modal({ onClose, children }) {
   const { t } = useTranslation();
   const [isVisible, setIsVisible] = useState(true);
 
-  const closeModal = useCallback(() => {
+  const closeModal = () => {
     setIsVisible(false);
     setTimeout(() => {
       onClose();
     }, 300);
-  }, [onClose]);
+  };
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -34,7 +34,7 @@ function Modal({ onClose, children }) {
       document.body.style.overflow = 'auto';
       document.removeEventListener('keydown', closeModalByEsc);
     };
-  }, [closeModal]);
+  }, []);
 
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {

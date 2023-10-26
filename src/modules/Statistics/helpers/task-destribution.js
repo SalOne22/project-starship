@@ -7,6 +7,11 @@ export const getTasksTypeDistribution = (tasks, filterFn) => {
   return filteredTasks.reduce(cbReduceTypeDistribution, {});
 };
 
+// byDayPercentage
+// {to-do: 33, in progress: 33, done: 33}
+// byMonthPercentage
+// {to-do: 33, in progress: 40, done: 27}
+
 export const calculateTasksTypePercentage = (tasksTypeDistribution) => {
   const tasksTypePercentage = {};
   const allTasks = Object.values(tasksTypeDistribution).reduce(
@@ -34,11 +39,13 @@ export const getChartData = (tasks, day) => {
     getTasksTypeDistribution(tasks),
   );
 
-  return Object.keys(tasksTypePercentageByMonth).map((taskType) => ({
+  const data = Object.keys(tasksTypePercentageByMonth).map((taskType) => ({
     name: taskType,
     byDay: tasksTypePercentageByDay[taskType] || 0,
     byMonth: tasksTypePercentageByMonth[taskType] || 0,
   }));
+
+  return data;
 };
 
 export const translateDataItemsNames = (data, i18n) => {

@@ -28,7 +28,7 @@
   background-color: transparent;
   border-color: transparent;
   color: var(--mantine-color-white);
-  font-family: Inter, sans-serif;
+  font-family: Inter;
   font-size: rem(14px);
   font-style: normal;
   font-weight: 700;
@@ -48,7 +48,7 @@
 .calendarHeaderLevel {
   color: var(--mantine-color-white);
   text-align: center;
-  font-family: Inter, sans-serif;
+  font-family: Inter;
   font-size: rem(20px);
   font-style: normal;
   font-weight: 600;
@@ -62,7 +62,7 @@
 
 .monthsListCell button {
   color: var(--mantine-color-white);
-  font-family: Inter, sans-serif;
+  font-family: Inter;
   font-size: rem(16px);
   font-style: normal;
   font-weight: 500;
@@ -76,7 +76,7 @@
 
 .yearsListCell button {
   color: var(--mantine-color-white);
-  font-family: Inter, sans-serif;
+  font-family: Inter;
   font-size: rem(16px);
   font-style: normal;
   font-weight: 500;
@@ -91,7 +91,7 @@
 .weekday {
   color: var(--mantine-color-white);
   text-align: center;
-  font-family: Inter, sans-serif;
+  font-family: Inter;
   font-size: rem(14px);
   font-style: normal;
   font-weight: 600;
@@ -105,7 +105,7 @@
 
 .day {
   color: var(--mantine-color-white);
-  font-family: Inter, sans-serif;
+  font-family: Inter;
   font-size: rem(14px);
   font-style: normal;
   font-weight: 400;

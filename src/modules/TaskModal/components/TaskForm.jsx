@@ -8,7 +8,7 @@ import css from '../styles/TaskForm.module.css';
 import { TimeInput } from '@mantine/dates';
 import { useDispatch } from 'react-redux';
 import { notifications } from '@mantine/notifications';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import PropTypes from 'prop-types';
 import { addTask, editTask } from '@/modules/Calendar/redux/operations';
 import theme from '@/theme';

@@ -1,5 +1,5 @@
 .avatar {
-  border: 2px solid var(--mantine-color-blue-4);
+  border: 1.8px solid var(--mantine-color-blue-4);
   border-radius: 50%;
 
   width: rem(32px);

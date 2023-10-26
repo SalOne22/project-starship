@@ -66,7 +66,7 @@ body {
 }
 
 .number {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter';
   font-size: rem(80px);
   font-weight: 700;
   line-height: 1;
@@ -84,7 +84,7 @@ body {
 }
 
 .title {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter';
   font-size: rem(32px);
   font-weight: 700;
   line-height: 1.25;
@@ -114,7 +114,7 @@ body {
 }
 
 .text {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter';
   font-size: rem(32px);
   font-weight: 700;
   line-height: 1.25;
@@ -136,7 +136,7 @@ body {
 }
 
 .description {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter';
   font-size: rem(14px);
   font-weight: 500;
   line-height: 1.29;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { AppShell } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,16 +11,13 @@ import { selectIsAuthenticated } from '@/redux/slices/authSlice';
 import { logoutUserThunk, refreshUserThunk } from '@/redux/operations';
 
 import css from './styles/Layout.module.css';
-import ScreenLoader from '@/components/ScreenLoader.jsx';
 
 function Layout() {
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const [opened, { close, open }] = useDisclosure();
 
-  const [token, setToken] = useState(() =>
-    localStorage.getItem('refreshToken'),
-  );
+  const token = localStorage.getItem('refreshToken');
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const isLoading = useSelector(selectIsAuthenticated);
 
@@ -29,10 +26,7 @@ function Layout() {
       try {
         !isLoading && token && (await dispatch(refreshUserThunk()).unwrap());
       } catch (err) {
-        if (err === 'Token invalid') {
-          dispatch(logoutUserThunk());
-          setToken(null);
-        }
+        if (err === 'Token invalid') dispatch(logoutUserThunk());
       }
     })();
 
@@ -41,15 +35,15 @@ function Layout() {
 
   useEffect(() => {
     const refreshToken = searchParams.get('token');
-    if (refreshToken) {
+    if (!refreshToken) {
+      return;
+    } else {
       localStorage.setItem('refreshToken', refreshToken);
       dispatch(refreshUserThunk());
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log(token);
 
   if (!token) return <Outlet />;
 
@@ -80,8 +74,6 @@ function Layout() {
         </AppShell.Main>
       </AppShell>
     );
-
-  return <ScreenLoader />;
 }
 
 export default Layout;
