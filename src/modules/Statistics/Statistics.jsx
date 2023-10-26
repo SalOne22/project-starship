@@ -12,7 +12,7 @@ import { useTasks } from '@/modules/Calendar/hooks/useTasks';
 import { fetchTasks } from '@/modules/Calendar/redux/operations';
 import dayjs from 'dayjs';
 import 'dayjs/locale/uk';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getChartData, translateDataItemsNames } from './helpers';
 import { useTranslation } from 'react-i18next';
@@ -32,7 +32,9 @@ function Statistics() {
   );
   const [hasFetchedDate, setHasFetchedDate] = useState(false);
   const currentDay = dayjs(currentDate).format('YYYY-MM-DD');
-  const locale = i18n.language === 'en' ? 'en' : 'uk';
+  const locale = useMemo(() => {
+    return i18n.language === 'en' ? 'en' : 'uk';
+  }, [i18n.language]);
   const nameOfDate = dayjs(currentDate).locale(locale).format('DD MMMM YYYY');
   const isChangedMonth = dayjs(currentDate).format('YYYY-MM') !== currentMonth;
 
@@ -107,8 +109,6 @@ function Statistics() {
       </>
     );
   }
-  console.log(content);
-  console.log('render Statistics');
 
   return (
     <>
