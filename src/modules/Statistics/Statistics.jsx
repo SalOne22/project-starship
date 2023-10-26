@@ -1,4 +1,3 @@
-import ScreenLoader from '@/components/ScreenLoader';
 import {
   Chart,
   ChartTitle,
@@ -7,7 +6,7 @@ import {
   ResponsiveChartWrapper,
   Wrapper,
 } from './components';
-import { Box, Container } from '@mantine/core';
+import { Box, Container, Flex, Loader, Text } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useTasks } from '@/modules/Calendar/hooks/useTasks';
 import { fetchTasks } from '@/modules/Calendar/redux/operations';
@@ -28,11 +27,14 @@ function Statistics() {
   });
   const { tasks, isLoading, error } = useTasks();
   const [currentDate, setCurrentDate] = useState(dayjs());
-
-  const currentMonth = dayjs(currentDate).format('YYYY-MM');
+  const [currentMonth, setCurrentMonth] = useState(
+    tasks[0] ? dayjs(tasks[0].date).format('YYYY-MM') : 0,
+  );
+  const [hasFetchedDate, setHasFetchedDate] = useState(false);
   const currentDay = dayjs(currentDate).format('YYYY-MM-DD');
   const locale = i18n.language === 'en' ? 'en' : 'uk';
   const nameOfDate = dayjs(currentDate).locale(locale).format('DD MMMM YYYY');
+  const isChangedMonth = dayjs(currentDate).format('YYYY-MM') !== currentMonth;
 
   const prevDay = () => {
     setCurrentDate(dayjs(currentDate).subtract(1, 'day'));
@@ -42,35 +44,79 @@ function Statistics() {
     setCurrentDate(dayjs(currentDate).add(1, 'day'));
   };
 
-  const dataForChart = translateDataItemsNames(
-    getChartData(tasks, currentDay),
-    types,
-  );
-
   useEffect(() => {
+    const fetchTasksData = () => {
+      dispatch(fetchTasks(dayjs(currentDate).format('YYYY-MM')));
+      setCurrentMonth(dayjs(currentDate).format('YYYY-MM'));
+      setHasFetchedDate(true);
+    };
     if (
-      tasks.length > 0 &&
-      currentMonth === dayjs(tasks[0].date).format('YYYY-MM') &&
-      !isLoading
+      tasks.length === 0 &&
+      hasFetchedDate &&
+      !isChangedMonth &&
+      !isLoading &&
+      !error
     ) {
-      // console.log('Statements in Statistics useEffect');
       return;
     }
-    dispatch(fetchTasks(currentMonth));
-    // console.log('Statistics useEffect to get tasks');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentMonth, dispatch]);
+    if (
+      (tasks.length === 0 && !hasFetchedDate && !isLoading) ||
+      (isChangedMonth && !isLoading && !error)
+    ) {
+      fetchTasksData();
+    }
+  }, [
+    dispatch,
+    hasFetchedDate,
+    tasks,
+    isLoading,
+    error,
+    isChangedMonth,
+    currentDate,
+  ]);
+
+  let content = (
+    <Flex justify="center" align="center" mih="400px">
+      <Loader color="blue" />
+    </Flex>
+  );
+
+  if (tasks.length === 0 && !isLoading) {
+    if (hasFetchedDate) {
+      content = <Text>{t('statistics.errors.nullTasks')}</Text>;
+    } else {
+      return null;
+    }
+  }
+
+  if (isChangedMonth && !isLoading && !error) {
+    return null;
+  }
+
+  if (tasks.length > 0 && !isLoading && !error) {
+    const dataForChart = translateDataItemsNames(
+      getChartData(tasks, currentDay),
+      types,
+    );
+    content = (
+      <>
+        <ChartTitle>{t('statistics.tasks')}</ChartTitle>
+        <ResponsiveChartWrapper>
+          <Chart data={dataForChart} />
+        </ResponsiveChartWrapper>
+      </>
+    );
+  }
+  console.log(content);
+  console.log('render Statistics');
 
   return (
     <>
-      {isLoading && <ScreenLoader />}
       {error &&
         notifications.show({
-          title: 'Bummer!',
+          title: t('statistics.errors.wrong'),
           message: error.message,
           color: 'red',
-          withCloseButton: true,
-          autoClose: 5000,
         })}
 
       <Container className={classes.stat__container}>
@@ -86,12 +132,7 @@ function Statistics() {
             />
             <Legend />
           </Box>
-          <ChartWrapper>
-            <ChartTitle>{t('statistics.tasks')}</ChartTitle>
-            <ResponsiveChartWrapper>
-              <Chart data={dataForChart} />
-            </ResponsiveChartWrapper>
-          </ChartWrapper>
+          <ChartWrapper>{content}</ChartWrapper>
         </Wrapper>
       </Container>
     </>

@@ -64,7 +64,7 @@
 }
 
 .stat__chartWrapper {
-  /* height: rem(414); */
+  min-height: rem(414);
 
   padding-top: rem(40);
   padding-bottom: rem(40);
@@ -76,21 +76,13 @@
   border-radius: rem(20);
 
   @media (min-width: $mantine-breakpoint-md) {
-    /* height: rem(424); */
-
-    padding-top: rem(32);
-    padding-bottom: rem(32);
-    padding-left: rem(32);
-    padding-right: rem(32);
+    min-height: rem(424);
+    padding: rem(32);
   }
 
   @media (min-width: $mantine-breakpoint-xl) {
-    /* height: rem(440); */
-
-    padding-top: rem(40);
-    padding-bottom: rem(40);
-    padding-left: rem(40);
-    padding-right: rem(40);
+    min-height: rem(440);
+    padding: rem(40);
   }
 }
 
