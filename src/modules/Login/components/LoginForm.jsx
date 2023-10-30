@@ -52,7 +52,8 @@ function LoginForm() {
   });
 
   function handleGoogleButtonClick() {
-    window.location.href = 'https://gt-project.onrender.com/api/auth/google';
+    window.location.href =
+      'https://gt-project-api.onrender.com/api/auth/google';
   }
 
   return (

@@ -4,7 +4,7 @@ import handleError from '@/modules/Register/components/HandleError';
 import { selectToken } from './slices/authSlice';
 
 export const $instance = axios.create({
-  baseURL: 'https://gt-project.onrender.com/api',
+  baseURL: 'https://gt-project-api.onrender.com/api',
 });
 export const setToken = (token) => {
   if (token) {
